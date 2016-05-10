@@ -1,0 +1,31 @@
+<nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed p-x-0"
+              data-target="#stage" data-toggle="stage" data-distance="-250">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <strong style="background: #fff; padding: 12px; border-radius: 4px; color: #28669F;">
+          lore
+        </strong>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse text-uppercase">
+      <ul class="nav navbar-nav navbar-right">
+        {% include nav-link.html title="New to React?" url="/new-to-react/" %}
+        {% include nav-link.html title="Getting Started" url="/getting-started/" %}
+        {% include nav-link.html title="Features" url="/features/" %}
+        <li>
+          <a href="http://www.lorejs.org/" target="_blank">Docs</a>
+        </li>
+        <li>
+          <a href="https://github.com/lore/lore" target="_blank">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
