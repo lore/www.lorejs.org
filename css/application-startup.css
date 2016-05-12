@@ -237,7 +237,6 @@
   font-size: 13px;
 }
 
-/*.docs-content a {*/
-  /*color: #777;*/
-  /*font-size: 14px;*/
-/*}*/
+#markdown-toc li.placeholder a {
+  color: #999;
+}
