@@ -240,3 +240,16 @@
 #markdown-toc li.placeholder a {
   color: #999;
 }
+
+.app-ribbon   .form-inline .form-control {
+  width: 50%;
+  max-width: 300px;
+}
+
+.block a.text-primary:visited {
+  color: #2595FF;
+}
+
+.block .featured-list {
+  margin-left: 0px;
+}
