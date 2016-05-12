@@ -253,3 +253,15 @@
 .block .featured-list {
   margin-left: 0px;
 }
+
+.feature-divider {
+  font-size: 90px;
+  z-index: 100000;
+  background-color: white;
+  position: absolute;
+  top: -140px;
+  right: 0px;
+  left: 0;
+  width: 100px;
+  margin: auto;
+}
