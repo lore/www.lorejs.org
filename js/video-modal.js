@@ -7,12 +7,13 @@ $(function () {
 
     console.log("clicked video");
 
-    var videoId = $(e.target).data().v;
+    // var videoId = $(e.target).data().v;
+    var videoId = $(e.currentTarget).data().v;
 
     var vidWidth = 560; // default
     var vidHeight = 315; // default
 
-    var iFrameCode = '<iframe class="embed-responsive-item" scrolling="no" allowtransparency="true" allowfullscreen="true" src="http://www.youtube.com/embed/'+  videoId +'?rel=0&wmode=transparent&showinfo=0&autoplay=0" frameborder="0"></iframe>';
+    var iFrameCode = '<iframe class="embed-responsive-item" scrolling="no" allowtransparency="true" allowfullscreen="true" src="http://www.youtube.com/embed/'+  videoId +'?rel=0&wmode=transparent&showinfo=0&autoplay=1" frameborder="0"></iframe>';
 
     $('#myModal .modal-body .embed-responsive-16by9').html(iFrameCode);
 

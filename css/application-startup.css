@@ -327,3 +327,89 @@
 /*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { ... }*/
 /*@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { ... }*/
 /*@media (min-width: @screen-lg-min) { ... }*/
+
+
+/* Play Button from Startup Design Framework */
+
+/** { font-family:proxima-nova, sans-serif!important;}*/
+/*.presenation * { -moz-box-sizing: border-box !important; -webkit-box-sizing: border-box !important; box-sizing: border-box; font-family:proxima-nova, sans-serif !important;}*/
+/*.presenation a {color:#303336;text-decoration:none;border-bottom:1px solid #d5d6d6;}*/
+/*.presenation a:hover {color:#64686c;text-decoration:none;border-bottom:1px solid #d5d6d6;}*/
+
+
+/*.video .holder { display: table; height: 100%; width: 100%; position: absolute; top: 0; left: 0;}*/
+
+
+.video .play {
+  display: inline-block;
+  line-height: 59px;
+  cursor: pointer;
+  width: 67px;
+  height: 67px;
+  /*-webkit-border-radius: 100%;*/
+  /*-moz-border-radius: 100%;*/
+  border-radius: 100%;
+  border: 4px white solid;
+  background-color: transparent;
+  outline: none;
+  /*-webkit-transition: 0.4s;*/
+  /*-moz-transition: 0.4s;*/
+  /*-ms-transition: 0.4s;*/
+  /*-o-transition: 0.4s;*/
+  transition: 0.4s;
+  position: relative;
+}
+
+.video .play:hover {
+  background: #fff;
+  border-color: #ffffff;
+  /*-webkit-transform: scale(1.1);*/
+  /*-moz-transform: scale(1.1);*/
+  /*-ms-transform: scale(1.1);*/
+  /*-o-transform: scale(1.1);*/
+  transform: scale(1.1);
+}
+
+.video .fui-play {
+  font-size: 34px;
+  font-weight: normal;
+  color: #ffffff;
+  position: relative;
+  top: 4px;
+  left: 4px;
+}
+
+.video .play:hover .fui-play {
+  color: #303336;
+  top: 4px;
+}
+
+/* play-inverse */
+.video .play.play-inverse .fui-play {
+  color: #303336;
+}
+
+.video .play.play-inverse {
+  border: 4px #303336 solid;
+}
+
+.video .play.play-inverse:hover .fui-play {
+  color: #ffffff;
+}
+
+.video .play.play-inverse:hover {
+  background: #303336;
+  border-color: #303336;
+  /*-webkit-transform: scale(1.1);*/
+  /*-moz-transform: scale(1.1);*/
+  /*-ms-transform: scale(1.1);*/
+  /*-o-transform: scale(1.1);*/
+  transform: scale(1.1);
+}
+
+/*.video .play:active {-webkit-transition: 0.25s; -moz-transition: 0.25s; -ms-transition: 0.25s; -o-transition: 0.25s; transition: 0.25s;top:2px;}*/
+/*.fui-play:before {*/
+  /*content: "\e03c";*/
+  /*font-family: flat-ui-icons;*/
+/*}*/
+
