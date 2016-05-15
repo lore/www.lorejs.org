@@ -266,10 +266,7 @@
   margin: auto;
 }
 
-/*
- * Center Bootstrap modal
- * https://codepen.io/dimbslmh/full/mKfCc
-*/
+/* Center Bootstrap modal */
 
 .modal {
   text-align: center;
@@ -290,40 +287,97 @@
   vertical-align: middle;
 }
 
-/*
- * Prevent modal from becoming 0px width on < 768px screens
-*/
-
 .modal-dialog {
-  width: 80%;
+  width: 75%;
   max-width: 1080px;
   margin: 30px auto;
 }
 
+/*@media (min-width: 768px) {*/
+  /*.modal-dialog {*/
+    /*width: 600px;*/
+    /*margin: 30px auto;*/
+  /*}*/
+  /*.modal-content {*/
+    /*-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);*/
+    /*box-shadow: 0 5px 15px rgba(0, 0, 0, .5);*/
+  /*}*/
+  /*.modal-sm {*/
+    /*width: 300px;*/
+  /*}*/
+/*}*/
 
-/* Small devices (tablets, 768px and up) */
-@media (max-width: 768px) {
-  .modal-dialog {
-    width: 95%;
-  }
+/*.modal-dialog {*/
+  /*margin-top: 0;*/
+  /*margin-bottom: 0;*/
+  /*height: 100vh;*/
+  /*display: -webkit-box;*/
+  /*display: -webkit-flex;*/
+  /*display: -ms-flexbox;*/
+  /*display: flex;*/
+  /*-webkit-box-orient: vertical;*/
+  /*-webkit-box-direction: normal;*/
+  /*-webkit-flex-direction: column;*/
+  /*-ms-flex-direction: column;*/
+  /*flex-direction: column;*/
+  /*-webkit-box-pack: center;*/
+  /*-webkit-justify-content: center;*/
+  /*-ms-flex-pack: center;*/
+  /*justify-content: center;*/
+/*}*/
+
+/*.modal.fade .modal-dialog {*/
+  /*-webkit-transform: translate(0, -100%);*/
+  /*transform: translate(0, -100%);*/
+/*}*/
+/*.modal.in .modal-dialog {*/
+  /*-webkit-transform: translate(0, 0);*/
+  /*transform: translate(0, 0);*/
+/*}*/
+
+
+/*.modal.fade {*/
+  /*-webkit-transition: none;*/
+  /*-moz-transition: none;*/
+  /*-ms-transition: none;*/
+  /*-o-transition: none;*/
+  /*transition: none;*/
+/*}*/
+
+/*.no-transition {*/
+  /*-webkit-transition: height 0.01s;*/
+  /*-moz-transition: height 0.01s;*/
+  /*-ms-transition: height 0.01s;*/
+  /*-o-transition: height 0.01s;*/
+  /*transition: height 0.01s;*/
+/*}*/
+
+/*.modal.fade .modal-dialog {*/
+  /*-webkit-transform: translate3d(0, 0%, 0);*/
+  /*transform: translate3d(0, 0%, 0);*/
+/*}*/
+
+/*.modal-dialog {*/
+  /*!*visibility: hidden;*!*/
+  /*!*opacity: 0;*!*/
+  /*!*.transition-transform(~);*!*/
+  /*transition: transform 0s ease-out;*/
+  /*transform: translate(0,0);*/
+
+  /*transform: translate3d(0, 0, 0);*/
+  /*opacity: 1;*/
+  /*transition: opacity .15s linear;*/
+  /*transform: inherit;*/
+/*}*/
+
+.fade {
+  /*display: block !important;*/
 }
 
-/* Medium devices (desktops, 992px and up) */
-@media (max-width: 992px) {
-  .modal-dialog {
-    width: 85%;
-  }
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .modal-dialog {
-    width: 75%;
-  }
-}
-
-
-/*@media (max-width: @screen-xs-max) { ... }*/
-/*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { ... }*/
-/*@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { ... }*/
-/*@media (min-width: @screen-lg-min) { ... }*/
+/*.modal.fade {*/
+  /*-webkit-transition: none;*/
+  /*-moz-transition: none;*/
+  /*-ms-transition: none;*/
+  /*-o-transition: none;*/
+  /*transition: none;*/
+/*}​*/

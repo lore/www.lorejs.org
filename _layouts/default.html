@@ -13,9 +13,28 @@
 
     {% include footer.html %}
 
+    <!-- Button trigger modal -->
+    <a href="http://www.youtube.com" data-v="20za3gy37zw" type="button" class="btn btn-primary btn-lg">
+      Launch demo modal
+    </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="embed-responsive embed-responsive-16by9">
+              <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/20za3gy37zw?autoplay=1" frameborder="0" allowfullscreen></iframe>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/toolkit.js"></script>
-    <script src="/js/application.js"></script>
+    <!--<script src="/js/application.js"></script>-->
+    <script src="/js/video-modal.js"></script>
     <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
 
   </body>
