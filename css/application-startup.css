@@ -322,6 +322,27 @@
   }
 }
 
+.docs-header {
+  background-image: linear-gradient( rgba(53, 92, 125, 0.8) 0%, rgba(53, 92, 125, 0.8) 100% ) !important;
+}
+
+.docs-header p {
+  color: white !important;
+  opacity: .7;
+}
+
+.docs-content {
+  padding-bottom: 64px;
+}
+
+body {
+  padding-bottom: 0px !important;
+}
+
+.app-footer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
 
 /*@media (max-width: @screen-xs-max) { ... }*/
 /*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { ... }*/
