@@ -1,0 +1,22 @@
+{
+  "name": "lore-homepage",
+  "version": "0.0.1",
+  "description": "homepage for lorejs.org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-ejs": "^2.1.1",
+    "gulp-less": "^3.1.0",
+    "gulp-sequence": "^0.4.5",
+    "gulp-sourcemaps": "^1.6.0",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5"
+  }
+}
