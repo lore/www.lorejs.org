@@ -15,17 +15,23 @@ gulp.task('reload', function(cb) {
 gulp.task('watch', function() {
   browserSync.init({
     server: {
-      baseDir: './dist'
+      baseDir: './_site'
     },
+    port: 4000,
     ui: {
       port: 8080
     }
   });
 
   return gulp.watch([
-    'src/**/**',
-    'css/**/*.css',
-    'less/**/*.less',
-    'js/**/*.js'
+    '_includes/**/**',
+    '_layouts/**/**',
+    '_less/**/**',
+    '_sass/**/**',
+    'assets/**/**',
+    'css/**/**',
+    'features/**/**',
+    'fonts/**/**',
+    'js/**/**'
   ], ['rebuild']);
 });

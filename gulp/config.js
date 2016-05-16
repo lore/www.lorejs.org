@@ -1,11 +1,10 @@
 module.exports = {
   src: './src',
-  dest: './dist',
-  HERE                 : './',
+  dest: './_site',
   DIST_TOOLKIT_JS      : 'dist/toolkit.js',
-  LESS_TOOLKIT_SOURCES : './less/toolkit*',
-  LESS_DOC_SOURCES     : './less/docs.less',
-  LESS                 : './less/**/**',
+  LESS_TOOLKIT_SOURCES : './_less/toolkit*',
+  LESS_DOC_SOURCES     : './_less/docs.less',
+  LESS_MAIN_SOURCES    : './_less/main.less',
   JS                   : [
     './js/application.js',
     './js/jquery.min.js'

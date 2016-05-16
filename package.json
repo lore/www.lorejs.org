@@ -16,6 +16,7 @@
     "gulp-less": "^3.1.0",
     "gulp-sequence": "^0.4.5",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5"
   }

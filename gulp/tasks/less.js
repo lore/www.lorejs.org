@@ -21,7 +21,7 @@ gulp.task('less:docs', function () {
     .pipe(less())
     .pipe(autoprefixer())
     // .pipe(sourcemaps.write(config.HERE))
-    .pipe(gulp.dest('dist/assets/css'));
+    .pipe(gulp.dest('_site/css'));
 });
 
 gulp.task('less:toolkit', function () {
@@ -30,8 +30,22 @@ gulp.task('less:toolkit', function () {
     .pipe(less())
     .pipe(autoprefixer())
     // .pipe(sourcemaps.write(config.HERE))
-    .pipe(gulp.dest('dist/assets/css'));
+    .pipe(gulp.dest('_site/css'));
 });
 
+gulp.task('less:main', function () {
+  return gulp.src(config.LESS_MAIN_SOURCES)
+  // .pipe(sourcemaps.init())
+    .pipe(less())
+    .pipe(autoprefixer())
+    // .pipe(sourcemaps.write(config.HERE))
+    .pipe(gulp.dest('_site/css'));
+});
 
-gulp.task('less', ['less:toolkit','less:docs']);
+gulp.task('less', [
+  'less:toolkit',
+  'less:docs',
+  'less:main'
+]);
+
+
