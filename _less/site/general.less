@@ -1,0 +1,50 @@
+/* general block overrrides */
+@media (max-width: 768px) {
+  .block {
+    .lead {
+      line-height: 1.3;
+    }
+
+    h3 {
+      line-height: 1.15;
+    }
+  }
+}
+
+/* general inverse overrides */
+.block-inverse {
+  .text-muted {
+    color: rgba(255, 255, 255, .7);
+  }
+
+  .block-bg-img {
+    background-color: transparent;
+  }
+}
+
+/* general btn overrides */
+.btn-lg {
+  font-size: 18px;
+}
+
+.block-secondary .btn-lg {
+  width: 100%;
+}
+
+.btn-lg:not(.btn-block) {
+  padding: 12px 50px;
+}
+
+@media (min-width: 768px) {
+  .btn-lg:not(.btn-block) {
+    width: auto;
+  }
+}
+
+/* ie10+ */
+@media (min-width: 768px) {
+  .app-align-center {
+    display: flex;
+    align-items: center;
+  }
+}

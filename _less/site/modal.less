@@ -1,0 +1,60 @@
+/*
+ * Center Bootstrap modal
+ * https://codepen.io/dimbslmh/full/mKfCc
+*/
+
+/*@media (max-width: @screen-xs-max) { ... }*/
+/*@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { ... }*/
+/*@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { ... }*/
+/*@media (min-width: @screen-lg-min) { ... }*/
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/*
+ * Prevent modal from becoming 0px width on < 768px screens
+*/
+
+.modal-dialog {
+  width: 80%;
+  max-width: 1080px;
+  margin: 30px auto;
+}
+
+
+/* Small devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .modal-dialog {
+    width: 95%;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  .modal-dialog {
+    width: 85%;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .modal-dialog {
+    width: 75%;
+  }
+}
