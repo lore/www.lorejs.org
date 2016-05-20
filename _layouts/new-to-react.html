@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include head.html %}
+    <link href="/css/docs.css" rel="stylesheet">
+  </head>
+  <body>
+
+    {% include navbar.html %}
+
+    <div class="docs-header" id="content">
+      <div class="container">
+        <h1>React & Lore</h1>
+        <p>
+          A beginners journey.
+        </p>
+      </div>
+    </div>
+
+    <div class="container docs-content">
+      {% include new-to-react/table-of-contents.html %}
+      {{ content }}
+    </div>
+
+    {% include footer.html %}
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/toolkit.js"></script>
+    <script src="/js/application.js"></script>
+    <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
+
+  </body>
+
+</html>
