@@ -32,6 +32,8 @@ gulp.task('watch', function() {
     'css/**/**',
     'features/**/**',
     'fonts/**/**',
-    'js/**/**'
+    'js/**/**',
+    'index.html',
+    'new-to-react.html'
   ], ['rebuild']);
 });
