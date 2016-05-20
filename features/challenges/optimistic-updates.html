@@ -6,7 +6,8 @@ permalink: /features/challenges/optimistic-updates/
 <div>
   <h1>Optimistic Updates</h1>
   <p>
-    Useful for ???.
+    Useful for providing the application with a feeling a snappy responsiveness by assuming server calls will
+    be successful.
   </p>
 
   <h3>Visualization</h3>
@@ -22,7 +23,9 @@ permalink: /features/challenges/optimistic-updates/
 
   <h3>Architecture Challenge</h3>
   <p>
-    The challenge when incorporating optimistic updates into your applications architecture is...?
+    The challenge with incorporating support for optimistic updates is making sure we can merge the optimistic data
+    that we <em>assume</em> will be created successfully with the real data once it comes back from the server, and all
+    while preventing duplicate data from appearing in the reducers.
   </p>
 
   <h3>Architecture Implementation</h3>
