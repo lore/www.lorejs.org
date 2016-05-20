@@ -16,6 +16,9 @@ baseurl: "" # the subpath of your site, e.g. /blog
 
 # Conversion
 markdown: kramdown
+#kramdown:
+#  input: GFM
+#  syntax_highlighter: rouge
 
 # Handling Reading
 exclude: ["node_modules"]
