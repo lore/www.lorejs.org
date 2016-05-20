@@ -41,4 +41,40 @@ permalink: /features/challenges/filtering/
     Need to add example code showing how to perform filtering in a Lore application.
   </p>
 
+{% highlight jsx %}
+lore.connect(function(getState, props) {
+  return {
+    posts: getState('post.find', {
+      where: {
+        authorId: props.params.authorId
+      }
+    })
+  };
+);
+{% endhighlight %}
+
+{% highlight jsx %}
+lore.connect(function(getState, props) {
+    return {
+      posts: getState('post.find', {
+        where: {
+          authorId: props.params.authorId
+        }
+      })
+    };
+  },
+  React.creatClass({
+    propTypes: {
+      posts: React.PropTypes.object.isRequired
+    },
+
+    render: function() {
+      return {
+        <div>render posts...</div>
+      };
+    }
+  })
+);
+{% endhighlight %}
+
 </div>
