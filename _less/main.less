@@ -1,3 +1,4 @@
+@import "./bootstrap/variables.less";
 @import "site/navbar";
 @import "site/header";
 @import "site/iphone";
@@ -17,6 +18,10 @@
     rgba(108, 91, 123, 0.8) 0%,
     rgba(53, 92, 125, 0.8) 100%
   );
+
+  @media (max-width: @screen-sm-min) {
+    padding-top: 100px;
+  }
 }
 
 // grey explanation of what lore is
