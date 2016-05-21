@@ -27,12 +27,13 @@ gulp.task('watch', function() {
     '_includes/**/**',
     '_layouts/**/**',
     '_less/**/**',
-    '_sass/**/**',
     'assets/**/**',
+    'concepts/**/**',
     'css/**/**',
     'features/**/**',
     'fonts/**/**',
     'js/**/**',
+    'recipes/**/**',
     'index.html',
     'new-to-react.html'
   ], ['rebuild']);
