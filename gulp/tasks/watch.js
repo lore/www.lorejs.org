@@ -30,11 +30,12 @@ gulp.task('watch', function() {
     'assets/**/**',
     'concepts/**/**',
     'css/**/**',
+    'examples/**/**',
     'features/**/**',
+    'getting-started/**/**',
     'fonts/**/**',
     'js/**/**',
     'recipes/**/**',
-    'index.html',
-    'new-to-react.html'
+    'index.html'
   ], ['rebuild']);
 });

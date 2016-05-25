@@ -1,0 +1,44 @@
+---
+layout: docs
+permalink: /features/architecture/overview/
+---
+
+<div>
+  <h1>Architecture</h1>
+  <p>
+    Explanation of the underlying architecture of Lore. Intended to accelerate the learning curve for anyone who wants
+    to help improve it.
+  </p>
+  <p>
+    Lore's architecture is built around a series of plugins, and these plugins are where its opinions and conventions
+    are expressed.  As Lore's goal is to <em>respectfully</em> opinionated, each of these plugins can also be overriden
+    with your own implementation if needed.
+  </p>
+  <p>
+    Lore is broken apart into 3 main pieces:
+  </p>
+  <h6><strong>/app</strong></h6>
+  <p>This is where the Lore engine resides.  It's principle responsibilities are:</p>
+  <ol>
+    <li>Build the project-specific config</li>
+    <li>To load and execute each of the plugins</li>
+    <li>Render the application to the DOM</li>
+  </ol>
+  <h6><strong>/hooks</strong></h6>
+  <p>
+    Each folder under /hooks contains one of the hooks (plugins) that Lore uses to build it's behaviors.
+  </p>
+  <h6><strong>/loaders</strong></h6>
+
+  <p>
+    Anything that requires physically reading files goes into <code>/loaders</code>.  This is because the way files
+    are loaded needed to be abstracted out to support testing.
+  </p>
+  <h4>Embedded Documentation</h4>
+  <p>
+    If you're looking for documentation on the specific code in Lore, most folders contain a README explaining the
+    function of that folder, as do many files.  The intent was to create an experience where you could also learn about
+    the architecture simply by navigating the code base, but in a more user-friendly fashion than just reading the code.
+  </p>
+
+</div>
