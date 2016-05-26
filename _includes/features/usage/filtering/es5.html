@@ -1,0 +1,42 @@
+{% highlight jsx %}
+lore.connect(function(getState, props) {
+    return {
+      posts: getState('post.find', {
+        where: {
+          authorId: props.params.authorId
+        }
+      })
+    };
+  },
+  React.creatClass({
+
+    propTypes: {
+      posts: React.PropTypes.object.isRequired
+    },
+
+    renderPost: function(post) {
+      return (
+        <li key={post.id || post.cid}>
+          {post.data.title}
+        </li>
+      );
+    },
+
+    render: function() {
+      var posts = this.props.posts;
+
+      if (posts.state === PayloadStates.FETCHING) {
+        return (
+          <div>Loading posts...</div>
+        );
+      }
+
+      return (
+        <ul>
+          {posts.data.map(this.renderPost)}
+        </ul>
+      );
+    }
+  })
+);
+{% endhighlight %}

@@ -36,45 +36,40 @@ permalink: /features/challenges/filtering/
     </div>
   </div>
 
-  <h3><strong>TODO</strong>: Usage</h3>
+  <h3>Usage</h3>
   <p>
-    Need to add example code showing how to perform filtering in a Lore application.
+    Example code showing how to filter data.
   </p>
 
-{% highlight jsx %}
-lore.connect(function(getState, props) {
-  return {
-    posts: getState('post.find', {
-      where: {
-        authorId: props.params.authorId
-      }
-    })
-  };
-);
-{% endhighlight %}
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#tab-usage-es5" role="tab" data-toggle="tab">
+        ES5
+      </a>
+    </li>
+    <li role="presentation" class="">
+      <a href="#tab-usage-es6" role="tab" data-toggle="tab">
+        ES6
+      </a>
+    </li>
+    <li role="presentation" class="">
+      <a href="#tab-usage-esnext" role="tab" data-toggle="tab">
+        ESNext
+      </a>
+    </li>
+  </ul>
 
-{% highlight jsx %}
-lore.connect(function(getState, props) {
-    return {
-      posts: getState('post.find', {
-        where: {
-          authorId: props.params.authorId
-        }
-      })
-    };
-  },
-  React.creatClass({
-    propTypes: {
-      posts: React.PropTypes.object.isRequired
-    },
-
-    render: function() {
-      return {
-        <div>render posts...</div>
-      };
-    }
-  })
-);
-{% endhighlight %}
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tab-usage-es5">
+      {% include features/usage/filtering/es5.html %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-usage-es6">
+      {% include features/usage/filtering/es6.html %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-usage-esnext">
+      {% include features/usage/filtering/es7.html %}
+    </div>
+  </div>
 
 </div>
+
