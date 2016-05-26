@@ -6,23 +6,27 @@
   </head>
   <body>
 
-    {% include navbar.html %}
+    {% include stage-shelf.html %}
 
-    <div class="docs-header" id="content">
-      <div class="container">
-        <h1>Examples</h1>
-        <p>
-          Small applications that demonstrate how to solve specific problems with Lore.
-        </p>
+    <div class="stage" id="stage">
+      {% include navbar.html %}
+
+      <div class="docs-header" id="content">
+        <div class="container">
+          <h1>Examples</h1>
+          <p>
+            Small applications that demonstrate how to solve specific problems with Lore.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="container docs-content">
-      {% include examples/table-of-contents.html %}
-      {{ content }}
-    </div>
+      <div class="container docs-content">
+        {% include examples/table-of-contents.html %}
+        {{ content }}
+      </div>
 
-    {% include footer.html %}
+      {% include footer.html %}
+    </div>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/toolkit.js"></script>

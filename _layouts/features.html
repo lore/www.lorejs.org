@@ -6,16 +6,20 @@
   </head>
   <body>
 
-    {% include navbar.html %}
+    {% include stage-shelf.html %}
 
-    {% include features/header.html %}
+    <div class="stage" id="stage">
+      {% include navbar.html %}
 
-    <div class="container docs-content">
-      {% include features/table-of-contents.html %}
-      {{ content }}
+      {% include features/header.html %}
+
+      <div class="container docs-content">
+        {% include features/table-of-contents.html %}
+        {{ content }}
+      </div>
+
+      {% include footer.html %}
     </div>
-
-    {% include footer.html %}
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/toolkit.js"></script>

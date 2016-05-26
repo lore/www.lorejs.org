@@ -6,23 +6,28 @@
   </head>
   <body>
 
-    {% include navbar.html %}
+    {% include stage-shelf.html %}
 
-    <div class="docs-header" id="content">
-      <div class="container">
-        <h1>Concepts</h1>
-        <p>
-          Fundamental topics you'll need to know <em>eventually</em>.
-        </p>
+    <div class="stage" id="stage">
+
+      {% include navbar.html %}
+
+      <div class="docs-header" id="content">
+        <div class="container">
+          <h1>Concepts</h1>
+          <p>
+            Fundamental topics you'll need to know <em>eventually</em>.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="container docs-content">
-      {% include concepts/table-of-contents.html %}
-      {{ content }}
-    </div>
+      <div class="container docs-content">
+        {% include concepts/table-of-contents.html %}
+        {{ content }}
+      </div>
 
-    {% include footer.html %}
+      {% include footer.html %}
+    </div>
 
     <script src="/js/jquery.min.js"></script>
     <script src="/js/toolkit.js"></script>

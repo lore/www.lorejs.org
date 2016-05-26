@@ -5,22 +5,20 @@
   </head>
   <body>
 
-    {% include navbar.html %}
+    {% include stage-shelf.html %}
 
-    <div>
+    <div class="stage" id="stage">
+      {% include navbar.html %}
       {{ content }}
+      {% include footer.html %}
     </div>
-
-    {% include footer.html %}
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <div class="embed-responsive embed-responsive-16by9">
-              <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/20za3gy37zw?autoplay=1" frameborder="0" allowfullscreen></iframe>-->
-            </div>
+            <div class="embed-responsive embed-responsive-16by9"></div>
           </div>
         </div>
       </div>
@@ -33,7 +31,6 @@
     <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
 
     <script>
-
       // Header signup form
       $('form.form-inline').submit(function(e) {
         e.preventDefault();
@@ -45,10 +42,6 @@
         var email = $input.val();
 
         // todo: verify email address
-
-//        console.log('submitted: ' + email);
-//        $form.css('display', 'none');
-//        $thankYouMessage.css('display', 'block');
 
         $.ajax({
           type: "POST",
@@ -64,7 +57,6 @@
           }
         });
       });
-
     </script>
 
   </body>
