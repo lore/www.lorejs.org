@@ -54,5 +54,5 @@ lore generate:tutorial step1
 
 ## Next Steps
 
-Next that we've done some orientation, let's start by modifying our `index.html` file to [add some styling](./Step1.md)
+Next that we've done some orientation, let's start by modifying our `index.html` file to [add some styling](../step-1/)
 to our project so that it's more attractive while we work on it.

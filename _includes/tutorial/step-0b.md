@@ -73,4 +73,4 @@ GET http://localhost:3000/service-worker.js net::ERR_INVALID_RESPONSE
 
 ## Next Steps
 
-Next we're going to do some [quick orientation](./Step0c.md) and then dive into making the project.
+Next we're going to do some [quick orientation](../step-0c/) and then dive into making the project.

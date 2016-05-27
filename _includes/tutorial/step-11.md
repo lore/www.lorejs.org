@@ -270,4 +270,4 @@ module.exports = React.createClass({
 
 ## Next Steps
 
-Next we're going to show how the Guessatron component can obtain the [color specified in the URL](./Step12.md).
+Next we're going to show how the Guessatron component can obtain the [color specified in the URL](../step-12/).

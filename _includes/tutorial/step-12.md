@@ -142,4 +142,4 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-Next we're going to give our Guessatron [some artificial intelligence](./Step13.md).
+Next we're going to give our Guessatron [some artificial intelligence](../step-13/).

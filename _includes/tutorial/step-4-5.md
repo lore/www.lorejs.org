@@ -70,4 +70,4 @@ module.exports = {
 
 ## Next Steps
 
-Now that we've got a server we can persist data to, let's [create a model](./Step5.md) so we can use it.
+Now that we've got a server we can persist data to, let's [create a model](../step-5/) so we can use it.

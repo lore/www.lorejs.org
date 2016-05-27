@@ -1,7 +1,7 @@
 # Installing the CLI
 
 Before you can use Lore you will first need to install Node.  If you don't already have it installed, please refer to 
-[these instructions](../misc/InstallingNode.md).
+[these instructions](../installing-node/).
 
 The easiest way to get started with Lore is by installing the Command Line Interface (CLI). The CLI will let you create 
 a starter project, as well as provide utility functions like file generators and helpers to publish your project to 
@@ -38,4 +38,4 @@ $ lore
 
 ## Next Steps
 
-Now that the `lore-cli` is installed, let's [create a new project](./Step0b.md).
+Now that the `lore-cli` is installed, let's [create a new project](../step-0b/).

@@ -32,7 +32,7 @@ renderColor: function(color) {
 
 The reason we're getting this warning is because when we first create a color, the color doesn't have an `id` until it 
 comes back from the server. Lore defaults to optimistic behavior (actions are assumed to succeed), which means data 
-will get rendered as soon as it's created. While you can [disable that behavior](../recipes/DisablingOptimisticBehavior.md)
+will get rendered as soon as it's created. While you can [disable that behavior](/recipes/disabling-optimistic-behavior/)
 if you want, it's not recommended as a general practice.
 
 ### Add cid as a Key
@@ -189,5 +189,5 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-In the next step we're going to [refactor our ColorCreator component](./Step9.md) to prepare for integrating routing
+In the next step we're going to [refactor our ColorCreator component](../step-9/) to prepare for integrating routing
 into our application.

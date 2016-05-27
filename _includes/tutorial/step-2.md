@@ -43,7 +43,7 @@ In addition to generating ES5 components (like the one above) you can also pass 
 component, as well as flags for pre-configuring components for routing and connecting them to the data store.
 
 You'll see more examples of using the component generator later in this tutorial, and you can also learn more
-about it [in the docs for the CLI](../cli/GenerateComponent.md).
+about it [in the docs for the CLI](../cli/GenerateComponent/).
 
 ### Modify the Header Component
 
@@ -177,4 +177,4 @@ module.exports = React.createClass({
 
 ## Next Steps
 
-Next we're going to expand our app by [adding a component for creating colors](./Step3.md) to the left column.
+Next we're going to expand our app by [adding a component for creating colors](../step-3/) to the left column.

@@ -168,5 +168,5 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-Next we're going to learn about the [client id (cid) field in Lore's data structure](./Step8.md), as a way to resolve 
+Next we're going to learn about the [client id (cid) field in Lore's data structure](../step-8/), as a way to resolve 
 a common React warning about duplicate component keys.

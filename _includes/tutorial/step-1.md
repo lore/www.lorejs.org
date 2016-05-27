@@ -78,4 +78,4 @@ between this step and the last one.
 
 ## Next Steps
 
-Next we're going to [add a Header](./Step2.md) to our application, and learn about one of Lore's generators.
+Next we're going to [add a Header](../step-2/) to our application, and learn about one of Lore's generators.

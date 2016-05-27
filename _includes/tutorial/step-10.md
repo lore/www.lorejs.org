@@ -165,4 +165,4 @@ module.exports = React.createClass({
 
 ## Next Steps
 
-Next we're going to start building the Guessatron, and give our app [something to show when the route changes](./Step11.md).
+Next we're going to start building the Guessatron, and give our app [something to show when the route changes](../step-11/).

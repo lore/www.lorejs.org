@@ -115,4 +115,4 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-Next we're going to [give Guessatron a voice](./Step14.md) so it can let you know how awesome it is.
+Next we're going to [give Guessatron a voice](../step-14/) so it can let you know how awesome it is.

@@ -3,16 +3,5 @@ layout: tutorial
 permalink: /tutorial/
 ---
 
-<div>
-
-  <h1>Purpose</h1>
-  <p>
-    Build a real application using Lore.
-  </p>
-
-  <h3>Application We'll Be Building</h3>
-  <p>
-    You will be building the following application:
-  </p>
-
-</div>
+{% capture introduction %}{% include tutorial/introduction.md %}{% endcapture %}
+{{ introduction | markdownify }}

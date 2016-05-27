@@ -209,5 +209,5 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-Next we're going to [integrate routing into our application](./Step10.md) so we can start asking the Guessatron 
+Next we're going to [integrate routing into our application](../step-10/) so we can start asking the Guessatron 
 to visualize some colors.
