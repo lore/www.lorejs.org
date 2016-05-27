@@ -2,14 +2,14 @@ module Tags
   class TabsBlock < Liquid::Block
     def initialize(tag_name, attributes, tokens)
       super
-      @tabs = attributes.split(',')
+      @tabs = attributes.split('|')
     end
 
-    def render_tab(name, is_active)
+    def render_tab(value, is_active)
       class_string = is_active ? 'active' : ''
       return %Q(
         <li role='presentation' class='#{class_string}'>
-          <a href='#tab-#{name}' role='tab' data-toggle='tab'>#{name}</a>
+          <a href='#tab-#{value['id']}' role='tab' data-toggle='tab'>#{value['name']}</a>
         </li>
       )
     end
@@ -21,8 +21,10 @@ module Tags
       @tabs.each do |tab|
         tokens = tab.split('=')
         key = tokens[0].strip()
-        value = tokens[1].strip()
-        value = value[1...-1] #strip out the beginning and ending quotes
+        raw_value = tokens[1]
+        value = JSON.parse(raw_value)
+        # value = tokens[1].strip()
+        # value = value[1...-1] #strip out the beginning and ending quotes
         output = output + self.render_tab(value, is_active)
         is_active = false
       end
@@ -42,7 +44,7 @@ module Tags
         tokens = attribute.split('=')
         key = tokens[0].strip()
         value = tokens[1].strip()
-        value = value[1...-1] #strip out the beginning and ending quotes
+        # value = value[1...-1] #strip out the beginning and ending quotes
         @attributes[key] = value
       end
     end
@@ -51,7 +53,7 @@ module Tags
       class_string = !!@attributes['is_active'] ? 'tab-pane active' : 'tab-pane'
 
       return %Q(
-        <div role='tabpanel' class='#{class_string}' id='tab-#{@attributes['name']}'>
+        <div role='tabpanel' class='#{class_string}' id='tab-#{@attributes['id']}'>
           #{content}
         </div>
       )

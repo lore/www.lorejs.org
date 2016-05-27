@@ -139,11 +139,11 @@ between this step and the last one.
 
 ### routes.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step11-diff-routes.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=2 %}
 ```js
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
@@ -169,11 +169,11 @@ module.exports = (
 
 ### src/components/Layout.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step11-diff-layout.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=4 %}
 ```js
 var React = require('react');
 var Header = require('./Header');
@@ -206,11 +206,11 @@ module.exports = React.createClass({
 
 ### src/components/Guessatron.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 5} | tab2={"name": "Source", "id": 6} %}
+{% tab id=5, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step11-diff-guessatron.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=6 %}
 ```js
 var React = require('react');
 

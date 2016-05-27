@@ -82,11 +82,11 @@ between this step and the last one.
 
 ### src/components/Color.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step9-diff-color.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=2 %}
 ```js
 var React = require('react');
 
@@ -113,11 +113,11 @@ module.exports = React.createClass({
 
 ### src/components/ColorCreator.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step9-diff-color-creator.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=4 %}
 ```js
 var React = require('react');
 var Color = require('./Color');

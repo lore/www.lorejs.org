@@ -8,11 +8,11 @@ For the first option, each step will call-out the required file changes, and you
 At the end of each tutorial step you will also find a list of all files changed, as well as a diff of the file before 
 and after the step, and a tab containing the full source code for that file. Here is an example:
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=2 %}
 {% highlight jsx %}
 var React = require('react');
 var Header = require('./Header');

@@ -34,8 +34,8 @@ Because decorators aren't very common in ES5 code, we're also going to show the 
 familiar-ish if you've ever used `react-redux`. And for fun, we're going to include the future ES7 version as well, 
 because it's the easiest of the three to understand at a glance. The code generated should look like this:
 
-{% tabs tab1="ES5", tab2="ES6", tab3="ES7" %}
-{% tab name="ES5", is_active=true %}
+{% tabs tab1={"name": "ES5", "id": 11} | tab2={"name": "ES6", "id": 12} | tab3={"name": "ESNext", "id": 13}%}
+{% tab id=11, is_active=true %}
 ```js
 var React = require('react');
 
@@ -60,7 +60,7 @@ module.exports = lore.connect(function(getState, props) {
 );
 ```
 {% endtab %}
-{% tab name="ES6" %}
+{% tab id=12 %}
 ```js
 import React, { Component, PropTypes } from 'react';
 
@@ -88,7 +88,7 @@ export default lore.connect((getState, props) => {
 }, ConnectMe);
 ```
 {% endtab %}
-{% tab name="ESNext" %}
+{% tab id=13 %}
 ```js
 import React, { Component, PropTypes } from 'react';
 
@@ -264,11 +264,11 @@ between this step and the last one.
 
 ### src/components/ColorCreator.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step6-diff-color-creator.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=2 %}
 ```js
 var React = require('react');
 

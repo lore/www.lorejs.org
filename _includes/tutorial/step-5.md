@@ -56,11 +56,11 @@ between this step and the last one.
 
 ### src/models/color.js
 
-{% tabs tab1="Diff", tab2="Source" %}
-{% tab name="Diff", is_active=true %}
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
 ![New Lore App](/assets/images/tutorial/step5-diff-model.png)
 {% endtab %}
-{% tab name="Source" %}
+{% tab id=2 %}
 ```js
 module.exports = {
 
