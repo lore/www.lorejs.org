@@ -43,7 +43,7 @@ In addition to generating ES5 components (like the one above) you can also pass 
 component, as well as flags for pre-configuring components for routing and connecting them to the data store.
 
 You'll see more examples of using the component generator later in this tutorial, and you can also learn more
-about it [in the docs for the CLI](../cli/GenerateComponent/).
+about it [in the docs for the CLI](/features/foundation/cli/).
 
 ### Modify the Header Component
 
