@@ -36,6 +36,7 @@ gulp.task('watch', function() {
     'fonts/**/**',
     'js/**/**',
     'recipes/**/**',
+    'tutorial/**/**',
     'index.html'
   ], ['rebuild']);
 });
