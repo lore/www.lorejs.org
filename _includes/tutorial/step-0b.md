@@ -3,7 +3,7 @@
 To create a new Lore app, type `lore new` into the command line followed the name of your application. For this example
 we are going to call our application `lore-tutorial`.
 
-#### Create a new app
+### Create a new app
 
 ```sh
 $ lore new lore-tutorial
@@ -27,7 +27,7 @@ a list of files created as the task completes.
 $
 ```
 
-#### Install Dependencies
+### Install Dependencies
 
 Once the project is created, navigate into the directory and install the dependencies.
 
@@ -36,7 +36,7 @@ $ cd lore-tutorial
 $ npm install
 ```
 
-#### Start the application
+### Start the application
 
 Once all the dependencies have been installed, you can start the app by running `npm start`.
 
@@ -56,14 +56,14 @@ This step kicks off Webpack and builds the project.  A successful execution shou
 webpack: bundle is now VALID.
 ```
 
-#### View app
+### View the App
 
 At this point the application is built, and you can view it by navigating to `http://localhost:3000` in your 
 browser.  You should see this:
 
 ![New Lore App](/assets/images/tutorial/step0-1.png)
 
-#### Note
+### Note
 If you are using Chrome and you see this error in the network requests you can safely ignore it.  It is 
 [a bug in Chrome](https://github.com/google/web-starter-kit/issues/807) that will be fixed in Chrome 50.
 

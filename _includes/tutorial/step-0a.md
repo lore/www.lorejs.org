@@ -20,15 +20,15 @@ $ lore
   Usage: lore [options] [command]
 
   Commands:
-    version                                                      version of the CLI
-    new <app_name>                                               generate a new Lore project
-    generate:generator <generator_name> [generator_description]  generate a new Lore generator
-    generate:model <model_name>                                  generate a new Lore model
-    generate:collection <collection_name>                        generate a new Lore collection
-    generate:component [options] <component_name>                generate a new Lore component
-    generate:reducer <reducer_name>                              generate a new Lore reducer
-    generate:surge                                               generate a gulp file for publishing your project to surge.sh
-    generate:tutorial <step>                                     generate files for the specified tutorial step
+    version
+    new <app_name>
+    generate:generator <generator_name>
+    generate:model <model_name>
+    generate:collection <collection_name>
+    generate:component [options] <component_name>
+    generate:reducer <reducer_name>
+    generate:surge
+    generate:tutorial <step>
 
 
   Options:
