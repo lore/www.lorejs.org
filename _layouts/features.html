@@ -1,31 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    {% include head.html %}
-    <link href="/css/docs.css" rel="stylesheet">
-  </head>
-  <body>
+---
+layout: docs
+---
 
-    {% include stage-shelf.html %}
+{% include features/header.html %}
 
-    <div class="stage" id="stage">
-      {% include navbar.html %}
-
-      {% include features/header.html %}
-
-      <div class="container docs-content">
-        {% include features/table-of-contents.html %}
-        {{ content }}
-      </div>
-
-      {% include footer.html %}
-    </div>
-
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/toolkit.js"></script>
-    <script src="/js/application.js"></script>
-    <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
-
-  </body>
-
-</html>
+<div class="container docs-content">
+  {% include features/table-of-contents.html %}
+  {{ content }}
+</div>

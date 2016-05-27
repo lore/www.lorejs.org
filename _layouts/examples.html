@@ -1,38 +1,17 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    {% include head.html %}
-    <link href="/css/docs.css" rel="stylesheet">
-  </head>
-  <body>
+---
+layout: docs
+---
 
-    {% include stage-shelf.html %}
+<div class="docs-header" id="content">
+  <div class="container">
+    <h1>Examples</h1>
+    <p>
+      Small applications that demonstrate how to solve specific problems with Lore.
+    </p>
+  </div>
+</div>
 
-    <div class="stage" id="stage">
-      {% include navbar.html %}
-
-      <div class="docs-header" id="content">
-        <div class="container">
-          <h1>Examples</h1>
-          <p>
-            Small applications that demonstrate how to solve specific problems with Lore.
-          </p>
-        </div>
-      </div>
-
-      <div class="container docs-content">
-        {% include examples/table-of-contents.html %}
-        {{ content }}
-      </div>
-
-      {% include footer.html %}
-    </div>
-
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/toolkit.js"></script>
-    <script src="/js/application.js"></script>
-    <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
-
-  </body>
-
-</html>
+<div class="container docs-content">
+  {% include examples/table-of-contents.html %}
+  {{ content }}
+</div>

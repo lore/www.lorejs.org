@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include head.html %}
+    <link href="/css/docs.css" rel="stylesheet">
+  </head>
+  <body>
+
+    {% include stage-shelf.html %}
+
+    <div class="stage" id="stage">
+      {% include navbar.html %}
+
+      {{ content }}
+
+      {% include footer.html %}
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/toolkit.js"></script>
+    <script src="/js/application.js"></script>
+    <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
+
+  </body>
+
+</html>
