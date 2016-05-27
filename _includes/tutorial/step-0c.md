@@ -1,4 +1,4 @@
-# Orientation / Options for Following Along
+# Following Along
 
 This tutorial provides two different options for following along. 
 
