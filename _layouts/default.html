@@ -29,35 +29,7 @@
     <!--<script src="/js/application.js"></script>-->
     <script src="/js/video-modal.js"></script>
     <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js"></script>
-
-    <script>
-      // Header signup form
-      $('form.form-inline').submit(function(e) {
-        e.preventDefault();
-
-        var $input = $('.form-inline input');
-        var $form = $('.form-inline');
-        var $thankYouMessage = $('.thank-you-message');
-
-        var email = $input.val();
-
-        // todo: verify email address
-
-        $.ajax({
-          type: "POST",
-          url: 'https://hooks.zapier.com/hooks/catch/1353534/ukg3d3/',
-          json: true,
-          data: {
-            email: email
-          },
-          success: function() {
-            console.log('submitted: ' + email);
-            $form.css('display', 'none');
-            $thankYouMessage.css('display', 'block');
-          }
-        });
-      });
-    </script>
+    <script src="/js/signup-forms.js"></script>
 
   </body>
 
