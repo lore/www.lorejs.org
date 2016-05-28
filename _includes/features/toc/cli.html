@@ -1,0 +1,15 @@
+{% if page.url contains include.url %}
+<li class="active">
+{% else %}
+<li>
+{% endif %}
+  <a href="{{ include.url }}">{{ include.title }}</a>
+  <ul>
+    {% include features/toc-placeholder-link.html title="generate:action (todo)" %}
+    {% include features/toc-link.html title="generate:model" url="/features/foundation/cli/generate-model/" %}
+    {% include features/toc-link.html title="generate:collection" url="/features/foundation/cli/generate-collection/" %}
+    {% include features/toc-link.html title="generate:component" url="/features/foundation/cli/generate-component/" %}
+    {% include features/toc-placeholder-link.html title="generate:reducer (todo)" %}
+    {% include features/toc-link.html title="generate:surge" url="/features/foundation/cli/generate-surge/" %}
+  </ul>
+</li>
