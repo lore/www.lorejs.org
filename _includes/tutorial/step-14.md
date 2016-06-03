@@ -5,7 +5,7 @@ In this step we're going to give Guessatron the ability to tell you how awesome 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step14
+lore generate tutorial step14
 ```
 
 ### Add the Language Dictionary

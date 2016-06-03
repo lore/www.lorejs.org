@@ -5,7 +5,7 @@ In this step we'll be adding a Model to our project, which will allow us to pers
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step5
+lore generate tutorial step5
 ```
 
 ### Generate a Color Model
@@ -18,7 +18,7 @@ Let's create a model to illustrate. Since our app is about creating colors for t
 create a `Color` model. From the root of your project, run this command:
 
 ```sh
-lore generate:model Color
+lore generate model Color
 ```
 
 You should see output similar to this:

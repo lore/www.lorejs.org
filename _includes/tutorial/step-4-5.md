@@ -9,11 +9,11 @@ pre-configured to support the needs of this tutorial.
 experience in the browser, so that you *don't* have to spin up a server for simple application development. Once an 
 application stops being trivial, having something that can emulate API calls becomes necessary for the continued 
 refinement and development of the user experience. 
-
+>
 > While a service like [Apiary](https://apiary.io) can help prolong that need by providing a mock API, the fact that 
 it doesn't actually create data, auto-generate new unique ids, or support foreign key relationships means the utility 
 it provides is limited.
-
+>
 > Once the localStorage abstraction library is ready we will update this tutorial to provide it as an alternative
 option for proceeding forward.
 
@@ -22,7 +22,7 @@ option for proceeding forward.
 From the root of your project (or outside the project if you'd prefer) run the following command:
 
 ```sh
-lore generate:tutorial server
+lore generate tutorial:server
 ```
 
 This will create a new folder called `lore-tutorial-server` and place several files inside. These files make up a 
@@ -39,7 +39,7 @@ npm install
 
 ### Start the Server
 
-Once the dependencies are instaled, start the server by running:
+Once the dependencies are installed, start the server by running:
 
 ```sh
 npm start
@@ -52,11 +52,18 @@ If everything went well, you should see this when you navigate to `http://localh
 
 ![Tutorial Server](/assets/images/tutorial/step4-5-visual.png)
 
+### Navigate back to Lore
+
+You're now done with setting up the API server, so navigate back to your Lore application.
+
+```sh
+cd ..
+```
+
 ### Tell Lore about the Server
 
-Finally, you'll need to let Lore know where the API server can be found. Go back into your Lore tutorial app
-and open `config/models.js`. Then change the default `apiRoot` value from `https://api.example.com` to 
-`http://localhost:1337`.
+The last thing we need to do is to let your Lore application know where the API server can be found. Open `config/models.js` 
+and change the default `apiRoot` value from `https://api.example.com` to `http://localhost:1337`.
 
 ```js
 // config/models.js

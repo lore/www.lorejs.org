@@ -5,7 +5,7 @@ In this step we'll learn how to create data using actions.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step7
+lore generate tutorial step7
 ```
 
 ### Adding a Create Action

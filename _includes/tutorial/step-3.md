@@ -6,13 +6,13 @@ later step to connect it to a data source so we can create persistent data.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step3
+lore generate tutorial step3
 ```
 
 ### Create the ColorCreator Component
 
 Create a new component called `ColorCreator`, either by copy/pasting an existing component or through the CLI with the
-command `lore generate:component ColorCreator`.  Modify the component to look like the following:
+command `lore generate component ColorCreator`.  Modify the component to look like the following:
 
 ```js
 // src/components/ColorCreator.js

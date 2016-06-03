@@ -6,7 +6,7 @@ React warnings about duplicate keys.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step8
+lore generate tutorial step8
 ```
 
 ### React Warning

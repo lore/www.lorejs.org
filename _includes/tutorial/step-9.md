@@ -5,7 +5,7 @@ In this step we're going to refactor our ColorCreator component to prepare for i
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step9
+lore generate tutorial step9
 ```
 
 ### Create the Color Component
@@ -27,7 +27,7 @@ renderColor: function(color) {
 
 To prepare to integrate routing into our application, and to set up the code better for steps later in the tutorial, 
 we're going to break out the code that renders each color into its own components. Create a new component called 
-`Color` either by copy/pasting or by running `lore generate:component Color`. Update the component to look like this:
+`Color` either by copy/pasting or by running `lore generate component Color`. Update the component to look like this:
 
 ```js
 // src/components/Color.js

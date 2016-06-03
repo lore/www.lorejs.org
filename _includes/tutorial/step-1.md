@@ -6,7 +6,7 @@ applications, we're going to drop in [Bootstrap](http://getbootstrap.com) so we 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step1
+lore generate tutorial step1
 ```
 
 ### Install Bootstrap

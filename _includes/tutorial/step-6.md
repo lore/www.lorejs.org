@@ -8,7 +8,7 @@ populating it with real data.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step6
+lore generate tutorial step6
 ```
 
 ### The Connect Decorator
@@ -27,7 +27,7 @@ To demonstrate the `connect` decorator, we're going to revisit the component gen
 have it generate a component pre-configured to be connected to the data store. Run the following command:
  
 ```sh
-lore generate:component ConnectMe --connect
+lore generate component ConnectMe --connect
 ```
 
 Because decorators aren't very common in ES5 code, we're also going to show the ES6 version, which should look 

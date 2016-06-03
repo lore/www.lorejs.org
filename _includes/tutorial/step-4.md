@@ -6,7 +6,7 @@ ColorCreator component's state.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step4
+lore generate tutorial step4
 ```
 
 ### Store User Input in Component State

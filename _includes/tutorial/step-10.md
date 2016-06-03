@@ -5,7 +5,7 @@ In this step we're going to integrate routing into our application.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step10
+lore generate tutorial step10
 ```
 
 ### Lore uses React Router

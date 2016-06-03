@@ -6,13 +6,13 @@ to demonsrate that our routing is working.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step11
+lore generate tutorial step11
 ```
 
 ### Add the Guessatron
 
 First, we're going to create a component called `Guessatron`. You can do this either by copy/pasting, or by using the
-CLI to run `lore generate:component Guessatron` from the command line.  Modify the file to look like this:
+CLI to run `lore generate component Guessatron` from the command line.  Modify the file to look like this:
 
 ```js
 // src/components/Guessatron.js

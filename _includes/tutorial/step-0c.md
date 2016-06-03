@@ -45,11 +45,11 @@ module.exports = React.createClass({
 ### Option 2: Using the CLI
 
 For the second option, the `lore-cli` has the ability to automatically make the file changes for you.  For example, 
-if you run the command `lore generate:tutorial step1` the CLI will add or modify any files required for "step 1" of the
+if you run the command `lore generate tutorial step1` the CLI will add or modify any files required for "step 1" of the
 tutorial. You will find the matching CLI command at the beginning of each step. They will look like this:
 
 ```sh
-lore generate:tutorial step1
+lore generate tutorial step1
 ```
 
 ## Next Steps

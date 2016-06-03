@@ -6,7 +6,7 @@ If you're using the CLI to follow along, you can complete this step by running t
 
 ```sh
 npm install randomcolor --save
-lore generate:tutorial step13
+lore generate tutorial step13
 ```
 
 ### Change the Color Displayed

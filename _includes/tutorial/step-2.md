@@ -5,7 +5,7 @@ In this step we're going to add a Header to our application, and learn about the
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate:tutorial step2
+lore generate tutorial step2
 ```
 
 ### Generate the Header Component
@@ -14,7 +14,7 @@ Instead of asking you to copy/paste some code for the Header, we're going to use
 the component and modify it from there. Run the following command from the CLI:
 
 ```sh
-lore generate:component Header
+lore generate component Header
 ```
 
 This will generate a component called `Header` and place it at `src/components/Header.js`. The component will look 
