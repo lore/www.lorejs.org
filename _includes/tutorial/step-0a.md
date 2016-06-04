@@ -17,23 +17,15 @@ Run lore to see a list of options:
 ```sh
 $ lore
 
-  Usage: lore [options] [command]
+Usage: $ <command>
 
-  Commands:
-    version
-    new <app_name>
-    generate:generator <generator_name>
-    generate:model <model_name>
-    generate:collection <collection_name>
-    generate:component [options] <component_name>
-    generate:reducer <reducer_name>
-    generate:surge
-    generate:tutorial <step>
+Commands:
+  new       Create a new application
+  generate  Generate common project files
 
-
-  Options:
-    -h, --help     output usage information
-    -v, --version  output the version number
+Options:
+  --version  Show version number                                       [boolean]
+  --help     Show help                                                 [boolean]
 ```
 
 ## Next Steps
