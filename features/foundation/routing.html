@@ -5,19 +5,75 @@ permalink: /features/foundation/routing/
 
 <h1>Routing</h1>
 <p>
-  Useful for moving through a large set of data one page at a time. Core challenge is preventing action/reducer
-  explosion and being able to accommodate different API server conventions.
+  This section documents the parts of Lore that are directly relevant to React-Router. For now that means how to
+  specify your routes and change the default config settings for React-Router.
 </p>
 
-<h3>Video Explanation</h3>
-<p>A demonstration of the feature, along with an explanation of how Lore implements it.</p>
+<p>
+  The video below is an excerpt from the full <a href="/getting-started/introduction-to-lore/">Introduction to Lore</a>
+  video and provides a summary of how Lore helps with routing.
+</p>
+
+<br>
 
 <div class="video">
   <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="RmaSTBaPNb8">
   </div>
 </div>
 
-<h3>Usage</h3>
+<h2>Relevant Files</h2>
 <p>
-  TODO: Add example of how it's used.
+  The files below are worth calling out as especially relevant to React-Router in terms of where the routes are
+  specified and how to change the router's default configuration settings.
 </p>
+
+<h3>routes.js</h3>
+<p>
+  This file is where you specify your route hierarchy. <code>Master</code> should always be the root component unless
+  you really know what you're doing. <code>Layout</code> is a recommended pattern, but can be renamed or deleted
+  without affecting the application (it's not special).
+</p>
+
+{% highlight js %}
+import React from 'react';
+import { Route, IndexRoute, Redirect } from 'react-router';
+
+var Master = require('./src/components/Master');
+var Layout = require('./src/components/Layout');
+
+module.exports = (
+  <Route component={Master}>
+    <Route path="/" component={Layout} />
+  </Route>
+);
+{% endhighlight %}
+
+<h3>config/router.js</h3>
+<p>
+  This file is where you define overrides for the default routing behavior. Currently the only option here is how you
+  want your routing displayed; using hash history or push state. You can find more information about these options
+  on the <a href="https://github.com/ReactJSTraining/history">GitHub page for the `history` library</a>.
+</p>
+
+<blockquote>
+  <p>
+    This config file will change as soon as Lore updates to using the v2 version of React-Router.
+  </p>
+</blockquote>
+
+{% highlight js %}
+var createBrowserHistory = require('history/lib/createBrowserHistory');
+
+module.exports = {
+
+  /****************************************************************************
+  *                                                                           *
+  * Whether browser should use pushState or hash to keep track of routes      *
+  * See: https://github.com/ReactJSTraining/history                           *
+  *                                                                           *
+  ****************************************************************************/
+
+  history: createBrowserHistory()
+
+};
+{% endhighlight %}

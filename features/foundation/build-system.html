@@ -9,15 +9,55 @@ permalink: /features/foundation/build-system/
   server and the Webpack configuration.
 </p>
 
-<h3>Video Explanation</h3>
-<p>A demonstration of the feature, along with an explanation of how Lore implements it.</p>
+<p>
+  The video below is an excerpt from the full <a href="/getting-started/introduction-to-lore/">Introduction to Lore</a>
+  video and provides a summary of how Lore helps with Webpack.
+</p>
 
 <div class="video">
   <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="BniePdc79gI">
   </div>
 </div>
 
-<h3>Usage</h3>
+<h2>Relevant Files</h2>
 <p>
-  TODO: Add example of how it's used.
+  The files below are worth calling out as especially relevant to Webpack in terms of the development server and
+  modifying the Webpack configuration.
+</p>
+
+<h3>server.js</h3>
+
+<p>
+  This is the development webpack server.  It is required if you want to support the awesomeness
+  <a href="https://vimeo.com/100010922">that is hot reloading</a>. This is the file that gets executed when you run
+  `npm start`. By default it will make your project available on port 3000. In production, this file is never
+  executed. Instead, the `index.html` file is served up, and the browser looks for `/dist/bundle.js` (which webpack
+  will have built when the project when the project was deployed).
+</p>
+
+<h3>webpack/config.js</h3>
+
+<p>
+  This is the common webpack config, which can be overridden on a per-environment basis by adding settings to one of the
+  config files in <code>webpack/env/</code>.
+</p>
+
+<blockquote>
+  <p>
+    In the future this section will also include a breakdown of what all the Webpack config settings means and what
+    defaults Lore comes with.
+  </p>
+</blockquote>
+
+<h3>webpack/env/</h3>
+
+<p>
+  This directory is where you can place custom webpack configs that should be used when building for a specific
+  environment such as development, production or staging. Feel free to delete these files or add more. The name of
+  the file used matches whatever your current <code>NODE_ENV</code>is set to
+</p>
+
+<p>
+  So if your current node environment is <code>NODE_ENV=production</code> the final Webpack config will be
+  <code>webpack/config.js</code> overidden by any settings in <code>webpack/env/production.js</code>.
 </p>
