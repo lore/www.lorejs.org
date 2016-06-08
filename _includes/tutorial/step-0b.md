@@ -63,6 +63,15 @@ browser.  You should see this:
 
 ![New Lore App](/assets/images/tutorial/step0-1.png)
 
+### Changing the Port
+
+If you want to change the port the server runs on, you can do that by using an alternate syntax to start the server.
+`npm start` is just an alias for `node server`, and you can pass a `port` argument to `node server` like so:
+
+``` sh
+node server --port=3001
+```
+
 ### Note
 If you are using Chrome and you see this error in the network requests you can safely ignore it.  It is 
 [a bug in Chrome](https://github.com/google/web-starter-kit/issues/807) that will be fixed in Chrome 50.
