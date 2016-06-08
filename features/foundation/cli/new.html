@@ -1,0 +1,57 @@
+---
+layout: features
+permalink: /features/foundation/cli/new/
+---
+
+<h1>new</h1>
+<p>
+  CLI command to create a new project.
+<p>
+
+<h3>Usage</h3>
+
+{% highlight bash %}
+lore new [app-name]
+{% endhighlight %}
+
+<h3>Example</h3>
+<p>
+  Let's say you want to create a project called <code>my-awesome-app</code>. To do that, you would run this command:
+</p>
+
+{% highlight bash %}
+lore new my-awesome-app
+{% endhighlight %}
+
+<p>
+  Next you need to install the project dependencies and start the server.
+</p>
+
+{% highlight bash %}
+npm install
+npm start
+{% endhighlight %}
+
+<p>
+  Once the project finishes building, you can visit the application at <code>localhost:3000</code>.
+</p>
+
+<p>
+  Note that <code>npm start</code> is really just an alias for <code>node server</code>, so you also run this:
+</p>
+
+{% highlight bash %}
+npm install
+node server
+{% endhighlight %}
+
+<h3>Changing the Port</h3>
+<p>
+  By default the project is served from localhost:3000, but if you want to use a different port you can
+  change it by passing the port in as an argument to the <code>node server</code> version of the startup command
+  (this won't work with <code>npm start</code>):
+</p>
+
+{% highlight bash %}
+node server --port=3001
+{% endhighlight %}
