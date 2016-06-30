@@ -18,14 +18,16 @@ Run lore to see a list of options:
 $ lore
 
 Usage: $ <command>
-
-Commands:
-  new       Create a new application
-  generate  Generate common project files
-
-Options:
-  --version  Show version number                                       [boolean]
-  --help     Show help                                                 [boolean]
+  
+  Commands:
+    new       Create a new application
+    generate  Generate common project files
+  
+  Options:
+    --version  Show version number                                       [boolean]
+    --help     Show help                                                 [boolean]
+  
+  Please enter a valid command.
 ```
 
 ## Next Steps

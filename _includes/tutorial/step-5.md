@@ -24,9 +24,7 @@ lore generate model Color
 You should see output similar to this:
 
 ```sh
-Generating 'lore-generate-model' at /Users/jchansen/lore-example-app...
-Generator finished successfully.
-|-> Generated file: ./src/models/color.js
+  info:  Created a new model `Color` at `./src/models/color.js`
 ```
 
 This command created a file called `color.js` in `src/models` with the following contents:

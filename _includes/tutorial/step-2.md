@@ -40,7 +40,8 @@ While that may not be very useful by itself, as you could have just copy/modifie
 generator is primarily meant to solve the problem of *creating* boilerplate during the initial app building stages. 
 
 In addition to generating ES5 components (like the one above) you can also pass in a `--es6` flag to generate an ES6 
-component, as well as flags for pre-configuring components for routing and connecting them to the data store.
+component (not necessary if you created an ES6 project), as well as flags for pre-configuring components for routing and 
+connecting them to the data store.
 
 You'll see more examples of using the component generator later in this tutorial, and you can also learn more
 about it [in the docs for the CLI](/features/foundation/cli/).

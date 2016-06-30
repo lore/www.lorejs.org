@@ -10,22 +10,24 @@ $ lore new lore-tutorial
 ```
 
 This will create a new directory called `lore-tutorial`, and place all the necessary files inside. You should see 
-a list of files created as the task completes.
-
+this message when the task completes.
 
 ```sh
-...
-|-> Generated file: ./config/env/development.js
-|-> Generated file: ./gulp/tasks/default.js
-|-> Generated file: ./config/reducerActionMap.js
-|-> Generated file: ./initializers/REAMDE.md
-|-> Generated file: ./gulp/tasks/README.md
-|-> Generated file: ./package.json
-|-> Generated file: ./config/env/README.md
-|-> Generated file: ./README.md
-|-> Generated file: ./config/reducerBlueprints.js
-$
+  info:  Created a new Lore application `lore-tutorial`
 ```
+
+### Optional: Create an ES6 version of the app
+
+Lore currently defaults to creating a project using ES5 syntax. If you'd prefer to use ES6, you can change the default
+by passing in an optional command line argument:
+
+```sh
+$ lore new lore-tutorial --es6
+```
+
+This will make it so that all files in the project are generated using ES6 syntax, and also adds a setting in the `.lorerc`
+file that will cause all the generators to create their files in ES6 as well. In an upcoming release, Lore will also add an 
+option for using ESNext syntax.
 
 ### Install Dependencies
 
@@ -72,9 +74,14 @@ If you want to change the port the server runs on, you can do that by using an a
 node server --port=3001
 ```
 
+If you're using ES6 for the project, you'll need to start the server using `babel-node` like this:
+
+``` sh
+./node_modules/.bin/babel-node server --port=3001
+```
+
 ### Note
-If you are using Chrome and you see this error in the network requests you can safely ignore it.  It is 
-[a bug in Chrome](https://github.com/google/web-starter-kit/issues/807) that will be fixed in Chrome 50.
+If you are using Chrome and you see this error in the network requests you can safely ignore it.
 
 ```sh
 GET http://localhost:3000/service-worker.js net::ERR_INVALID_RESPONSE

@@ -5,10 +5,10 @@ tutorial. Some tutorials that rely on it end up glossing over how server communi
 the realism and believability of the experience. Instead, we're going to quickly generate an API server that is 
 pre-configured to support the needs of this tutorial.
 
-> That being said, we *are* developing a local storage abstraction library for Lore that will emulate the server 
-experience in the browser, so that you *don't* have to spin up a server for simple application development. Once an 
-application stops being trivial, having something that can emulate API calls becomes necessary for the continued 
-refinement and development of the user experience. 
+> That being said, we *are* [developing a local storage abstraction library](https://github.com/lore/faux-server) 
+for Lore that will emulate the server experience in the browser, so that you *don't* have to spin up a server for 
+simple application development. Once an application stops being trivial, having something that can emulate API calls 
+becomes necessary for the continued refinement and development of the user experience. 
 >
 > While a service like [Apiary](https://apiary.io) can help prolong that need by providing a mock API, the fact that 
 it doesn't actually create data, auto-generate new unique ids, or support foreign key relationships means the utility 
