@@ -1,63 +1,49 @@
-# Step 4.5: Installing the Tutorial Server
+# Step 4.5: Setup the API Server
 
 Since Lore is focused on promoting architecture and patterns that scale, we are not going to use localStorage for this 
 tutorial. Some tutorials that rely on it end up glossing over how server communication happens, and that can obstruct
-the realism and believability of the experience. Instead, we're going to quickly generate an API server that is 
-pre-configured to support the needs of this tutorial.
+the realism and believability of the experience. Instead, we're going to be using [json-server](https://github.com/typicode/json-server) 
+to quickly generate an API server that will support the needs of this tutorial.
 
-> That being said, we *are* [developing a local storage abstraction library](https://github.com/lore/faux-server) 
-for Lore that will emulate the server experience in the browser, so that you *don't* have to spin up a server for 
-simple application development. Once an application stops being trivial, having something that can emulate API calls 
-becomes necessary for the continued refinement and development of the user experience. 
->
-> While a service like [Apiary](https://apiary.io) can help prolong that need by providing a mock API, the fact that 
-it doesn't actually create data, auto-generate new unique ids, or support foreign key relationships means the utility 
-it provides is limited.
->
-> Once the localStorage abstraction library is ready we will update this tutorial to provide it as an alternative
-option for proceeding forward.
+### Configure the API Server
 
-### Generate the API Server
-
-From the root of your project (or outside the project if you'd prefer) run the following command:
+The project already includes `json-server` as a development dependency, so we'll just need to create a file to describe
+the API we need. From the root of your project run the following command:
 
 ```sh
-lore generate tutorial:server
+lore generate tutorial server
 ```
 
-This will create a new folder called `lore-tutorial-server` and place several files inside. These files make up a 
-[Sails](https://github.com/balderdashy/sails) application, and is what we will be using to serve the API.
-
-### Install Dependencies
-
-Once the tutorial server is created, navigate into the directory and install it's dependencies.
-
-```sh
-cd lore-tutorial-server
-npm install
+This will create a file called `db.json` and place it in the root of your project. It should look like this:
+ 
 ```
+{
+  "colors": []
+}
+```
+
+That's it! That file is all we need to tell `json-server` that we need an API with an endpoint called `/colors`. 
+
 
 ### Start the Server
 
-Once the dependencies are installed, start the server by running:
+With this file created, open a new CLI tab and start the server by running:
 
 ```sh
-npm start
+npm run server
 ```
 
 By default, the server will start up on `localhost:1337`. If you need to change the port, you can do so by starting the
-server through an alternative command, `node app.js --port=3001`.
+server through an alternative command:
 
-If everything went well, you should see this when you navigate to `http://localhost:1337`.
+```
+./node_modules/.bin/json-server --watch db.json --port=1337
+```
 
-![Tutorial Server](/assets/images/tutorial/step4-5-visual.png)
+If everything went well, you should see this when you navigate to `http://localhost:1337/colors`.
 
-### Navigate back to Lore
-
-You're now done with setting up the API server, so navigate back to your Lore application.
-
-```sh
-cd ..
+```
+[]
 ```
 
 ### Tell Lore about the Server

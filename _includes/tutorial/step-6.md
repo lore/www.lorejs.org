@@ -43,7 +43,7 @@ module.exports = lore.connect(function(getState, props) {
     return {
       //models: getState('model.find')
     }
-  },
+  })(
   React.createClass({
     displayName: 'ConnectMe',
 
@@ -85,7 +85,7 @@ export default lore.connect((getState, props) => {
   return {
     //models: getState('model.find')
   };
-}, ConnectMe);
+})(ConnectMe);
 ```
 {% endtab %}
 {% tab id=13 %}
@@ -181,7 +181,7 @@ module.exports = lore.connect(function(getState, props) {
     return {
       colors: getState('color.find')
     }
-  },
+  })(
   React.createClass({
     ...
     // the component's internal code
@@ -234,9 +234,9 @@ lore.connect(function(getState, props) {
     return {
       colors: getState('color.find')
     }
-  },
+  })(
   ...
-});
+);
 ```
 
 The `getState('color.find')` method is what we need to pay attention to. Essentially, the string argument is the piece
@@ -278,7 +278,7 @@ module.exports = lore.connect(function(getState, props) {
     return {
       colors: getState('color.find')
     }
-  },
+  })(
   React.createClass({
     displayName: 'ColorCreator',
 

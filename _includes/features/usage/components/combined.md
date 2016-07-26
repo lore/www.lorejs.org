@@ -7,7 +7,7 @@ module.exports = lore.connect(function(getState, props) {
     return {
       //models: getState('model.find')
     }
-  },
+  })(
   React.createClass({
     displayName: 'ConnectMe',
 
@@ -49,7 +49,7 @@ export default lore.connect((getState, props) => {
   return {
     //models: getState('model.find')
   };
-}, ConnectMe);
+})(ConnectMe);
 ```
 {% endtab %}
 {% tab id=12 %}
