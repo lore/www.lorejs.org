@@ -40,6 +40,9 @@ export default lore.connect(function(getState, props) {
     posts: getState('post.find', {
       where: {
         authorId: props.params.authorId
+      },
+      pagination: {
+        page: props.location.query.page
       }
     })
   };

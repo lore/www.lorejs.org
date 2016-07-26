@@ -7,7 +7,7 @@ module.exports = lore.connect(function(getState, props) {
     return {
       //models: getState('model.find')
     }
-  },
+  })(
   React.createClass({
     displayName: 'MyComponent',
 
@@ -57,7 +57,7 @@ module.exports = lore.connect((getState, props) => {
   return {
     //models: getState('model.find')
   };
-}, MyComponent;
+})(MyComponent;
 ```
 {% endtab %}
 {% tab id=9 %}

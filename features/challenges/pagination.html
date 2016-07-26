@@ -4,17 +4,10 @@ permalink: /features/challenges/pagination/
 ---
 
 <div>
-  <h1>Pagination (proposal)</h1>
+  <h1>Pagination</h1>
   <p>
     Useful for moving through large datasets, and providing the user with a sliced view of the data.
   </p>
-
-  <blockquote>
-    <p>
-      NOTE: This feature is still in the proposal stage, but the implementation approach Lore will likely follow is
-      provided below.
-    </p>
-  </blockquote>
 
   <h3>Visualization</h3>
   <p>
@@ -35,10 +28,79 @@ permalink: /features/challenges/pagination/
   </p>
 
   <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore will mostly likely implement pagination.</p>
+  <p>This video describes how Lore implements pagination.</p>
+
+  <blockquote>
+    <p>
+      NOTE: Seeing as pagination is no longer a proposal (and is now part of the framework) this video is currently
+      outdated. The approach it illustrates however does closely describe how Lore implements pagination.
+    </p>
+    <p>
+      In the future this video will be updated to fully reflect the final implementation.
+    </p>
+  </blockquote>
 
   <div class="video">
     <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="4lsKM1WvdL4">
+    </div>
+  </div>
+
+  <h3>Usage</h3>
+  <p>
+    For a demonstration of pagination in action, please see the <a href="https://github.com/lore/lore/tree/master/examples/pagination">pagination example</a>.
+  </p>
+  <p>
+    Pagination is very similar to filtering, except that you include a second property in the <code>getState</code> call
+    named <code>pagination</code>. The properties passed to <code>where</code> and <code>pagination</code> are then
+    combined to form the query parameters for the final URL for the API call. For the example code below, the final
+    URL might look like this:
+  </p>
+
+  <figure class="highlight">
+    <pre><code>https://api.myapp.com/posts?authorId=123&page=2</code></pre>
+  </figure>
+
+  <p>
+    When implementing pagination, it's recommended to use the route specify which page of data to display, such as:
+  </p>
+
+  <figure class="highlight">
+    <pre><code>https://www.myapp.com/posts?page=2</code></pre>
+  </figure>
+
+  <p>
+    This will make it easy to support as everytime the route changes the `connect` call in the components will get a
+    change to rebuild their data request for the new page of data (if it's changed). Below is some example code in
+    ES5/ES6/ESNext syntax showing a component using this approach to request a page of data.
+  </p>
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#tab-usage-es5" role="tab" data-toggle="tab">
+        ES5
+      </a>
+    </li>
+    <li role="presentation" class="">
+      <a href="#tab-usage-es6" role="tab" data-toggle="tab">
+        ES6
+      </a>
+    </li>
+    <li role="presentation" class="">
+      <a href="#tab-usage-esnext" role="tab" data-toggle="tab">
+        ESNext
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tab-usage-es5">
+      {% include features/usage/pagination/es5.html %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-usage-es6">
+      {% include features/usage/pagination/es6.html %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab-usage-esnext">
+      {% include features/usage/pagination/es7.html %}
     </div>
   </div>
 

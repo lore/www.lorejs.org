@@ -118,7 +118,7 @@ module.exports = lore.connect(function(getState, props) {
         id: props.params.colorId
       })
     }
-  },
+  })(
   React.createClass({
     displayName: 'Guessatron',
 
@@ -167,5 +167,5 @@ module.exports = lore.connect(function(getState, props) {
 
 ## Next Steps
 
-This step concludes Part 1 of the Tutorial. In Part 2 (coming soon), we'll cover editing and deleting data, as well 
-as modal dialogs and displaying visual cues as to the state of data (being created, not found, etc).
+This step concludes Part 1 of the Tutorial. In Part 2 (to be added in the future), we'll cover editing and deleting data, 
+as well as modal dialogs and displaying visual cues as to the state of data (being created, not found, etc).
