@@ -28,15 +28,10 @@ gulp.task('watch', function() {
     '_layouts/**/**',
     '_less/**/**',
     'assets/**/**',
-    'concepts/**/**',
     'css/**/**',
-    'examples/**/**',
-    'features/**/**',
-    'getting-started/**/**',
     'fonts/**/**',
     'js/**/**',
-    'recipes/**/**',
-    'tutorial/**/**',
+    'pages/**/**',
     'index.html'
   ], ['rebuild']);
 });
