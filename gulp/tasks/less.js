@@ -21,7 +21,7 @@ gulp.task('less:docs', function () {
     .pipe(less())
     .pipe(autoprefixer())
     // .pipe(sourcemaps.write(config.HERE))
-    .pipe(gulp.dest('_site/css'));
+    .pipe(gulp.dest('_site/assets/css'));
 });
 
 gulp.task('less:toolkit', function () {
@@ -30,7 +30,7 @@ gulp.task('less:toolkit', function () {
     .pipe(less())
     .pipe(autoprefixer())
     // .pipe(sourcemaps.write(config.HERE))
-    .pipe(gulp.dest('_site/css'));
+    .pipe(gulp.dest('_site/assets/css'));
 });
 
 gulp.task('less:main', function () {
@@ -39,7 +39,7 @@ gulp.task('less:main', function () {
     .pipe(less())
     .pipe(autoprefixer())
     // .pipe(sourcemaps.write(config.HERE))
-    .pipe(gulp.dest('_site/css'));
+    .pipe(gulp.dest('_site/assets/css'));
 });
 
 gulp.task('less', [
