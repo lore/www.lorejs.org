@@ -3,28 +3,23 @@ layout: examples
 permalink: /examples/dialogs-querying/
 ---
 
-<div>
-  <h1>Dialog-Querying</h1>
-  <p>
-    You can find the code <a href="https://github.com/lore/lore/tree/master/examples/dialogs-querying">in the Lore repository</a>.
-  </p>
+{% capture markdown %}
 
-  <h3>Screenshot</h3>
-  <img class="drop-shadow" src="/assets/images/examples/dialogs-querying.png"/>
+# Dialog-Querying
+You can find the code [in the Lore repository](https://github.com/lore/lore/tree/master/examples/dialogs-querying).
 
-  <h3>Demonstrates</h3>
-  <p>
-    This example demonstrates:
-  </p>
+### Screenshot
+<img class="drop-shadow" src="/assets/images/examples/dialogs-querying.png"/>
 
-  <ul>
-    <li>Launching dialogs</li>
-    <li>Querying the server for a subset of data (todos that belong to a specific list)</li>
-  </ul>
+### Demonstrates
+This example demonstrates:
 
-  <h3>Running the Example</h3>
+* Launching dialogs
+* Querying the server for a subset of data (todos that belong to a specific list)
 
-{% highlight bash %}
+### Running the Example
+
+```bash
 git clone https://github.com/lore/lore.git
 
 cd lore/examples/dialogs-querying
@@ -32,6 +27,7 @@ npm install
 npm start
 
 open http://localhost:3000/
-{% endhighlight %}
+```
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

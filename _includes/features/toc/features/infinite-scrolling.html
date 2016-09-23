@@ -1,0 +1,11 @@
+{% if page.url contains include.url %}
+<li class="active">
+{% else %}
+<li>
+{% endif %}
+  <a href="{{ include.url }}">{{ include.title }}</a>
+  <ul>
+    {% include features/toc-link.html title="Architecture" url="/features/challenges/infinite-scrolling/architecture/" %}
+    {% include features/toc-placeholder-link.html title="Example" %}
+  </ul>
+</li>

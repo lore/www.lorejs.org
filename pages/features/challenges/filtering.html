@@ -3,73 +3,52 @@ layout: features
 permalink: /features/challenges/filtering/
 ---
 
-<div>
-  <h1>Filtering</h1>
-  <p>
-    Useful for viewing a subset of data that matches a specific criteria.
-  </p>
+{% capture markdown %}
+# Filtering
+Useful for viewing a subset of data that matches a specific criteria.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what filtering looks like. Screenshots are from the <em>Simply Social</em> prototype
-    that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+### Visualization
+This video demonstrates what filtering looks like. Screenshots are from the _Simply Social_ prototype
+that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="2Q8sH_pxYoo">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="2Q8sH_pxYoo">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The challenge when incorporating filtering in your applications architecture is preventing action/reducer explosion.
-    While sending a query to the server is fairly straight forward, the challenge is whether you can implement the
-    functionality in a way where you don't need to add additional actions/reducers for every different type of question
-    you need to ask.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore implements filtering.</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="zkjcJsamLkU">
-    </div>
-  </div>
-
-  <h3>Usage</h3>
-  <p>
-    Example code showing how to filter data.
-  </p>
-
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-      <a href="#tab-usage-es5" role="tab" data-toggle="tab">
-        ES5
-      </a>
-    </li>
-    <li role="presentation" class="">
-      <a href="#tab-usage-es6" role="tab" data-toggle="tab">
-        ES6
-      </a>
-    </li>
-    <li role="presentation" class="">
-      <a href="#tab-usage-esnext" role="tab" data-toggle="tab">
-        ESNext
-      </a>
-    </li>
-  </ul>
-
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="tab-usage-es5">
-      {% include features/usage/filtering/es5.html %}
-    </div>
-    <div role="tabpanel" class="tab-pane" id="tab-usage-es6">
-      {% include features/usage/filtering/es6.html %}
-    </div>
-    <div role="tabpanel" class="tab-pane" id="tab-usage-esnext">
-      {% include features/usage/filtering/es7.html %}
-    </div>
-  </div>
-
 </div>
+
+### Usage
+Example code showing how to filter data.
+
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active">
+    <a href="#tab-usage-es5" role="tab" data-toggle="tab">
+      ES5
+    </a>
+  </li>
+  <li role="presentation" class="">
+    <a href="#tab-usage-es6" role="tab" data-toggle="tab">
+      ES6
+    </a>
+  </li>
+  <li role="presentation" class="">
+    <a href="#tab-usage-esnext" role="tab" data-toggle="tab">
+      ESNext
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="tab-usage-es5">
+    {% include features/usage/filtering/es5.html %}
+  </div>
+  <div role="tabpanel" class="tab-pane" id="tab-usage-es6">
+    {% include features/usage/filtering/es6.html %}
+  </div>
+  <div role="tabpanel" class="tab-pane" id="tab-usage-esnext">
+    {% include features/usage/filtering/es7.html %}
+  </div>
+</div>
+
+{% endcapture %}
+{{ markdown | markdownify }}
 

@@ -3,19 +3,16 @@ layout: getting-started
 permalink: /getting-started/growing-your-application/
 ---
 
-<div>
+{% capture markdown %}
 
-  <h1>How Lore makes it easier to grow your application</h1>
-  <p>
-    <strong>Todo:</strong> add a blurb about how getting started is only part of the challenge, and list the feature
-    support Lore is building into the framework.
-  </p>
+# How Lore makes it easier to grow your application
+*Todo:* add a blurb about how getting started is only part of the challenge, and list the feature
+support Lore is building into the framework.
 
-  <ul>
-    <li>Filtering</li>
-    <li>Pagination</li>
-    <li>Optimistic Updates</li>
-    <li>...</li>
-  </ul>
+1. Filtering
+1. Pagination
+1. Optimistic Updates
+1. ...
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

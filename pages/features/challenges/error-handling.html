@@ -3,42 +3,22 @@ layout: features
 permalink: /features/challenges/error-handling/
 ---
 
-<div>
-  <h1>Error Handling</h1>
-  <p>
-    Useful for informing the user when things don't go as planned and providing them with the ability to correct
-    the error and try again.
-  </p>
+{% capture markdown %}
+# Error Handling
+Useful for informing the user when things don't go as planned and providing them with the ability to correct
+the error and try again.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what error handling looks like. Screenshots are from the <em>Simply Social</em>
-    prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+### Visualization
+This video demonstrates what error handling looks like. Screenshots are from the _Simply Social_
+prototype that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="rQagIXhEK7s">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="rQagIXhEK7s">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The challenge when incorporating error handling into your applications architecture is making sure server errors
-    are communicated back to components, so we can can inform the user when something bad happened and at least give
-    them a chance to copy out their data or fix and retry the request.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore provides support for error handling.</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="P27Ow1NyGTg">
-    </div>
-  </div>
-
-  <h3><strong>TODO</strong>: Usage</h3>
-  <p>
-    Need to add example code showing how to handle errors in a Lore application.
-  </p>
-
 </div>
+
+### Usage
+Need to add example code showing how to handle errors in a Lore application.
+
+{% endcapture %}
+{{ markdown | markdownify }}

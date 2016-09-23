@@ -3,42 +3,22 @@ layout: features
 permalink: /features/challenges/optimistic-updates/
 ---
 
-<div>
-  <h1>Optimistic Updates</h1>
-  <p>
-    Useful for providing the application with a feeling a snappy responsiveness by assuming server calls will
-    be successful.
-  </p>
+{% capture markdown %}
+# Optimistic Updates
+Useful for providing the application with a feeling a snappy responsiveness by assuming server calls will
+be successful.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what optimistic updates looks like. Screenshots are from the <em>Simply Social</em>
-    prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+### Visualization
+This video demonstrates what optimistic updates looks like. Screenshots are from the _Simply Social_
+prototype that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="y9SoJJqR_C8">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="y9SoJJqR_C8">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The challenge with incorporating support for optimistic updates is making sure we can merge the optimistic data
-    that we <em>assume</em> will be created successfully with the real data once it comes back from the server, and all
-    while preventing duplicate data from appearing in the reducers.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore provides support for optimistic updates.</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="1NX-reP6yxQ">
-    </div>
-  </div>
-
-  <h3><strong>TODO</strong>: Usage</h3>
-  <p>
-    Need to add example code showing how to visualize optimistic updates in a Lore application.
-  </p>
-
 </div>
+
+### Usage
+Need to add example code showing how to visualize optimistic updates in a Lore application.
+
+{% endcapture %}
+{{ markdown | markdownify }}

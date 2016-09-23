@@ -3,41 +3,23 @@ layout: features
 permalink: /features/challenges/404-pages/
 ---
 
-<div>
-  <h1>404 Pages</h1>
-  <p>
-    Useful for providing the user with a clear indication that what they're looking for does not exist, as infinite
-    loaders and blank pages are both poor user experiences.
-  </p>
+{% capture markdown %}
+# 404 Pages
+Useful for providing the user with a clear indication that what they're looking for does not exist, as infinite
+loaders and blank pages are both poor user experiences.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what 404 pages look like. Screenshots are from the <em>Simply Social</em>
-    prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+### Visualization
+This video demonstrates what 404 pages look like. Screenshots are from the <em>Simply Social</em>
+prototype that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="s_jWh7h_j1w">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="s_jWh7h_j1w">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The challenge when incorporating 404 pages into your applications architecture is making sure that components
-    can CLEARLY discover when a request returns a 404.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore provides support for 404 pages.</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="wWijTeUAB48">
-    </div>
-  </div>
-
-  <h3><strong>TODO</strong>: Usage</h3>
-  <p>
-    Need to add example code showing how to display 404 pages in a Lore application.
-  </p>
-
 </div>
+
+### Usage
+Need to add example code showing how to display 404 pages in a Lore application.
+
+{% endcapture %}
+{{ markdown | markdownify }}
+

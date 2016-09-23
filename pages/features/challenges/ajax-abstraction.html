@@ -3,29 +3,23 @@ layout: features
 permalink: /features/challenges/ajax-abstraction/
 ---
 
-<div>
-  <h1>AJAX Abstraction</h1>
-  <p>
-    Layered communication tier able to communicate with multiple API servers and capable of adapting to changes in
-    data contracts.
-  </p>
+{% capture markdown %}
+# AJAX Abstraction
+Layered communication tier able to communicate with multiple API servers and capable of adapting to changes in
+data contracts.
 
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore simplifies AJAX communication.</p>
+### Architecture Implementation
+This video describes how Lore simplifies AJAX communication.
 
-  <blockquote>
-    <p>
-      NOTE: This video is more of a teaser explaining the basic concept. In the full video, each tier will be broken
-      down and explained in more detailed, building all the way up to explain the patterns the blueprints use.
-    </p>
-    <p>
-      That video will be added to this page once it's completed.
-    </p>
-  </blockquote>
+> NOTE: This video is more of a teaser explaining the basic concept. In the full video, each tier will be broken
+> down and explained in more detailed, building all the way up to explain the patterns the blueprints use.
+>
+> That video will be added to this page once it's completed.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="z6gBy_1e5us">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="z6gBy_1e5us">
   </div>
-
 </div>
+
+{% endcapture %}
+{{ markdown | markdownify }}

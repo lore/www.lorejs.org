@@ -3,21 +3,14 @@ layout: concepts
 permalink: /concepts/libraries/webpack/
 ---
 
-<div>
+{% capture markdown %}
 
-  <h1>Webpack</h1>
-  <p>
-    Lore uses <a href="https://webpack.github.io/">Webpack</a> for the build system.
-  </p>
+# Webpack
+Lore uses [Webpack](https://webpack.github.io/) for the build system.
 
-  <h3>Links for Learning Webpack</h3>
-  <ul>
-    <li>
-      <a href="http://webpack.github.io/docs/tutorials/getting-started/">Official Tutorial</a>
-    </li>
-    <li>
-      ???
-    </li>
-  </ul>
+### Links for Learning Webpack
+* [Official Tutorial](http://webpack.github.io/docs/tutorials/getting-started/)
+* ???
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}
