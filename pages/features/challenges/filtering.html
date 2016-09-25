@@ -88,7 +88,7 @@ Since our network request was just sent out, we won't have any data yet. So `pos
 posts = {
   state: 'FETCHING',
   data: [],
-  query: '{"where": "{"authorId": "123"}"}}'
+  query: { where: { authorId: '123' } }
 }
 ```
 
@@ -152,7 +152,7 @@ posts = {
       }
     }
   ],
-  query: '{"where": "{"authorId": "123"}"}}'
+  query: { where: { authorId: '123' } }
 }
 ```
 

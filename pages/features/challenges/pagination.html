@@ -121,13 +121,13 @@ Since our network request was just sent out, we won't have any data yet. So `pos
 posts = {
   state: 'FETCHING',
   data: [],
-  query: '{"pagination": "{"page": 1}"}}'
+  query: { pagination: { page: 1 } }
 }
 ```
 
-We don't have any data to render yet, but the `query` field is a stringified JSON that tells us what data we asked for,
-and the `state` field tells us that data is being fetched. So let's render a loading message while we're waiting for the
-data to return from the API server.
+We don't have any data to render yet, but the `query` field tells us what data we asked for, and the `state` field
+tells us that data is being fetched. So let's render a loading message while we're waiting for the data to return
+from the API server.
 
 ```js
 @lore.connect(function(getState, props) {
@@ -185,7 +185,7 @@ posts = {
       }
     }
   ],
-  query: '{"pagination": "{"page": 1}"}}'
+  query: { pagination: { page: 1 } }
 }
 ```
 
