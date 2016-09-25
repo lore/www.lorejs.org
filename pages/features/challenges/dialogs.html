@@ -3,34 +3,24 @@ layout: features
 permalink: /features/challenges/dialogs/
 ---
 
-<div>
-  <h1>Dialogs (upcoming)</h1>
-  <p>
-    Lore will be providing a set a utilities to match launching dialogs easier while also addressing common problems
-    associated with them.
-  </p>
+{% capture markdown %}
+# Dialogs
+Lore will be providing a set a utilities to match launching dialogs easier while also addressing common problems
+associated with them.
 
-  <blockquote>
-    <p>
-      NOTE: Lore <em>sort of</em> has a dialog implementation, which you can see in the
-      <a href="/examples/dialogs-querying/">Dialog & Querying</a> example, but the implementation is too specific to
-      the <a href="http://www.material-ui.com/">material-ui</a> library.
-    </p>
-    <p>
-      This feature is about providing a generic adapter that you can plug into that will be library independent, so
-      it would work with Bootstrap, Material UI, or any other library or custom implementation.
-    </p>
-  </blockquote>
+> NOTE: Lore _sort of_ has a dialog implementation, which you can see in the
+> [Dialog & Querying](/examples/dialogs-querying/) example, but the implementation is too specific to
+> the [material-ui](http://www.material-ui.com/) library.
+>
+> This feature is about providing a generic adapter that you can plug into that will be library independent, so
+> it would work with Bootstrap, Material UI, or any other library or custom implementation.
 
-  <h3>Visualization</h3>
-  <p>
-    Need to add a video demonstrating what dialogs look like.
-  </p>
+### Visualization
+Need to add a video demonstrating what dialogs look like.
 
-  <h3>Common Problems With Dialogs</h3>
-  <p>
-    Need to provide a list of the things Lore is solving for in providing utilities and opinions surround launching
-    dialogs.
-  </p>
+### Common Problems With Dialogs
+Need to provide a list of the things Lore is solving for in providing utilities and opinions surround launching
+dialogs.
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

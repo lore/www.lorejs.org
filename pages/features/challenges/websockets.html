@@ -3,46 +3,25 @@ layout: features
 permalink: /features/challenges/websockets/
 ---
 
-<div>
-  <h1>WebSockets (proposal)</h1>
-  <p>
-    Provides the ability for an application's data to update without requiring the user to refresh the page. Especially
-    useful in applications where multiple people view and interact with the same data, especially when data changes
-    at a high frequency.
-  </p>
+{% capture markdown %}
 
-  <blockquote>
-    <p>
-      NOTE: This feature is still in the proposal stage, but the implementation approach Lore will likely follow is
-      provided below. Support for WebSockets will be implemented after pagination, infinite scrolling, and dialogs
-      are supported.
-    </p>
-  </blockquote>
+# WebSockets (beta)
+Provides the ability for an application's data to update without requiring the user to refresh the page. Especially
+useful in applications where multiple people view and interact with the same data, especially when data changes
+at a high frequency.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what real-time functionality looks like. Screenshots are from the <em>Simply Social</em>
-    prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+> NOTE: This feature is still in the proposal stage, but the implementation approach Lore will likely follow is
+> provided below. Support for WebSockets will be implemented after pagination, infinite scrolling, and dialogs
+> are supported.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="sPry_VqVT6c">
-    </div>
+<h3>Visualization</h3>
+This video demonstrates what real-time functionality looks like. Screenshots are from the _Simply Social_
+prototype that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
+
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="sPry_VqVT6c">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The challenge with adding support for WebSockets is finding a way to integrate it into the existing infrastructure
-    that supports REST API interactions <em>without</em> having to duplicate actions or reducers for every real-time
-    endpoint (which would be tedious and error prone).
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore will most likely implement support for WebSockets</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="jWn8oCMzb6U">
-    </div>
-  </div>
-
 </div>
+
+{% endcapture %}
+{{ markdown | markdownify }}

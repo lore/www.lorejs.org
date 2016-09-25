@@ -3,41 +3,23 @@ layout: features
 permalink: /features/challenges/visual-cues/
 ---
 
-<div>
-  <h1>Visual Cues</h1>
-  <p>
-    Useful for providing the user with a visual indication that some action is being performed but has no yet
-    completed. Examples include fetching, updating and creating data.
-  </p>
+{% capture markdown %}
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what visual cues look like. Screenshots are from the <em>Simply Social</em> prototype
-    that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+# Visual Cues
+Useful for providing the user with a visual indication that some action is being performed but has no yet
+completed. Examples include fetching, updating and creating data.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="6uJ7Y6p7eBU" data-pe-fitvids="true">
-    </div>
+### Visualization
+This video demonstrates what visual cues look like. Screenshots are from the _Simply Social_ prototype
+that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
+
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="6uJ7Y6p7eBU" data-pe-fitvids="true">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The core challenge is making sure that any information that components need to know in order to render the correct
-    view is contained within the data they're provided.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>This video describes how Lore implements support for visual cues.</p>
-
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="vSmMg_q_DII">
-    </div>
-  </div>
-
-  <h3><strong>TODO</strong>: Usage</h3>
-  <p>
-    Need to add example code showing how to display visual cues in a Lore application.
-  </p>
-
 </div>
+
+### Usage
+Need to add example code showing how to display visual cues in a Lore application.
+
+{% endcapture %}
+{{ markdown | markdownify }}

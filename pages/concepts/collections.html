@@ -3,35 +3,28 @@ layout: concepts
 permalink: /concepts/collections/
 ---
 
-<div>
-  <h1>Collections</h1>
-  <p>
-    Collections represent an API endpoint for a collection of resources you need to interact with, like
-    <code>https://myapp.com/api/books</code>. This is the endpoint that gets used when fetching a collection of
-    resources, or when querying and endpoint or creating a new resource.
-  </p>
+{% capture markdown %}
 
-  <p>
-    This file represents a configuration that ultimately gets passed to a Collection instance of
-    <a href="https://github.com/lore/lore/tree/master/packages/lore-models">lore-models</a>. <code>Lore Models</code>
-    is the library that Lore uses for making AJAX requests, the interface for which is heavily inspired by
-    <a href="http://backbonejs.org/#Collection">Backbone.Collection</a>.
-  </p>
+# Collections
+Collections represent an API endpoint for a collection of resources you need to interact with, like
+`https://myapp.com/api/books`. This is the endpoint that gets used when fetching a collection of
+resources, or when querying and endpoint or creating a new resource.
 
-  <p>
-    Similar to models, collections inherit their properties from <code>config/collections.js</code>. This means that
-    your collections themselves will often be empty, especially when you're only dealing with a single API that uses
-    consistent conventions. The only time you should edit this file is if you need to set a behavior that is specific
-    to this edit (something that is not shared by the other collections). All shared behaivor should go in
-    <code>config/collections.js</code>.
-  </p>
+This file represents a configuration that ultimately gets passed to a Collection instance of
+[lore-models](https://github.com/lore/lore/tree/master/packages/lore-models). `Lore Models`
+is the library that Lore uses for making AJAX requests, the interface for which is heavily inspired by
+[Backbone.Collection](http://backbonejs.org/#Collection).
 
-  <p>
-    Collections will inherit properties like <code>apiRoot</code> from models unless it's overridden, as they often
-    share the same endpoints.
-  </p>
+Similar to models, collections inherit their properties from `config/collections.js`. This means that
+your collections themselves will often be empty, especially when you're only dealing with a single API that uses
+consistent conventions. The only time you should edit this file is if you need to set a behavior that is specific
+to this edit (something that is not shared by the other collections). All shared behaivor should go in
+`config/collections.js`.
 
-{% highlight js %}
+Collections will inherit properties like `apiRoot` from models unless it's overridden, as they often
+share the same endpoints.
+
+```js
 module.exports = {
 
   // The location of the API server. If you're only interacting with a single API,
@@ -119,6 +112,7 @@ module.exports = {
     }
   }
 };
-{% endhighlight %}
+```
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

@@ -3,15 +3,12 @@ layout: features
 permalink: /features/foundation/publishing/
 ---
 
-<h1>Publishing</h1>
-<p>
-  Lore provides built-in support for publishing your project to two popular platforms; Surge and GitHub Pages.
-</p>
+{% capture markdown %}
+# Publishing
+Lore provides built-in support for publishing your project to two popular platforms; Surge and GitHub Pages.
 
-<p>
-  The video below is an excerpt from the full <a href="/getting-started/introduction-to-lore/">Introduction to Lore</a>
-  video and provides a summary of how Lore helps.
-</p>
+The video below is an excerpt from the full [Introduction to Lore](/getting-started/introduction-to-lore/)
+video and provides a summary of how Lore helps.
 
 <br>
 
@@ -20,24 +17,22 @@ permalink: /features/foundation/publishing/
   </div>
 </div>
 
-<h3>Feature Comparison</h3>
-<p>
-  The video below provides a feature comparison of both platforms in order to help you choose between them. Surge
-  basically includes everything GitHub Pages offers and more (for a small fee) and is also generally easier to
-  publish to. The advantage of GitHub pages is that it provides a way to view and edit your code without having
-  to download the files and republish.
-</p>
+### Feature Comparison
+The video below provides a feature comparison of both platforms in order to help you choose between them. Surge
+basically includes everything GitHub Pages offers and more (for a small fee) and is also generally easier to
+publish to. The advantage of GitHub pages is that it provides a way to view and edit your code without having
+to download the files and republish.
 
 <div class="video">
   <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="VLFlpqhSby8">
   </div>
 </div>
 
-<h3>Usage</h3>
-<p>
-  For more detailed instructions about how to publish to each platform please see their respective pages:
-</p>
-<ul>
-  <li><a href="/features/foundation/publishing/surge/">Surge</a></li>
-  <li><a href="/features/foundation/publishing/github-pages/">GitHub Pages</a></li>
-</ul>
+### Usage
+For more detailed instructions about how to publish to each platform please see their respective pages:
+
+* [Surge](/features/foundation/publishing/surge/)
+* [GitHub Pages](/features/foundation/publishing/github-pages/)
+
+{% endcapture %}
+{{ markdown | markdownify }}

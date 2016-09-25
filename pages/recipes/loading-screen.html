@@ -3,14 +3,13 @@ layout: recipes
 permalink: /recipes/loading-screen/
 ---
 
-<div>
-  <h1>Loading Screen</h1>
-  <p>
-    At the root of your project you should see an <code>index.html</code> file. This file is what gets served to the
-    browser, and should currently look like this:
-  <p>
+{% capture markdown %}
 
-{% highlight html %}
+# Loading Screen
+At the root of your project you should see an `index.html` file. This file is what gets served to the
+browser, and should currently look like this:
+
+```html
 <html>
   <head>
     <title>New Lore App</title>
@@ -36,20 +35,17 @@ permalink: /recipes/loading-screen/
     <script src="/dist/bundle.js"></script>
   </body>
 </html>
-{% endhighlight %}
+```
 
-  <p>
-    The #root element is where your application is going to be attached. The default <strong>style</strong> tag and
-    <strong>.loading-text</strong> element are there to serve as a minimalistic splash screen while the browser fetches
-    the JavaScript files. It's intended to be a more meaningful alternative to the standard blank white page. The
-    loading screen will look like this:
-  <p>
+The #root element is where your application is going to be attached. The default *style* tag and
+*.loading-text* element are there to serve as a minimalistic splash screen while the browser fetches
+the JavaScript files. It's intended to be a more meaningful alternative to the standard blank white page. The
+loading screen will look like this:
 
-  <img src="/assets/images/recipes/loading-screen.png" alt="Loading Screen" style="width: 100%">
+<img src="/assets/images/recipes/loading-screen.png" alt="Loading Screen" style="width: 100%">
 
-  <h1>Todo</h1>
-  <p>
-    Update this to show how to add a more interesting loading screen.
-  <p>
+# Todo
+Update this to show how to add a more interesting loading screen.
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

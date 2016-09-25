@@ -3,26 +3,22 @@ layout: features
 permalink: /features/challenges/data-structure/
 ---
 
-<div>
-  <h1>Data Structure</h1>
-  <p>
-    Enables data-driven components by supplying components with both data and context.
-  </p>
+{% capture markdown %}
+# Data Structure
+Enables data-driven components by supplying components with both data and context.
 
-  <h3>Architecture Implementation</h3>
-  <p>This video describes the data structure Lore uses to enable data-driven components.</p>
+### Architecture Implementation
+This video describes the data structure Lore uses to enable data-driven components.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="ZRcExHzY9W0">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="ZRcExHzY9W0">
   </div>
+</div>
 
-  <h3>Example</h3>
-  <p>
-    In-progress documentation to explain Lore's data structure.
-  </p>
+### Example
+In-progress documentation to explain Lore's data structure.
 
-{% highlight js %}
+```js
 var model = {
   id: 1 || 'ded38e0e-75b7-4503-b78d-83a8282ad137'
   cid: 'c1',
@@ -40,18 +36,15 @@ var collection = {
   data: [],
   errors: []
 }
-{% endhighlight %}
+```
 
-  <p>
-    Quick notes about model's data structure:
-  </p>
+Quick notes about model's data structure:
 
-  <ul>
-    <li><strong>id:</strong> unique id assigned by the server (number, string, uuid, etc)</li>
-    <li><strong>cid:</strong> unique (per app) client-side id assigned by Lore</li>
-    <li><strong>state:</strong> representation of activity being done to the data (creating it, updating it, error updating it, etc.)</li>
-    <li><strong>data:</strong> the actual JSON attributes returned by the server</li>
-    <li><strong>errors:</strong> in the case of an errors from the server (400 something) will contain the error message(s) from the server.</li>
-  </ul>
+* *id:* unique id assigned by the server (number, string, uuid, etc)
+* *cid:* unique (per app) client-side id assigned by Lore
+* *state:* representation of activity being done to the data (creating it, updating it, error updating it, etc.)
+* *data:* the actual JSON attributes returned by the server
+* *errors:* in the case of an errors from the server (400 something) will contain the error message(s) from the server.
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

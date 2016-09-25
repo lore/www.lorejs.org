@@ -3,20 +3,18 @@ layout: recipes
 permalink: /recipes/disabling-optimistic-behavior/
 ---
 
-<div>
-  <h1>Disabling Optimistic Behavior</h1>
-  <p>
-    TODO: fill this out. Answer is to override the action template or completely replace the action.
-  <p>
-  </p>
-    As the CLI evolves, it will include the ability to write your own plugins for it, so you can extend it to suit the
-    specific needs of your project. To learn more about the CLI and adding your own generators check out the CLI Docs.
-  </p>
+{% capture markdown %}
 
-  <h3>Code</h3>
-  <p>How it's done.</p>
+# Disabling Optimistic Behavior
+TODO: fill this out. Answer is to override the action template or completely replace the action.
 
-{% highlight jsx %}
+As the CLI evolves, it will include the ability to write your own plugins for it, so you can extend it to suit the
+specific needs of your project. To learn more about the CLI and adding your own generators check out the CLI Docs.
+
+### Code
+How it's done.
+
+```jsx
 // actions/color/create.js
 
 return {
@@ -44,6 +42,7 @@ return {
     }
   }
 };
-{% endhighlight %}
+```
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

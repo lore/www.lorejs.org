@@ -3,21 +3,14 @@ layout: concepts
 permalink: /concepts/libraries/react/
 ---
 
-<div>
+{% capture markdown %}
 
-  <h1>React</h1>
-  <p>
-    Lore uses <a href="http://facebook.github.io/react/">React</a> for the presentation tier.
-  </p>
+# React
+Lore uses <a href="http://facebook.github.io/react/">React</a> for the presentation tier.
 
-  <h3>Links for Learning React</h3>
-  <ul>
-    <li>
-      <a href="http://facebook.github.io/react/">Official Tutorial</a>
-    </li>
-    <li>
-      ???
-    </li>
-  </ul>
+### Links for Learning React
+* [Official Tutorial](http://facebook.github.io/react/)
+* ???
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}

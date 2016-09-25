@@ -3,38 +3,21 @@ layout: features
 permalink: /features/challenges/infinite-scrolling/
 ---
 
-<div>
-  <h1>Infinite Scrolling</h1>
-  <p>
-    Mobile friendly style of pagination that aggregates fetched data into a single scrollable list.
-  </p>
+{% capture markdown %}
+# Infinite Scrolling
+Mobile friendly style of pagination that aggregates fetched data into a single scrollable list.
 
-  <h3>Visualization</h3>
-  <p>
-    This video demonstrates what infinite scrolling looks like. Screenshots are from the <em>Simply Social</em>
-    prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
-  </p>
+### Visualization
+This video demonstrates what infinite scrolling looks like. Screenshots are from the _Simply Social_
+prototype that [Invision](https://www.invisionapp.com/) provides you when you sign up for an account.
 
-  <div class="video">
-    <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="sPry_VqVT6c">
-    </div>
+<div class="video">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="sPry_VqVT6c">
   </div>
-
-  <h3>Architecture Challenge</h3>
-  <p>
-    The core challenge here is recognizing that Infinite Scrolling is primarily a view concern, in that it's exactly the
-    same as traditional pagination except for how the data is displayed to the user.
-  </p>
-
-  <h3>Architecture Implementation</h3>
-  <p>
-    Since Infinite Scrolling shares the same infrastructure as traditional pagination, please see
-    <a href="/features/challenges/pagination/">Pagination</a> for a description of how to implement support for it.
-  </p>
-
-  <h3>Usage</h3>
-  <p>
-    For a demonstration of pagination in action, please see the <a href="https://github.com/lore/lore/tree/master/examples/infinite-scrolling">infinite-scrolling example</a>.
-  </p>
-
 </div>
+
+### Usage
+For a demonstration of pagination in action, please see the [infinite-scrolling example](https://github.com/lore/lore/tree/master/examples/infinite-scrolling).
+
+{% endcapture %}
+{{ markdown | markdownify }}

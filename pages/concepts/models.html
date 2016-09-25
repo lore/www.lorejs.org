@@ -3,28 +3,23 @@ layout: concepts
 permalink: /concepts/models/
 ---
 
-<div>
-  <h1>Models</h1>
-  <p>
-    Models represent an API endpoint for a resource you need to interact with, like
-    <code>https://myapp.com/api/books/123</code>.
-  </p>
+{% capture markdown %}
 
-  <p>
-    This file represents a configuration that ultimately gets passed to a Model instance of
-    <a href="https://github.com/lore/lore/tree/master/packages/lore-models">lore-models</a>. <code>Lore Models</code>
-    is the library that Lore uses for making AJAX requests, the interface for which is heavily inspired by
-    <a href="http://backbonejs.org/#Model">Backbone.Model</a>.
-  </p>
+# Models
+Models represent an API endpoint for a resource you need to interact with, like
+`https://myapp.com/api/books/123`.
 
-  <p>
-    All models inherit their properties from <code>config/models.js</code>. This means that your models themselves
-    will often be empty, especially when you're only dealing with a single API that uses consistent conventions. The
-    only time you should edit this file is if you need to set a behavior that is specific to this edit (something
-    that is not shared by the other models). All shared behaivor should go in <code>config/models.js</code>.
-  </p>
+This file represents a configuration that ultimately gets passed to a Model instance of
+[lore-models](https://github.com/lore/lore/tree/master/packages/lore-models). `Lore Models`
+is the library that Lore uses for making AJAX requests, the interface for which is heavily inspired by
+[Backbone.Model](http://backbonejs.org/#Model).
 
-{% highlight js %}
+All models inherit their properties from `config/models.js`. This means that your models themselves
+will often be empty, especially when you're only dealing with a single API that uses consistent conventions. The
+only time you should edit this file is if you need to set a behavior that is specific to this edit (something
+that is not shared by the other models). All shared behaivor should go in `config/models.js`.
+
+```js
 module.exports = {
 
   // The location of the API server. If you're only interacting with a single API,
@@ -109,6 +104,7 @@ module.exports = {
     }
   }
 };
-{% endhighlight %}
+```
 
-</div>
+{% endcapture %}
+{{ markdown | markdownify }}
