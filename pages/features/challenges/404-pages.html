@@ -18,7 +18,64 @@ prototype that [Invision](https://www.invisionapp.com/) provides you when you si
 </div>
 
 ### Usage
-Need to add example code showing how to display 404 pages in a Lore application.
+Lore handles 404 errors by treating them as a special case of [Error Handling](/features/challenges/error-handling/).
+Normally if you were fetching a `post` with an `id` of 1, and the API returned a 404 status code, the action creator
+blueprint would emit an action with a payload that looks like this:
+
+```js
+model = {
+  id: 1,
+  cid: 'c1',
+  state: 'ERROR_FETCHING',
+  data: {},
+  error: {
+    statusCode: 404,
+    message: 'No Post exists with id of 1'
+  }
+}
+```
+
+But since 404 errors have a clear and explicit use (the resource you asked for does not exist) the default blueprints
+treat this as a special case and set the `state` to `NOT_FOUND`. So instead of the generic error message above the
+payload will contain this more specific error message:
+
+```js
+model = {
+  id: 1,
+  cid: 'c1',
+  state: 'NOT_FOUND',
+  data: {},
+  error: {
+    statusCode: 404,
+    message: 'No Post exists with id of 1'
+  }
+}
+```
+
+This in turn allows you to communicate "not found" experiences much easier to a user:
+
+```jsx
+React.creatClass({
+
+  propTypes: {
+    post: React.PropTypes.object.isRequired
+  },
+
+  render: function() {
+    var post = this.props.post;
+
+    if (posts.state === PayloadStates.NOT_FOUND) {
+      return (
+        <div>
+          The Post you requested does not exist.
+        </div>
+      );
+    }
+
+    // todo: render RESOLVED state
+  }
+});
+```
 
 {% endcapture %}
 {{ markdown | markdownify }}
