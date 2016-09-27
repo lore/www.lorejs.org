@@ -1,0 +1,58 @@
+---
+layout: features
+permalink: /features/config/collections/
+---
+
+{% capture markdown %}
+# config/collections.js
+
+This file is connected to the `lore-hook-collections` hook and overrides the default collection behaviors.
+
+## Purpose
+
+There are three things you commonly need when making AJAX calls from the browser:
+
+1. The URL of the API server (such as `https://api.example.com`)
+2. The path to the endpoint we're interested in (such as `/posts`)
+3. A method to parse the server response and extract the data the client side needs
+
+This config file allows you to express the needs that are common across all models, so that you only have to define
+them once. All individual collections inherit this behavior, with the ability to override it as they need to.
+
+> NOTE: This file inherits behavior from `config/models.js` so you don't need to set any values here that are already set there.
+
+## Example Config File
+```
+{
+  apiRoot: 'https://api.example.com',
+
+  pluralize: true,
+
+  properties: {
+    url: 'https://api.example.com/posts',
+    parse: function(attributes) {
+      return attributes;
+    }
+  }
+}
+```
+
+## Configuration Options
+#### apiRoot
+This the root URL of the API server, inherited from `config/models.js`.
+
+#### pluralize
+Used to set whether Lore should pluralize API paths generated using conventions. Inherited from `config/models.js`.
+
+#### properties
+> NOTE: This field is NOT inherited from `config/models.js`
+
+All of the collections in Lore are converted to Collection instances from the
+[lore-models](https://github.com/lore/lore/tree/master/packages/lore-models) package. This field can be used to set
+any of the default behaviors, the most commonly needed ones being:
+
+* `url`: used to set the path to the API endpoint for a resource that doesn't match Lore's conventions
+* `parse`: used to extract resource information from a server response with a metadata wrapper
+
+{% endcapture %}
+{{ markdown | markdownify }}

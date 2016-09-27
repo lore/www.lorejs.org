@@ -1,0 +1,16 @@
+---
+layout: features
+permalink: /features/config/actions/
+---
+
+{% capture markdown %}
+# config/actions.js
+
+This file is connected to the `lore-hook-actions` hook and overrides the default action behaviors.
+
+### Configuration Options
+There are no configuration options currently, but there are plans to support disabling the blueprints and allowing
+you to provide a custom override for each blueprint without having to override the entire `lore-hook-actions` hook.
+
+{% endcapture %}
+{{ markdown | markdownify }}

@@ -1,0 +1,26 @@
+---
+layout: features
+permalink: /features/config/dialog/
+---
+
+{% capture markdown %}
+# config/dialog.js
+
+This file is connected to the `lore-hook-connect` hook and overrides the default connect behaviors.
+
+
+### Example Config
+
+```js
+{
+  domElementId: 'dialog'
+}
+```
+
+### Configuration Options
+
+#### domElementId
+The `id` of the DOM element that dialogs should be mounted to.
+
+{% endcapture %}
+{{ markdown | markdownify }}

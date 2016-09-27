@@ -1,0 +1,18 @@
+---
+layout: features
+permalink: /features/config/connect/
+---
+
+{% capture markdown %}
+# config/connect.js
+
+This file is connected to the `lore-hook-connect` hook and overrides the default connect behaviors.
+
+### Configuration Options
+There are no configuration options at the moment, although the `connect` hook does use the
+`config/actionReducerMap.js` file to determine which actions should be invoked based on the reducer state request.
+
+> The `config/actionReducerMap.js` config needs to be merged into this file.
+
+{% endcapture %}
+{{ markdown | markdownify }}
