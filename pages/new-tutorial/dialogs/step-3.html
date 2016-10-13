@@ -1,0 +1,140 @@
+---
+layout: tutorial
+permalink: /new-tutorial/dialogs/step-2/
+---
+
+{% capture markdown %}
+
+# Step 10: Replace Dialog with lore-hook-dialogs-bootstrap
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step10
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### index.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+var lore = require('lore');
+
+window.lore = lore;
+
+lore.summon({
+  hooks: {
+    actions: require('lore-hook-actions'),
+    bindActions: require('lore-hook-bind-actions'),
+    collections: require('lore-hook-collections'),
+    connect: require('lore-hook-connect'),
+    dialog: require('lore-hook-dialog'),
+    dialogs: require('lore-hook-dialogs-bootstrap'),
+    models: require('lore-hook-models'),
+    reducers: require('lore-hook-reducers'),
+    redux: require('lore-hook-redux')
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/CreateButton.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'CreateButton',
+
+  getStyles: function() {
+    return {
+      createButton: {
+        position: 'absolute',
+        top: '25px',
+        right: '15px',
+        zIndex: 1000,
+        borderRadius: '100px',
+        outline: 'none'
+      }
+    }
+  },
+
+  onClick: function() {
+    function createTweet(params) {
+      lore.actions.tweet.create(params);
+    }
+
+    lore.dialog.show(function() {
+      return lore.dialogs.tweet.create({
+        onSubmit: createTweet
+      });
+    });
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+
+    return (
+      <button
+        type="button"
+        className="btn btn-primary btn-lg"
+        style={styles.createButton}
+        onClick={this.onClick}>
+        +
+      </button>
+    );
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+### src/models/tweet.js
+
+{% tabs tab1={"name": "Diff", "id": 5} | tab2={"name": "Source", "id": 6} %}
+{% tab id=5, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=6 %}
+```js
+module.exports = {
+  attributes: {
+    text: {
+      type: 'text',
+      displayName: 'Message',
+      placeholder: "What's happening?"
+    }
+  }
+};
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../step-3/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

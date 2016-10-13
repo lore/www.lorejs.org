@@ -1,0 +1,140 @@
+---
+layout: tutorial
+permalink: /new-tutorial/fetching/step-4/
+---
+
+{% capture markdown %}
+
+# Step 7: Fetch Tweet User
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step7
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/models/user.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+module.exports = {
+
+};
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Tweet.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+var moment = require('moment');
+
+module.exports = lore.connect(function(getState, props) {
+  return {
+    user: getState('user.byId', {
+      id: props.tweet.data.user
+    })
+  }
+})(
+React.createClass({
+  displayName: 'Tweet',
+
+  propTypes: {
+    user: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      avatar: {
+        width: '32px',
+        border: '1px solid gray'
+      },
+      imageContainer: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        width: '32px'
+      },
+      contentContainer: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        maxWidth: '85%'
+      },
+      title: {
+        lineHeight: '32px',
+        display: 'inline-block'
+      },
+      text: {
+        marginBottom: '5px'
+      },
+      timestamp: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        color: '#999',
+        fontSize: '14px'
+      }
+    }
+  },
+
+  render: function() {
+    var tweet = this.props.tweet;
+    var user = this.props.user;
+    var styles = this.getStyles();
+    var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+
+    return (
+      <li className="list-group-item">
+        <div style={styles.imageContainer}>
+          <img
+            className="img-circle"
+            src={user.data.avatar}
+            style={styles.avatar} />
+        </div>
+        <div style={styles.contentContainer}>
+          <h4 className="list-group-item-heading" style={styles.title}>
+            {user.data.nickname}
+          </h4>
+          <h4 className="list-group-item-heading" style={styles.timestamp}>
+            {'- ' + timestamp}
+          </h4>
+          <p className="list-group-item-text" style={styles.text}>
+            {tweet.data.text}
+          </p>
+        </div>
+      </li>
+    );
+  }
+})
+);
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../../dialogs/step-1/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

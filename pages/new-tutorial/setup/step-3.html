@@ -1,0 +1,62 @@
+---
+layout: tutorial
+permalink: /new-tutorial/setup/step-3/
+---
+
+{% capture markdown %}
+
+# Start the Application
+
+Once all the dependencies have been installed, you can start the app by running `npm start`.
+
+```sh
+$ npm start
+```
+
+This step kicks off Webpack and builds the project.  A successful execution should produce output similar to this:
+
+```sh
+  [420] ./~/lore/lib/Hook.js 286 bytes {0} [built]
+  [421] ./~/lore/lib/app/getInitializers.js 217 bytes {0} [built]
+  [422] ./~/lore/lib/app/sortHooksByLoadOrder.js 878 bytes {0} [built]
+  [423] ./~/lore/~/topsort/lib/topsort.js 3.17 kB {0} [built]
+  [424] ./~/lore/lib/app/getConfig.js 469 bytes {0} [built]
+
+webpack: bundle is now VALID.
+```
+
+### View the App
+
+At this point the application is built, and you can view it by navigating to `http://localhost:3000` in your
+browser.  You should see this:
+
+<img class="drop-shadow" src="/assets/images/new-tutorial/setup/step-3.png">
+
+### Changing the Port
+
+If you want to change the port the server runs on, you can do that by using an alternate syntax to start the server.
+`npm start` is just an alias for `node server`, and you can pass a `port` argument to `node server` like so:
+
+``` sh
+node server --port=3001
+```
+
+If you're using ES6 or ESNext for the project, you'll need to start the server using `babel-node` like this:
+
+``` sh
+./node_modules/.bin/babel-node server --port=3001
+```
+
+### Note
+If you are using Chrome and you see this error in the network requests you can safely ignore it.
+
+```sh
+GET http://localhost:3000/service-worker.js net::ERR_INVALID_RESPONSE
+```
+
+## Next Steps
+
+Next we're going to begin [laying out out view](../../layout/step-1/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

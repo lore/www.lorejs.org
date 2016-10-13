@@ -1,0 +1,65 @@
+---
+layout: tutorial
+permalink: /new-tutorial/setup/step-2/
+---
+
+{% capture markdown %}
+
+# Creating A New Project
+
+To create a new Lore app, type `lore new` into the command line followed the by name of your application. For this
+example we are going to call our application `lore-tutorial`.
+
+### Create a new app
+
+```sh
+$ lore new lore-tutorial
+```
+
+This will create a new directory called `lore-tutorial`, and place all the necessary files inside. You should see
+this message when the task completes.
+
+```sh
+  info:  Created a new Lore application `lore-tutorial`
+```
+
+### Optional: Create an ES6 and ESNext version of the app
+
+Lore currently defaults to creating a project using ES5 syntax. If you'd prefer to use ES6, you can change the default
+by passing in an optional command line argument:
+
+```sh
+$ lore new lore-tutorial --es6
+```
+
+If you'd prefer to use cutting-room floor features in ESNext (such as decorators and static property types), you can
+generate a project using that syntax by passing in `--esnext` like this:
+
+```sh
+$ lore new lore-tutorial --esnext
+```
+
+This will make it so that all files in the project are generated using ES6 syntax, and also adds a setting in the `.lorerc`
+file that will cause all the generators to create their files in ES6 as well. In an upcoming release, Lore will also add an
+option for using ESNext syntax.
+
+> NOTE: While the tutorial will allow you to automatically generate files for each step (in case you get stuck or
+> don't want to code that step yourself) those files are currently only generating using ES5 as the tutorial is still
+> in a little bit of flux. Once it settles down, all tutorial files will be available for generation in ES6 and ESNext
+> syntax as well.
+
+### Install Dependencies
+
+Once the project is created, navigate into the directory and install the dependencies.
+
+```sh
+$ cd lore-tutorial
+$ npm install
+```
+
+## Next Steps
+
+Next we're going to [start the application](../step-3/) and view it in a browser.
+
+{% endcapture %}
+{{ markdown | markdownify }}

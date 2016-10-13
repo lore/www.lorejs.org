@@ -1,0 +1,97 @@
+---
+layout: tutorial
+permalink: /new-tutorial/authentication/step-6/
+---
+
+{% capture markdown %}
+
+# Step 17: Wrap App in UserIsAuthenticated
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step17
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### routes.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+var React = require('react');
+var Route = require('react-router').Route;
+var IndexRoute = require('react-router').IndexRoute;
+
+var Master = require('./src/components/Master');
+var Layout = require('./src/components/Layout');
+var Feed = require('./src/components/Feed');
+var Login = require('./src/components/Login');
+var Logout = require('./src/components/Logout');
+
+var UserIsAuthenticated = require('./src/decorators/UserIsAuthenticated');
+
+module.exports = (
+  <Route>
+    <Route path="/login" component={Login} />
+    <Route path="/logout" component={Logout} />
+
+    <Route component={UserIsAuthenticated(Master)}>
+      <Route path="/" component={Layout}>
+        <IndexRoute component={Feed} />
+      </Route>
+    </Route>
+  </Route>
+);
+```
+{% endtab %}
+{% endtabs %}
+
+### src/decorators/UserIsAuthenticated.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+var AuthenticationGenerator = require('lore-auth').generators.AuthenticationGenerator;
+var auth = require('../auth');
+
+module.exports = AuthenticationGenerator({
+  wrapperDisplayName: 'UserIsAuthenticated',
+
+  // redirectUrl: '/login',
+
+  // redirectQueryParamName: 'redirect',
+
+  isAuthenticated: function () {
+    return auth.isLoggedIn();
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../step-7/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

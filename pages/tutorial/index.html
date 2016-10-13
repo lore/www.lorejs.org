@@ -6,34 +6,46 @@ permalink: /tutorial/
 {% capture markdown %}
 
 # Introduction
-This tutorial *assumes you are relatively new to React* and is intended to highlight Lore’s ability
-to simplify application development by allowing you to focus on creating your components and not building
-infrastructure (like actions and reducers) for server communication and data storage.
+Whether you've never used React before or are already comfortable developing large applications, this tutorial should
+give you a good understand of what Lore is and why a framework can be valuable (allowing you to focus on creating your
+components and not building infrastructure for server communication and data storage).
 
-As such, much of the tutorial is focused on React itself, with occasional project configuration included in order
-to demonstrate Lore's ability to overcome development hurdles required to make the application function.
-
-> If you have a suggestion for how to improve this tutorial
-> [there has been an issue created](https://github.com/lore/lore/issues/101) expressly for that discussion.
-> Love to hear your thoughts!
->
-> In the future *there will also be a video of this tutorial* for easier consumption.
+The tutorial tries to make very few assumptions about what you know, and will make every effort to provide links and
+explanations for each concept encountered along the way; be it a concept introduced by the framework, or concept that
+is central to application development itself.
 
 ### What You'll Build
-This is the application we'll be building, the "Guessatron 5000". You type in the name of a color and submit it,
-and when you click on that color the route will change. The Guessatron will fetch that color, look at the name,
-and then attempt to show you a swatch of what that color actually looks like (it's all fake, don't get too excited).
+This is the application we'll be building. It is a Twitter-like app, pre-popuated with characters and quotes from
+[Chrono Trigger](https://en.wikipedia.org/wiki/Chrono_Trigger). You can login and logout, create/edit/delete tweets,
+and view everyone's tweets or just your own. The application is also real-time, which means you'll be able to see
+tweets other people post without having to refresh the page :)
 
-<img src="/assets/images/tutorial/step14-visual.png" alt="Lore Tutorial: Beginner">
+<br>
+<img class="drop-shadow" src="/assets/images/new-tutorial/lore-tutorial-twitter.png" alt="Lore Tutorial">
 
 ### Concepts Covered
-This tutorial will cover the follow concepts:
+This tutorial is not intended to be quick, but it is intended to be extensive, and by the time you complete it you
+should have a good understanding of the types of application concerns and user experience patterns modern application
+need to solve for.
 
-* Creating a new project
-* Creating React components
-* Connecting the application to an API server
-* Fetching the data components require
-* Basic routing
+You can also rest assured that the time you invest will not to go waste; since Lore is just conventions and patterns
+laid on top of React and Redux, everything you learn will be transferable to any React/Redux application you work on,
+regardless of whether or not it was built using Lore.
+
+The following concepts will be covered in this tutorial:
+
+* Creating and building a React application
+* Layout out your application visuals with mock data
+* Routing
+* Fetching data from an API server
+* Populating your application with real data
+* Creating and launching dialogs
+* Authentication (login/logout)
+* Authorization (restricting actions a user can perform)
+* Learning how to create an Infinite Scrolling style experience
+* Identifying and solving common React warnings and errors
+* Filtering data / performing search
+* WebSockets - integrating real-time behavior into your applications
 
 
 ### Future Expansion
@@ -45,8 +57,13 @@ your application:
 * Creating a [Surge](https://surge.sh/) account
 * Publishing the UI to Surge
 
+### Questions/Issues
+If you have any questions or concerns while navigating through the tutorial, please
+[submit an issue on GitHub](https://github.com/lore/lore/issues). We value your feedback as a way to make the tutorial
+better.
+
 ## Next Steps
-Start the [tutorial](/tutorial/step-0a/).
+Ready to dive in and learning more about Lore? Let's [get started](/new-tutorial/setup/step-1/)!
 
 {% endcapture %}
 {{ markdown | markdownify }}

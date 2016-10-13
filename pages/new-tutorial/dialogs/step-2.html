@@ -1,0 +1,187 @@
+---
+layout: tutorial
+permalink: /new-tutorial/dialogs/step-1/
+---
+
+{% capture markdown %}
+
+# Step 9: Add Create Dialog
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step9
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/components/CreateButton.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+var React = require('react');
+var CreateTweetDialog = require('../dialogs/tweet/Create');
+
+module.exports = React.createClass({
+  displayName: 'CreateButton',
+
+  getStyles: function() {
+    return {
+      createButton: {
+        position: 'absolute',
+        top: '25px',
+        right: '15px',
+        zIndex: 1000,
+        borderRadius: '100px',
+        outline: 'none'
+      }
+    }
+  },
+
+  onClick: function() {
+    function createTweet(params) {
+      lore.actions.tweet.create(params);
+    }
+
+    lore.dialog.show(function() {
+      return (
+        <CreateTweetDialog onSubmit={createTweet} />
+      );
+    });
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+
+    return (
+      <button
+        type="button"
+        className="btn btn-primary btn-lg"
+        style={styles.createButton}
+        onClick={this.onClick}>
+        +
+      </button>
+    );
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+### src/dialogs/tweet/Create.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+module.exports = React.createClass({
+  displayName: 'CreateDialog',
+
+  propTypes: {
+    onSubmit: React.PropTypes.func.isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      text: ''
+    }
+  },
+
+  componentDidMount: function() {
+    this.show();
+  },
+
+  show: function() {
+    var node = ReactDOM.findDOMNode(this);
+    $(node).modal('show');
+  },
+
+  dismiss: function() {
+    var node = ReactDOM.findDOMNode(this);
+    $(node).modal('hide');
+  },
+
+  onSubmit: function() {
+    this.dismiss();
+    this.props.onSubmit(this.state);
+  },
+
+  onTextChanged: function(event) {
+    this.setState({
+      text: event.target.value
+    })
+  },
+
+  render: function () {
+    return (
+      <div className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+              <h4 className="modal-title">
+                Create Tweet
+              </h4>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <label className="control-label">
+                    Message
+                  </label>
+                  <textarea
+                    type="text"
+                    className="form-control"
+                    rows="3"
+                    value={this.state.text}
+                    placeholder={"What's happening?"}
+                    onChange={this.onTextChanged} />
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-default" data-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={this.onSubmit}>
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../step-2/).
+
+{% endcapture %}
+{{ markdown | markdownify }}
