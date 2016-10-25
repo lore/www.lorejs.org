@@ -43,15 +43,17 @@ module.exports = React.createClass({
 });
 ```
 
-While that may not be very useful by itself, as you could have just copy/modified the `Layout` component, the component
-generator is primarily meant to solve the problem of *creating* boilerplate during the initial app building stages.
+While that may not be very useful by itself, as you could have just copy/paste/modified the `Layout` component, the
+component generator is primarily meant to solve the problem of *creating* boilerplate during the initial app building
+stages.
 
-In addition to generating ES5 components (like the one above) you can also pass in a `--es6` flag to generate an ES6
-component (not necessary if you created an ES6 project), as well as flags for pre-configuring components for routing and
+In addition to generating ES5 components (like the one above) you can also pass in a `--es6` or `--esnext` flag if you
+want to explicitly create an ES6 or ESNext component (as a reminder, this happens automatically if you generated the
+corresponding project type). You can also pass in flags for pre-configuring components for routing and
 connecting them to the data store.
 
 You'll see more examples of using the component generator later in this tutorial, and you can also learn more
-about it [in the docs for the CLI](/features/foundation/cli/).
+about it [in the docs for the CLI](/cli/generate/component/).
 
 ### Modify the Header Component
 
@@ -65,9 +67,9 @@ Now that we've created the skeleton for the Header component, modify the render 
       <nav className="navbar navbar-default navbar-static-top">
         <div className="container">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">
-              Guessatron 5000
-            </a>
+            <div className="navbar-brand">
+              Lore Tutorial
+            </div>
           </div>
         </div>
       </nav>
@@ -91,11 +93,8 @@ var Header = require('./Header');
         <Header />
         <div className="container">
           <div className="row">
-            <div className="col-md-4">
-              {/* Color creator will go here */}
-            </div>
-            <div className="col-md-offset-1 col-md-7">
-              {/* Guessatron's result will go here */}
+            <div className="col-md-offset-3 col-md-6">
+              {/* Feed will go here */}
             </div>
           </div>
         </div>
@@ -120,7 +119,7 @@ between this step and the last one.
 
 {% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
 {% tab id=1, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+![New Lore App](/assets/images/new-tutorial/diffs/layout/step-2-header.png)
 {% endtab %}
 {% tab id=2 %}
 ```js
@@ -135,9 +134,9 @@ module.exports = React.createClass({
       <nav className="navbar navbar-default navbar-static-top">
         <div className="container">
           <div className="navbar-header">
-            <Router.Link className="navbar-brand" to={% raw %}{{pathname: '/'}}{% endraw %}>
+            <div className="navbar-brand">
               Lore Tutorial
-            </Router.Link>
+            </div>
           </div>
         </div>
       </nav>
@@ -152,7 +151,7 @@ module.exports = React.createClass({
 
 {% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
 {% tab id=3, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+![New Lore App](/assets/images/new-tutorial/diffs/layout/step-2-layout.png)
 {% endtab %}
 {% tab id=4 %}
 ```js
@@ -184,7 +183,7 @@ module.exports = React.createClass({
 
 ## Next Steps
 
-Next we're going to [DO SOMETHING](../../fetching/step-1/).
+Next we're going to learn about [routing](../../routing/overview/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

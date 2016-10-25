@@ -5,12 +5,16 @@ permalink: /new-tutorial/setup/step-2/
 
 {% capture markdown %}
 
-# Creating A New Project
+# Create A New Application
+
+In this step we will be generating our project.
 
 To create a new Lore app, type `lore new` into the command line followed the by name of your application. For this
 example we are going to call our application `lore-tutorial`.
 
-### Create a new app
+The Lore CLI has a command called `new` that can generate files for a new React project. To use this command you type
+`lore new` followed by the name of the your application. Since this is the Lore Tutorial, we're going to call our
+project `lore-tutorial`. Enter this command into the command line:
 
 ```sh
 $ lore new lore-tutorial
@@ -39,9 +43,11 @@ generate a project using that syntax by passing in `--esnext` like this:
 $ lore new lore-tutorial --esnext
 ```
 
-This will make it so that all files in the project are generated using ES6 syntax, and also adds a setting in the `.lorerc`
-file that will cause all the generators to create their files in ES6 as well. In an upcoming release, Lore will also add an
-option for using ESNext syntax.
+In addition to changing the syntax of the initial project files, passing in either of these options will also set the
+`language` property in the `.lorerc` file (located at the root of the project) to your preference. This property is
+used as a way of declaring your language preference to the CLI, and any future files it generates (using commands we've
+cover later) will automatically be created using that syntax. In other words, you'll only have to declare your language
+preference once, and the CLI will continue to respect it : )
 
 > NOTE: While the tutorial will allow you to automatically generate files for each step (in case you get stuck or
 > don't want to code that step yourself) those files are currently only generating using ES5 as the tutorial is still
@@ -57,9 +63,12 @@ $ cd lore-tutorial
 $ npm install
 ```
 
+Depending on your network connection, it might take 2-4 minutes for this step to complete.
+
 ## Next Steps
 
-Next we're going to [start the application](../step-3/) and view it in a browser.
+Now that we've created our project and installed the dependencies, let's [start the application](../step-3/) and view
+it in a browser!
 
 {% endcapture %}
 {{ markdown | markdownify }}

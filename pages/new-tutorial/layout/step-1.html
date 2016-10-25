@@ -5,10 +5,11 @@ permalink: /new-tutorial/layout/step-1/
 
 {% capture markdown %}
 
-# Step1: Add Styling
+# Step 1: Add Bootstrap
 
 Since this tutorial is focused on demonstrating how Lore can speed up the *functional* development of React/Redux
-applications, we're going to drop in [Bootstrap](http://getbootstrap.com) so we can avoid worrying about styling.
+applications, we're going to drop in [Bootstrap](http://getbootstrap.com) so we can avoid worrying too much about
+styling.
 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
@@ -32,6 +33,14 @@ Now add the following scripts at the bottom of the `<body>` tag, immediately abo
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 ```
 
+### Change Page Title
+
+Next, let's change the title of our application from `New Lore App` so it has a more meaningful name in the browser tab.
+
+```html
+<title>Lore Tutorial</title>
+```
+
 ### Visual Check-in
 
 If everything went well, your application should now look like this.
@@ -47,7 +56,7 @@ between this step and the last one.
 
 {% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
 {% tab id=1, is_active=true %}
-![New Lore App](/assets/images/tutorial/step1-diff.png)
+![New Lore App](/assets/images/new-tutorial/diffs/layout/step-1.png)
 {% endtab %}
 {% tab id=2 %}
 ```html
@@ -85,7 +94,7 @@ between this step and the last one.
 
 ## Next Steps
 
-Next we're going to [DO SOMETHING](../step-2/) to our application, and learn about one of Lore's generators.
+Next we're going to [add a header and layout the application](../step-2/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

@@ -1,0 +1,299 @@
+---
+layout: tutorial
+permalink: /new-tutorial/data/step-2/
+---
+
+{% capture markdown %}
+
+# Step 2: Create Tweet Component
+
+In this step we're going to create our Tweet component, and make our tweets look pretty!
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step4
+```
+
+### Create the Tweet Component
+First we need to create our Tweet component. Once again, we're going to use the CLI to generate that component for us:
+
+```
+lore generate component Tweet
+```
+
+Next declare a `propType` for the tweet and mark it as required. Then update your `render` method to include the code
+below, along with the styles in the `getStyles` method.
+
+```jsx
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'Tweet',
+
+  propTypes: {
+    tweet: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      avatar: {
+        width: '32px',
+        border: '1px solid gray'
+      },
+      imageContainer: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        width: '32px'
+      },
+      contentContainer: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        maxWidth: '85%'
+      },
+      title: {
+        lineHeight: '32px',
+        display: 'inline-block'
+      },
+      text: {
+        marginBottom: '5px'
+      },
+      timestamp: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        color: '#999',
+        fontSize: '14px'
+      }
+    }
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+    var tweet = this.props.tweet;
+
+    return (
+      <li className="list-group-item">
+        <div style={styles.imageContainer}>
+          <img
+            className="img-circle"
+            src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'}
+            style={styles.avatar} />
+        </div>
+        <div style={styles.contentContainer}>
+          <h4 className="list-group-item-heading" style={styles.title}>
+            Nickname
+          </h4>
+          <h4 className="list-group-item-heading" style={styles.timestamp}>
+            {'- Timestamp'}
+          </h4>
+          <p className="list-group-item-text" style={styles.text}>
+            {'This is a quote from Chrono Trigger.'}
+          </p>
+        </div>
+      </li>
+    );
+  }
+});
+```
+
+### Use Tweet in Feed
+With our Tweet component created, let's use it in our Feed component. Update the `renderTweet` method to look like this:
+
+```jsx
+var Tweet = require('./Tweet');
+...
+  renderTweet: function(tweet) {
+    return (
+      <Tweet key={tweet.id} tweet={tweet} />
+    );
+  },
+...
+```
+
+Refresh the browser and your app should now look like this:
+
+<img src="/assets/images/new-tutorial/authentication/visual.png">
+
+### Update Tweet Component to use Tweet Data
+The Tweet component is now displaying in the Feed, but you might notice it doesn't contain our mock data. Instead it's
+showing some hard-coded data. Let's change that by using our `tweet` to populate the Tweet. Update the `render` method
+of the Tweet component to look like this:
+
+```jsx
+...
+  render: function () {
+    var styles = this.getStyles();
+    var tweet = this.props.tweet;
+
+    return (
+      <li className="list-group-item">
+        <div style={styles.imageContainer}>
+          <img
+            className="img-circle"
+            src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'}
+            style={styles.avatar} />
+        </div>
+        <div style={styles.contentContainer}>
+          <h4 className="list-group-item-heading" style={styles.title}>
+            Nickname
+          </h4>
+          <h4 className="list-group-item-heading" style={styles.timestamp}>
+            {'- ' + tweet.data.createdAt}
+          </h4>
+          <p className="list-group-item-text" style={styles.text}>
+            {tweet.data.text}
+          </p>
+        </div>
+      </li>
+    );
+  }
+...
+```
+
+Refresh the browser and you should see the mock data being displayed in the Tweet:
+
+<img src="/assets/images/new-tutorial/authentication/visual.png">
+
+### Fix the Timestamp
+That's a little better, but what's up with that ugly timestamp of `2016-10-04T05:10:49.382Z`? That's not what we want;
+we want a clear statement like `3 days` to show how old the Tweet is. Luckily we can easily fix that using a library
+called [moment](http://momentjs.com/). Moment is a date/time library for Javascript, and it's a great
+tool for converting timestamps to a more human-friendly format.
+
+Moment is included in Lore by default, so to use it you simply need to import it into your Tweet component. Then we're
+going to call `moment(tweet.data.createdAt).fromNow()` to convert the `createdAt` date into a moment object. Calling
+`fromNow()` will convert the timestamp from the format `2016-10-04T05:10:49.382Z` into a simple statement like
+`3 days ago`.
+
+We could leave it at that, but the word _"ago"_ in the phrase _"3 days ago"_ is understood from the context. So we're
+also going to remove it from the final timestamp by splitting the string at the _" ago"_ part and only taking the piece
+before it.
+
+To complete those changes, add these lines to your Tweet component:
+
+```jsx
+var moment = require('moment');
+
+...
+  render: function () {
+    var styles = this.getStyles();
+    var tweet = this.props.tweet;
+    var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+
+    return (
+      <li className="list-group-item">
+        <div style={styles.imageContainer}>
+          <img
+            className="img-circle"
+            src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'}
+            style={styles.avatar} />
+        </div>
+        <div style={styles.contentContainer}>
+          <h4 className="list-group-item-heading" style={styles.title}>
+            Nickname
+          </h4>
+          <h4 className="list-group-item-heading" style={styles.timestamp}>
+            {'- ' + timestamp}
+          </h4>
+          <p className="list-group-item-text" style={styles.text}>
+            {tweet.data.text}
+          </p>
+        </div>
+      </li>
+    );
+  }
+...
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/components/Feed.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+var Route = require('react-router').Route;
+var IndexRoute = require('react-router').IndexRoute;
+
+/**
+ * Routes are used to declare your view hierarchy
+ * See: https://github.com/rackt/react-router/blob/master/docs/API.md
+ */
+var Master = require('./src/components/Master');
+var Layout = require('./src/components/Layout');
+var Feed = require('./src/components/Feed');
+
+module.exports = (
+  <Route component={Master}>
+    <Route path="/" component={Layout}>
+      <IndexRoute component={Feed} />
+    </Route>
+  </Route>
+);
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Tweet.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'Feed',
+
+  getStyles: function() {
+    return {
+      title: {
+        textAlign: 'center'
+      },
+      tweets: {
+        marginTop: '32px'
+      }
+    }
+  },
+
+  render: function() {
+    var styles = this.getStyles();
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {/* Tweets */}
+        </ul>
+      </div>
+    );
+  }
+
+});
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to learn how to communicate with APIs and [replace our mock data with real data](../step-3/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

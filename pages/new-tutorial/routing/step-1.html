@@ -5,267 +5,59 @@ permalink: /new-tutorial/routing/step-1/
 
 {% capture markdown %}
 
-# Step 3: Add Feed to Homepage at /
+# Step 1: Routes & React Router
 
-In this step we're going to add a Header to our application, and learn about the `component` generator.
+In this step we won't be modifying any code, but we will be learning about how to change what's displayed in your
+application based on the route in the URL.
 
-If you're using the CLI to follow along, you can complete this step by running the following command:
+### Routes.js
 
-```sh
-lore generate tutorial step3
-```
+At the root of your project, you should see a file called `routes.js` that looks like this:
 
-### Visual Check-in
-
-If everything went well, your application should now look like this.
-
-![New Lore App](/assets/images/tutorial/step2-visual.png)
-
-## Code Changes
-
-Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
-between this step and the last one.
-
-### routes.js
-
-{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
-{% tab id=1, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-header.png)
-{% endtab %}
-{% tab id=2 %}
 ```jsx
-var React = require('react');
-var Route = require('react-router').Route;
-var IndexRoute = require('react-router').IndexRoute;
-
-/**
- * Routes are used to declare your view hierarchy
- * See: https://github.com/rackt/react-router/blob/master/docs/API.md
- */
 var Master = require('./src/components/Master');
 var Layout = require('./src/components/Layout');
-var Feed = require('./src/components/Feed');
 
 module.exports = (
   <Route component={Master}>
-    <Route path="/" component={Layout}>
-      <IndexRoute component={Feed} />
-    </Route>
+    <Route path="/" component={Layout} />
   </Route>
 );
 ```
-{% endtab %}
-{% endtabs %}
 
-### src/components/Feed.js
+This file describes how your application should look as the route in the URL changes. For example, in a typical
+application, you'll often need to answer questions like these:
 
-{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
-{% tab id=3, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
-{% endtab %}
-{% tab id=4 %}
-```js
-var React = require('react');
-var Tweet = require('./Tweet');
+1. When the user lands at the root route, such as `https://app.example.com`, what should they see?
+2. When the user clicks a link and navigates to `https://app.example.com/profile`, how do I replace the content on the
+homepage with the profile page?
+3. How do I pass URL parameters to components, such as the tweet id `123` in `https://app.exmaple.com/tweets/123`, so
+the component knows which tweet to display?
 
-module.exports = React.createClass({
-  displayName: 'Feed',
+These types of questions are _exactly_ what this file is used for. But providing a solution for routing concerns like
+those listed above has it's own challenges, and to solve those challenges Lore relies on [react-router](https://github.com/ReactTraining/react-router),
+one of the core libraries the framework is built on.
 
-  propTypes: {
-    tweets: React.PropTypes.object.isRequired
-  },
+### React Router
 
-  getDefaultProps: function() {
-    return {
-      tweets: {
-        data: [{
-          id: 1,
-          data: {
-            user: 1,
-            text: 'Nothing can beat science!',
-            createdAt: '2016-10-04T05:10:49.382Z'
-          }
-        }]
-      }
-    }
-  },
+The syntax you see in the `routes.js` file is not something custom to Lore; it is a direct exposure of what
+`react-router` expects, so if you have any questions about the syntax, or specific routing-related needs, all of
+react-router's [documentation](https://github.com/ReactTraining/react-router/tree/master/docs) and
+[examples](https://github.com/ReactTraining/react-router/tree/master/examples) will be directly applicable to Lore. At
+the time of this writing, new Lore projects are configured to use v2 of the react-router, with v4 having just been
+released (v3 was never released and was skipped over).
 
-  getStyles: function() {
-    return {
-      title: {
-        textAlign: 'center'
-      },
-      tweets: {
-        marginTop: '32px'
-      }
-    }
-  },
+### What does the structure mean?
 
-  renderTweet: function(tweet) {
-    return (
-      <Tweet key={tweet.id} tweet={tweet} />
-    );
-  },
+If you look at the contents of `routes.js` currently, you can see there is a root route that contains the `Master`
+component with a child route containing the `Layout` component. You can think of this as the `Master` component
+wrapping the `Layout` component, which is essentially what happens. Because of that, you can apply standard React reasoning
+to the routes to understand their relationship and behavior. If the `Master` component rerenders, the Layout component
+will also rerender, and we'll be relying on that behavior later as we start fetching data from our example server.
 
-  render: function() {
-    var tweets = this.props.tweets;
-    var styles = this.getStyles();
-
-    return (
-      <div>
-        <h2 style={styles.title}>
-          Feed
-        </h2>
-        <ul className="media-list" style={styles.tweets}>
-          {tweets.data.map(this.renderTweet)}
-        </ul>
-      </div>
-    );
-  }
-
-});
-```
-{% endtab %}
-{% endtabs %}
-
-### src/components/Layout.js
-
-{% tabs tab1={"name": "Diff", "id": 5} | tab2={"name": "Source", "id": 6} %}
-{% tab id=5, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
-{% endtab %}
-{% tab id=6 %}
-```js
-/**
- * This component is intended to reflect the high level structure of your application,
- * and render any components that are common across all views, such as the header or
- * top-level navigation. All other components should be rendered by route handlers.
- **/
-
-var React = require('react');
-var Header = require('./Header');
-
-module.exports = React.createClass({
-  displayName: 'Layout',
-
-  render: function() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-offset-3 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-});
-```
-{% endtab %}
-{% endtabs %}
-
-### src/components/Tweet.js
-
-{% tabs tab1={"name": "Diff", "id": 7} | tab2={"name": "Source", "id": 8} %}
-{% tab id=7, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
-{% endtab %}
-{% tab id=8 %}
-```js
-var React = require('react');
-var moment = require('moment');
-
-module.exports = React.createClass({
-  displayName: 'Tweet',
-
-  propTypes: {
-    user: React.PropTypes.object.isRequired
-  },
-
-  getDefaultProps: function() {
-    return {
-      user: {
-        id: 1,
-        data: {
-          id: 1,
-          nickname: "lucca",
-          avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-        }
-      }
-    }
-  },
-
-  getStyles: function() {
-    return {
-      avatar: {
-        width: '32px',
-        border: '1px solid gray'
-      },
-      imageContainer: {
-        display: 'inline-block',
-        verticalAlign: 'top',
-        width: '32px'
-      },
-      contentContainer: {
-        display: 'inline-block',
-        marginLeft: '8px',
-        maxWidth: '85%'
-      },
-      title: {
-        lineHeight: '32px',
-        display: 'inline-block'
-      },
-      text: {
-        marginBottom: '5px'
-      },
-      timestamp: {
-        display: 'inline-block',
-        marginLeft: '8px',
-        color: '#999',
-        fontSize: '14px'
-      }
-    }
-  },
-
-  render: function() {
-    var tweet = this.props.tweet;
-    var user = this.props.user;
-    var styles = this.getStyles();
-    var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-    return (
-      <li className="list-group-item">
-        <div style={styles.imageContainer}>
-          <img
-            className="img-circle"
-            src={user.data.avatar}
-            style={styles.avatar} />
-        </div>
-        <div style={styles.contentContainer}>
-          <h4 className="list-group-item-heading" style={styles.title}>
-            {user.data.nickname}
-          </h4>
-          <h4 className="list-group-item-heading" style={styles.timestamp}>
-            {'- ' + timestamp}
-          </h4>
-          <p className="list-group-item-text" style={styles.text}>
-            {tweet.data.text}
-          </p>
-        </div>
-      </li>
-    );
-  }
-});
-```
-{% endtab %}
-{% endtabs %}
 ## Next Steps
 
-Next we're going to [DO SOMETHING](../../fetching/step-1/).
+Next we're going to convert our application title in our header [to a react-router link](../step-2/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

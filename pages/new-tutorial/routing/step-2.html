@@ -1,0 +1,97 @@
+---
+layout: tutorial
+permalink: /new-tutorial/routing/step-2/
+---
+
+{% capture markdown %}
+
+# Step 2: Convert Application Title to Link
+
+Now that we understand a little about react-router, let's use the library to convert the title in our header to a
+clickable link that will always navigate the user back to the homepage.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step3
+```
+
+### Why make the title a link?
+Applications can grow to have many nested routes, and sometimes you just need a way to say "take me back to the
+homepage please!". You may not have consciously noticed it before, but the majority of applications provide this
+"escape" functionality by making the application logo or title in the header a link to the root route (typically `/`).
+
+When designing applications, it's nearly always a good idea to copy user experience patterns your users will already
+be familiar with. This makes it easier for them to understand your application, which makes it easier to integrate
+into their life.
+
+### Update the Header
+To complete this step, open the `Header` component and find this line:
+
+```jsx
+<div className="navbar-brand">
+  Lore Tutorial
+</div>
+```
+
+Next import `react-router`, and change the `div` tag to a `Router.Link` tag. Finally, add a `to` property and provide
+the root url `/`.
+
+```jsx
+var Router = require('react-router');
+...
+<Router.Link className="navbar-brand" to="/">
+  Lore Tutorial
+</Router.Link>
+```
+
+### Visual Check-in
+
+If everything went well, your application will look exactly the same, but now the title in the header will be a
+clickable link that will always take the user back to the root route.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/components/Header.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+var Router = require('react-router');
+
+module.exports = React.createClass({
+  displayName: 'Header',
+
+  render: function () {
+    return (
+      <nav className="navbar navbar-default navbar-static-top">
+        <div className="container">
+          <div className="navbar-header">
+            <Router.Link className="navbar-brand" to="/">
+              Lore Tutorial
+            </Router.Link>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to create a Feed component and [add it to the routes](../step-3/).
+
+{% endcapture %}
+{{ markdown | markdownify }}
