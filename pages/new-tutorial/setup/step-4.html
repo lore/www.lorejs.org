@@ -1,0 +1,68 @@
+---
+layout: tutorial
+permalink: /new-tutorial/setup/step-4/
+---
+
+{% capture markdown %}
+
+# Download the API Server
+In this step we'll be downloading the API server we'll need for this tutorial.
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="Hv8R4SF7qhY">
+  </div>
+</div>
+
+## Written Steps
+Before you can run the API server you'll first need to download it.
+
+### Clone the Repository
+To do that, run this command to clone server into your local environment:
+
+```sh
+$ git clone git@github.com:lore/lore-tutorial-api.git
+```
+
+### Install Dependencies
+Next navigate into the directory and install the dependencies:
+
+```sh
+$ cd lore-tutorial-api
+$ npm install
+```
+
+
+### Start the API Server
+To start the API server run this command:
+
+```sh
+$ npm start
+```
+
+This will start up the server. You can see a list of endpoints by navigating to `http://localhost:1337`:
+
+```js
+{
+  tweets: "http://localhost:1337/tweets",
+  users: "http://localhost:1337/users",
+  user: "http://localhost:1337/user"
+}
+```
+
+### Optional: Change the Port
+
+If you want to change the port the API server runs on, you can do that by using an alternate syntax to start the server.
+
+``` sh
+node app.js --port=3001
+```
+
+## Next Steps
+
+Next we're going to begin [laying out the application](../../layout/overview/).
+
+{% endcapture %}
+{{ markdown | markdownify }}
