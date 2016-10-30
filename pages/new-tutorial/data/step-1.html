@@ -12,6 +12,22 @@ while you're building out your application is fairly common, and can be quite he
 development. Sometimes it will also be necessary, as the API to support your application may not exist when you
 start building it.
 
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore tutorial stepXYZ
+```
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="H3C8umGJf_Q">
+  </div>
+</div>
+
+## Written Steps
+
 ### Declare Tweets as a Prop
 First, open your `Feed` component and declare that it is going to require `tweets` as a `prop`:
 
@@ -126,6 +142,92 @@ id that no other item in that list will share. In this example, we're using the 
 situations is a perfect solution. The only time you won't be able to use the `id` is when you're dealing with
 optimistic updates, a use case we'll address later in this tutorial. Optimistic updates involve displaying data to
 the user before it actually exists on the server, which means it won't have an `id` assigned to it yet.
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+<img class="drop-shadow" src="/assets/images/new-tutorial/data/step-1.png">
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/components/Feed.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/new-tutorial/diffs/data/step-1-feed.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'Feed',
+
+  propTypes: {
+    tweets: React.PropTypes.object.isRequired
+  },
+
+  getDefaultProps: function() {
+    var tweet = {
+      id: 1343,
+      data: {
+        id: 1343,
+        user: 204,
+        text: "Nothing can beat science!",
+        createdAt: "2016-10-28T08:47:26.146Z",
+        updatedAt: "2016-10-30T08:47:26.279Z"
+      }
+    };
+
+    return {
+      tweets: {
+        data: [tweet]
+      }
+    }
+  },
+
+  getStyles: function() {
+    return {
+      title: {
+        textAlign: 'center'
+      },
+      tweets: {
+        marginTop: '32px'
+      }
+    }
+  },
+
+  renderTweet: function(tweet) {
+    return (
+      <li key={tweet.id}>
+        {tweet.data.text}
+      </li>
+    );
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+    var tweets = this.props.tweets;
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweets.data.map(this.renderTweet)}
+        </ul>
+      </div>
+    );
+  }
+});
+```
+{% endtab %}
+{% endtabs %}
 
 ## Next Steps
 
