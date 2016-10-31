@@ -1,13 +1,14 @@
 ---
 layout: tutorial
-permalink: /new-tutorial/fetching/step-4/
+permalink: /new-tutorial/fetching/step-6/
 ---
 
 {% capture markdown %}
 
-# Step 4: Parse Server Response
+# Step 6: Display Loading Message
 
-In this step we'll learn about Collections and how to parse our server response to extract the array of tweets.
+In this step we're going to use the `state` property on the data structure to display a loading message while the
+tweets are being fetching.
 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
@@ -19,28 +20,27 @@ lore tutorial stepXYZ
 The following video provides a guided walkthrough of this step.
 
 <div class="video" style="padding-top: 16px;">
-  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="5VWiX0O4LKA">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="mT3ZZ7s02tE">
   </div>
 </div>
 
 ## Written Steps
 
 ### Visual Check-in
-
 If everything went well, your application should now look like this.
 
-TODO
+<img class="drop-shadow" src="/assets/images/new-tutorial/fetching/step-6.png">
 
 ## Code Changes
 
 Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
 between this step and the last one.
 
-TODO
+TODO.
 
 ## Next Steps
 
-Next we're going to [fetch the user for each tweet](../../dialogs/step-1/).
+Next we're going to add dialogs to our application [so we can create, update and delete tweets](../../dialogs/step-1/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

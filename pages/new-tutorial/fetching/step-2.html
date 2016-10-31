@@ -5,111 +5,92 @@ permalink: /new-tutorial/fetching/step-2/
 
 {% capture markdown %}
 
-# Step 5: Fetch Tweets
+# Step 2: Create Tweet Model
 
-In this step we're going to add a Header to our application, and learn about the `component` generator.
+In this step we're going to create a model for our tweet, and learn about the implicit functionality provided by Lore.
 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore generate tutorial step5
+lore tutorial stepXYZ
 ```
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="FmPIEHZNujM">
+  </div>
+</div>
+
+## Written Steps
+
+### Create the Tweet Model
+To create our tweet model run the following command:
+
+```
+lore generate model tweet
+```
+
+This command will create a model called `tweet` located at `src/models/tweet.js`. And if you open that file up, you
+should see a lot of comments, which show some of the options that exist to tailor behavior when interacting with the
+`/tweets` endpoint. But aside from the comments, this file is essentially empty:
+
+```js
+module.exports = {
+
+};
+```
+
+### Empty File, Lots of Functionality
+This file may be empty, but believe it or not, the application now has the ability to fetch, create, update and
+delete tweets. To prove this, refresh your browser and open up the developer tools. Navigate to the console and enter
+this command:
+
+```
+lore.actions.tweet.find()
+```
+
+Once you do this you should see a GET request sent to `http://localhost:1337/tweets`, and the API server will respond
+with the first page of tweets. So basically, just by creating a model named `tweet`, you have a method you can invoke
+to fetch tweets. That's pretty cool! Let's put it to
+
+> If you see an error in the console like `Cannot read property 'toString' of undefined` don't worry. While the
+> error message itself is unhelpful, we'll be solving the issue soon (and in the future the error message will be
+> more clear about exactly why it appears).
+
+As for the 401 response, our request was rejected by the API server because only authorized users have permission
+to create tweets. We'll solve that problem later in the tutorial :) For now, let's move on
 
 ### Visual Check-in
 
 If everything went well, your application should now look like this.
 
-![New Lore App](/assets/images/tutorial/step2-visual.png)
+TODO
 
 ## Code Changes
 
 Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
 between this step and the last one.
 
-### config/collections.js
+### src/models/tweet.js
 
 {% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
 {% tab id=1, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
 {% endtab %}
 {% tab id=2 %}
 ```js
 module.exports = {
-  properties: {
-    parse: function(attributes) {
-      return attributes.data;
-    }
-  }
+
 };
-```
-{% endtab %}
-{% endtabs %}
-
-### src/components/Feed.js
-
-{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
-{% tab id=3, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
-{% endtab %}
-{% tab id=4 %}
-```js
-var React = require('react');
-var Tweet = require('./Tweet');
-
-module.exports = lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find')
-  }
-})(
-React.createClass({
-  displayName: 'Feed',
-
-  propTypes: {
-    tweets: React.PropTypes.object.isRequired
-  },
-
-  getStyles: function() {
-    return {
-      title: {
-        textAlign: 'center'
-      },
-      tweets: {
-        marginTop: '32px'
-      }
-    }
-  },
-
-  renderTweet: function(tweet) {
-    return (
-      <Tweet key={tweet.id} tweet={tweet} />
-    );
-  },
-
-  render: function() {
-    var tweets = this.props.tweets;
-    var styles = this.getStyles();
-
-    return (
-      <div>
-        <h2 style={styles.title}>
-          Feed
-        </h2>
-        <ul className="media-list" style={styles.tweets}>
-          {tweets.data.map(this.renderTweet)}
-        </ul>
-      </div>
-    );
-  }
-
-})
-);
 ```
 {% endtab %}
 {% endtabs %}
 
 ## Next Steps
 
-Next we're going to [DO SOMETHING](../step-3/).
+Next we're going to [connect our Feed to real data](../step-3/).
 
 {% endcapture %}
 {{ markdown | markdownify }}
