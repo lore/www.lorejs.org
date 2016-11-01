@@ -53,20 +53,16 @@ lore.actions.tweet.find()
 
 Once you do this you should see a GET request sent to `http://localhost:1337/tweets`, and the API server will respond
 with the first page of tweets. So basically, just by creating a model named `tweet`, you have a method you can invoke
-to fetch tweets. That's pretty cool! Let's put it to
+to fetch tweets. That's pretty cool!
 
-> If you see an error in the console like `Cannot read property 'toString' of undefined` don't worry. While the
-> error message itself is unhelpful, we'll be solving the issue soon (and in the future the error message will be
-> more clear about exactly why it appears).
-
-As for the 401 response, our request was rejected by the API server because only authorized users have permission
-to create tweets. We'll solve that problem later in the tutorial :) For now, let's move on
+> When you do this you will see an error in the console like `Expected models to be an array but got...did you forget
+> to override parse to extract the models?`. This is expected, and we'll be solving the issue in a couple steps.
 
 ### Visual Check-in
 
-If everything went well, your application should now look like this.
+If everything went well, your application should now look like this. Still the same as before :)
 
-TODO
+<img class="drop-shadow" src="/assets/images/new-tutorial/data/step-3.png">
 
 ## Code Changes
 
@@ -77,7 +73,7 @@ between this step and the last one.
 
 {% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
 {% tab id=1, is_active=true %}
-![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+![New Lore App](/assets/images/new-tutorial/diffs/fetching/step-2-tweet-model.png)
 {% endtab %}
 {% tab id=2 %}
 ```js

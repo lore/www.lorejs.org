@@ -29,18 +29,35 @@ The following video provides a guided walkthrough of this step.
 
 If everything went well, your application should now look like this.
 
-TODO
+<img class="drop-shadow" src="/assets/images/new-tutorial/fetching/step-4.png">
 
 ## Code Changes
 
 Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
 between this step and the last one.
 
-TODO
+### config/collections.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![config](/assets/images/new-tutorial/diffs/fetching/step-4-config-collections.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+module.exports = {
+  properties: {
+    parse: function(attributes) {
+      return attributes.data;
+    }
+  }
+}
+```
+{% endtab %}
+{% endtabs %}
 
 ## Next Steps
 
-Next we're going to [fetch the user for each tweet](../../dialogs/step-1/).
+Next we're going to [fetch the user for each tweet](../step-5/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

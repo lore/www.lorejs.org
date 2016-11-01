@@ -29,14 +29,73 @@ The following video provides a guided walkthrough of this step.
 
 If everything went well, your application should now look like this.
 
-TODO
+<img class="drop-shadow" src="/assets/images/new-tutorial/routing/step-3.png">
 
 ## Code Changes
 
 Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
 between this step and the last one.
 
-TODO
+### src/components/Feed.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![Feed](/assets/images/new-tutorial/diffs/fetching/step-3-feed.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+var Tweet = require('./Tweet');
+
+module.exports = lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})(
+React.createClass({
+  displayName: 'Feed',
+
+  propTypes: {
+    tweets: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      title: {
+        textAlign: 'center'
+      },
+      tweets: {
+        marginTop: '32px'
+      }
+    }
+  },
+
+  renderTweet: function(tweet) {
+    return (
+      <Tweet key={tweet.id} tweet={tweet} />
+    );
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+    var tweets = this.props.tweets;
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweets.data.map(this.renderTweet)}
+        </ul>
+      </div>
+    );
+  }
+})
+);
+```
+{% endtab %}
+{% endtabs %}
 
 ## Next Steps
 
