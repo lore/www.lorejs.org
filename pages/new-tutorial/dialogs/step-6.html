@@ -12,13 +12,13 @@ In this step we're going to create a way to delete tweets.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step19
 ```
 
 ## Video Demonstration
 The following video provides a guided walkthrough of this step.
 
-TODO
+> Coming soon!
 
 ## Written Steps
 
@@ -26,14 +26,168 @@ TODO
 
 If everything went well, your application should now look like this.
 
-TODO
+<img class="drop-shadow" src="/assets/images/new-tutorial/dialogs/step-6.png">
 
 ## Code Changes
 
 Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
 between this step and the last one.
 
-TODO
+### src/components/DeleteLink.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![config](/assets/images/new-tutorial/diffs/dialogs/step-6-delete-link.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'DeleteLink',
+
+  propTypes: {
+    tweet: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      link: {
+        cursor: 'pointer',
+        marginRight: '16px'
+      }
+    }
+  },
+
+  onDestroy: function() {
+    var tweet = this.props.tweet;
+
+    function destroyTweet() {
+      lore.actions.tweet.destroy(tweet);
+    }
+
+    lore.dialog.show(function() {
+      return lore.dialogs.tweet.destroy({
+        model: tweet,
+        onSubmit: destroyTweet
+      });
+    });
+  },
+
+  render: function() {
+    var styles = this.getStyles();
+
+    return (
+      <a style={styles.link} onClick={this.onDestroy}>
+        delete
+      </a>
+    );
+  }
+
+});
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Tweet.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![config](/assets/images/new-tutorial/diffs/dialogs/step-6-tweet.png)
+{% endtab %}
+{% tab id=4 %}
+```jsx
+var React = require('react');
+var moment = require('moment');
+var EditLink = require('./EditLink');
+var DeleteLink = require('./DeleteLink');
+
+module.exports = lore.connect(function(getState, props){
+  var tweet = props.tweet;
+
+  return {
+    user: getState('user.byId', {
+      id: tweet.data.user
+    })
+  };
+})(
+React.createClass({
+  displayName: 'Tweet',
+
+  propTypes: {
+    tweet: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      avatar: {
+        width: '32px',
+        border: '1px solid gray'
+      },
+      imageContainer: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        width: '32px'
+      },
+      contentContainer: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        maxWidth: '85%'
+      },
+      title: {
+        lineHeight: '32px',
+        display: 'inline-block'
+      },
+      text: {
+        marginBottom: '5px'
+      },
+      timestamp: {
+        display: 'inline-block',
+        marginLeft: '8px',
+        color: '#999',
+        fontSize: '14px'
+      }
+    }
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+    var tweet = this.props.tweet;
+    var user = this.props.user;
+    var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+
+    return (
+      <li className="list-group-item">
+        <div style={styles.imageContainer}>
+          <img
+            className="img-circle"
+            src={user.data.avatar}
+            style={styles.avatar}/>
+        </div>
+        <div style={styles.contentContainer}>
+          <h4 className="list-group-item-heading" style={styles.title}>
+            {user.data.nickname}
+          </h4>
+          <h4 className="list-group-item-heading" style={styles.timestamp}>
+            {'- ' + timestamp}
+          </h4>
+          <p className="list-group-item-text" style={styles.text}>
+            {tweet.data.text}
+          </p>
+          <div>
+            <EditLink tweet={tweet}/>
+            <DeleteLink tweet={tweet}/>
+          </div>
+        </div>
+      </li>
+    );
+  }
+})
+);
+```
+{% endtab %}
+{% endtabs %}
 
 ## Next Steps
 

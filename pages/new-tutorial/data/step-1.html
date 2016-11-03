@@ -15,7 +15,7 @@ start building it.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step5
 ```
 
 ## Video Demonstration
@@ -173,18 +173,20 @@ module.exports = React.createClass({
 
   getDefaultProps: function() {
     var tweet = {
-      id: 1343,
+      id: 1,
+      cid: 'c1',
+      state: 'RESOLVED',
       data: {
-        id: 1343,
-        user: 204,
-        text: "Nothing can beat science!",
-        createdAt: "2016-10-28T08:47:26.146Z",
-        updatedAt: "2016-10-30T08:47:26.279Z"
+        id: 1,
+        user: 1,
+        text: 'Nothing can beat science!',
+        createdAt: '2016-10-04T05:10:49.382Z'
       }
     };
 
     return {
       tweets: {
+        state: 'RESOLVED',
         data: [tweet]
       }
     }

@@ -12,7 +12,7 @@ In this step we're going to use the `connect` decorator to allow our Tweet compo
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step10
 ```
 
 ## Video Demonstration
@@ -24,6 +24,82 @@ The following video provides a guided walkthrough of this step.
 </div>
 
 ## Written Steps
+
+### The Connect Decorator (Higher Order Component)
+Lore provides a decorator you can use to wrap a component that requires data, and you can learn more about `connect`
+in the [documentation for connect](/concepts/connect/) and the documentation for
+[configuring connect](/features/config/connect/). The syntax for using connect looks like this:
+
+```jsx
+lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})(Component);
+```
+
+The first parameter, `getState` is a function that will either retrieve the piece of state requested, or invoke the
+appropriate action to retrieve that data if it doesn't exist in the store (such as when the data has not yet been
+fetched from the server).
+
+In this example, we're requested `tweet.find`. The `find` reducer is responsible for storing the results of all query
+and pagination requests made to the server. Since we aren't passing in any query paramters or pagination information,
+this request translates to "make a call to the /tweets endpoint on the API and give me whatever comes back".
+
+That data is going to be passed to our Feed component as `tweets` since that is what we named the key.
+
+### Wrap Feed with Connect
+To use `connect`, open up your `Feed` component and wrap it with the decorator like this:
+
+```jsx
+module.exports = lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})(
+React.createClass({
+  ...
+})
+);
+```
+
+If you're using **ES6 classes** you would use the decorator like this instead:
+
+```jsx
+class Feed extends React.Component {
+  ...
+};
+
+export default lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})(Feed);
+```
+
+And if you're using **ESNext syntax**, you would use the decorator like this:
+
+```jsx
+@lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})
+class Feed extends React.Component {
+  ...
+};
+
+export default Feed;
+```
+
+### Reload the Page + Parse Error
+Once you've wrapped the `Feed` component, reload the page. You'll notice the mock tweet data no longer appears, but
+neither does the API data. If you open the developer tools in the browser, you'll see an error in the console that
+looks like this:
+
+> Expected models to be an array but got...did you forget to override parse to extract the models?
+
+We'll discuss and solve this issue in the next step.
 
 ### Visual Check-in
 

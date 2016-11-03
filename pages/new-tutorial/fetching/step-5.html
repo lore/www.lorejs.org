@@ -12,7 +12,7 @@ In this step we're going to fetch the user for each tweet so we can display the 
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step12
 ```
 
 ## Video Demonstration
@@ -24,6 +24,47 @@ The following video provides a guided walkthrough of this step.
 </div>
 
 ## Written Steps
+
+### Create the User Model
+Before we can fetch users, we need to create a `user` model. Run this command to create a user model:
+
+```sh
+lore genereate model user
+```
+
+This will place a file called `user.js` in `src/models` and similar to when you created the `tweet` model you will
+now have access to a set of actions and reducers for interacting with the `/users` endpoint.
+
+### Fetch the Tweeter
+Next we need to fetch the user who said the tweet. Open up the `Tweet` component and wrap it with `connect`. But this
+time we're going to use a different string in `getState`:
+
+```jsx
+module.exports = lore.connect(function(getState, props){
+  var tweet = props.tweet;
+
+  return {
+    user: getState('user.byId', {
+      id: tweet.data.user
+    })
+  };
+})(
+React.createClass({
+  displayName: 'Tweet',
+
+  ...
+})
+);
+```
+
+The string we're passing to `getState` this time is `user.byId`. This reducer stores users by their id, and that user
+doesn't exist in the store, it will make a server call to retrieve them. Unlike when we invoked `tweet.find` however,
+this reducer requires an argument; the id of the user you want to fetch.
+
+Which this change in place, refresh the browser and you see the tweets attributed to the proper user.
+
+### Remove getDefaultProps()
+Now that we're fetching a real user, you no longer need the mock data in `getDefaultProps`, so go ahead and remove it.
 
 ### Visual Check-in
 If everything went well, your application should now look like this.

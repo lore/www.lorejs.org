@@ -13,7 +13,7 @@ tweets are being fetching.
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step13
 ```
 
 ## Video Demonstration
@@ -25,6 +25,55 @@ The following video provides a guided walkthrough of this step.
 </div>
 
 ## Written Steps
+
+### Add a Loading Experience
+While not obvious right now, there is a moment before the list of tweets renders when the page simple says "Feed" with
+no data. The reason for that is that the data is currently being fetched, and we can't render what we don't have.
+Showing a blank view is a bad user experience, so let's take advantage of the `state` property on our `tweets` data
+to discover when the data is being fetched and render the text "Loading..." to the screen.
+
+There's a folder in Lore located at `src/constants` that contains a file called `PayloadStates`. This file contains
+all of the states that data can be in by default (generic states the framework will apply automatically). Import
+that file into `Feed` and use it in render to display a loading experience while the tweets are fetching:
+
+```jsx
+var PayloadStates = require('../constants/PayloadStates');
+
+...
+React.createClass({
+  displayName: 'Feed',
+
+  ...
+
+  render: function() {
+    var styles = this.getStyles();
+    var tweets = this.props.tweets;
+
+    if (tweets.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      )
+    }
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweets.data.map(this.renderTweet)}
+        </ul>
+      </div>
+    );
+  }
+
+})
+);
+```
+
+Refresh the browser and you should see the text "Loading..." flash on the screen right before the tweets are rendered.
 
 ### Visual Check-in
 If everything went well, your application should now look like this.

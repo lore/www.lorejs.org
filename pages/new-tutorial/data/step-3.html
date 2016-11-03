@@ -12,7 +12,7 @@ In this step we're going to add some mock user data to complete our Tweet compon
 If you're using the CLI to follow along, you can complete this step by running the following command:
 
 ```sh
-lore tutorial stepXYZ
+lore tutorial step7
 ```
 
 ## Video Demonstration
@@ -33,7 +33,7 @@ user resource looks like this:
 
 ```js
 {
-  id: 151,
+  id: 1,
   nickname: "lucca",
   avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png",
   createdAt: "2016-10-25T04:24:46.207Z",
@@ -134,13 +134,11 @@ module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       user: {
-        id: 204,
+        id: 1,
         data: {
-          id: 204,
+          id: 1,
           nickname: "lucca",
-          avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png",
-          createdAt: "2016-10-30T08:47:26.062Z",
-          updatedAt: "2016-10-30T08:47:26.062Z"
+          avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
         }
       }
     }
