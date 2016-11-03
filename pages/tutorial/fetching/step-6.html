@@ -1,0 +1,163 @@
+---
+layout: tutorial
+permalink: /tutorial/fetching/step-6/
+---
+
+{% capture markdown %}
+
+# Step 6: Display Loading Message
+
+In this step we're going to use the `state` property on the data structure to display a loading message while the
+tweets are being fetching.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore tutorial step13
+```
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="mT3ZZ7s02tE">
+  </div>
+</div>
+
+## Written Steps
+
+### Add a Loading Experience
+While not obvious right now, there is a moment before the list of tweets renders when the page simple says "Feed" with
+no data. The reason for that is that the data is currently being fetched, and we can't render what we don't have.
+Showing a blank view is a bad user experience, so let's take advantage of the `state` property on our `tweets` data
+to discover when the data is being fetched and render the text "Loading..." to the screen.
+
+There's a folder in Lore located at `src/constants` that contains a file called `PayloadStates`. This file contains
+all of the states that data can be in by default (generic states the framework will apply automatically). Import
+that file into `Feed` and use it in render to display a loading experience while the tweets are fetching:
+
+```jsx
+var PayloadStates = require('../constants/PayloadStates');
+
+...
+React.createClass({
+  displayName: 'Feed',
+
+  ...
+
+  render: function() {
+    var styles = this.getStyles();
+    var tweets = this.props.tweets;
+
+    if (tweets.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      )
+    }
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweets.data.map(this.renderTweet)}
+        </ul>
+      </div>
+    );
+  }
+
+})
+);
+```
+
+Refresh the browser and you should see the text "Loading..." flash on the screen right before the tweets are rendered.
+
+### Visual Check-in
+If everything went well, your application should now look like this.
+
+<img class="drop-shadow" src="/assets/images/tutorial/fetching/step-6.png">
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### src/components/Tweet.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![Feed](/assets/images/tutorial/diffs/fetching/step-6-feed.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+var React = require('react');
+var Tweet = require('./Tweet');
+var PayloadStates = require('../constants/PayloadStates');
+
+module.exports = lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find')
+  }
+})(
+React.createClass({
+  displayName: 'Feed',
+
+  propTypes: {
+    tweets: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      title: {
+        textAlign: 'center'
+      },
+      tweets: {
+        marginTop: '32px'
+      }
+    }
+  },
+
+  renderTweet: function(tweet) {
+    return (
+      <Tweet key={tweet.id} tweet={tweet} />
+    );
+  },
+
+  render: function () {
+    var styles = this.getStyles();
+    var tweets = this.props.tweets;
+
+    if (tweets.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      )
+    }
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweets.data.map(this.renderTweet)}
+        </ul>
+      </div>
+    );
+  }
+})
+);
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to add dialogs to our application [so we can create, update and delete tweets](../../dialogs/overview/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

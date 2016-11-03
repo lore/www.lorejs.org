@@ -1,0 +1,120 @@
+---
+layout: tutorial
+permalink: /tutorial/fetching/step-4/
+---
+
+{% capture markdown %}
+
+# Step 4: Parse Server Response
+
+In this step we'll learn about Collections and how to parse our server response to extract the array of tweets.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore tutorial step11
+```
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="5VWiX0O4LKA">
+  </div>
+</div>
+
+## Written Steps
+
+### Explanation of Error
+The reason for this error is that the response coming back from the API server when we make a GET request to `/tweets`
+is not an array but an object. The response looks like this:
+
+```js
+{
+  data: [
+    {
+      id: 1,
+      user: 2,
+      text: "Where have they been keeping her!?",
+      createdAt: "2016-10-28T04:12:27.566Z"
+    }
+  ],
+  meta: {
+    paginate: {
+      currentPage: 1,
+      nextPage: 2,
+      totalCount:51,
+      perPage: 5
+    }
+  }
+}
+```
+
+If the response was simply an array, there wouldn't be an error, because it would be obvious to Lore where the data
+is for the tweets. But in order to provide pagination information, the API wraps the data with an object. So to solve
+this issue we just need to tell Lore how to extract the tweets from this object.
+
+### Override the Parse Method
+To solve this issue, open up `config/collections.js`. Locate the code for the commented out `parse` method, which
+shows the default behavior. It should look like this:
+
+```jsx
+...
+  properties: {
+    parse: function(attributes) {
+      return attributes;
+    }
+  }
+...
+```
+
+Uncomment the code and replace it with the code below. Instead of returning `attributes` (which is the response we
+received from the server) we're going to extract the `data` and return that instead. This will provide the framework
+with the array it expects.
+
+```js
+...
+  properties: {
+    parse: function(attributes) {
+      return attributes.data;
+    }
+  }
+...
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+<img class="drop-shadow" src="/assets/images/tutorial/fetching/step-4.png">
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### config/collections.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![config](/assets/images/tutorial/diffs/fetching/step-4-config-collections.png)
+{% endtab %}
+{% tab id=2 %}
+```jsx
+module.exports = {
+  properties: {
+    parse: function(attributes) {
+      return attributes.data;
+    }
+  }
+}
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [fetch the user for each tweet](../step-5/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

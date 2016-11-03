@@ -1,0 +1,77 @@
+---
+layout: tutorial
+permalink: /tutorial/setup/step-3/
+---
+
+{% capture markdown %}
+
+# Step 3: Start the Application
+In this step we'll be installing the project dependencies and learning how to view tha application in the browser.
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="gmTSPNdft_E">
+  </div>
+</div>
+
+## Written Steps
+Once all the dependencies have been installed, you can start the application by running `npm start`.
+
+```sh
+$ npm start
+```
+
+A successful execution should produce output similar to this:
+
+```sh
+  [431] ./~/lore-hook-reducers/lib/blueprints/byId.js 1.33 kB {0} [built]
+  [432] ./~/lore-hook-reducers/lib/blueprints/byCid.js 2.48 kB {0} [built]
+  [433] ./~/lore-hook-redux/lib/index.js 676 bytes {0} [built]
+  [434] ./~/redux-thunk/lib/index.js 529 bytes {0} [built]
+  [435] ./~/lore-hook-redux/lib/generateStore.js 497 bytes {0} [built]
+
+webpack: bundle is now VALID.
+```
+
+This step does two things. First, it kicks off [Webpack](https://webpack.github.io/), a popular build tool that will
+bundle all the project files together so they can be served to a browser. And second, this command starts up a
+development server that will serve that bundle so you can view the application.
+
+### View the App
+
+Once the application successfully builds, you can view it by navigating to `http://localhost:3000` in your
+browser. Once you do, you should see this:
+
+<img class="drop-shadow" src="/assets/images/tutorial/setup/step-3.png">
+
+### Optional: Change the Port
+
+If you want to change the port the server runs on, you can do that by using an alternate syntax to start the server.
+`npm start` is really just an alias for `node server`, and you can pass a `port` argument to `node server` like this:
+
+``` sh
+node server --port=3001
+```
+
+> **NOTE**: If you generated the project using ES6 or ESNext syntax, then you'll need to start the server using
+> `babel-node` like this:
+>
+> ``` sh
+> ./node_modules/.bin/babel-node server --port=3001
+> ```
+
+### Note
+If you are using Chrome and you see this error in the network requests you can safely ignore it.
+
+```sh
+GET http://localhost:3000/service-worker.js net::ERR_INVALID_RESPONSE
+```
+
+## Next Steps
+
+Next we're going to [download and run the API server](../step-4/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

@@ -1,0 +1,84 @@
+---
+layout: tutorial
+permalink: /tutorial/setup/step-2/
+---
+
+{% capture markdown %}
+
+# Step 2: Create A New Application
+
+In this step we will be generating our project.
+
+## Video Demonstration
+The following video provides a guided walkthrough of this step.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="WY7HCo-Y0EM">
+  </div>
+</div>
+
+## Written Steps
+
+To create a new Lore app, type `lore new` into the command line followed the by name of your application. For this
+example we are going to call our application `lore-tutorial`.
+
+The Lore CLI has a command called `new` that can generate files for a new React project. To use this command you type
+`lore new` followed by the name of the your application. Since this is the Lore Tutorial, we're going to call our
+project `lore-tutorial`. Enter this command into the command line:
+
+```sh
+$ lore new lore-tutorial
+```
+
+This will create a new directory called `lore-tutorial`, and place all the necessary files inside. You should see
+this message when the task completes.
+
+```sh
+  info:  Created a new Lore application `lore-tutorial`
+```
+
+### Optional: Create an ES6 and ESNext version of the app
+
+Lore currently defaults to creating a project using ES5 syntax. If you'd prefer to use ES6, you can change the default
+by passing in an optional command line argument:
+
+```sh
+$ lore new lore-tutorial --es6
+```
+
+If you'd prefer to use cutting-room floor features in ESNext (such as decorators and static property types), you can
+generate a project using that syntax by passing in `--esnext` like this:
+
+```sh
+$ lore new lore-tutorial --esnext
+```
+
+In addition to changing the syntax of the initial project files, passing in either of these options will also set the
+`language` property in the `.lorerc` file (located at the root of the project) to your preference. This property is
+used as a way of declaring your language preference to the CLI, and any future files it generates (using commands we've
+cover later) will automatically be created using that syntax. In other words, you'll only have to declare your language
+preference once, and the CLI will continue to respect it : )
+
+> NOTE: While the tutorial will allow you to automatically generate files for each step (in case you get stuck or
+> don't want to code that step yourself) those files are currently only generating using ES5 as the tutorial is still
+> in a little bit of flux. Once it settles down, all tutorial files will be available for generation in ES6 and ESNext
+> syntax as well.
+
+### Install Dependencies
+
+Once the project is created, navigate into the directory and install the dependencies.
+
+```sh
+$ cd lore-tutorial
+$ npm install
+```
+
+Depending on your network connection, it might take 2-4 minutes for this step to complete.
+
+## Next Steps
+
+Now that we've created our project and installed the dependencies, let's [start the application](../step-3/) and view
+it in a browser!
+
+{% endcapture %}
+{{ markdown | markdownify }}

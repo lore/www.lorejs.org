@@ -1,0 +1,90 @@
+---
+layout: tutorial
+permalink: /tutorial/fetching/overview/
+---
+
+{% capture markdown %}
+
+# Fetching Data: Overview
+
+In this section we'll be replacing our mock data with real data fetched from the API. At the end of this section
+your application will look like this:
+
+<img class="drop-shadow" src="/assets/images/tutorial/fetching/step-6.png">
+
+## Video Explanation
+The following video provides an explanation of how Lore simplifies API communication using a concept called "convention
+over configuration".
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="Wp2Pizz9H-s">
+  </div>
+</div>
+
+## Written Explanation
+
+### API Communication
+Interacting with APIs is a central concern for client-side applications like the one we're building. It is also
+simultaneously one of the simplest and most complex aspects of client-side architecture.
+
+The simple part is the interface; you make an AJAX request to some API server, it returns a JSON object, and you pass
+that object around the application. And libraries like jQuery and Axios help to make that process pretty easy.
+
+The complex part is the fact that large client-side applications often need to consume dozens of API endpoints,
+sometimes across multiple servers, and the structure of those APIs and the data they return often changes over time.
+And because of this, it's pretty easy to end up in a situation where even a small change in the API structure or
+response can break your application.
+
+Lore is designed to address these challenges, while also simplifying API communication in general. How it does this is
+outside the scope of this tutorial, though if you'd like to learn more about it there is an explanation in the
+[docs on server communication](/features/foundation/server-communication/). But for now, all you need to be aware of
+is a concept called convention-over-configuration.
+
+### Configuration-driven Development
+In a vanilla Redux application you need to write code for _everything_, and you need actions and reducers for every
+endpoint you need to interact with. For a single endpoint, that often maps to 5 actions; 3 actions for creating,
+updating, deleting a resource, and 2 actions for fetching a resource (individually and as a collection). For the
+reducers side, you'll often have at least 2; 1 reducer for storing resources by their id, and 1 reducer for storing
+arrays of that resource as paginated data.
+
+If your application interacts with even just 12 API endpoints, you can easily have as many as 70 actions and 24
+reducers (or more). That's a lot of files. But on top of that, most endpoints across a REST API will share common
+patterns, which means there's going to be a lot of similarity across these files. You might hear this referred to as
+"boilerplate"- code that feels very similar except for small changes.
+
+On a small scale this isn't a problem. For example, let's say you wrote a few actions, and then decided sometime
+later you wanted to change the AJAX library you were using, or add some code to improve error handling. In this
+scenario, you only need to modify a few files. But now imagine you were interacting with 10 or 20 or 30 endpoints;
+you might need to modify 50 or 100 files or more.
+
+The challenge with that is that when you have a lot of files that feel like boilerplate, you tend to end up making the
+same changes to lots of files, and that's hard to keep track of. Because of that, it's also easy to accidentally
+introduce bugs or inconsistent behavior. Maybe you copy/pasted one of the files and forget to rename a variable, or
+accidentally skipped modifying 1 of the 50 files you needed to change. It's just a tough situation to be in.
+
+This approach is driven 100% by configuration; you have to explicitly create and specify every bit of functionality
+in your application.
+
+### Convention-over-Configuration
+Another way to approach this problem is through a concept called convention-over-configuration, and you've seen
+this before if you've ever used a server-side framework like Rails, Django, Sails or ASP.NET MVC. With this approach,
+the framework makes some sensible assumptions and provides you with a lot of functionality by default. Then the
+framework exposes the ability to override or extend those default behaviors.
+
+Another way to think of it is top-down vs bottom-up. In configuration-driven development, you start with nothing and
+build the application up. In convention-over-configuration, you start with an application, and then build "down",
+modifying what you need to get your application where you need it to be.
+
+While not _always_ true, frameworks that follow a convention-over-configuration approach tend to be a vehicle for
+rapid development, and this is the approach that Lore follows. Instead of needing to explicitly create actions
+and reducers, Lore takes advantage of boilerplate in Redux to include a set of blueprints that it uses to provide
+_implicit_ functionality, and exposes ways to configure the behavior of those blueprints or (when neccesary) override
+them with your own custom implementation.
+
+## Next Steps
+
+Soon we're going to see some of these conventions in action, and we're going to start by [telling Lore
+where our API server is located](../step-1/)!
+
+{% endcapture %}
+{{ markdown | markdownify }}

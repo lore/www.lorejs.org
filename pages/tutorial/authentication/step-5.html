@@ -1,0 +1,201 @@
+---
+layout: tutorial
+permalink: /tutorial/authentication/step-5/
+---
+
+{% capture markdown %}
+
+# Step 16: Add Logout Experience
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step16
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### routes.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+var React = require('react');
+var Route = require('react-router').Route;
+var IndexRoute = require('react-router').IndexRoute;
+
+/**
+ * Routes are used to declare your view hierarchy
+ * See: https://github.com/rackt/react-router/blob/master/docs/API.md
+ */
+var Master = require('./src/components/Master');
+var Layout = require('./src/components/Layout');
+var Feed = require('./src/components/Feed');
+var Login = require('./src/components/Login');
+var Logout = require('./src/components/Logout');
+
+module.exports = (
+  <Route>
+    <Route path="/login" component={Login} />
+    <Route path="/logout" component={Logout} />
+
+    <Route component={Master}>
+      <Route path="/" component={Layout}>
+        <IndexRoute component={Feed} />
+      </Route>
+    </Route>
+  </Route>
+);
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Logout.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+var auth = require('../auth');
+var Router = require('react-router');
+
+module.exports = Router.withRouter(React.createClass({
+  displayName: 'Logout',
+
+  propTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+
+  componentDidMount: function(){
+    auth.logout();
+    this.props.router.push('/');
+  },
+
+  render: function() {
+    return (
+      <h1 className="loading-text">
+        Logging out...
+      </h1>
+    );
+  }
+
+}));
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Profile.js
+
+{% tabs tab1={"name": "Diff", "id": 5} | tab2={"name": "Source", "id": 6} %}
+{% tab id=5, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=6 %}
+```js
+var React = require('react');
+var Router = require('react-router');
+
+module.exports = React.createClass({
+  displayName: 'Profile',
+
+  propTypes: {
+    user: React.PropTypes.object.isRequired
+  },
+
+  getDefaultProps: function() {
+    return {
+      user: {
+        id: 1,
+        data: {
+          nickname: 'marle',
+          avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027074/a37105c0-88e1-11e6-9645-3e1af37671f7.png'
+        }
+      }
+    }
+  },
+
+  getStyles: function() {
+    return {
+      card: {
+        position: 'relative',
+        display: 'block',
+        marginBottom: '.75rem',
+        backgroundColor: '#fff',
+        borderRadius: '.25rem',
+        border: '1px solid rgba(0,0,0,.125)',
+        marginTop: '20px'
+      },
+      cardBlock: {
+        padding: '1.25rem'
+      },
+      avatar: {
+        width: '48px',
+        position: 'absolute',
+        top: '-24px',
+        left: 'calc(50% - 24px)',
+        border: '1px solid gray'
+      },
+      permissions: {
+        marginLeft: '-12px'
+      }
+    }
+  },
+
+  render: function() {
+    var user = this.props.user;
+    var styles = this.getStyles();
+
+    return (
+      <div className="card" style={styles.card}>
+        <div className="card-block" style={styles.cardBlock}>
+          <img
+            className="img-circle"
+            src={user.data.avatar}
+            style={styles.avatar} />
+          <h4 className="card-title">
+            Hi {user.data.nickname}!
+          </h4>
+          <div className="card-text">
+            <p>You have permission to perform the following:</p>
+            <ul style={styles.permissions}>
+              <li>Create Tweets</li>
+              <li>Edit your own tweets</li>
+              <li>Delete your own tweets</li>
+            </ul>
+          </div>
+          <Router.Link className="btn btn-primary" to="/logout">
+            Logout
+          </Router.Link>
+        </div>
+      </div>
+    );
+  }
+
+});
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../step-6/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

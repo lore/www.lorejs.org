@@ -1,0 +1,245 @@
+---
+layout: tutorial
+permalink: /tutorial/pagination/step-1/
+---
+
+{% capture markdown %}
+
+# Step 26: Adding a Header
+
+In this step we're going to add a Header to our application, and learn about the `component` generator.
+
+If you're using the CLI to follow along, you can complete this step by running the following command:
+
+```sh
+lore generate tutorial step26
+```
+
+### Visual Check-in
+
+If everything went well, your application should now look like this.
+
+![New Lore App](/assets/images/tutorial/step2-visual.png)
+
+## Code Changes
+
+Below is a list of files modified during this step, as well as a visual diff to show you what was added or removed
+between this step and the last one.
+
+### config/collections.js
+
+{% tabs tab1={"name": "Diff", "id": 1} | tab2={"name": "Source", "id": 2} %}
+{% tab id=1, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-header.png)
+{% endtab %}
+{% tab id=2 %}
+```js
+var auth = require('../src/auth');
+
+module.exports = {
+
+  properties: {
+    headers: function() {
+      return {
+        'Authorization': 'Bearer ' + auth.getToken()
+      };
+    },
+
+    parse: function(attributes) {
+      this.meta = {
+        page: attributes.meta.paginate.currentPage,
+        nextPage: attributes.meta.paginate.nextPage
+      };
+      return attributes.data;
+    }
+  }
+};
+```
+{% endtab %}
+{% endtabs %}
+
+### src/components/Feed.js
+
+{% tabs tab1={"name": "Diff", "id": 3} | tab2={"name": "Source", "id": 4} %}
+{% tab id=3, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=4 %}
+```js
+var React = require('react');
+var Tweet = require('./Tweet');
+var PayloadStates = require('../constants/PayloadStates');
+var InfiniteScrolling = require('../mixins/InfiniteScrolling');
+
+module.exports = lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      pagination: {
+        sort: 'createdAt DESC',
+        page: 1
+      }
+    })
+  }
+})(
+React.createClass({
+  displayName: 'Feed',
+
+  mixins: [
+    InfiniteScrolling
+  ],
+
+  propTypes: {
+    tweets: React.PropTypes.object.isRequired
+  },
+
+  getStyles: function() {
+    return {
+      title: {
+        textAlign: 'center'
+      },
+      tweets: {
+        marginTop: '32px'
+      }
+    }
+  },
+
+  renderTweet: function(tweet) {
+    return (
+      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+    );
+  },
+
+  render: function() {
+    var styles = this.getStyles();
+    var pages = this.state.pages;
+    var numberOfPages = pages.length;
+    var lastPage = pages[pages.length - 1];
+
+    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
+      return (
+        <h2 style={styles.title}>
+          Loading feed...
+        </h2>
+      )
+    }
+
+    var tweetListItems = _.flatten(pages.map(function(tweets) {
+      return tweets.data.map(this.renderTweet)
+    }.bind(this)));
+
+    return (
+      <div>
+        <h2 style={styles.title}>
+          Feed
+        </h2>
+        <ul className="media-list" style={styles.tweets}>
+          {tweetListItems}
+        </ul>
+      </div>
+    );
+  }
+
+})
+);
+```
+{% endtab %}
+{% endtabs %}
+
+### src/mixins/InfiniteScrolling.js
+
+{% tabs tab1={"name": "Diff", "id": 5} | tab2={"name": "Source", "id": 6} %}
+{% tab id=5, is_active=true %}
+![New Lore App](/assets/images/tutorial/step2-diff-layout.png)
+{% endtab %}
+{% tab id=6 %}
+```js
+var React = require('react');
+
+module.exports = {
+
+  contextTypes: {
+    store: React.PropTypes.object.isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      pages: [
+        this.props.tweets
+      ]
+    };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    var storeState = this.context.store.getState();
+    var pages = this.state.pages;
+
+    // Whenever the component re-renders, we need to rebuild our collection of pages
+    // by fetching them back out of the Store. If we don't do this, our state data
+    // will always be stale - we'll never know when data finishes being fetched, and
+    // in the cases where some of the data is being modified, such as being updated
+    // or deleted, we won't get a change to react to those changes and inform the user.
+    var nextPages = pages.map(function(tweets) {
+      var query = JSON.stringify(tweets.query);
+      return storeState.tweet.find[query];
+    });
+
+    var currentQuery = JSON.stringify(this.props.tweets.query.where);
+    var nextQuery = JSON.stringify(nextProps.tweets.query.where);
+
+    if (currentQuery !== nextQuery) {
+      nextPages = [
+        nextProps.tweets
+      ];
+    }
+
+    this.setState({
+      pages: nextPages
+    });
+  },
+
+  onLoadMore: function() {
+    var storeState = this.context.store.getState();
+    var pages = this.state.pages;
+    var lastPage = pages[pages.length - 1];
+    var nextPage = Number(lastPage.query.pagination.page) + 1;
+    var query = lastPage.query;
+
+    // Build the next page's query from the previous page. The only
+    // thing we're changing is the page of data we want to fetch
+    var nextQuery = {
+      where: query.where,
+      pagination: _.defaults({
+        page: nextPage
+      }, query.pagination)
+    };
+
+    // See if the next page has already been fetched, and used the cached page
+    // if available
+    var nextTweetsPage = storeState.tweet.find[JSON.stringify(nextQuery)];
+
+    if (!nextTweetsPage) {
+      // The 'find' action has a slightly different interface than the 'getState' call
+      // in 'lore.connect'. When calling the 'find' action directly, you need to pass
+      // in the 'where' clause and the 'pagination' information as different arguments,
+      // like 'lore.actions.tweet.find(where, pagination)'
+      nextTweetsPage = lore.actions.tweet.find(nextQuery.where, nextQuery.pagination).payload;
+    }
+
+    pages.push(nextTweetsPage);
+
+    this.setState({
+      pages: pages
+    });
+  }
+
+};
+```
+{% endtab %}
+{% endtabs %}
+
+## Next Steps
+
+Next we're going to [DO SOMETHING](../step-2/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

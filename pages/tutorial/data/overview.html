@@ -1,0 +1,114 @@
+---
+layout: tutorial
+permalink: /tutorial/data/overview/
+---
+
+{% capture markdown %}
+
+# Data Structure: Overview
+
+In this section we'll learn about why the data structure you use in your React applications is important, and then
+we'll mock out some data and create our Tweet component. At the end of this section your application will look like this:
+
+<img class="drop-shadow" src="/assets/images/tutorial/data/step-3.png">
+
+## Video Explanation
+The following video provides a visual explanation of why the data structure you use is important.
+
+<div class="video" style="padding-top: 16px;">
+  <div class="embed-responsive embed-responsive-16by9 drop-shadow pretty-embed" data-pe-videoid="kSAseqgjihE">
+  </div>
+</div>
+
+## Written Explanation
+
+### Why is data structure important?
+When I refer to data structure I'm talking about the data passed into your components through props. For example, in
+this section we'll be creating a Tweet component and providing it with a tweet. The shell of that component will look
+like this:
+
+```jsx
+var React = require('react');
+
+module.exports = React.createClass({
+  displayName: 'Tweet',
+
+  propTypes: {
+    tweet: React.PropTypes.object.isRequired
+  },
+
+  render: function () {
+    var tweet = this.props.tweet;
+
+    return (
+      {/* render tweet */}
+    );
+  }
+});
+```
+
+So if we want to render the text of the tweet, how do we get that property? Well, if we take a look at our API endpoint,
+we can see the structure of a tweet looks like this:
+
+```js
+{
+  id: 1,
+  user: 4,
+  text: "Where have they been keeping her!?",
+  createdAt: "2016-10-17T23:13:07.249Z",
+  updatedAt: "2016-10-23T23:13:07.281Z"
+}
+```
+
+One option, and arguably the simplest, would be to pass that data directly to the component. And if we do that we
+can get the text of the tweet by accessing `tweet.text`. But simple as that is, we're not going to do that, because it
+can cause a lot of challenges later on and limit the types of experiences we can provide to users.
+
+### Data-Driven Components
+The reason the scenario above is problematic is because there's no context to the data. If you're creating an application
+that is 100% read-only, then it doesn't actually pose a problem. But once you allow users to create, edit and delete
+data the issues with that structure become more apparent.
+
+For example, what if the user tries to update that data? How do you know if that data is the original data or the data
+the user modified? What if there's an error updating the data? How will you communicate that to the component? How will
+you even know what the error was? What if the data doesn't exist because you're trying to fetch it, but you still need
+to know it's being fetched to display a loading experience?
+
+That's just a handful of scenarios that real-world applications need to deal with, and the simple data structure above
+is woefully unprepared to communicate.
+
+### Lore's Data Structure
+To address these challenges, Lore wraps _all_ data that comes back from the server in a structure that is capapble of
+communicating that context. For our tweet data above, that structure looks like this:
+
+```js
+{
+  id: 1,
+  cid: 'c1',
+  state: 'RESOLVED',
+  data: {
+    id: 1,
+    user: 4,
+    text: "Where have they been keeping her!?",
+    createdAt: "2016-10-17T23:13:07.249Z",
+    updatedAt: "2016-10-23T23:13:07.281Z"
+  },
+  error: {}
+}
+```
+
+Not all of these fields will make sense at the moment (especially the cid) but each field exists to simplify application
+development and enable a broad range of real-world user experience needs. If you want to learn more about Lore's data
+structure right now, you can find a full description in the [docs for the data structure](/features/foundation/data-structure/),
+which includes a short video elaborating on the structure and why it's important.
+
+If you'd prefer to carry on with the tutorial, the important part for now is that the data from the server will be
+stored in the `data` property, so the text for the tweet will be accessed through `lore.data.text`.
+
+
+## Next Steps
+
+Ready to create some mock data? Let's [get started](../step-1/)!
+
+{% endcapture %}
+{{ markdown | markdownify }}
