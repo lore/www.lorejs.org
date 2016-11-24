@@ -38,7 +38,17 @@ First, open your `Feed` component and declare that it is going to require `tweet
   },
 ...
 ```
+And for ES6 you can find the line:
+```jsx
+Feed.propTypes = {};
+```
+and replace it with:
 
+```jsx
+Feed.propTypes ={
+    tweets: React.PropTypes.object.isRequired
+  };
+```
 As a quick refresher (or if you opted to skip learning more about Lore's data structure for now) _all_ data in Lore
 is an object, even collections of tweets. We'll see why shortly.
 
@@ -47,7 +57,7 @@ Next we're going to insert our mock data using `getDefaultProps`. This is a grea
 will be used to populate `tweets` if it wasn't passed in. So if you use this method for you mock data, it will
 automatically be overwritten once real data starts being passed in. Pretty handy!
 
-Add a `getDefaultProps` method to your `Feed` component and populate it with mock data like this:
+Add a `getDefaultProps` method to your `Feed` component and populate it with mock data like this for ES5:
 
 ```jsx
 ...
@@ -74,6 +84,36 @@ Add a `getDefaultProps` method to your `Feed` component and populate it with moc
 ...
 ```
 
+For ES6 if you declare `getDefaultProps` inside the class, you'll get the following warning:
+
+> warning.js:36 Warning: getDefaultProps was defined on Feed, a plain JavaScript class. 
+  This is only supported for classes created using React.createClass. Use a static property to define defaultProps instead.
+
+So instead of using the method above you can add the static property outside the class 
+(you can put it below `Feed.propTypes = {...};` like this:
+
+```jsx
+Feed.defaultProps = (function() {
+    var tweet = {
+      id: 1,
+      cid: 'c1',
+      state: 'RESOLVED',
+      data: {
+        id: 1,
+        user: 1,
+        text: 'Nothing can beat science!',
+        createdAt: '2016-10-04T05:10:49.382Z'
+      }
+    };
+
+    return {
+      tweets: {
+        state: 'RESOLVED',
+        data: [tweet]
+      }
+    }
+  }());
+```
 In the function above, we're declaring a single tweet, with the text _"Nothing can beat science!"_ and adding it to an
 array of tweets. In both cases the state has been set to `RESOLVED` to signify that nothing is happening to the data.
 
