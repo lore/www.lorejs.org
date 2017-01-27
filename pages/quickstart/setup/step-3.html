@@ -1,0 +1,67 @@
+---
+layout: quickstart
+permalink: /quickstart/setup/step-3/
+---
+
+{% capture markdown %}
+
+# Step 3: Run the Application
+With the dependencies installed, run the application by typing `npm start`.
+
+```sh
+$ npm start
+```
+
+A successful execution will produce output similar to this:
+
+```sh
+  [431] ./~/lore-hook-reducers/lib/blueprints/byId.js 1.33 kB {0} [built]
+  [432] ./~/lore-hook-reducers/lib/blueprints/byCid.js 2.48 kB {0} [built]
+  [433] ./~/lore-hook-redux/lib/index.js 676 bytes {0} [built]
+  [434] ./~/redux-thunk/lib/index.js 529 bytes {0} [built]
+  [435] ./~/lore-hook-redux/lib/generateStore.js 497 bytes {0} [built]
+
+webpack: bundle is now VALID.
+```
+
+This step invokes [Webpack](https://webpack.github.io/) to build the application and starts a development server so
+you can view it in the browser.
+
+### View the Application
+
+Once the application is built, you can view it by navigating to `http://localhost:3000`. Once you do, you
+should see this:
+
+<img class="drop-shadow" src="/assets/images/quickstart/setup/step-3.png">
+
+### Changing the Port (optional)
+
+If you want to change the port the server runs on, you can do that by using an alternate syntax to start the server.
+If you examine the `package.json` file you'll see that `npm start` is just an alias for `node server`, and you can
+pass a `port` argument to `node server` like this:
+
+{% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
+{% tab id=101, is_active=true %}
+```sh
+$ node server --port=3001
+```
+{% endtab %}
+{% tab id=102 %}
+```sh
+$ ./node_modules/.bin/babel-node server --port=3001
+```
+{% endtab %}
+{% tab id=103 %}
+```sh
+$ ./node_modules/.bin/babel-node server --port=3001
+```
+{% endtab %}
+{% endtabs %}
+
+
+## Next Steps
+
+Next we're going to [setup the mock API server](../step-4/) we'll be using for this quickstart.
+
+{% endcapture %}
+{{ markdown | markdownify }}
