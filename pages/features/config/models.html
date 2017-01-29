@@ -6,54 +6,43 @@ permalink: /features/config/models/
 {% capture markdown %}
 # config/models.js
 
-This file is connected to the `lore-hook-models` hook and overrides the default model behaviors.
+This file is connected to the `lore-hook-models` hook and allows you to map models to connections.
 
 ## Purpose
-
-There are three things you commonly need when making AJAX calls from the browser:
-
-1. The URL of the API server (such as `https://api.example.com`)
-2. The path to the endpoint we're interested in (such as `/posts`)
-3. A method to parse the server response and extract the data the client side needs
-
-This config file allows you to express the needs that are common across all models, so that you only have to define
-them once. All individual models inherit this behavior, with the ability to override it as they need to.
+If you're only consuming data from a single API, you'll never need to modify this file. But once you start consuming
+data from multiple APIs, you'll need to tell Lore which models are associated with each connection.
 
 ## Example Config File
-```
-{
-  apiRoot: 'https://api.example.com',
+```js
+module.exports = {
 
-  pluralize: true,
+  defaultConnection: 'default'
 
-  properties: {
-    idAttribute: 'id',
-    urlRoot: 'https://api.example.com/posts',
-    parse: function(attributes) {
-      return attributes;
-    }
+  connectionModelMap: {
+    default: [],
+    v1: [
+      'currentUser',
+      'author'
+    ],
+    v2: [
+      'book',
+      'publisher'
+    ]
   }
-}
+
+};
 ```
 
 ## Configuration Options
-#### apiRoot
-This the root URL of the API server. If your application only uses a single API, then this is the only location you
-need to set it. If your application consumes multiple API servers, then you'll need to override this property on a
-per-model or per-collection basis.
+#### defaultConnection
+The default API connection that models should use if they have no explicit mapping.
 
-#### pluralize
-This setting is used when generating API paths using conventions. For example, if you have a model called `post`
-and `pluralize` is set to `true`, then conventions will assume the endpoint is located at `{apiRoot}/posts`. If
-`pluralize` is set to false, the conventions will assume the endpoint is located at `{apiRoot}/post`.
+#### connectionModelMap
+If your application interacts with multiple APIs, create a connection for each API and then define which models
+are associated with each connection here.
 
-#### properties
-All of the models in Lore are converted to Model instances from the [lore-models](https://github.com/lore/lore/tree/master/packages/lore-models)
-package. This field can be used to set any of the default behaviors, the most commonly needed ones being:
-
-* `idAttribute`: used when your unique id field is not called `id`
-* `parse`: used to extract resource information from a server response with a metadata wrapper
-* `urlRoot`: used to set the path to the API endpoint for a resource that doesn't match Lore's conventions
+In the example above, the models `currentUser` and `author` use the `v1` connection, while the `book` and `publisher`
+models use the `v2` connection. All other models use the `default` connection.
 
 {% endcapture %}
 {{ markdown | markdownify }}

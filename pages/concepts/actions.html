@@ -122,5 +122,18 @@ module.exports = function create( params ) {
 While not an option at the moment, Lore will be providing the ability to define your own blueprints, in case you
 want (or need) to overwrite the default behavior across all models.
 
+### Extracting the Existing Actions
+If you're ever curious what the blueprints for Lore look like, or need a quick way to modify a specific action's
+behavior, Lore provides a CLI command that will provide a model-specific copy of the blueprints for you to
+debug and/or modify.
+
+To extract the actions for the `post` model in our example above, run this command:
+
+```
+lore extract action post
+```
+
+You can learn more about the `extract` command in the [CLI documentation](http://localhost:4000/cli/).
+
 {% endcapture %}
 {{ markdown | markdownify }}

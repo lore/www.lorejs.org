@@ -107,25 +107,60 @@ until you override the conventions).
 
 ```js
 module.exports = {
+
   reducerActionMap: {
     'post.find': {
-      action: 'post.find'
+      action: 'post.find',
+      reducer: 'post.find',
+      blueprint: 'find'
     },
 
     'post.byId': {
-      action: 'post.get'
+      action: 'post.get',
+      reducer: 'post.byId',
+      blueprint: 'byId'
+    },
+
+    'currentUser': {
+      action: 'currentUser',
+      reducer: 'currentUser',
+      blueprint: 'singleton'
     }
   }
+
 };
 ```
 
 ## Configuration Options
-Seeing as this file is part of the `connect` configuration, it's doesn't have any configuration options per-se. The
-entire file is a dictionary mapping reducers (the keys) to actions (the values).
-
 #### reducerActionMap
 Used to override the default reducer-action mapping or associate reducers and actions that weren't created by the
 framework (i.e. a custom action or reducer you created).
+
+Each map between an reducer and an action requires a blueprint to specify it's behavior. There are three blueprints
+provided within the framework; `find`, `byId` and `singleton`. If you want to understand how they work see the
+[source code for the blueprints](https://github.com/lore/lore/tree/master/packages/lore-hook-connect/src/blueprints).
+
+If the built-in blueprints don't work for you, you can use a custom blueprint by providing an object as the
+value of the blueprint. The code below mimics the built-in singleton blueprint, which assumes there is only
+one resource provided by the API endpoint (and therefore does not pass arguments to the action creator when
+invoking it) and also assumes the reducer only stores a single resource (so we don't need to do a lookup to find
+what we're looking for).
+
+```js
+  'currentUser': {
+    action: 'currentUser',
+    reducer: 'currentUser',
+    blueprint: {
+      getPayload: function(reducerState, params) {
+        return reducerState;
+      },
+
+      callAction: function(action, params) {
+        return action().payload;
+      }
+    }
+  }
+```
 
 {% endcapture %}
 {{ markdown | markdownify }}
