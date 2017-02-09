@@ -98,7 +98,7 @@ class Feed extends Component {
 
 ...
 
-Feed.defaultProps = function() {
+Feed.defaultProps = (function() {
   const tweet = {
     id: 1,
     cid: 'c1',
@@ -117,14 +117,14 @@ Feed.defaultProps = function() {
       data: [tweet]
     }
   }
-};
+})();
 ```
 {% endtab %}
 {% tab id=106 %}
 ```jsx
 class Feed extends Component {
 
-  static defaultProps = function() {
+  static defaultProps = (function() {
     const tweet = {
       id: 1,
       cid: 'c1',
@@ -145,7 +145,7 @@ class Feed extends Component {
     }
   }
   ...
-}
+})();
 ```
 {% endtab %}
 {% endtabs %}
