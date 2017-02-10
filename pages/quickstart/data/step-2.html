@@ -32,7 +32,7 @@ module.exports = React.createClass({
     tweet: React.PropTypes.object.isRequired
   },
 
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
 
     return (
@@ -195,7 +195,7 @@ of the Tweet component to look like this:
 {% tab id=107, is_active=true %}
 ```jsx
 ...
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
 
     return (
@@ -317,7 +317,7 @@ To complete those changes, add these lines to your Tweet component:
 var moment = require('moment');
 
 ...
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
     var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
@@ -439,7 +439,7 @@ module.exports = React.createClass({
     tweet: React.PropTypes.object.isRequired
   },
 
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
     var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
@@ -596,7 +596,7 @@ module.exports = React.createClass({
     );
   },
 
-  render: function () {
+  render: function() {
     var tweets = this.props.tweets;
 
     return (

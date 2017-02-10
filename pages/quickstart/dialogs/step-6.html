@@ -157,7 +157,7 @@ like this:
 var DeleteLink = require('./DeleteLink');
 
 ...
-  render: function () {
+  render: function() {
     ...
     return (
       <li className="list-group-item tweet">
@@ -445,7 +445,7 @@ React.createClass({
     }
   },
 
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
     var user = this.props.user;
     var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];

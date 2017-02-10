@@ -47,7 +47,7 @@ module.exports = AuthenticationGenerator({
 
   // redirectUrl: '/login',
 
-  isAuthenticated: function () {
+  isAuthenticated: function() {
     return true;
   }
 });
@@ -102,7 +102,7 @@ to look like this:
 ```jsx
 var auth = require('../utils/auth');
 ...
-  isAuthenticated: function () {
+  isAuthenticated: function() {
     return auth.hasToken();
   }
 ...
@@ -161,7 +161,7 @@ module.exports = AuthenticationGenerator({
 
   // redirectQueryParamName: 'redirect',
 
-  isAuthenticated: function () {
+  isAuthenticated: function() {
     return auth.hasToken();
   }
 });

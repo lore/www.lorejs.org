@@ -109,7 +109,7 @@ Next, use that `user` prop to populate the nickname and avatar properties in the
 {% tab id=104, is_active=true %}
 ```jsx
 ...
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
     var user = this.props.user;
     var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
@@ -244,7 +244,7 @@ module.exports = React.createClass({
     }
   },
 
-  render: function () {
+  render: function() {
     var tweet = this.props.tweet;
     var user = this.props.user;
     var timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
