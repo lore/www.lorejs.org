@@ -107,7 +107,7 @@ var _ = require('lodash');
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     ...
@@ -125,7 +125,7 @@ import _ from 'lodash';
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     ...
@@ -143,7 +143,7 @@ import _ from 'lodash';
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     ...
@@ -162,7 +162,7 @@ Under normal circumstances our action call would only look like this (with no ca
 
 ```js
 function createTweet(params) {
-  lore.actions.tweet.create(params)
+  lore.actions.tweet.create(params);
 }
 ```
 
@@ -309,7 +309,7 @@ module.exports = React.createClass({
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     lore.dialog.show(function() {
@@ -344,7 +344,7 @@ class CreateButton extends Component {
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     lore.dialog.show(function() {
@@ -381,7 +381,7 @@ class CreateButton extends Component {
       lore.actions.tweet.create(_.extend(params, {
         userId: 1,
         createdAt: new Date().toISOString()
-      }))
+      }));
     }
 
     lore.dialog.show(function() {
