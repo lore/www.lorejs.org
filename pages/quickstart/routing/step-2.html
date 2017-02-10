@@ -27,7 +27,7 @@ var React = require('react');
 module.exports = React.createClass({
   displayName: 'Feed',
 
-  render: function () {
+  render: function() {
     return (
       <div className="feed">
         <h2 className="title">
@@ -188,7 +188,7 @@ var React = require('react');
 module.exports = React.createClass({
   displayName: 'Feed',
 
-  render: function () {
+  render: function() {
     return (
       <div className="feed">
         <h2 className="title">
@@ -260,6 +260,7 @@ export default Feed;
 var React = require('react');
 var Route = require('react-router').Route;
 var IndexRoute = require('react-router').IndexRoute;
+var UserIsAuthenticated = require('./src/decorators/UserIsAuthenticated');
 
 /**
  * Routes are used to declare your view hierarchy
@@ -268,7 +269,6 @@ var IndexRoute = require('react-router').IndexRoute;
 var Master = require('./src/components/Master');
 var Layout = require('./src/components/Layout');
 var Feed = require('./src/components/Feed');
-var UserIsAuthenticated = require('./src/decorators/UserIsAuthenticated');
 
 module.exports = (
   <Route component={UserIsAuthenticated(Master)}>
@@ -305,7 +305,7 @@ export default (
 {% tab id=6 %}
 ```jsx
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, Redirect } from 'react-router';
 import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
 
 /**
