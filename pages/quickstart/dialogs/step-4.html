@@ -45,7 +45,7 @@ Open up your `CreateButton` component and modify the `onClick` handler to look l
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   },
 ...
 ```
@@ -62,7 +62,7 @@ Open up your `CreateButton` component and modify the `onClick` handler to look l
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   }
 ...
 ```
@@ -79,7 +79,7 @@ Open up your `CreateButton` component and modify the `onClick` handler to look l
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   }
 ...
 ```
@@ -316,7 +316,7 @@ module.exports = React.createClass({
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   },
 
   render: function() {
@@ -351,7 +351,7 @@ class CreateButton extends Component {
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   }
 
   render () {
@@ -388,7 +388,7 @@ class CreateButton extends Component {
       return lore.dialogs.tweet.create({
         onSubmit: createTweet
       });
-    })
+    });
   }
 
   render () {
