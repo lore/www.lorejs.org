@@ -272,7 +272,6 @@ module.exports = UserCanDeleteTweet(React.createClass({
 import React, { Component, PropTypes } from 'react';
 import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
 
-@UserCanDeleteTweet
 class DeleteLink extends Component {
 
   constructor(props) {
@@ -309,7 +308,7 @@ DeleteLink.propTypes = {
   tweet: PropTypes.object.isRequired
 };
 
-export default DeleteLink;
+export default UserCanDeleteTweet(DeleteLink);
 ```
 {% endtab %}
 {% tab id=6 %}
