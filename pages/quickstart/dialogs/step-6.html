@@ -321,7 +321,7 @@ module.exports = React.createClass({
 ```jsx
 import React, { Component, PropTypes } from 'react';
 
-class DeleteLink extends React.Component {
+class DeleteLink extends Component {
 
   constructor(props) {
     super(props);
@@ -354,7 +354,7 @@ class DeleteLink extends React.Component {
 }
 
 DeleteLink.propTypes = {
-  tweet: React.PropTypes.object.isRequired
+  tweet: PropTypes.object.isRequired
 };
 
 export default DeleteLink;
@@ -510,7 +510,7 @@ class Tweet extends Component {
 
 Tweet.propTypes = {
   tweet: PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 
 Tweet.defaultProps = {
@@ -554,8 +554,8 @@ import DeleteLink from './DeleteLink';
 class Tweet extends Component {
 
   static propTypes = {
-    tweet: React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    tweet: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   render() {

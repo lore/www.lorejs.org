@@ -60,8 +60,8 @@ class Tweet extends Component {
 }
 
 Tweet.propTypes: {
-  tweet: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  tweet: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 Tweet.defaultProps = {
@@ -78,11 +78,11 @@ Tweet.defaultProps = {
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-export default class Tweet extends React.Component {
+export default class Tweet extends Component {
 
   static propTypes = {
-    tweet: React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    tweet: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -311,7 +311,7 @@ class Tweet extends Component {
 
 Tweet.propTypes = {
   tweet: PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 
 Tweet.defaultProps = {
@@ -336,8 +336,8 @@ import moment from 'moment';
 class Tweet extends Component {
 
   static propTypes = {
-    tweet: React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    tweet: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   static defaultProps = {

@@ -40,9 +40,9 @@ module.exports = React.createClass({
 {% endtab %}
 {% tab id=102 %}
 ```jsx
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class Tweet extends React.Component {
+export default class Tweet extends Component {
   render() {
     const tweet = this.props.tweet;
 
@@ -53,7 +53,7 @@ export default class Tweet extends React.Component {
 }
 
 Tweet.propTypes = {
-  tweet: React.PropTypes.object.isRequired
+  tweet: PropTypes.object.isRequired
 };
 
 export default Tweet;
@@ -61,12 +61,12 @@ export default Tweet;
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-export default class Tweet extends React.Component {
+export default class Tweet extends Component {
 
   static propTypes = {
-    tweet: React.PropTypes.object.isRequired
+    tweet: PropTypes.object.isRequired
   }
 
   render() {
