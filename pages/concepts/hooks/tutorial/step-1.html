@@ -1,0 +1,68 @@
+---
+layout: concepts
+permalink: /concepts/hooks/tutorial/step-1/
+---
+
+{% capture markdown %}
+
+# Step 1: Setup Project
+
+In this step we'll clone the repository we'll be adding a custom hook to and getting it running.
+
+### Clone the Repo
+Start by cloning the repo containing the code for this tutorial.
+
+{% tabs tab1={"name": "SSH", "id": 101} | tab2={"name": "HTTPS", "id": 102} %}
+{% tab id=101, is_active=true %}
+```sh
+$ git clone git@github.com:lore/lore-hook-tutorial.git
+```
+{% endtab %}
+{% tab id=102 %}
+```jsx
+$ git clone https://github.com/lore/lore-hook-tutorial.git
+```
+{% endtab %}
+{% endtabs %}
+
+### Install the Dependencies
+Next install the dependencies:
+
+```sh
+npm install
+```
+
+### Start the API Server
+Just like the Quickstart, this project uses `json-server` to provide us with a real API interface. Run this to command
+to start the server:
+
+```sh
+npm run server
+```
+
+Once the server is running, you should be able to navigate to `http://localhost:1337` and see a list of API endpoints.
+
+### Build the Project
+Finally, run this command to build the project and start the development server:
+
+```sh
+npm start
+```
+
+Once the project is built, open a web browser and visit `http://localhost:3000`.
+
+
+### Visual Check-in
+
+If everything went well, you should see this in your browser.
+
+<img class="drop-shadow" src="/assets/images/quickstart/dialogs/step-1.png">
+
+
+
+## Next Steps
+
+Next we're going to [generate a custom hook](../step-2/).
+
+{% endcapture %}
+{{ markdown | markdownify }}

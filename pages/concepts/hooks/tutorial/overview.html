@@ -1,0 +1,26 @@
+---
+layout: concepts
+permalink: /concepts/hooks/tutorial/overview/
+---
+
+{% capture markdown %}
+
+# Custom Hooks: Overview
+
+This tutorial will walk you through the process of creating a custom hook for Lore and integrating it into your
+application.
+
+The application we'll be working with piggy-backs of the Quickstart and looks like this:
+
+<img class="drop-shadow" src="/assets/images/quickstart/dialogs/step-1.png">
+
+In this tutorial we'll be creating a hook that will invoke any action we want on a timed interval. We'll be using this
+functionality to repeatedly fetch the tweets from the server, which will allow us to have multiple browser tabs open
+that will all stay in sync as we create, edit and delete tweets.
+
+## Next Steps
+
+Ready? Let's [get started](../step-1/)!
+
+{% endcapture %}
+{{ markdown | markdownify }}
