@@ -5,18 +5,19 @@ permalink: /concepts/hooks/tutorial/overview/
 
 {% capture markdown %}
 
-# Custom Hooks: Overview
+# Custom Hook Tutorial: Overview
 
-This tutorial will walk you through the process of creating a custom hook for Lore and integrating it into your
-application.
+Creating your own hooks for Lore is a great way to expand or modify the functionality provided by the framework, and
+this tutorial will teach you how to do that.
 
-The application we'll be working with piggy-backs of the Quickstart and looks like this:
+To illustrate the process we're going to be using the application below, which displays a list of tweets. In this
+tutorial, we're going to implement a custom hook that provide basic polling behavior (repeatedly making an API call
+on a given interval) so that we can keep the data in sync across multiple browser tabs as we create and edit tweets.
 
-<img class="drop-shadow" src="/assets/images/quickstart/dialogs/step-1.png">
+<br/>
+<img class="drop-shadow" src="/assets/images/concepts/hook-tutorial.png">
+<br/>
 
-In this tutorial we'll be creating a hook that will invoke any action we want on a timed interval. We'll be using this
-functionality to repeatedly fetch the tweets from the server, which will allow us to have multiple browser tabs open
-that will all stay in sync as we create, edit and delete tweets.
 
 ## Next Steps
 

@@ -18,13 +18,23 @@ lore generate hook polling-hook
 ```
 
 This command will create a folder called `polling-hook` at the root of your project, and place the starter code for a
-hook inside that folder.
+hook inside that folder. The structure should look like this:
+
+```sh
+polling-hook
+|-- src
+|   |--index.js
+|-- test
+|   |-- test.spec.js
+|-- package.json
+|-- README.md
+```
 
 ### Add the Hook
 Now that we've generated the hook, let's add it to the project so it gets loaded when the application boots up.
 
-Open up `index.js` and add insert the hook into the list of hooks. Note that we're using a relative path, since the
-hook is located within our project and installed as an npm module.
+Open up `index.js` file at the root of your project and insert the `polling-hook` into the list of hooks. Note that
+we're using a relative path, since the hook is located within our project and _not_ installed as an npm module.
 
 ```jsx
 ...
@@ -40,7 +50,7 @@ lore.summon({
 ```
 
 With this change in place, the hook will now be loaded as the application boots up. To prove that, open up the file
-`polling-hook/src/index.js`. Currently it looks like this:
+`polling-hook/src/index.js`. It currently it looks like this:
 
 ```jsx
 module.exports = {
@@ -56,10 +66,7 @@ module.exports = {
 };
 ```
 
-Pretty minimal, right? At their core, hooks are pretty simple. They're just plugins to do _something_, and might need
-to be loaded after other hooks, if the thing they do expects other data to already exist.
-
-We'll get to that in a bit, but first let's prove the hook is being loaded. Modify the `load` function to look like this:
+Modify the `load` function to look like this:
 
 ```js
 ...
@@ -72,234 +79,9 @@ We'll get to that in a bit, but first let's prove the hook is being loaded. Modi
 Now open the developer tools in the browser and refresh the page. If you examine the console, you should see the phrase
 `polling-hook loading!` printed out.
 
-### The Interface
-For this tutorial, we want to be able to continually fetch the array of tweets every 3 seconds. To do that, we're going
-to configure this hook so that it has an interface that looks like this:
 
-```js
-lore.polling.tweet.find(query);
-```
-
-This interface will mean "invoke the tweet.find action with the provided query and continually invoke that action every
-3 seconds".
-
-### Specify Dependencies
-In order to perform that function, we first need to make sure the hook executes only *after* the actions are created
-and bound to the Redux store's dispatch method. In other words, we have a dependency on the `bindActions` hook.
-
-> Examples of Dependencies
->
-> The `actions` hook is dependant on the `models` hook, because the models need to be created before we can create
-> actions from them. The `bindActions` hook in dependant on the `actions` hook and the `redux` hook, because it's need
-> the actions to be created first, as well as the Redux store, so that it can bind the store's dispatch method to each
-> action.
-
-To add this dependency, add a reference to the `bindActions` hook in the `dependencies` array like this:
-
-```js
-...
-  dependencies: ['bindActions'],
-...
-```
-
-### Add Default Values
-All hooks in Lore have default values that you can override through their config files in the `config` folder. This
-hook is going to have a default value for for the polling interval, which we want to set to 3 seconds.
-
-To set this modify the `defaults` object to look like this:
-
-```js
-...
-  defaults: {
-    polling: {
-      interval: 3000
-    }
-  },
-...
-```
-
-The default config for Lore is composed by combining all the of the `defaults` from every hook that gets loaded. To
-prove that, open the developer tools and go into the console. Type this command into the console:
-
-```
-lore.config.polling.interval
-```
-
-You should see `3000` printed out as the value.
-
-> The reason you have to specify `polling` inside the `defaults` object is because hooks have the potential to define
-> or override config values outside their own hook.
-
-### Add Implementation
-Next update the `load` method to look like this:
-
-```js
-function poll(action, config, query={}) {
-  // invoke the action
-  action(query);
-
-  // wait the specified interval, then invoke the action again
-  setTimeout(function() {
-    poll(action, config, query);
-  }, config.interval);
-}
-
-module.exports = {
-
-  dependencies: ['bindActions'],
-
-  defaults: {
-    polling: {
-      interval: 3000
-    }
-  },
-
-  load: function(lore) {
-    // get the actions so we can make them poll-able
-    var actions = lore.actions;
-
-    // get the application level config (defaults + config/polling.js)
-    var appConfig = lore.config.polling;
-
-    // expose our target tweet.find action in a poll-able container
-    lore.polling = {
-      tweet: {
-        find: poll.bind(null, actions.tweet.find, config)
-      }
-    };
-  }
-
-};
-```
-
-Here we've added a recursive `poll` function that will invoke an action on a specified interval. The `load` method
-gets the list of actions loaded, which will include actions like `tweet.byId` and `tweet.find`. For this example, we
-only card about `tweet.find`.
-
-> If this was a real hook, we wouldn't be looking for a specific action, but the generic version of this code is less
-> clear to understand. So for the sake of clarity, we're only focusing on a single known action.
-
-Next we get the `polling` config, which (at the moment) will only contain the default values we specified (we'll add
-the ability to override the later).
-
-And finally, we extend the `lore` object with a `polling` object that contains a `tweet.find` method that binds the
-`tweet.find` action to the poll method we specified at the top of the file.
-
-> If you're not familiar with binding functions, one use of the `poll.bind` method is to return a function that
-> has some of it's arguments already provided by the time the user calls it. In this case, we're filling in the
-> arguments for `action` and `config`, and letting the user provide the `query` argument.
-
-### Invoke the Hook
-With the steps above completed, our hook has the basic functionality we want. So let's invoke it in our application.
-
-Open up the `Feed` component and add a `componentDidMount` method that invokes the hook like this:
-
-```js
-componentDidMount() {
-  const tweets = this.props.tweets;
-  lore.polling.tweet.find(tweets.query.where);
-}
-```
-
-This method will get invoked when the `Feed` component mounts, and if you refresh the application and take a look at
-the network tab in the developer tools, you'll see an API call go out to `http://localhost:1337/tweets` every 3
-seconds.
-
-### Override Defaults at App Level
-Now that we've got our hook working, let's give the user the ability to change the default interval. To do that, create
-a config file called `polling`, located at `config/polling.js`. Paste this code into that file:
-
-```js
-export default {
-
-   /**
-    * The frequency at which the action should be invoked (in milliseconds)
-    */
-
-  interval: 5000
-
-}
-```
-
-With that file in place, the user can now change the interval value and it will override the default provided by
-the hook (the app will now poll every 5 seconds instead of every 3 seconds).
-
-> Lore is built on the idea of overrideable config files. The hooks provide the default values (and default structure)
-> for the `lore.config` object. Files you specify in `config/` are compiled into an object matching their file names.
-> In this case, we created a file located at `config/polling.js`, which the framework loads into `lore.config.polling`.
-> Any values specified in `config/` will override defaults provided by the hooks.
-
-### Override Default at Model Level
-While it's great that the user can now override the default at an app level (through `config/polling.js`) they might
-need to change that behavior on a per-model basis. For example, maybe some models change more quickly than others,
-and the user needs to adjust the polling frequency accordingly.
-
-Luckily accommodating that is pretty easy to. Open up `models/tweet.js` and add a section for a polling config:
-
-```js
-module.exports = {
-  attributes: {
-    // ...
-  },
-
-  polling: {
-    interval: 2000
-  },
-
-  properties: {
-    // ...
-  }
-}
-```
-
-Now we need to go back into the hook and update the `load` method to look for this field. Update the `load` method to
-look like this:
-
-```js
-var _ = require('lodash');
-...
-  load: function(lore) {
-    // get the actions so we can make them pollable
-    var actions = lore.actions;
-
-    // get the application level config (defaults + config/polling.js)
-    var appConfig = lore.config.polling;
-
-    // get the model specific config (for tweet)
-    var modelConfig = lore.loader.loadModels().tweet;
-
-    // combine values from both configs, giving priority to values in the model config
-    var config = _.defaults({}, modelConfig.polling, appConfig);
-
-    // expose our target tweet.find action in a poll-able container
-    lore.polling = {
-      tweet: {
-        find: poll.bind(null, actions.tweet.find, config)
-      }
-    };
-  }
-...
-```
-
-In the code above, we're invoking `lore.loader.loadModels()`. The framework includes a series of loaders that convert
-project directories into objects (they basically load all the files in the directory). In this case, we don't want
-`lore.models` because that contains the actual models that make network calls. We just want the config files the user
-placed in the project, and we want to load them into an object we can examine.
-
-> The `models` hook uses this loader to get the config files, and then converts them into instances of Model used by
-> the actions and stored under `lore.models`.
-
-Once the model configs are loaded, we extract the config for `tweet`. Then we combine the app level config and the model
-spefic config into a single object. `_.defaults` builds an object using the provided arguments, but only adds a value
-to the object if it isn't already defined. In other words, we first define `interval` in the config from the `tweet`
-model, and then ignore the value provided in the app config because it already exists in the config object we're
-building.
-
-### Check In
-With that change in place, you should now be able to set the `interval` in the `tweet` model, or use the value in
-`config/polling.js` if it doesn't exist, or fall back to the default value defined in `defaults.polling.interval` if
-no value is provided in `config/polling`.
-
+## Next Steps
+Next we're going to [specify our hook dependencies](../step-3/).
 
 {% endcapture %}
 {{ markdown | markdownify }}

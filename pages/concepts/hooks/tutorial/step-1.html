@@ -5,12 +5,12 @@ permalink: /concepts/hooks/tutorial/step-1/
 
 {% capture markdown %}
 
-# Step 1: Setup Project
+# Step 1: Clone Starter Project
 
-In this step we'll clone the repository we'll be adding a custom hook to and getting it running.
+In this step we'll clone and run repository we'll be adding a custom hook to.
 
 ### Clone the Repo
-Start by cloning the repo containing the code for this tutorial.
+First clone the repo containing the starter code for this tutorial.
 
 {% tabs tab1={"name": "SSH", "id": 101} | tab2={"name": "HTTPS", "id": 102} %}
 {% tab id=101, is_active=true %}
@@ -56,13 +56,13 @@ Once the project is built, open a web browser and visit `http://localhost:3000`.
 
 If everything went well, you should see this in your browser.
 
-<img class="drop-shadow" src="/assets/images/quickstart/dialogs/step-1.png">
+<img class="drop-shadow" src="/assets/images/concepts/hook-tutorial.png">
 
 
 
 ## Next Steps
 
-Next we're going to [generate a custom hook](../step-2/).
+Next we're going to [generate the hook](../step-2/).
 
 {% endcapture %}
 {{ markdown | markdownify }}
