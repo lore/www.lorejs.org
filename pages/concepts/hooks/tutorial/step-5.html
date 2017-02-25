@@ -9,6 +9,7 @@ permalink: /concepts/hooks/tutorial/step-5/
 
 In this step we're going to implement the core functionality of our hook.
 
+> You can view the finished code for this step by checking out the `step-5` branch.
 
 ### Define the Interface
 For this tutorial, we want to be able to continually fetch the array of tweets every X seconds. To do that, we're going
@@ -51,6 +52,8 @@ actually a wrapper around the real action, where the arguments are already bound
 
 To illustrate, add this function to your `index.js` file as well:
 
+{% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
+{% tab id=101, is_active=true %}
 ```jsx
 function createPollingWrapper(action, config) {
   return function callAction() {
@@ -64,6 +67,39 @@ function createPollingWrapper(action, config) {
   }
 }
 ```
+{% endtab %}
+{% tab id=102 %}
+```jsx
+function createPollingWrapper(action, config) {
+  return function callAction() {
+    // Create a version of the action that is bound to the arguments provided by the
+    // user. This makes sure the hook will work with any arbitrary function - it simply
+    // invokes that action with the provided arguments on the requested interval
+    const boundAction = Function.prototype.apply.bind(action).bind(null, null, arguments);
+
+    // Begin polling the action
+    return poll(boundAction, config);
+  }
+}
+```
+{% endtab %}
+{% tab id=103 %}
+```jsx
+function createPollingWrapper(action, config) {
+  return function callAction() {
+    // Create a version of the action that is bound to the arguments provided by the
+    // user. This makes sure the hook will work with any arbitrary function - it simply
+    // invokes that action with the provided arguments on the requested interval
+    const boundAction = Function.prototype.apply.bind(action).bind(null, null, arguments);
+
+    // Begin polling the action
+    return poll(boundAction, config);
+  }
+}
+```
+{% endtab %}
+{% endtabs %}
+
 
 This function might look strange, but it's pretty nifty. Let's say our application wants to poll for tweets by the
 user with the `userId` of 1. That call (given our interface defined above) would look like this:
@@ -132,6 +168,8 @@ lore.actions = {
 
 Add this function to the `index.js` file:
 
+{% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
+{% tab id=104, is_active=true %}
 ```js
 /**
 * Flatten javascript objects into a single-depth object
@@ -157,10 +195,69 @@ function flattenObject(ob) {
   return toReturn;
 }
 ```
+{% endtab %}
+{% tab id=105 %}
+```js
+/**
+* Flatten javascript objects into a single-depth object
+* https://gist.github.com/penguinboy/762197
+*/
+function flattenObject(ob) {
+  const toReturn = {};
+
+  for (let i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+
+    if ((typeof ob[i]) == 'object') {
+      const flatObject = flattenObject(ob[i]);
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+}
+```
+{% endtab %}
+{% tab id=106 %}
+```js
+/**
+* Flatten javascript objects into a single-depth object
+* https://gist.github.com/penguinboy/762197
+*/
+function flattenObject(ob) {
+  const toReturn = {};
+
+  for (let i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+
+    if ((typeof ob[i]) == 'object') {
+      const flatObject = flattenObject(ob[i]);
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+}
+```
+{% endtab %}
+{% endtabs %}
+
 
 ### Add Implementation
 With those functions in place, we're ready to finish our hook. Update the `load` method to look like this:
 
+{% tabs tab1={"name": "ES5", "id": 107} | tab2={"name": "ES6", "id": 108} | tab3={"name": "ESNext", "id": 109} %}
+{% tab id=107, is_active=true %}
 ```js
 ...
   load: function(lore) {
@@ -191,6 +288,73 @@ With those functions in place, we're ready to finish our hook. Update the `load`
   }
 ...
 ```
+{% endtab %}
+{% tab id=108 %}
+```js
+...
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // 4. Create a polling object that will mirror the structure of the actions object
+    lore.polling = {};
+
+    // 5. Iterate over each action and create a pollable version attached to the polling object
+    _.mapKeys(flattenObject(actions), function(action, actionKey) {
+      // 6. Get the model specific config
+      const modelName = actionKey.split('.')[0];
+      const modelConfig = modelConfigs[modelName];
+
+      // 7. Combine values from both configs, giving priority to values in the model config
+      const config = _.defaults({}, modelConfig.polling, appConfig);
+
+      // 8. Generate the pollable version of the action
+      _.set(lore.polling, actionKey, createPollingWrapper(action, config));
+    });
+  }
+...
+```
+{% endtab %}
+{% tab id=109 %}
+```js
+...
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // 4. Create a polling object that will mirror the structure of the actions object
+    lore.polling = {};
+
+    // 5. Iterate over each action and create a pollable version attached to the polling object
+    _.mapKeys(flattenObject(actions), function(action, actionKey) {
+      // 6. Get the model specific config
+      const modelName = actionKey.split('.')[0];
+      const modelConfig = modelConfigs[modelName];
+
+      // 7. Combine values from both configs, giving priority to values in the model config
+      const config = _.defaults({}, modelConfig.polling, appConfig);
+
+      // 8. Generate the pollable version of the action
+      _.set(lore.polling, actionKey, createPollingWrapper(action, config));
+    });
+  }
+...
+```
+{% endtab %}
+{% endtabs %}
+
 
 There's a few things happening here again, so let's break down each line to discuss what this code means.
 
@@ -223,6 +387,8 @@ pollable function. For example, given an `actionKey` of `tweet.find`, this line 
 ### Check In
 With these changes in place, our hook is finished, and your `index.js` file should look like this:
 
+{% tabs tab1={"name": "ES5", "id": 110} | tab2={"name": "ES6", "id": 111} | tab3={"name": "ESNext", "id": 112} %}
+{% tab id=110, is_active=true %}
 ```js
 var _ = require('lodash');
 
@@ -314,6 +480,194 @@ module.exports = {
 
 };
 ```
+{% endtab %}
+{% tab id=111 %}
+```js
+import _ from 'lodash';
+
+/**
+ * Flatten javascript objects into a single-depth object
+ * https://gist.github.com/penguinboy/762197
+ */
+function flattenObject(ob) {
+  const toReturn = {};
+
+  for (let i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+
+    if ((typeof ob[i]) == 'object') {
+      const flatObject = flattenObject(ob[i]);
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+}
+
+/**
+ * Call the action (with the bound arguments) every [interval] milliseconds
+ */
+function poll(action, config) {
+  // invoke the action
+  action();
+
+  // wait the specified interval, then invoke the action again
+  setTimeout(function() {
+    poll(action, config);
+  }, config.interval);
+}
+
+function createPollingWrapper(action, config) {
+  return function callAction() {
+    // Create a version of the action that is bound to the arguments provided by the
+    // user. This makes sure the hook will work with any arbitrary function - it simply
+    // invokes that action with the provided arguments on the requested interval
+    const boundAction = Function.prototype.apply.bind(action).bind(null, null, arguments);
+
+    // Begin polling the action
+    return poll(boundAction, config);
+  }
+}
+
+export default {
+
+  dependencies: ['bindActions'],
+
+  defaults: {
+    polling: {
+      interval: 3000
+    }
+  },
+
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // 4. Create a polling object that will mirror the structure of the actions object
+    lore.polling = {};
+
+    // 5. Iterate over each action and create a pollable version attached to the polling object
+    _.mapKeys(flattenObject(actions), function (action, actionKey) {
+      // 6. Get the model specific config
+      const modelName = actionKey.split('.')[0];
+      const modelConfig = modelConfigs[modelName];
+
+      // 7. Combine values from both configs, giving priority to values in the model config
+      const config = _.defaults({}, modelConfig.polling, appConfig);
+
+      // 8. Generate the pollable version of the action
+      _.set(lore.polling, actionKey, createPollingWrapper(action, config));
+    });
+  }
+
+}
+```
+{% endtab %}
+{% tab id=112 %}
+```js
+import _ from 'lodash';
+
+/**
+ * Flatten javascript objects into a single-depth object
+ * https://gist.github.com/penguinboy/762197
+ */
+function flattenObject(ob) {
+  const toReturn = {};
+
+  for (let i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+
+    if ((typeof ob[i]) == 'object') {
+      const flatObject = flattenObject(ob[i]);
+      for (let x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+}
+
+/**
+ * Call the action (with the bound arguments) every [interval] milliseconds
+ */
+function poll(action, config) {
+  // invoke the action
+  action();
+
+  // wait the specified interval, then invoke the action again
+  setTimeout(function() {
+    poll(action, config);
+  }, config.interval);
+}
+
+function createPollingWrapper(action, config) {
+  return function callAction() {
+    // Create a version of the action that is bound to the arguments provided by the
+    // user. This makes sure the hook will work with any arbitrary function - it simply
+    // invokes that action with the provided arguments on the requested interval
+    const boundAction = Function.prototype.apply.bind(action).bind(null, null, arguments);
+
+    // Begin polling the action
+    return poll(boundAction, config);
+  }
+}
+
+export default {
+
+  dependencies: ['bindActions'],
+
+  defaults: {
+    polling: {
+      interval: 3000
+    }
+  },
+
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // 4. Create a polling object that will mirror the structure of the actions object
+    lore.polling = {};
+
+    // 5. Iterate over each action and create a pollable version attached to the polling object
+    _.mapKeys(flattenObject(actions), function (action, actionKey) {
+      // 6. Get the model specific config
+      const modelName = actionKey.split('.')[0];
+      const modelConfig = modelConfigs[modelName];
+
+      // 7. Combine values from both configs, giving priority to values in the model config
+      const config = _.defaults({}, modelConfig.polling, appConfig);
+
+      // 8. Generate the pollable version of the action
+      _.set(lore.polling, actionKey, createPollingWrapper(action, config));
+    });
+  }
+
+}
+```
+{% endtab %}
+{% endtabs %}
 
 
 ## Next Steps

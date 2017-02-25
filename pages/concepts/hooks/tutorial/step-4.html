@@ -9,6 +9,8 @@ permalink: /concepts/hooks/tutorial/step-4/
 
 In this step we're going to make our hook configurable so it can be overriden on an app-level or on a per-model basis.
 
+> You can view the finished code for this step by checking out the `step-4` branch.
+
 ### Hook Configuration
 It's good practice to expose configuration values that will allow the user to tailor the behavior of your hook,
 provided there are configuration values that make sense to expose.
@@ -63,7 +65,22 @@ the user and set it's default value to 3 seconds.
 Now that we've added a default config to our hook, let's give the user the ability to change the default interval. To
 do that, create a config file called `polling`, located at `config/polling.js`. Paste this code into that file:
 
-```js
+{% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
+{% tab id=101, is_active=true %}
+```jsx
+module.exports = {
+
+   /**
+    * The frequency at which the action should be invoked (in milliseconds)
+    */
+
+  interval: 5000
+
+};
+```
+{% endtab %}
+{% tab id=102 %}
+```jsx
 export default {
 
    /**
@@ -74,6 +91,21 @@ export default {
 
 }
 ```
+{% endtab %}
+{% tab id=103 %}
+```jsx
+export default {
+
+   /**
+    * The frequency at which the action should be invoked (in milliseconds)
+    */
+
+  interval: 5000
+
+}
+```
+{% endtab %}
+{% endtabs %}
 
 With that file in place, the user can now change the `interval` value and it will override the default provided by
 the hook. In this case, we're changing the default interval of 3000 milliseconds to 5000 milliseconds.
@@ -86,6 +118,8 @@ and the user may need to adjust the polling frequency accordingly.
 
 Luckily accommodating that is pretty easy to. Open up `models/tweet.js` and add a section for a polling config:
 
+{% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
+{% tab id=104, is_active=true %}
 ```js
 module.exports = {
   attributes: {
@@ -99,8 +133,44 @@ module.exports = {
   properties: {
     // ...
   }
+};
+```
+{% endtab %}
+{% tab id=105 %}
+```js
+export default {
+  attributes: {
+    // ...
+  },
+
+  polling: {
+    interval: 2000
+  },
+
+  properties: {
+    // ...
+  }
 }
 ```
+{% endtab %}
+{% tab id=106 %}
+```js
+export default {
+  attributes: {
+    // ...
+  },
+
+  polling: {
+    interval: 2000
+  },
+
+  properties: {
+    // ...
+  }
+}
+```
+{% endtab %}
+{% endtabs %}
 
 Which this change, we've now declared that we want to change the application interval of 5000 milliseconds to be
 2000 milliseconds, but _only_ when polling for tweets.
@@ -111,7 +181,9 @@ behavior in our hook. Let's work on that now.
 
 Open up `polling-hook/src/index.js` and update the `load` method to look like this:
 
-```js
+{% tabs tab1={"name": "ES5", "id": 107} | tab2={"name": "ES6", "id": 108} | tab3={"name": "ESNext", "id": 109} %}
+{% tab id=107, is_active=true %}
+```jsx
 ...
   load: function(lore) {
     // 1. Get the actions so we can make them pollable
@@ -124,10 +196,47 @@ Open up `polling-hook/src/index.js` and update the `load` method to look like th
     var modelConfigs = lore.loader.loadModels();
 
     // TODO: create a pollable version of each action
-
   }
 ...
 ```
+{% endtab %}
+{% tab id=108 %}
+```jsx
+...
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // TODO: create a pollable version of each action
+  }
+...
+```
+{% endtab %}
+{% tab id=109 %}
+```jsx
+...
+  load: (lore) => {
+    // 1. Get the actions so we can make them pollable
+    const actions = lore.actions;
+
+    // 2. Get the application level config (defaults + config/polling.js)
+    const appConfig = lore.config.polling;
+
+    // 3. Get the model specific configs
+    const modelConfigs = lore.loader.loadModels();
+
+    // TODO: create a pollable version of each action
+  }
+...
+```
+{% endtab %}
+{% endtabs %}
 
 There's a few things happening here, so let's break down each line to discuss what this code means.
 
