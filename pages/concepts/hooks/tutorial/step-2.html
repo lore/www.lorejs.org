@@ -23,7 +23,7 @@ This command will create a folder called `polling-hook` at the root of your proj
 hook inside that folder. The structure should look like this:
 
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
-{% tab id=101, is_active=true %}
+{% tab id=101 %}
 ```sh
 polling-hook
 |-- src
@@ -34,7 +34,7 @@ polling-hook
 |-- README.md
 ```
 {% endtab %}
-{% tab id=102 %}
+{% tab id=102, is_active=true %}
 ```sh
 polling-hook
 |-- src
@@ -69,7 +69,7 @@ Open up `index.js` file at the root of your project and insert the `polling-hook
 we're using a relative path, since the hook is located within our project and _not_ installed as an npm module.
 
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
-{% tab id=104, is_active=true %}
+{% tab id=104 %}
 ```jsx
 ...
 lore.summon({
@@ -83,7 +83,7 @@ lore.summon({
 });
 ```
 {% endtab %}
-{% tab id=105 %}
+{% tab id=105, is_active=true %}
 ```jsx
 ...
 lore.summon({
@@ -126,7 +126,7 @@ With this change in place, the hook will now be loaded as the application boots 
 
 
 {% tabs tab1={"name": "ES5", "id": 107} | tab2={"name": "ES6", "id": 108} | tab3={"name": "ESNext", "id": 109} %}
-{% tab id=107, is_active=true %}
+{% tab id=107 %}
 ```jsx
 module.exports = {
 
@@ -141,7 +141,7 @@ module.exports = {
 };
 ```
 {% endtab %}
-{% tab id=108 %}
+{% tab id=108, is_active=true %}
 ```jsx
 export default {
 
@@ -176,7 +176,7 @@ export default {
 Modify the `load` function to look like this:
 
 {% tabs tab1={"name": "ES5", "id": 110} | tab2={"name": "ES6", "id": 111} | tab3={"name": "ESNext", "id": 112} %}
-{% tab id=110, is_active=true %}
+{% tab id=110 %}
 ```js
 ...
   load: function(lore) {
@@ -185,7 +185,7 @@ Modify the `load` function to look like this:
 ...
 ```
 {% endtab %}
-{% tab id=111 %}
+{% tab id=111, is_active=true %}
 ```js
 ...
   load: (lore) => {

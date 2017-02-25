@@ -66,7 +66,7 @@ Now that we've added a default config to our hook, let's give the user the abili
 do that, create a config file called `polling`, located at `config/polling.js`. Paste this code into that file:
 
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
-{% tab id=101, is_active=true %}
+{% tab id=101 %}
 ```jsx
 module.exports = {
 
@@ -79,7 +79,7 @@ module.exports = {
 };
 ```
 {% endtab %}
-{% tab id=102 %}
+{% tab id=102, is_active=true %}
 ```jsx
 export default {
 
@@ -119,7 +119,7 @@ and the user may need to adjust the polling frequency accordingly.
 Luckily accommodating that is pretty easy to. Open up `models/tweet.js` and add a section for a polling config:
 
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
-{% tab id=104, is_active=true %}
+{% tab id=104 %}
 ```js
 module.exports = {
   attributes: {
@@ -136,7 +136,7 @@ module.exports = {
 };
 ```
 {% endtab %}
-{% tab id=105 %}
+{% tab id=105, is_active=true %}
 ```js
 export default {
   attributes: {
@@ -182,7 +182,7 @@ behavior in our hook. Let's work on that now.
 Open up `polling-hook/src/index.js` and update the `load` method to look like this:
 
 {% tabs tab1={"name": "ES5", "id": 107} | tab2={"name": "ES6", "id": 108} | tab3={"name": "ESNext", "id": 109} %}
-{% tab id=107, is_active=true %}
+{% tab id=107 %}
 ```jsx
 ...
   load: function(lore) {
@@ -200,7 +200,7 @@ Open up `polling-hook/src/index.js` and update the `load` method to look like th
 ...
 ```
 {% endtab %}
-{% tab id=108 %}
+{% tab id=108, is_active=true %}
 ```jsx
 ...
   load: (lore) => {

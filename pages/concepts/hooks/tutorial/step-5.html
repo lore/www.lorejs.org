@@ -53,7 +53,7 @@ actually a wrapper around the real action, where the arguments are already bound
 To illustrate, add this function to your `index.js` file as well:
 
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
-{% tab id=101, is_active=true %}
+{% tab id=101 %}
 ```jsx
 function createPollingWrapper(action, config) {
   return function callAction() {
@@ -68,7 +68,7 @@ function createPollingWrapper(action, config) {
 }
 ```
 {% endtab %}
-{% tab id=102 %}
+{% tab id=102, is_active=true %}
 ```jsx
 function createPollingWrapper(action, config) {
   return function callAction() {
@@ -169,7 +169,7 @@ lore.actions = {
 Add this function to the `index.js` file:
 
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
-{% tab id=104, is_active=true %}
+{% tab id=104 %}
 ```js
 /**
 * Flatten javascript objects into a single-depth object
@@ -196,7 +196,7 @@ function flattenObject(ob) {
 }
 ```
 {% endtab %}
-{% tab id=105 %}
+{% tab id=105, is_active=true %}
 ```js
 /**
 * Flatten javascript objects into a single-depth object
@@ -257,7 +257,7 @@ function flattenObject(ob) {
 With those functions in place, we're ready to finish our hook. Update the `load` method to look like this:
 
 {% tabs tab1={"name": "ES5", "id": 107} | tab2={"name": "ES6", "id": 108} | tab3={"name": "ESNext", "id": 109} %}
-{% tab id=107, is_active=true %}
+{% tab id=107 %}
 ```js
 ...
   load: function(lore) {
@@ -289,7 +289,7 @@ With those functions in place, we're ready to finish our hook. Update the `load`
 ...
 ```
 {% endtab %}
-{% tab id=108 %}
+{% tab id=108, is_active=true %}
 ```js
 ...
   load: (lore) => {
@@ -388,7 +388,7 @@ pollable function. For example, given an `actionKey` of `tweet.find`, this line 
 With these changes in place, our hook is finished, and your `index.js` file should look like this:
 
 {% tabs tab1={"name": "ES5", "id": 110} | tab2={"name": "ES6", "id": 111} | tab3={"name": "ESNext", "id": 112} %}
-{% tab id=110, is_active=true %}
+{% tab id=110 %}
 ```js
 var _ = require('lodash');
 
@@ -481,7 +481,7 @@ module.exports = {
 };
 ```
 {% endtab %}
-{% tab id=111 %}
+{% tab id=111, is_active=true %}
 ```js
 import _ from 'lodash';
 
