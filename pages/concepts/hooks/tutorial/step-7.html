@@ -7,7 +7,7 @@ permalink: /concepts/hooks/tutorial/step-7/
 
 # Step 7: Publishing the Hook
 
-If you plan on [publishing your hook to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages), and your
+If you plan on [publishing your hook to npm](https://docs.npmjs.com/audience/publishing-npm-packages), and your
 hook was generated inside an ES6 or ESNext project, you'll need to make a small change to the `package.json` before
 doing so.
 
@@ -39,7 +39,7 @@ Because it can be convenient to first develop hooks inside a project, the `main`
 points to `src/index.js` as the file that should be loaded when consuming the hook. When the hook exists inside your
 project, this isn't a problem, as the babel loader used by your project will transpile it as part of the build.
 
-But if you plan on [publishing your hook to npm](https://docs.npmjs.com/getting-started/publishing-npm-packages), this
+But if you plan on [publishing your hook to npm](https://docs.npmjs.com/audience/publishing-npm-packages), this
 may cause problems with projects that consume the code if those projects aren't configured with the same babel presets
 and plugins as your project. In order to make sure your hook works well with any project, it's recommended that you
 modify the `main` property of your `package.json` to point to `lib/index.js` before publishing, so that projects will

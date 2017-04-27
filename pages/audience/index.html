@@ -1,0 +1,72 @@
+---
+layout: audience
+permalink: /audience/
+---
+
+{% capture markdown %}
+
+# Why discuss the audience?
+Why a framework or tool is created, and what problem it's trying to solve, is not always clear. But that motivation
+has a huge influence on its future development, and knowing that up front can help inform your decision of whether
+or not it's right for you.
+
+If you've spent any time developing in Node.js for example, you may have stumbled upon the
+[Node Frameworks website](http://nodeframework.com/), where there are literally dozens of libraries and frameworks
+all competing for your attention. While the site is helpful in distilling them into categories, attempting to choose
+one from within any single category is still an extremely non-trivial and time consuming task, that requires a large
+investment of your time in order to find a tool with the "right fit".
+
+This page is an attempt to shortcut that process, but clearly stating the motivations for building Lore, and how
+those motivations are intended to manifest into value for people with different comfort levels in React-based
+development.
+
+
+
+### 1. React Beginners
+If you're new to React, welcome; it's an amazing tool with a fantastic ecosystem.
+
+* target: have never built a react app before
+
+* value/what do I want to say:
+- react is a great library, and an excellent foundation for your application
+- can be a little challenging to build your first application with it (a lot to learn)
+- lore makes it easy to get started
+- built on patterns that will provide a solid foundation for your application
+- NOT a "new way of building" React apps - simply conventions and recommendations about how to USE those libraries
+to build applications that can easily adapt to change
+- built on hugely popular technologies with a great ecosystem of support
+
+
+### 2. In-betweeners
+* target: people who are somewhat comfortable with React and Redux, and have some experience building apps
+
+* value: what do I want to say
+- if you've already created your first application, you know the process can be quite challenging, and full of lessons-learned.
+- one of the most challenging areas can be integrating support for feature requests..features the initial architecture
+  doesn't accomodate easily.
+- Lore is architected to scale, and incldues built-in support for common feature needs like pagination, optimistic updates, and error handling
+- lore also makes an effort to be transparent about the patterns it uses
+- in addition to providing a powerful easy to use framework, lore's mission is to teach application architecture and explaining the reasons behind the patterns it uses is
+- teaches the videos explaining the architecture
+
+
+### 3. Super Comfortable with Redux
+* target: people who have been build client-side applications for a while
+
+* value: what do I want to say
+- if you've been building applications for a while, you know supporting and growing an application
+  is frought with challenges; consuming multiple APIs, unconventional APIs, inconsistent APIs, API versioning, quirky behaviors,
+- all the functionality in lore is implemented as a series of plugins called hooks
+- every part of lore can be overridden, which makes the framework extremely customizable
+
+
+### 4. Non-Redux Devs
+* target: client-side application developers, react or not
+# value: what do I want to say
+- lore is built around Redux, so framework doesn't have much direct value if you don't want to use Redux
+- BUT it's making an effort to capture common concerns that a framework SHOULD solve for as
+  examples and...
+
+
+{% endcapture %}
+{{ markdown | markdownify }}

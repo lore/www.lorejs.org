@@ -203,35 +203,149 @@ lore.connect(function(getState, props) {
 ### Example Code
 Example code showing how to filter data.
 
-<ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active">
-    <a href="#tab-usage-es5" role="tab" data-toggle="tab">
-      ES5
-    </a>
-  </li>
-  <li role="presentation" class="">
-    <a href="#tab-usage-es6" role="tab" data-toggle="tab">
-      ES6
-    </a>
-  </li>
-  <li role="presentation" class="">
-    <a href="#tab-usage-esnext" role="tab" data-toggle="tab">
-      ESNext
-    </a>
-  </li>
-</ul>
+{% tabs tab1={"name": "ES5", "id": 1} | tab3={"name": "ES6", "id": 2} | tab4={"name": "ESNext", "id": 3} %}
+{% tab id=1, is_active=true %}
+```jsx
+lore.connect(function(getState, props) {
+    return {
+      posts: getState('post.find', {
+        where: {
+          authorId: props.params.authorId
+        }
+      })
+    };
+  })(
+  React.createClass({
 
-<div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="tab-usage-es5">
-    {% include features/usage/filtering/es5.html %}
-  </div>
-  <div role="tabpanel" class="tab-pane" id="tab-usage-es6">
-    {% include features/usage/filtering/es6.html %}
-  </div>
-  <div role="tabpanel" class="tab-pane" id="tab-usage-esnext">
-    {% include features/usage/filtering/es7.html %}
-  </div>
-</div>
+    propTypes: {
+      posts: React.PropTypes.object.isRequired
+    },
+
+    renderPost: function(post) {
+      return (
+        <li key={post.id || post.cid}>
+          {post.data.title}
+        </li>
+      );
+    },
+
+    render: function() {
+      var posts = this.props.posts;
+
+      if (posts.state === PayloadStates.FETCHING) {
+        return (
+          <div>Loading posts...</div>
+        );
+      }
+
+      return (
+        <ul>
+          {posts.data.map(this.renderPost)}
+        </ul>
+      );
+    }
+  })
+);
+```
+{% endtab %}
+{% tab id=2 %}
+```jsx
+class Component extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.renderPost = this.renderPost.bind(this);
+  }
+
+  renderPost(post) {
+    return (
+      <li key={post.id || post.cid}>
+        {post.data.title}
+      </li>
+    );
+  }
+
+  render() {
+    var posts = this.props.posts;
+
+    if (posts.state === PayloadStates.FETCHING) {
+      return (
+        <div>Loading posts...</div>
+      );
+    }
+
+    return (
+      <ul>
+        {posts.data.map(this.renderPost)}
+      </ul>
+    );
+  }
+};
+
+Component.PropTypes = {
+  posts: React.PropTypes.object.isRequired
+};
+
+export default lore.connect(function(getState, props) {
+  return {
+    posts: getState('post.find', {
+      where: {
+        authorId: props.params.authorId
+      }
+    })
+  };
+})(Component);
+```
+{% endtab %}
+{% tab id=3 %}
+```jsx
+@lore.connect(function(getState, props) {
+  return {
+    posts: getState('post.find', {
+      where: {
+        authorId: props.params.authorId
+      }
+    })
+  };
+})
+class Component extends React.Component {
+
+  static propTypes = {
+    posts: React.PropTypes.object.isRequired
+  };
+
+  constructor(props) {
+    super(props);
+    this.renderPost = this.renderPost.bind(this);
+  }
+
+  renderPost(post) {
+    return (
+      <li key={post.id || post.cid}>
+        {post.data.title}
+      </li>
+    );
+  }
+
+  render() {
+    var posts = this.props.posts;
+
+    if (posts.state === PayloadStates.FETCHING) {
+      return (
+        <div>Loading posts...</div>
+      );
+    }
+
+    return (
+      <ul>
+        {posts.data.map(this.renderPost)}
+      </ul>
+    );
+  }
+};
+```
+{% endtab %}
+{% endtabs %}
 
 {% endcapture %}
 {{ markdown | markdownify }}
