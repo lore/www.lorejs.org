@@ -1,28 +1,23 @@
 ---
-layout: concepts
-permalink: /concepts/collections/
+layout: architecture
+permalink: /architecture/models/
 ---
 
 {% capture markdown %}
 
-# Collections
-Collections represent an API endpoint for a collection of resources you need to interact with, like
-`https://myapp.com/api/books`. This is the endpoint that gets used when fetching a collection of
-resources, or when querying and endpoint or creating a new resource.
+# Models
+Models represent an API endpoint for a resource you need to interact with, like
+`https://myapp.com/api/books/123`.
 
-This file represents a configuration that ultimately gets passed to a Collection instance of
+This file represents a configuration that ultimately gets passed to a Model instance of
 [lore-models](https://github.com/lore/lore/tree/master/packages/lore-models). `Lore Models`
 is the library that Lore uses for making AJAX requests, the interface for which is heavily inspired by
-[Backbone.Collection](http://backbonejs.org/#Collection).
+[Backbone.Model](http://backbonejs.org/#Model).
 
-Similar to models, collections inherit their properties from `config/collections.js`. This means that
-your collections themselves will often be empty, especially when you're only dealing with a single API that uses
-consistent conventions. The only time you should edit this file is if you need to set a behavior that is specific
-to this edit (something that is not shared by the other collections). All shared behaivor should go in
-`config/collections.js`.
-
-Collections will inherit properties like `apiRoot` from models unless it's overridden, as they often
-share the same endpoints.
+All models inherit their properties from `config/models.js`. This means that your models themselves
+will often be empty, especially when you're only dealing with a single API that uses consistent conventions. The
+only time you should edit this file is if you need to set a behavior that is specific to this edit (something
+that is not shared by the other models). All shared behaivor should go in `config/models.js`.
 
 ```js
 module.exports = {
@@ -39,53 +34,50 @@ module.exports = {
   // Override default properties set in config/models.js.
   properties: {
 
+    // A model's unique identifier is stored under the id attribute. If you're
+    // directly communicating with a backend (CouchDB, MongoDB) that uses a different
+    // unique key, you may set a Model's idAttribute to transparently map from that
+    // key to id
+    idAttribute: "id",
+
     // The endpoint used for CRUD operations. The final url used when making AJAX
     // requests is "apiRoot + urlRoot". Lore sets this value automatically based
-    // on the collection's name and the pluralization setting, but you can override if
-    // if your endpoint does not match your collection name.
+    // on the models name and the pluralization setting, but you can override if
+    // if your endpoint does not match your model name.
     urlRoot: '/posts',
 
     // This property can also be a function, which is neccesary when your API endpoints
-    // use nested urls like "/authors/:authorId/posts", since it needs to be calculated
+    // use nested urls like "/authors/:authorId/posts/123", since it needs to be calculated
     // before the AJAX request goes out
     urlRoot: function() {
-      return "/authors/" + this.author.id + "/posts";
+      return "/authors/" + this.author.id + "/posts/123";
     },
 
     // initialize() is especially useful for API endpoints with deeply
     // nested URLs to help build the url later. It's called once, during
-    // construction of the collection
+    // construction of the model
     initialize: function(attributes, options) {
       this.author = attributes.author;
     },
 
-    // parse() is called whenever a collection's data is returned by the server, in fetch,
+    // parse() is called whenever a model's data is returned by the server, in fetch,
     // and save. The function is passed the raw response object, and should return
-    // an object of values to be set on the collection.
+    // an object of values to be set on the model.
     // Example: if your server response looks like this:
     //
-    // [
-    //   {
-    //     id: "123",
-    //     title: 'Bacon is yummy"
-    //   }
-    // ]
+    // {
+    //   id: "123",
+    //   title: 'Bacon is yummy"
+    // }
     //
     // then you don't need to override this function. But if your server response
     // looks like this:
     //
     // {
-    //   meta: {
-    //     count: 1,
-    //     pageSize: 20,
-    //     nextPage: null
-    //   },
-    //   data: [
-    //     {
-    //       id: "123",
-    //       title: 'Bacon is yummy"
-    //     }
-    //   ]
+    //   data: {
+    //     id: "123"
+    //     title: "Bacon is yummy"
+    //   }
     // }
     //
     // then you'll need to override parse() to extract the values from data. This
@@ -107,7 +99,7 @@ module.exports = {
     // if you wanted to log the user out of the application whenever an API response
     // returns a 401 (because their token expired) sync is a method that ALL requests
     // go through. So it's a way to observe and act on or log all network requests.
-    sync: function(method, collection, options) {
+    sync: function(method, model, options) {
       // prep and send AJAX request
     }
   }
