@@ -304,8 +304,8 @@ React.createClass({
             {tweet.data.text}
           </p>
           <div>
-            <EditLink tweet={tweet}/>
-            <DeleteLink tweet={tweet}/>
+            <EditLink tweet={tweet} />
+            <DeleteLink tweet={tweet} />
           </div>
         </div>
       </li>
@@ -367,7 +367,7 @@ export default lore.connect(function(getState, props){
 
   return {
     user: getState('user.byId', {
-      id: tweet.data.userId
+      id: tweet.data.user
     })
   };
 })(Tweet);
