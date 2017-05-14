@@ -416,7 +416,7 @@ var React = require('react');
 var moment = require('moment');
 var EditLink = require('./EditLink');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -523,7 +523,7 @@ Tweet.defaultProps = {
   }
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -540,7 +540,7 @@ import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 import EditLink from './EditLink';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {

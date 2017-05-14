@@ -22,7 +22,7 @@ to the pagination parameters):
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
 {% tab id=104, is_active=true %}
 ```jsx
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -38,7 +38,7 @@ module.exports = lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=105 %}
 ```jsx
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -54,7 +54,7 @@ export default lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=106 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -240,7 +240,7 @@ var Router = require('react-router');
 var InfiniteScrolling = require('../decorators/InfiniteScrolling');
 var LoadMoreButton = require('./LoadMoreButton');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -360,7 +360,7 @@ Feed.propTypes ={
   tweets: PropTypes.object.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -384,7 +384,7 @@ import PayloadStates from '../constants/PayloadStates';
 import InfiniteScrolling from '../decorators/InfiniteScrolling';
 import LoadMoreButton from './LoadMoreButton';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {

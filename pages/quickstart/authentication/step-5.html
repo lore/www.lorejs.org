@@ -37,7 +37,7 @@ module.exports = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     auth.deleteToken();
     this.props.router.push('/');
   },
@@ -60,7 +60,7 @@ import auth from '../utils/auth';
 
 class Logout extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     this.props.router.push('/');
   }
@@ -92,7 +92,7 @@ class Logout extends Component {
     router: PropTypes.object.isRequired
   };
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     this.props.router.push('/');
   }
@@ -252,7 +252,7 @@ module.exports = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     auth.deleteToken();
     this.props.router.push('/');
   },
@@ -275,7 +275,7 @@ import auth from '../utils/auth';
 
 class Logout extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     this.props.router.push('/');
   }
@@ -307,7 +307,7 @@ class Logout extends Component {
     router: PropTypes.object.isRequired
   };
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     this.props.router.push('/');
   }

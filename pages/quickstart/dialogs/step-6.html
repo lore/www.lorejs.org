@@ -417,7 +417,7 @@ var moment = require('moment');
 var EditLink = require('./EditLink');
 var DeleteLink = require('./DeleteLink');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -527,7 +527,7 @@ Tweet.defaultProps = {
   }
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -545,7 +545,7 @@ import moment from 'moment';
 import EditLink from './EditLink';
 import DeleteLink from './DeleteLink';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {

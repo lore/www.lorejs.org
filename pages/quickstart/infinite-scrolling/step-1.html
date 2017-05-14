@@ -572,7 +572,7 @@ by importing our InfiniteScrolling decorator and using it to wrap our Feed compo
 ...
 var InfiniteScrolling = require('../decorators/InfiniteScrolling');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -599,7 +599,7 @@ class Feed extends Component {
   ...
 }
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -619,7 +619,7 @@ export default lore.connect(function(getState, props){
 ...
 import InfiniteScrolling from '../decorators/InfiniteScrolling';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -1452,7 +1452,7 @@ var PayloadStates = require('../constants/PayloadStates');
 var InfiniteScrolling = require('../decorators/InfiniteScrolling');
 var LoadMoreButton = require('./LoadMoreButton');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -1568,7 +1568,7 @@ Feed.propTypes = {
   onLoadMore: PropTypes.func.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -1591,7 +1591,7 @@ import PayloadStates from '../constants/PayloadStates';
 import InfiniteScrolling from '../decorators/InfiniteScrolling';
 import LoadMoreButton from './LoadMoreButton';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {

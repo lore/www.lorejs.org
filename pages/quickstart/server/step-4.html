@@ -56,7 +56,7 @@ module.exports React.createClass({
 
   ...
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,
@@ -78,7 +78,7 @@ class Logout extends Component {
 
   ...
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,
@@ -100,7 +100,7 @@ class Logout extends Component {
 
   ...
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,
@@ -145,7 +145,7 @@ module.exports = React.createClass({
     router: React.PropTypes.object.isRequired
   },
 
-  componentDidMount: function(){
+  componentDidMount: function() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,
@@ -177,7 +177,7 @@ class Logout extends Component {
     router: PropTypes.object.isRequired
   };
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,
@@ -210,7 +210,7 @@ class Logout extends Component {
     router: PropTypes.object.isRequired
   };
 
-  componentDidMount(){
+  componentDidMount() {
     auth.deleteToken();
     lore.store.dispatch({
       type: ActionTypes.RESET_STORE,

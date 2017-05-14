@@ -20,7 +20,7 @@ The decorator is called `connect` and the syntax for using it looks like this:
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
 {% tab id=101, is_active=true %}
 ```jsx
-lore.connect(function(getState, props){
+lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -31,7 +31,7 @@ lore.connect(function(getState, props){
 ```jsx
 class MyComponent extends Component {...}
 
-lore.connect(function(getState, props){
+lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -40,7 +40,7 @@ lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -68,7 +68,7 @@ To use `connect`, open up your `Feed` component and wrap it with the decorator l
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
 {% tab id=101, is_active=true %}
 ```jsx
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -85,7 +85,7 @@ class Feed extends Component {
   ...
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -94,7 +94,7 @@ export default lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=106 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -129,7 +129,7 @@ Below is a list of files modified during this step.
 var React = require('react');
 var Tweet = require('./Tweet');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -241,7 +241,7 @@ Feed.defaultProps = (function() {
   }
 })();
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -253,7 +253,7 @@ export default lore.connect(function(getState, props){
 import React, { Component, PropTypes } from 'react';
 import Tweet from './Tweet';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }

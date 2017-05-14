@@ -81,7 +81,7 @@ By resetting the `parse` method, we no longer have a `userId` attribute on `twee
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
 {% tab id=104, is_active=true %}
 ```jsx
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -96,7 +96,7 @@ module.exports = lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=105 %}
 ```jsx
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -109,7 +109,7 @@ export default lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=106 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -264,7 +264,7 @@ var moment = require('moment');
 var EditLink = require('./EditLink');
 var DeleteLink = require('./DeleteLink');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -362,7 +362,7 @@ Tweet.propTypes = {
   user: React.PropTypes.object.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -380,7 +380,7 @@ import moment from 'moment';
 import EditLink from './EditLink';
 import DeleteLink from './DeleteLink';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {

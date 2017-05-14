@@ -19,7 +19,7 @@ and renaming it `UserTweets`. Then update the `lore.connect` call to look like t
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
 {% tab id=101, is_active=true %}
 ```jsx
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {
@@ -35,7 +35,7 @@ module.exports = lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=102 %}
 ```jsx
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {
@@ -51,7 +51,7 @@ export default lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {
@@ -166,7 +166,7 @@ var PayloadStates = require('../constants/PayloadStates');
 var InfiniteScrolling = require('../decorators/InfiniteScrolling');
 var LoadMoreButton = require('./LoadMoreButton');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {
@@ -286,7 +286,7 @@ UserTweets.propTypes = {
   onLoadMore: PropTypes.func.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {
@@ -310,7 +310,7 @@ import PayloadStates from '../constants/PayloadStates';
 import InfiniteScrolling from '../decorators/InfiniteScrolling';
 import LoadMoreButton from './LoadMoreButton';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       where: {

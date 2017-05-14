@@ -157,7 +157,7 @@ var React = require('react');
 var Tweet = require('./Tweet');
 var PayloadStates = require('../constants/PayloadStates');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -286,7 +286,7 @@ Feed.defaultProps = (function() {
   }
 })();
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }
@@ -299,7 +299,7 @@ import React, { Component, PropTypes } from 'react';
 import Tweet from './Tweet';
 import PayloadStates from '../constants/PayloadStates';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find')
   }

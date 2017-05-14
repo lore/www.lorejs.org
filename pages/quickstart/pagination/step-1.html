@@ -469,7 +469,7 @@ var Tweet = require('./Tweet');
 var PayloadStates = require('../constants/PayloadStates');
 var Router = require('react-router');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -609,7 +609,7 @@ Feed.propTypes = {
   tweets: PropTypes.object.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {
@@ -627,7 +627,7 @@ import Tweet from './Tweet';
 import PayloadStates from '../constants/PayloadStates';
 import { Link } from 'react-router';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   return {
     tweets: getState('tweet.find', {
       pagination: {

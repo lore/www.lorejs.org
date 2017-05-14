@@ -144,7 +144,7 @@ module.exports = React.createClass({
     this.lock.hide();
   },
 
-  getLock: function(){
+  getLock: function() {
     var clientId = lore.config.auth0.clientId;
     var domain = lore.config.auth0.domain;
 
@@ -164,7 +164,7 @@ module.exports = React.createClass({
     this.props.router.push('/');
   },
 
-  showLogin: function(){
+  showLogin: function() {
     this.lock.on('authenticated', this.onAuthentication);
     this.lock.show();
   },
@@ -204,7 +204,7 @@ class Login extends Component {
     this.lock.hide();
   }
 
-  getLock(){
+  getLock() {
     var clientId = lore.config.auth0.clientId;
     var domain = lore.config.auth0.domain;
 
@@ -224,7 +224,7 @@ class Login extends Component {
     this.props.router.push('/');
   }
 
-  showLogin(){
+  showLogin() {
     this.lock.on('authenticated', this.onAuthentication);
     this.lock.show();
   }
@@ -274,7 +274,7 @@ class Login extends Component {
     this.lock.hide();
   }
 
-  getLock(){
+  getLock() {
     var clientId = lore.config.auth0.clientId;
     var domain = lore.config.auth0.domain;
 
@@ -294,7 +294,7 @@ class Login extends Component {
     this.props.router.push('/');
   }
 
-  showLogin(){
+  showLogin() {
     this.lock.on('authenticated', this.onAuthentication);
     this.lock.show();
   }

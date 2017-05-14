@@ -28,7 +28,7 @@ time we're going to use a different string in `getState`:
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
 {% tab id=101, is_active=true %}
 ```jsx
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -51,7 +51,7 @@ class Tweet extends Component {
   ...
 }
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -64,7 +64,7 @@ export default lore.connect(function(getState, props){
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -134,7 +134,7 @@ export default {
 var React = require('react');
 var moment = require('moment');
 
-module.exports = lore.connect(function(getState, props){
+module.exports = lore.connect(function(getState, props) {
   var tweet = props.tweet;
 
   return {
@@ -235,7 +235,7 @@ Tweet.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-export default lore.connect(function(getState, props){
+export default lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
@@ -251,7 +251,7 @@ export default lore.connect(function(getState, props){
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
-@lore.connect(function(getState, props){
+@lore.connect(function(getState, props) {
   const tweet = props.tweet;
 
   return {
