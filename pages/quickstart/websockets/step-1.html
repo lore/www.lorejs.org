@@ -7,153 +7,63 @@ permalink: /quickstart/websockets/step-1/
 
 # Step 1: Add WebSocket Support
 
-In this step we'll update our API call to request nested data and teach the application how to process it.
+In this step we'll update our application to include support for WebSockets, so we can automatically display changes
+made by users without having to refresh the page.
 
-> You can view the finished code for this step by checking out the `normalization.1` branch of the [completed project](/quickstart/misc/completed-project/).
+> You can view the finished code for this step by checking out the `websockets.1` branch of the [completed project](/quickstart/misc/completed-project/).
 
 
-## Request Nested Data
-The first thing we need to do is update our `Feed` component to tell the API we want it to *populate* the `user`
-field in each tweet. We can do that by adding an extra parameter to our request.
+### Add the WebSockets Hook
+First install the `lore-hook-websockets-sails` hook:
 
-Open up `src/components/Feed` and modify the `lore.connect` call to look like this (adding the `populate` attribute
-to the pagination parameters):
-
-{% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
-{% tab id=104, is_active=true %}
-```jsx
-module.exports = lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})(
-  ...
-);
 ```
-{% endtab %}
-{% tab id=105 %}
-```jsx
-export default lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})(
-  ...
-);
+npm install lore-hook-websockets-sails --save
 ```
-{% endtab %}
-{% tab id=106 %}
-```jsx
-@lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})
-```
-{% endtab %}
-{% endtabs %}
 
-If you refresh the page, you'll notice it no longer correctly. And if you look at the network requests, you'll see
-two things worth calling out:
-
-1. First, the API call to fetch the first page of tweets now looks like `http://localhost:1337/tweets?page=1&populate=user`,
-which is what we wanted (and you can confirm the user data is in fact nested in the response).
-2. The second thing you'll notice is that the first call to fetch the user for a tweet looks like `http://localhost:1337/users/%5Bobject%20Object%5D`
-instead of `http://localhost:1337/users/1`.
-
-The reason for the strange looking API call is because `tweet.data.user` used to be a number like `1`, but now it's an
-object. And since we haven't taught Lore how to process nested data, it just passes it along to the component.
-
-
-### Specify Nested Relationships
-To fix this issue we need to tell Lore that `tweet` resources may contain nested `user` data, and this data should be
-broken out and converted to a `user` model.
-
-To do that open up `src/models/tweet.js` and add another attribute for the `user` field, specifying the `type` as a
-`model` and the associated `model` to be a `user`:
-
-{% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
-{% tab id=101, is_active=true %}
-```jsx
-module.exports = {
-
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
-  }
-
-};
-```
-{% endtab %}
-{% tab id=102 %}
-```jsx
-export default {
-
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
-  }
-
-}
-```
-{% endtab %}
-{% tab id=103 %}
-```jsx
-export default {
-
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
-  }
-
-}
-```
-{% endtab %}
-{% endtabs %}
-
-With this change in place, refresh the browser you this time the application should load properly and you should see
-only two network requests instead of 6:
+Next register the hook in your `index.js` file:
 
 ```js
-[1] XHR finished loading: GET "http://localhost:1337/user"
-[2] XHR finished loading: GET "http://localhost:1337/tweets?page=1&populate=user"
+lore.summon({
+  hooks: {
+    // ...
+    router: require('lore-hook-router'),
+    websockets: require('lore-hook-websockets-sails')
+  }
+});
 ```
+
+### Add the WebSockets Config File
+Next add the config file that controls the hook:
+
+```js
+// config/websockets.js
+module.exports = {
+  serverUrl: 'http://localhost:1337'
+};
+```
+
+While the hook exposes many more config options, the only one we need for this example is the location of the
+socket.io server, which runs on the same port as the Sails API.
+
+
+### Subscribe to Data
+Next, initialize the hook by subscribing to data for `tweets` in the `Master` component when the application mounts,
+and unsubscribe to the data when the application unmounts:
+
+```jsx
+componentDidMount: function() {
+  lore.websockets.tweet.connect();
+  lore.websockets.tweet.subscribe();
+},
+
+componentWillUnmount: function() {
+  lore.websockets.tweet.unsubscribe();
+},
+```
+
+That's it! With that change in place, the application will start listening for new data when it mounts, and tweets
+created by other users will immediately show up at the top of the feed, just like tweets you create yourself.
+
 
 ### Visual Check-in
 
@@ -166,285 +76,159 @@ If everything went well, your application should now look like this (exactly the
 
 Below is a list of files modified during this step.
 
-### src/models/tweet.js
+### index.js
 
-{% tabs tab1={"name": "ES5", "id": 1} | tab2={"name": "ES6", "id": 2} | tab3={"name": "ESNext", "id": 3} %}
+{% tabs tab1={"name": "ES5", "id": 1} | tab3={"name": "ES6", "id": 2} | tab4={"name": "ESNext", "id": 3} %}
 {% tab id=1, is_active=true %}
 ```jsx
-module.exports = {
+var lore = require('lore');
+var _ = require('lodash');
 
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
+// Allows you to access your lore app globally as well as from within
+// the console. Remove this line if you don't want to be able to do that.
+window.lore = lore;
+
+// Summon the app!
+lore.summon({
+  hooks: {
+    auth: require('lore-hook-auth'),
+    actions: require('lore-hook-actions'),
+    bindActions: require('lore-hook-bind-actions'),
+    collections: require('lore-hook-collections'),
+    connections: require('lore-hook-connections'),
+    connect: require('/Users/jchansen/lore/lore/packages/lore-hook-connect/src'),
+    dialog: require('lore-hook-dialog'),
+    dialogs: require('lore-hook-dialogs-bootstrap'),
+    models: require('lore-hook-models'),
+    react: require('lore-hook-react'),
+    reducers: require('lore-hook-reducers'),
+    redux: _.extend(require('lore-hook-redux'), {
+      dependencies: ['reducers', 'auth']
+    }),
+    router: require('lore-hook-router'),
+    websockets: require('lore-hook-websockets-sails')
   }
-
-};
+});
 ```
 {% endtab %}
 {% tab id=2 %}
 ```jsx
-export default {
-
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
-  }
-
-}
+// PASTE_HERE
 ```
 {% endtab %}
 {% tab id=3 %}
 ```jsx
-export default {
-
-  attributes: {
-    text: {
-      type: 'text',
-      displayName: 'Message',
-      placeholder: "What's happening?"
-    },
-    user: {
-      type: 'model',
-      model: 'user'
-    }
-  }
-
-}
+// PASTE_HERE
 ```
 {% endtab %}
 {% endtabs %}
 
-### src/components/Feed.js
+### config/websockets.js
 
 {% tabs tab1={"name": "ES5", "id": 4} | tab2={"name": "ES6", "id": 5} | tab3={"name": "ESNext", "id": 6} %}
 {% tab id=4, is_active=true %}
 ```jsx
-var React = require('react');
-var Tweet = require('./Tweet');
-var PayloadStates = require('../constants/PayloadStates');
-var Router = require('react-router');
-var InfiniteScrolling = require('../decorators/InfiniteScrolling');
-var LoadMoreButton = require('./LoadMoreButton');
-
-module.exports = lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})(
-InfiniteScrolling({ propName: 'tweets', modelName: 'tweet' })(
-React.createClass({
-  displayName: 'Feed',
-
-  propTypes: {
-    pages: React.PropTypes.array.isRequired,
-    onLoadMore: React.PropTypes.func.isRequired
-  },
-
-  renderTweet: function(tweet) {
-    return (
-      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-    );
-  },
-
-  render: function() {
-    var pages = this.props.pages;
-    var numberOfPages = pages.length;
-    var firstPage = pages[0];
-    var lastPage = pages[pages.length - 1];
-
-    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
-      return (
-        <h1 className="loading-text">
-          Loading...
-        </h1>
-      );
-    }
-
-    var tweetListItems = _.flatten(pages.map(function(tweets) {
-      return tweets.data.map(this.renderTweet);
-    }.bind(this)));
-
-    return (
-      <div className="feed">
-        <h2 className="title">
-          Feed
-        </h2>
-        <ul className="media-list tweets">
-          {tweetListItems}
-        </ul>
-        <LoadMoreButton
-          lastPage={lastPage}
-          onLoadMore={this.props.onLoadMore}
-          nextPageMetaField="nextPage" />
-      </div>
-    );
-  }
-
-})
-)
-);
+module.exports = {
+  serverUrl: 'http://localhost:1337'
+};
 ```
 {% endtab %}
 {% tab id=5 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import Tweet from './Tweet';
-import PayloadStates from '../constants/PayloadStates';
-import InfiniteScrolling from '../decorators/InfiniteScrolling';
-import LoadMoreButton from './LoadMoreButton';
-
-class Feed extends Component {
-
-  renderTweet(tweet) {
-    return (
-      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-    );
-  }
-
-  render() {
-    const pages = this.props.pages;
-    const numberOfPages = pages.length;
-    const firstPage = pages[0];
-    const lastPage = pages[pages.length - 1];
-
-    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
-      return (
-        <h1 className="loading-text">
-          Loading...
-        </h1>
-      );
-    }
-
-    const tweetListItems = _.flatten(pages.map(function(tweets) {
-      return tweets.data.map(this.renderTweet);
-    }.bind(this)));
-
-    return (
-      <div className="feed">
-        <h2 className="title">
-          Feed
-        </h2>
-        <ul className="media-list tweets">
-          {tweetListItems}
-        </ul>
-        <LoadMoreButton
-          lastPage={lastPage}
-          onLoadMore={this.props.onLoadMore}
-          nextPageMetaField="nextPage" />
-      </div>
-    );
-  }
-
-}
-
-Feed.propTypes ={
-  tweets: PropTypes.object.isRequired
-};
-
-export default lore.connect(function(getState, props) {
-  return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})(
-InfiniteScrolling({ propName: 'tweets', modelName: 'tweet' })(
-Feed
-)
-);
+// PASTE_HERE
 ```
 {% endtab %}
 {% tab id=6 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import Tweet from './Tweet';
-import PayloadStates from '../constants/PayloadStates';
-import InfiniteScrolling from '../decorators/InfiniteScrolling';
-import LoadMoreButton from './LoadMoreButton';
+// PASTE_HERE
+```
+{% endtab %}
+{% endtabs %}
 
-@lore.connect(function(getState, props) {
+### src/components/Master.js
+
+{% tabs tab1={"name": "ES5", "id": 7} | tab2={"name": "ES6", "id": 8} | tab3={"name": "ESNext", "id": 9} %}
+{% tab id=7, is_active=true %}
+```jsx
+var React = require('react');
+var PayloadStates = require('../constants/PayloadStates');
+require('../../assets/css/main.css');
+
+module.exports = lore.connect(function(getState, props) {
   return {
-    tweets: getState('tweet.find', {
-      pagination: {
-        page: props.location.query.page || '1',
-        populate: 'user'
-      }
-    })
-  }
-})
-@InfiniteScrolling({ propName: 'tweets', modelName: 'tweet' })
-class Feed extends Component {
-
-  static propTypes = {
-    pages: PropTypes.array.isRequired,
-    onLoadMore: PropTypes.func.isRequired
+    user: getState('currentUser')
   };
+}, { subscribe: true })(
+  React.createClass({
+    displayName: 'Master',
 
-  renderTweet(tweet) {
-    return (
-      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-    );
-  }
+    propTypes: {
+      user: React.PropTypes.object.isRequired
+    },
 
-  render() {
-    const pages = this.props.pages;
-    const numberOfPages = pages.length;
-    const firstPage = pages[0];
-    const lastPage = pages[pages.length - 1];
+    childContextTypes: {
+      user: React.PropTypes.object
+    },
 
-    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
+    getChildContext: function() {
+      return {
+        user: this.props.user
+      };
+    },
+
+    componentDidMount: function() {
+      // If you want to play with the router through the browser's dev console then
+      // uncomment out this line. React Router automatically provides 'router'
+      // to any components that are "routes" (such as Master and Layout), so this
+      // is a good location to attach it to the global lore object.
+
+      // lore.router = this.props.router;
+
+      lore.websockets.tweet.connect();
+      lore.websockets.tweet.subscribe();
+    },
+
+    componentWillUnmount: function() {
+      lore.websockets.tweet.unsubscribe();
+    },
+
+    render: function() {
+      var user = this.props.user;
+
+      if (user.state === PayloadStates.FETCHING) {
+        return (
+          <h1 className="loading-text">
+            Loading...
+          </h1>
+        )
+      }
+
+      if (user.state === PayloadStates.ERROR_FETCHING) {
+        return (
+          <h1 className="loading-text">
+            Unauthorized
+          </h1>
+        )
+      }
+
       return (
-        <h1 className="loading-text">
-          Loading...
-        </h1>
+        <div>
+          {React.cloneElement(this.props.children)}
+        </div>
       );
     }
-
-    const tweetListItems = _.flatten(pages.map(function(tweets) {
-      return tweets.data.map(this.renderTweet);
-    }.bind(this)));
-
-    return (
-      <div className="feed">
-        <h2 className="title">
-          Feed
-        </h2>
-        <ul className="media-list tweets">
-          {tweetListItems}
-        </ul>
-        <LoadMoreButton
-          lastPage={lastPage}
-          onLoadMore={this.props.onLoadMore}
-          nextPageMetaField="nextPage" />
-      </div>
-    );
-  }
-
-}
-
-export default Feed;
+  })
+);
+```
+{% endtab %}
+{% tab id=8 %}
+```jsx
+// PASTE_HERE
+```
+{% endtab %}
+{% tab id=9 %}
+```jsx
+// PASTE_HERE
 ```
 {% endtab %}
 {% endtabs %}
