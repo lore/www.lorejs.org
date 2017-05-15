@@ -5,229 +5,287 @@ permalink: /quickstart/optimistic/step-1/
 
 {% capture markdown %}
 
-# Step 1: Add Filter Component
+# Step 1: Add Pagination Timestamp
 
-In this step we'll add a Filter component to our interface.
+In this step we'll add a timestamp to our pagination requests, to "freeze" the data and solve an error that occurs
+when we fetch new pages after creating a new tweet.
 
-> You can view the finished code for this step by checking out the `filtering.1` branch of the [completed project](/quickstart/misc/completed-project/).
+> You can view the finished code for this step by checking out the `optimistic.1` branch of the [completed project](/quickstart/misc/completed-project/).
 
-### Add Filter Component
-Create a component called `Filter`. We'll be using this component to display a list of links the user can click to
-filter the data being displayed.
 
-```sh
-lore generate component Filter
+### Problem: Error when paginating after creating a tweet
+
+Ever since we introduced pagination, new tweets stopped showing up in the Feed when you create them. This certainly
+doesn't match the expected user experience. The reason for this is that the application doesn't know what to do with
+the new tweets you create. What the application is displaying is exactly what you asked for; the first page of tweets.
+
+You'll also notice that if you *DO* create a tweet, and then you try to load the next page of tweets, the console fills
+with this error:
+
+```
+Warning: flattenChildren(...): Encountered two children with the same key
 ```
 
-Update the code to look like this. We're going to add two links; one to display all tweets (the Feed) and one to
-display only the tweets belonging to a specific user. In this case, we're going to call that link "My Tweets" and use
-it to display the current user's tweets.
+This error is caused by the fact that some of the tweets on the first page are *ALSO* on the second page. To illustrate,
+let's say the server has 6 tweets, and you want to display those tweets in two pages, with three tweets per page:
+
+```
+--- page 1 ----
+'tweet 6'
+'tweet 5'
+'tweet 4'
+--- page 2 ----
+'tweet 3'
+'tweet 2'
+'tweet 1'
+```
+
+When you create a new tweet, it gets stored on the server, and becomes `tweet 7`. But because we're displaying tweets
+in chronological order, `tweet 7` now shows up on `page 1` and pushes back the other tweets, effectively changing what
+data is displayed on which page, like this:
+
+```
+--- page 1 ----
+'tweet 7'
+'tweet 6'
+'tweet 5'
+--- page 2 ----
+'tweet 4'
+'tweet 3'
+'tweet 2'
+--- page 3 ----
+'tweet 1'
+```
+
+If you fetch the second page, you'll now get `tweet 4`, which was already returned as part of the first page. And
+now React will try to render it twice, once as part of the data for `page 1` and again as part of the data for `page 2`,
+which will throw the error above, because two React components have the same key (the id of the tweet).
+
+To solve this problem, we're going to create a timestamp, and use that to "freeze" the pagination data by requesting
+all data relative to a specific point in time. This way, new tweets won't affect what data is displayed on which page.
+
+
+### Create Initializer to Generate Timestamp
+To do that, we're going to create something called an `initializer`. These are functions that Lore will invoke *once*,
+right before the hooks are loaded, and can be a useful place to register 3rd party code like a chat messenger (e.g.
+[Intercom](https://www.intercom.com)), logging, analytics, etc.
+
+In this case, we're going to create an initializer that records the timestamp for when the application is built, and
+use that to "freeze" our pagination data.
+
+Create a new file in `initializers` called `timestamp.js` and paste the following code into that file:
 
 {% tabs tab1={"name": "ES5", "id": 101} | tab2={"name": "ES6", "id": 102} | tab3={"name": "ESNext", "id": 103} %}
 {% tab id=101, is_active=true %}
 ```jsx
-var React = require('react');
-var Router = require('react-router');
+var moment = require('moment');
 
-module.exports = React.createClass({
-  displayName: 'Filter',
-
-  contextTypes: {
-    user: React.PropTypes.object.isRequired
-  },
-
-  render: function() {
-    var user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <Router.IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </Router.IndexLink>
-          <Router.Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Router.Link>
-        </ul>
-      </div>
-    );
-  }
-
-});
+module.exports = function() {
+  lore.timestamp = moment().format();
+};
 ```
 {% endtab %}
 {% tab id=102 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import moment from 'moment';
 
-class Filter extends Component {
-
-  render() {
-    const user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </IndexLink>
-          <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Link>
-        </ul>
-      </div>
-    );
-  }
-
+export default function() {
+  lore.timestamp = moment().format();
 }
-
-Filter.contextTypes = {
-  user: PropTypes.object.isRequired
-};
-
-export default Filter;
 ```
 {% endtab %}
 {% tab id=103 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import moment from 'moment';
 
-class Filter extends Component {
-
-  static contextTypes = {
-    user: PropTypes.object.isRequired
-  };
-
-  render() {
-    const user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </IndexLink>
-          <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Link>
-        </ul>
-      </div>
-    );
-  }
-
+export default function() {
+  lore.timestamp = moment().format();
 }
-
-export default Filter;
 ```
 {% endtab %}
 {% endtabs %}
 
+Now when the application loads, it will record the timestamp and attach it to the `lore` object. If you refresh the
+page, and open the developer tools, you can see this by entering `lore.timestamp` into the console. You should see it
+print the timestamp to the console like this:
 
-### Update Layout
-With our `Feed` component created, import it into the `Layout` component and insert it right below the `Profile`:
+```
+"2017-05-14T15:28:05-07:00"
+```
+
+
+### Freeze the Pagination Data
+Now that we have the timestamp, we need to update our network requests to say "only give me tweets created BEFORE
+this timestamp". To do that, the Sails API accepts a `where` object as a query parameter, that allows us to make some
+pretty interesting requests. For example, to fetch all tweets created before a certain date, we can pass this object
+as a query parameter:
+
+```
+where: {
+  createdAt: {
+    '<=': lore.timestamp
+  }
+}
+```
+
+Which would look like this as a network request:
+
+```
+http://localhost:1337/tweets?where={createdAt: {"<=": "2017-05-14T15:28:05-07:00"}}
+```
+
+To accomplish this, open up your `Feed` component and modify the `lore.connect` call to look like this:
 
 {% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
 {% tab id=104, is_active=true %}
 ```jsx
-...
-var Filter = require('./Filter');
-
-module.exports = React.createClass({
-  displayName: 'Layout',
-
-  render: function() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+module.exports = lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: props.location.query.page || '1',
+        populate: 'user'
+      }
+    })
   }
-
-});
+})
 ```
 {% endtab %}
 {% tab id=105 %}
 ```jsx
-...
-import Filter from './Filter';
-
-class Layout extends Component {
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: props.location.query.page || '1',
+        populate: 'user'
+      }
+    })
   }
-
-}
-...
+})
 ```
 {% endtab %}
 {% tab id=106 %}
 ```jsx
-...
-import Filter from './Filter';
-
-class Layout extends Component {
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+@lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: props.location.query.page || '1',
+        populate: 'user'
+      }
+    })
   }
-
-}
-...
+})
 ```
 {% endtab %}
 {% endtabs %}
 
-If you refresh the page you should now see the Filter displayed right below the Profile. Clicking on a link will
-generate a console error however, as the `/users/:userId` route doesn't exist yet. We'll fix that next.
+Next, do the same for the `UserTweets` component:
+
+{% tabs tab1={"name": "ES5", "id": 104} | tab2={"name": "ES6", "id": 105} | tab3={"name": "ESNext", "id": 106} %}
+{% tab id=104, is_active=true %}
+```jsx
+module.exports = lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          user: props.params.userId,
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: '1',
+        populate: 'user'
+      }
+    })
+  }
+})
+```
+{% endtab %}
+{% tab id=105 %}
+```jsx
+lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          user: props.params.userId,
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: '1',
+        populate: 'user'
+      }
+    })
+  }
+})
+```
+{% endtab %}
+{% tab id=106 %}
+```jsx
+@lore.connect(function(getState, props) {
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          user: props.params.userId,
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: '1',
+        populate: 'user'
+      }
+    })
+  }
+})
+```
+{% endtab %}
+{% endtabs %}
+
+
 
 
 ### Visual Check-in
 
-If everything went well, your application should now look like this.
+If everything went well, your application should now look like this (the same as before) but you should no longer see
+an error in the console when you paginate after creating a tweet.
 
 <img class="drop-shadow" src="/assets/images/quickstart/filtering/step-1.png">
 
@@ -236,209 +294,226 @@ If everything went well, your application should now look like this.
 
 Below is a list of files modified during this step.
 
-### src/components/Filter.js
+### initializers/timestamp.js
 
-{% tabs tab1={"name": "ES5", "id": 1} | tab2={"name": "ES6", "id": 2} | tab3={"name": "ESNext", "id": 3} %}
+{% tabs tab1={"name": "ES5", "id": 1} | tab3={"name": "ES6", "id": 2} | tab4={"name": "ESNext", "id": 3} %}
 {% tab id=1, is_active=true %}
 ```jsx
-var React = require('react');
-var Router = require('react-router');
+var moment = require('moment');
 
-module.exports = React.createClass({
-  displayName: 'Filter',
-
-  contextTypes: {
-    user: React.PropTypes.object.isRequired
-  },
-
-  render: function() {
-    var user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <Router.IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </Router.IndexLink>
-          <Router.Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Router.Link>
-        </ul>
-      </div>
-    );
-  }
-
-});
+module.exports = function() {
+  lore.timestamp = moment().format();
+};
 ```
 {% endtab %}
 {% tab id=2 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import moment from 'moment';
 
-class Filter extends Component {
-
-  render() {
-    const user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </IndexLink>
-          <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Link>
-        </ul>
-      </div>
-    );
-  }
-
+export default function() {
+  lore.timestamp = moment().format();
 }
-
-Filter.contextTypes = {
-  user: PropTypes.object.isRequired
-};
-
-export default Filter;
 ```
 {% endtab %}
 {% tab id=3 %}
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import moment from 'moment';
 
-class Filter extends Component {
-
-  static contextTypes = {
-    user: PropTypes.object.isRequired
-  };
-
-  render() {
-    const user = this.context.user;
-
-    return (
-      <div className="filter">
-        <ul className="list-group">
-          <IndexLink className="list-group-item" activeClassName="active" to="/">
-            Feed
-          </IndexLink>
-          <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-            My Tweets
-          </Link>
-        </ul>
-      </div>
-    );
-  }
-
+export default function() {
+  lore.timestamp = moment().format();
 }
-
-export default Filter;
 ```
 {% endtab %}
 {% endtabs %}
 
-### src/components/Layout.js
+
+### src/components/Feed.js
 
 {% tabs tab1={"name": "ES5", "id": 4} | tab2={"name": "ES6", "id": 5} | tab3={"name": "ESNext", "id": 6} %}
 {% tab id=4, is_active=true %}
 ```jsx
 var React = require('react');
-var logo = require('../../assets/images/logo.png');
-var Header = require('./Header');
-var Profile = require('./Profile');
-var Filter = require('./Filter');
+var Tweet = require('./Tweet');
+var PayloadStates = require('../constants/PayloadStates');
+var InfiniteScrolling = require('../decorators/InfiniteScrolling');
+var LoadMoreButton = require('./LoadMoreButton');
 
-module.exports = React.createClass({
-  displayName: 'Layout',
+module.exports = lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: props.location.query.page || '1',
+        populate: 'user'
+      }
+    })
+  }
+})(
+InfiniteScrolling({ propName: 'tweets', modelName: 'tweet' })(
+React.createClass({
+  displayName: 'Feed',
+
+  propTypes: {
+    pages: React.PropTypes.array.isRequired,
+    onLoadMore: React.PropTypes.func.isRequired
+  },
+
+  renderTweet: function(tweet) {
+    return (
+      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+    );
+  },
 
   render: function() {
+    var pages = this.props.pages;
+    var numberOfPages = pages.length;
+    var firstPage = pages[0];
+    var lastPage = pages[pages.length - 1];
+
+    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      );
+    }
+
+    var tweetListItems = _.flatten(pages.map(function(tweets) {
+      return tweets.data.map(this.renderTweet);
+    }.bind(this)));
+
     return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
+      <div className="feed">
+        <h2 className="title">
+          Feed
+        </h2>
+        <ul className="media-list tweets">
+          {tweetListItems}
+        </ul>
+        <LoadMoreButton
+          lastPage={lastPage}
+          onLoadMore={this.props.onLoadMore}
+          nextPageMetaField="nextPage" />
       </div>
     );
   }
 
-});
+})
+)
+);
 ```
 {% endtab %}
 {% tab id=5 %}
 ```jsx
-import React, { Component } from 'react';
-import Header from './Header';
-import Profile from './Profile';
-import Filter from './Filter';
-
-class Layout extends Component {
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-}
-
-export default Layout;
+// PASTE_HERE
 ```
 {% endtab %}
 {% tab id=6 %}
 ```jsx
-import React, { Component } from 'react';
-import Header from './Header';
-import Profile from './Profile';
-import Filter from './Filter';
+// PASTE_HERE
+```
+{% endtab %}
+{% endtabs %}
 
-class Layout extends Component {
 
-  render() {
+### src/components/UserTweets.js
+
+{% tabs tab1={"name": "ES5", "id": 7} | tab2={"name": "ES6", "id": 8} | tab3={"name": "ESNext", "id": 9} %}
+{% tab id=7, is_active=true %}
+```jsx
+var React = require('react');
+var Tweet = require('./Tweet');
+var PayloadStates = require('../constants/PayloadStates');
+var InfiniteScrolling = require('../decorators/InfiniteScrolling');
+var LoadMoreButton = require('./LoadMoreButton');
+
+module.exports = lore.connect(function(getState, props){
+  return {
+    tweets: getState('tweet.find', {
+      where: {
+        where: {
+          user: props.params.userId,
+          createdAt: {
+            '<=': lore.timestamp
+          }
+        }
+      },
+      pagination: {
+        sort: 'createdAt DESC',
+        page: '1'
+      }
+    })
+  }
+})(
+InfiniteScrolling({ propName: 'tweets', modelName: 'tweet' })(
+React.createClass({
+  displayName: 'UserTweets',
+
+  propTypes: {
+    pages: React.PropTypes.array.isRequired,
+    onLoadMore: React.PropTypes.func.isRequired
+  },
+
+  renderTweet: function(tweet) {
     return (
-      <div>
-        <Header />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Profile />
-              <Filter />
-            </div>
-            <div className="col-md-offset-1 col-md-6">
-              {React.cloneElement(this.props.children)}
-            </div>
-          </div>
-        </div>
+      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+    );
+  },
+
+  render: function() {
+    var pages = this.props.pages;
+    var numberOfPages = pages.length;
+    var firstPage = pages[0];
+    var lastPage = pages[pages.length - 1];
+
+    if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
+      return (
+        <h1 className="loading-text">
+          Loading...
+        </h1>
+      );
+    }
+
+    var tweetListItems = _.flatten(pages.map(function(tweets) {
+      return tweets.data.map(this.renderTweet);
+    }.bind(this)));
+
+    return (
+      <div className="feed">
+        <h2 className="title">
+          My Tweets
+        </h2>
+        <ul className="media-list tweets">
+          {tweetListItems}
+        </ul>
+        <LoadMoreButton
+          lastPage={lastPage}
+          onLoadMore={this.props.onLoadMore}
+          nextPageMetaField="nextPage" />
       </div>
     );
   }
 
-}
-
-export default Layout;
+})
+)
+);
+```
+{% endtab %}
+{% tab id=8 %}
+```jsx
+// PASTE_HERE
+```
+{% endtab %}
+{% tab id=9 %}
+```jsx
+// PASTE_HERE
 ```
 {% endtab %}
 {% endtabs %}
@@ -446,7 +521,7 @@ export default Layout;
 
 ## Next Steps
 
-In the next section we'll add the ability to [view just the user's tweets](../step-2/).
+In the next section we'll [display new tweets at the top of the Feed](../step-2/).
 
 {% endcapture %}
 {{ markdown | markdownify }}
