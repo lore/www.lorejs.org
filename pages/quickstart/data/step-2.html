@@ -305,6 +305,9 @@ Install moment with this command:
 npm install moment --save
 ```
 
+> After installing `moment` you may need to stop and restart the webpack development server in order for Webpack to
+> see the new package.
+
 To use `moment` you simply need to import it into your `Tweet` component and call `moment(tweet.data.createdAt).fromNow()`
 to convert the `createdAt` date into a moment object. Calling `fromNow()` will convert the timestamp from the format
 `2016-10-04T05:10:49.382Z` into a simple statement like `3 days ago`.
