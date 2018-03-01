@@ -1,0 +1,137 @@
+// generate docs css
+@import "./variables-minimal.less";
+@import "./bootstrap/mixins.less";
+//@import "./custom/syntax.less";
+@import "./custom/docs.less";
+
+.docs-content > h3,
+.docs-content > h2  {
+  margin-top: 50px;
+}
+
+.highlight {
+  background-color: #f5f7f9;
+  border: 1px solid #DDE2E6;
+}
+
+.docs-example {
+  background-color: transparent;
+}
+
+.highlight pre code {
+  color: #3E4952;
+}
+
+// code styles
+.gp {
+  color: @brand-primary;
+}
+
+// component overides
+.docs-icons {
+  color: @gray;
+}
+
+.docs-example .featured-list .icon,
+.docs-example .featured-list h3 {
+  color: @brand-primary;
+}
+
+.docs-example .text-ribbon {
+  color: #fff;
+}
+
+.docs-example .panel-bold {
+  color: #fff;
+}
+
+.docs-example .carousel-light {
+  background-color: #fff;
+}
+
+.docs-bg {
+  background-color: @brand-primary;
+  background-image: linear-gradient(to bottom, darken(@brand-primary, 15%) 0, @brand-primary 100%);
+}
+
+strong {
+  font-weight: 500;
+}
+
+pre code {
+  white-space: pre;
+}
+
+/*
+ * Gatsby Modifications for Markdown
+ */
+
+.docs-content {
+  @media (min-width: @screen-sm-min) {
+    padding-right: (@docs-sidebar-width + @docs-sidebar-gutter + (@grid-gutter-width / 2));
+  }
+}
+
+.docs-content .markdown > h3,
+.docs-content .markdown > h2  {
+  margin-top: 50px;
+}
+
+.docs-content .markdown {
+
+  > h1 {
+    // Copy-pasta-ed from .page-header
+    padding-bottom: ((@line-height-computed / 2) - 1);
+    margin: (@line-height-computed * 2) 0 @line-height-computed;
+    border-bottom: 1px solid @page-header-border-color;
+  }
+}
+
+.docs-content .markdown {
+
+  > h1 {
+    margin-top: 0px !important;
+  }
+
+  // underline the "Next Step" sections
+  > h2 {
+    padding-bottom: ((@line-height-computed / 2) - 1);
+    margin: (@line-height-computed * 2) 0 @line-height-computed;
+    border-bottom: 1px solid @page-header-border-color;
+  }
+}
+
+.code-tabs, pre[class*="language-"] {
+  margin-bottom: 10.5px;
+}
+
+pre[class*="language-"] {
+  padding: 20px;
+}
+
+pre {
+
+}
+
+/*
+ * PrismJS
+ */
+
+//@import "./prism/duotone-light";
+//@import "./prism/ghcolors";
+//@import "./prism/vs";
+@import "../../../node_modules/spectacle-theme-nova/syntax/prism.nova.css";
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  //background: #faf8f5;
+}
+
+code[class*="language-"], pre[class*="language-"] {
+  text-shadow: none;
+}
+
+pre code {
+  font-size: 16px !important;
+}

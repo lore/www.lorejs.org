@@ -1,0 +1,46 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: install-packages
+          command: npm install
+      - run:
+          name: build-gatsby
+          command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - public
+
+
+  deploy:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: install-packages
+          command: npm install
+      - run:
+          name: deploy-site
+          command: ./node_modules/.bin/surge /tmp/workspace/public master.lorejs.org
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: gatsby

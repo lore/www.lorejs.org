@@ -1,62 +1,41 @@
 # www.lorejs.org
 
-Homepage for Lore hosted at [lorejs.org](http://www.lorejs.org).
+This repository contains the code for the Lore website, hosted at [lorejs.org](http://www.lorejs.org), and is 
+a [Gatsby](https://www.gatsbyjs.org/) application.
 
-# Installation
-This is a [Jekyll](https://jekyllrb.com/) project. To run it you will need to have Ruby v2.x installed along with Node.
+## Installation
+You will need to have `node` and `npm` installed to work with this repo.
 
-### Installing Ruby
-First install [RVM](https://rvm.io/) for managing Ruby.
-
-```
-\curl -sSL https://get.rvm.io | bash -s stable
-```
-
-Next install Ruby:
+Once installed, clone the repo:
 
 ```
-rvm install 2.3
+git clone https://github.com/lore/www.lorejs.org.git
 ```
 
-Once Ruby is installed you'll need to install Bundler:
+Then install the packages:
 
 ```
-gem install bundler
+npm install
 ```
 
-Now navigate to the root of the project and run `bundle install`. This will install all the Ruby dependencies that the project needs to run (such as Jekyll).
-
-### Installing Node
-If you don't already have Node installed, you can obtain it from http://nodejs.org.
-
-As an alternative to downloading Node directly, you can also use one of the available Node Version Managers (NVMs). The
-advantage of using these over installing Node directly is that they allow you to easily change which version of
-Node you are using, which is especially helpful when you want to try see how code runs on a different version of Node,
-or trying to discover if a bug you are seeing is related to a specific version of Node and/or NPM.
-
-If you are on a Mac, you can use [nvm](https://github.com/creationix/nvm).
-
-If you are on a Windows machine, you can use [nvm-windows](https://github.com/coreybutler/nvm-windows).
-
-Once NVM is installed you can use it to install Node:
+## Running the Website
+To set up the project for local development, run this command:
 
 ```
-nvm install v6
+npm run develop
 ```
 
-Now navigate to the root of the project and run `npm install`. This will install all the Node dependencies that the project needs to run (such as gulp).
+Then open a web browser and navigate to `http://localhost:8000`. 
 
-# Building the Website
-To build the website you'll need to install gulp into the global namespace:
+The website is configured for hot-reloading, and will automatically reflect changes as you make them to the code, 
+without the need to refresh the page.
 
-```
-npm install -g gulp
-```
-
-Once gulp is installed you can build the project by running this command at the root of the project:
+## Building the Website
+To build the website, run this command:
 
 ```
-gulp
+npm run build
 ```
 
-This will build the project and launch a web browser at `http://localhost:4000`. This gulp configuration using browser-sync and any file changes you make will cause the project to be rebuilt and the web browser will automatically be refreshed.
+This will create a `public` folder at the root of the project and all assest will be compiled and minified and 
+copied to that folder. 
