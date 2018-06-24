@@ -329,7 +329,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -363,7 +363,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -407,7 +407,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });

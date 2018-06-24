@@ -192,15 +192,16 @@ export default (props) => {
                 }
               }]
             },
-            fields: {
-              text: {
+            fields: [
+              {
+                key: 'text',
                 type: 'text',
                 props: {
                   label: 'Message',
                   placeholder: "What's happening?"
                 }
               }
-            }
+            ]
           }
         }
 
@@ -458,15 +459,16 @@ export default (props) => {
                 }
               }]
             },
-            fields: {
-              text: {
+            fields: [
+              {
+                key: 'text',
                 type: 'text',
                 props: {
                   label: 'Message',
                   placeholder: "What's happening?"
                 }
               }
-            }
+            ]
           }
         }
 

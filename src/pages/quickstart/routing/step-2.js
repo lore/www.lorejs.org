@@ -57,6 +57,7 @@ export default (props) => {
               </div>
             );
           }
+
         });
         `}/>
         <CodeTab syntax="ES6" text={`
@@ -252,6 +253,7 @@ export default (props) => {
               </div>
             );
           }
+
         });
         `}/>
         <CodeTab syntax="ES6" text={`
@@ -368,6 +370,7 @@ export default (props) => {
               </div>
             );
           }
+
         });
         `}/>
         <CodeTab syntax="ES6" text={`
@@ -382,6 +385,7 @@ export default (props) => {
         import Header from './Header';
 
         class Layout extends React.Component {
+
           render() {
             return (
               <div>
@@ -396,6 +400,7 @@ export default (props) => {
               </div>
             );
           }
+
         };
 
         export default Layout;
@@ -412,6 +417,7 @@ export default (props) => {
         import Header from './Header';
 
         class Layout extends React.Component {
+
           render() {
             return (
               <div>
@@ -426,6 +432,7 @@ export default (props) => {
               </div>
             );
           }
+
         };
 
         export default Layout;

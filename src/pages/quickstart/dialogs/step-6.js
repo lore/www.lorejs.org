@@ -85,7 +85,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -119,7 +119,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -163,7 +163,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -264,15 +264,16 @@ export default (props) => {
             }
           }]
         },
-        fields: {
-          text: {
+        fields: [
+          {
+            key: 'text',
             type: 'text',
             props: {
               label: 'Message',
               placeholder: "What's happening?"
             }
           }
-        }
+        ]
       };
 
       export default {
@@ -349,7 +350,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -383,7 +384,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -427,7 +428,7 @@ export default (props) => {
               return lore.dialogs.tweet.update(tweet, {
                 blueprint: 'optimistic',
                 request: function(data) {
-                  return lore.actions.tweet.update(tweet, data);
+                  return lore.actions.tweet.update(tweet, data).payload;
                 }
               });
             });
@@ -464,7 +465,7 @@ export default (props) => {
 
           return {
             user: getState('user.byId', {
-              id: tweet.data.userId
+              id: tweet.data.user
             })
           };
         })(
@@ -636,15 +637,16 @@ export default (props) => {
             }
           }]
         },
-        fields: {
-          text: {
+        fields: [
+          {
+            key: 'text',
             type: 'text',
             props: {
               label: 'Message',
               placeholder: "What's happening?"
             }
           }
-        }
+        ]
       };
 
       export default {
