@@ -170,6 +170,7 @@ export default (props) => {
         import React from 'react';
         import createReactClass from 'create-react-class';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import InfiniteScrollingList from './InfiniteScrollingList';
         import Tweet from './Tweet';

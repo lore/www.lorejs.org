@@ -294,6 +294,7 @@ export default (props) => {
         import React from 'react';
         import createReactClass from 'create-react-class';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import InfiniteScrollingList from './InfiniteScrollingList';
         import Tweet from './Tweet';
 

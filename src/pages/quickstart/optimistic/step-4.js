@@ -116,9 +116,40 @@ export default (props) => {
       </p>
       <CodeTabs>
         <CodeTab syntax="ES5" text={`
+          // src/components/CreateButton.js
+          import _ from 'lodash';
+          ...
+          export default createReactClass({
+            displayName: 'CreateButton',
 
+            contextTypes: {
+              user: PropTypes.object.isRequired
+            },
+
+            onClick() {
+              const { user } = this.context;
+
+              lore.dialog.show(function() {
+                return lore.dialogs.tweet.create({
+                  blueprint: 'optimistic',
+                  request: function(data) {
+                    return lore.actions.tweet.create(_.defaults({
+                      user: user.id,
+                      createdAt: new Date().toISOString()
+                    }, data)).payload;
+                  }
+                });
+              });
+            },
+
+            ...
+
+          });
         `}/>
         <CodeTab syntax="ES6" text={`
+        // src/components/CreateButton.js
+        import _ from 'lodash';
+        ...
         class CreateButton extends React.Component {
           ...
           onClick() {
@@ -146,6 +177,9 @@ export default (props) => {
         export default CreateButton;
         `}/>
         <CodeTab syntax="ESNext" text={`
+        // src/components/CreateButton.js
+        import _ from 'lodash';
+        ...
         class CreateButton extends React.Component {
 
           static contextTypes = {

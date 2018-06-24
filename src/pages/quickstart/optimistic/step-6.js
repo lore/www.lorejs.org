@@ -145,6 +145,7 @@ export default (props) => {
         import React from 'react';
         import createReactClass from 'create-react-class';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import PayloadStates from '../constants/PayloadStates';
         import InfiniteScrollingList from './InfiniteScrollingList';
@@ -235,6 +236,7 @@ export default (props) => {
         <CodeTab syntax="ES6" text={`
         import React from 'react';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import PayloadStates from '../constants/PayloadStates';
         import InfiniteScrollingList from './InfiniteScrollingList';
@@ -327,6 +329,7 @@ export default (props) => {
         <CodeTab syntax="ESNext" text={`
         import React from 'react';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import PayloadStates from '../constants/PayloadStates';
         import InfiniteScrollingList from './InfiniteScrollingList';
