@@ -11,6 +11,10 @@ export default (props) => {
       <div className="docs-header" id="content">
         <div className="container">
           <h1>Forms: Pattern Construction</h1>
+          <h2>
+            WARNING! v0.13 was just released, and the tutorial is currently undergoing final testing. It's
+            recommended that you DO NOT follow along until this message is removed (please check back tomorrow).
+          </h2>
           <p>
             Mental model for the forms implementation
           </p>
