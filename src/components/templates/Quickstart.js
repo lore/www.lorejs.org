@@ -130,6 +130,7 @@ export default (props) => {
             <li className="doc-section">WebSockets</li>
             <NavLink title="Overview" url="/quickstart/websockets/overview/" />
             <NavLink title="1. Add WebSocket Support" url="/quickstart/websockets/step-1/" />
+            <NavLink title="2. Send Client ID to API" url="/quickstart/websockets/step-2/" />
 
             <li className="doc-section">Publishing</li>
             <NavLink title="Overview" url="/quickstart/publishing/overview/" />

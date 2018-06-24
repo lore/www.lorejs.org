@@ -212,21 +212,6 @@ export default (props) => {
                   Feed
                 </h2>
                 <InfiniteScrollingList
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        return isOptimistic || isNew;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
                   select={(getState) => {
                     return getState('tweet.find', {
                       where: {
@@ -269,6 +254,21 @@ export default (props) => {
                         return tweet.state === PayloadStates.DELETED;
                       }
                     }, lastPage.query));
+                  }}
+                  selectOther={(getState) => {
+                    return getState('tweet.all', {
+                      where: function(tweet) {
+                        const isOptimistic = !tweet.id;
+                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                        return isOptimistic || isNew;
+                      },
+                      sortBy: function(model) {
+                        return -moment(model.data.createdAt).unix();
+                      },
+                      exclude: function(tweet) {
+                        return tweet.state === PayloadStates.DELETED;
+                      }
+                    });
                   }}
                 />
               </div>

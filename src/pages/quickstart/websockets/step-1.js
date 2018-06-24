@@ -118,6 +118,10 @@ export default (props) => {
         and tweets created by other users will immediately show up at the top of the feed, just like tweets you
         create yourself.
       </p>
+      <p>
+        However, there's also a new bug, where the tweets you create yourself end up with a duplicate tweet
+        that's faded out. We'll fix that in the next step.
+      </p>
 
       <h3>
         Visual Check-in
@@ -215,7 +219,75 @@ export default (props) => {
       </h3>
       <CodeTabs>
         <CodeTab syntax="ES5" text={`
+        import React from 'react';
+        import createReactClass from 'create-react-class';
+        import PropTypes from 'prop-types';
+        import { connect } from 'lore-hook-connect';
+        import PayloadStates from '../constants/PayloadStates';
+        import RemoveLoadingScreen from './RemoveLoadingScreen';
+        import '../../assets/css/main.css';
 
+        export default connect(function(getState, props) {
+          return {
+            user: getState('currentUser')
+          };
+        }, { subscribe: true })(
+        createReactClass({
+          displayName: 'Master',
+
+          propTypes: {
+            user: PropTypes.object.isRequired
+          },
+
+          childContextTypes: {
+            user: PropTypes.object
+          },
+
+          getChildContext() {
+            return {
+              user: this.props.user
+            };
+          },
+
+          componentDidMount() {
+            lore.websockets.tweet.connect();
+            lore.websockets.tweet.subscribe();
+          },
+
+          componentWillUnmount() {
+            lore.websockets.tweet.unsubscribe();
+          },
+
+          render() {
+            const { user } = this.props;
+
+            if (user.state === PayloadStates.FETCHING) {
+              return (
+                <div className="loader" />
+              );
+            }
+
+            if (user.state === PayloadStates.ERROR_FETCHING) {
+              return (
+                <div>
+                  <RemoveLoadingScreen />
+                  <h1 className="full-page-text">
+                    Unauthorized
+                  </h1>
+                </div>
+              );
+            }
+
+            return (
+              <div>
+                <RemoveLoadingScreen />
+                {React.cloneElement(this.props.children)}
+              </div>
+            );
+          }
+
+        })
+        );
         `}/>
         <CodeTab syntax="ES6" text={`
         import React from 'react';
@@ -362,8 +434,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        In the next section we'll learn how to <Link to="../../publishing/overview/">build and deploy the
-        application for production</Link>.
+        In the next step we'll learn how to <Link to="../step-2/">fix the create bug</Link>.
       </p>
     </Template>
   )
