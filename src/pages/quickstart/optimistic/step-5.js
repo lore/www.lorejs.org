@@ -132,7 +132,7 @@ export default (props) => {
 
           return {
             user: getState('user.byId', {
-              id: tweet.data.userId
+              id: tweet.data.user
             })
           };
         })(

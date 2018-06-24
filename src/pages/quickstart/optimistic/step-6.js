@@ -229,6 +229,7 @@ export default (props) => {
               </div>
             );
           }
+
         });
         `}/>
         <CodeTab syntax="ES6" text={`
