@@ -23,7 +23,7 @@ export default (props) => {
       </p>
 
       <Markdown type="sh" text={`
-      $ npm install -g lore-cli@0.13.0-rc.2
+      $ npm install -g lore-cli
       `} />
 
       <p>

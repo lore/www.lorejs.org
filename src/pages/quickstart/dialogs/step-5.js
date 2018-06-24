@@ -89,7 +89,7 @@ export default (props) => {
       </p>
 
       <Markdown type="sh" text={`
-      npm install lore-hook-dialogs-bootstrap@0.13.0-rc.1 --save
+      npm install lore-hook-dialogs-bootstrap --save
       `}/>
 
       <p>

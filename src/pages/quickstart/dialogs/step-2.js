@@ -59,7 +59,7 @@ export default (props) => {
         The first hook we'll install is called <code>lore-hook-dialog</code>. Install it by running this command:
       </p>
       <Markdown type="sh" text={`
-      npm install lore-hook-dialog@0.13.0-rc.1 --save
+      npm install lore-hook-dialog --save
       `}/>
 
       <p>

@@ -29,7 +29,7 @@ export default (props) => {
       </p>
 
       <Markdown text={`
-      npm install lore-hook-websockets-sails@0.13.0-rc.2 sails.io.js@~0.13.8 socket.io-client@^1.4.8 --save
+      npm install lore-hook-websockets-sails sails.io.js@~0.13.8 socket.io-client@^1.4.8 --save
       `}/>
 
       <p>
