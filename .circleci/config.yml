@@ -30,7 +30,7 @@ jobs:
           command: npm install
       - run:
           name: deploy-site
-          command: ./node_modules/.bin/surge /tmp/workspace/public master.lorejs.org
+          command: ./node_modules/.bin/surge /tmp/workspace/public www.lorejs.org
 
 
 workflows:
@@ -43,4 +43,4 @@ workflows:
             - build
           filters:
             branches:
-              only: gatsby
+              only: master
