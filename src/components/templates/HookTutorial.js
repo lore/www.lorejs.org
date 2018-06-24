@@ -11,6 +11,10 @@ export default (props) => {
       <div className="docs-header" id="content">
         <div className="container">
           <h1>Hook Tutorial</h1>
+          <h2>
+            WARNING! v0.13 was just released, and the tutorial is currently undergoing final testing. It's
+            recommended that you DO NOT follow along until this message is removed (please check back tomorrow).
+          </h2>
           <p>
             A tutorial for learning to create your own hooks
           </p>
