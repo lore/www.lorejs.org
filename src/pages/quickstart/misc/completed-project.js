@@ -12,26 +12,9 @@ export default (props) => {
       <h1>
         Completed Project
       </h1>
-
       <p>
         The final code for the Quickstart can be checked out from GitHub using the link below:
       </p>
-
-      <div className="alert alert-danger" role="alert">
-        <div>
-          <strong>IMPORTANT!!</strong>
-        </div>
-        <br/>
-        <div>
-          The quickstart repository <strong>DOES NOT EXIST</strong> for <strong>v0.13</strong> yet. The new version
-          of Lore was just released, and the Quickstart repositories are currently being created.
-        </div>
-        <br/>
-        <div>
-          This message will be removed as soon as soon as the repos exist. In the meantime, trying to clone the
-          example repo is <strong>NOT RECOMMENDED</strong>.
-        </div>
-      </div>
 
       <CodeTabs>
         <CodeTab syntax="ES5" text={`

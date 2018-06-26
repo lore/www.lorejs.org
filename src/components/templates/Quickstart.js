@@ -10,10 +10,6 @@ export default (props) => {
       <div className="docs-header" id="content">
         <div className="container">
           <h1>Quickstart</h1>
-          <h2>
-            WARNING! v0.13 was just released, and the quickstart is currently undergoing final testing. It's
-            recommended that you DO NOT follow along until this message is removed (please check back tomorrow).
-          </h2>
           <p>
             A quick dive into getting started with Lore
           </p>
