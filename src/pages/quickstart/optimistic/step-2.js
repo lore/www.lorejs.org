@@ -247,6 +247,7 @@ export default (props) => {
         <CodeTab syntax="ES6" text={`
         import React from 'react';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import InfiniteScrollingList from './InfiniteScrollingList';
         import Tweet from './Tweet';
@@ -325,6 +326,7 @@ export default (props) => {
         <CodeTab syntax="ESNext" text={`
         import React from 'react';
         import PropTypes from 'prop-types';
+        import _ from 'lodash';
         import moment from 'moment';
         import InfiniteScrollingList from './InfiniteScrollingList';
         import Tweet from './Tweet';

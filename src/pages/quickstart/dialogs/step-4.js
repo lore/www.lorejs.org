@@ -578,7 +578,7 @@ export default (props) => {
        * in case you need to play with it or want to manually kick off actions or check
        * the reducer state (through \`lore.actions.xyz\`, \`lore.reducers.xyz\`,
        * \`lore.models.xyz\`, etc.)
-       **/
+       */
 
       import lore from 'lore';
       import _ from 'lodash';

@@ -251,6 +251,20 @@ export default (props) => {
         even submit it, and if you refresh the browser, you'll see the tweet you created.
       </p>
 
+      <blockquote>
+        <p>
+          In addition to the <code>optimistic</code> blueprint (which closes as soon as the dialog is submitted),
+          the hook also supports an <code>overlay</code> blueprint (which will wait until the resource is saved
+          before closing) as well as a <code>wizard</code> blueprint (which will provide a confirmation screen
+          after the resource is saved).
+        </p>
+        <p>
+          If you'd like a better understanding of how these dialogs are generated, and what the underlying patterns
+          are that are used to create the blueprints, check out the <Link to="/forms/pattern/">Lore Forms Pattern
+          Tutorial</Link>.
+        </p>
+      </blockquote>
+
       <h3>
         Visual Check-in
       </h3>
@@ -279,7 +293,7 @@ export default (props) => {
        * in case you need to play with it or want to manually kick off actions or check
        * the reducer state (through \`lore.actions.xyz\`, \`lore.reducers.xyz\`,
        * \`lore.models.xyz\`, etc.)
-       **/
+       */
 
       import lore from 'lore';
       import _ from 'lodash';
