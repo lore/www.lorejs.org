@@ -5,116 +5,150 @@ import Markdown from '../../../components/Markdown';
 import CodeTabs from '../../../components/CodeTabs';
 import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
-import image from '../../../assets/images/hooks/hook-tutorial.png';
 
 export default (props) => {
   return (
     <Template>
       <h1>
-        Step 1: Clone Starter Project
+        Step 1: Generate the Hook
       </h1>
 
       <p>
-        In this step we'll clone and run repository we'll be adding a custom hook to.
+        In this step we're going to generate the custom hook.
       </p>
-
-      <h3>
-        Clone the Repo
-      </h3>
-      <p>
-        First clone the repo containing the starter code for this tutorial.
-      </p>
-
-      <CodeTabs>
-        <CodeTab title="SSH" active={true} text={`
-        $ git clone git@github.com:lore/lore-hook-tutorial.git
-        `}/>
-        <CodeTab title="HTTPS" text={`
-        $ git clone https://github.com/lore/lore-hook-tutorial.git
-        `}/>
-      </CodeTabs>
 
       <blockquote>
         <p>
-          NOTE: The written code in this tutorial will be displayed in both ES5 and ES6 syntax, but the code in the
-          repository was written in ES6. If that causes any trouble or confusion for you,
-          please <a href="https://github.com/lore/lore/issues">file an issue on GitHub</a>.
+          You can view the finished code for this step by checking out the <code>step-1</code> branch.
         </p>
       </blockquote>
 
       <h3>
-        Switch Branch to Step-1
+        Run the Generator
       </h3>
       <p>
-        The code for the beginning of the tutorial is in the <code>step-1</code> branch, so check out that branch
-        to follow along with the tutorial.
+        The Lore CLI includes a number of commands that can generate files. Among them is a command that will generate starter
+        code for a custom hook. Run this command to create a hook called <code>polling-hook</code>:
       </p>
 
-      <Markdown text={`
-      $ git checkout step-1
-      `}/>
-
-      <h3>
-        Install the Dependencies
-      </h3>
-      <p>
-        Next install the dependencies:
-      </p>
-
-      <Markdown text={`
-      npm install
-      `}/>
-
-      <h3>
-        Start the API Server
-      </h3>
-      <p>
-        Just like the Quickstart, this project uses <code>json-server</code> to provide us with a real API
-        interface. Run this to command to start the server:
-      </p>
-
-      <Markdown text={`
-      npm run server
+      <Markdown type="sh" text={`
+      lore generate hook polling-hook
       `}/>
 
       <p>
-        Once the server is running, you should be able to navigate to <code>http://localhost:1337</code> and see a
-        list of API endpoints.
-      </p>
-
-      <h3>
-        Build the Project
-      </h3>
-      <p>
-        Finally, run this command to build the project and start the development server:
+        This command will create a folder called <code>polling-hook</code> at the root of your project, and place the
+        starter code for a hook inside that folder. The structure should look like this:
       </p>
 
       <Markdown text={`
-      npm start
+      polling-hook
+      |-- src
+      |   |--index.js
+      |-- test
+      |   |-- test.spec.js
+      |-- .babelrc
+      |-- package.json
+      |-- README.md
+      `}/>
+
+      <h3>
+        Add the Hook
+      </h3>
+      <p>
+        Now that we've generated the hook, let's add it to the project so it gets loaded when the application boots up.
+      </p>
+
+      <p>
+        Open up <code>index.js</code> file at the root of your project and insert the <code>polling-hook</code> into
+        the list of hooks. Note that we're using a relative path, since the hook is located within our project
+        and <em>not</em> installed as an npm module.
+      </p>
+
+      <Markdown text={`
+      // index.js
+      import models from 'lore-hook-models';
+      import polling from './polling-hook/src';
+      import reducers from 'lore-hook-reducers';
+      ...
+      lore.summon({
+        hooks: {
+          ...
+          models,
+          polling,
+          reducers,
+          ...
+        }
+      });
       `}/>
 
       <p>
-        Once the project is built, open a web browser and visit <code>http://localhost:3000</code>.
+        With this change in place, the hook will now be loaded as the application boots up. To prove that, open up the
+        file <code>polling-hook/src/index.js</code>. It currently it looks like this:
+      </p>
+
+      <Markdown text={`
+      export default {
+
+        dependencies: [],
+
+        defaults: {},
+
+        load: function(lore) {
+          // do something
+        }
+
+      };
+      `}/>
+
+      <p>
+        Modify the <code>load</code> function to look like this:
+      </p>
+
+      <Markdown text={`
+      ...
+        load: function(lore) {
+          console.log('polling-hook loading!');
+        }
+      ...
+      `}/>
+
+      <p>
+        Now open the developer tools in the browser and refresh the page. If you examine the console, you should see
+        the phrase <code>polling-hook loading!</code> printed out.
+      </p>
+
+      <h2>
+        Code Changes
+      </h2>
+
+      <p>
+        Below is a list of files modified during this step.
       </p>
 
       <h3>
-        Visual Check-in
+        polling-hook/src/index.js
       </h3>
 
-      <p>
-        If everything went well, you should see this in your browser.
-      </p>
+      <Markdown text={`
+      export default {
 
-      <img className="drop-shadow" src={image} />
+        dependencies: [],
+
+        defaults: {},
+
+        load: function(lore) {
+          console.log('polling-hook loading!');
+        }
+
+      }
+      `}/>
 
       <h2>
         Next Steps
       </h2>
-
       <p>
-        Next we're going to <Link to="../step-2/">generate the hook</Link>.
+        Next we're going to <Link to="../step-2/">specify our hook dependencies</Link>.
       </p>
-
     </Template>
   )
 };
