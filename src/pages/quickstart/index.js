@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Quickstart';
-import LanguagePreference from '../../components/LanguagePreference';
 import tutorialImage from '../../assets/images/quickstart/lore-tutorial-twitter.png';
 
 export default (props) => {
@@ -17,8 +16,6 @@ export default (props) => {
       <p>
         Explanations for the opinions expressed in the framework will be left for elsewhere in the documentation.
       </p>
-
-      <LanguagePreference />
 
       <h3>
         What You'll Build
