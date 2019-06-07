@@ -8,7 +8,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - run:
@@ -25,7 +25,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - attach_workspace:
@@ -33,9 +33,9 @@ jobs:
       - run:
           name: install-packages
           command: npm install
-      - run:
-          name: deploy-site
-          command: ./node_modules/.bin/surge /tmp/workspace/public www.lorejs.org
+#      - run:
+#          name: deploy-site
+#          command: ./node_modules/.bin/surge /tmp/workspace/public www.lorejs.org
 
 
 workflows:
