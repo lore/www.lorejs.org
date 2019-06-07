@@ -5,8 +5,7 @@ import prism from 'prismjs';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-javascript';
-// import 'prismjs/components/prism-sh';
+import 'prismjs/components/prism-bash';
 
 marked.setOptions({
   gfm: true,
@@ -36,6 +35,10 @@ marked.setOptions({
     // if (type === 'sh') {
     //   return prism.highlight(code, prism.languages.sh);
     // }
+
+    if (type === 'sh') {
+      return prism.highlight(code, prism.languages.bash);
+    }
 
     return prism.highlight(code, prism.languages.jsx);
   }
