@@ -419,7 +419,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../../routing/overview/">setup routing</Link>.
+        Next we're going to <Link to="/quickstart/routing/overview/">setup routing</Link>.
       </p>
     </Template>
   );

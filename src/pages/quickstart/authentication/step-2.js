@@ -161,7 +161,7 @@ export default (props) => {
       </h3>
 
       <p>
-        Next we're going to <Link to="../step-3/">add a login experience</Link>.
+        Next we're going to <Link to="/quickstart/authentication/step-3/">add a login experience</Link>.
       </p>
 
     </Template>

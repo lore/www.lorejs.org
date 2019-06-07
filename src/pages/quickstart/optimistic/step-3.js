@@ -425,7 +425,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../step-4/">fix the error and restore functionality to the
+        In the next section we'll <Link to="/quickstart/optimistic/step-4/">fix the error and restore functionality to the
         application</Link>.
       </p>
     </Template>

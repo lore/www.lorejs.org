@@ -236,7 +236,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to add an experience to <Link to="../step-4/">show when the user is unauthorized</Link>.
+        Next we're going to add an experience to <Link to="/quickstart/server/step-4/">show when the user is unauthorized</Link>.
       </p>
     </Template>
   )

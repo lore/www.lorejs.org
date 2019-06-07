@@ -107,7 +107,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../step-2/">add some custom styles</Link>.
+        Next we're going to <Link to="/quickstart/layout/step-2/">add some custom styles</Link>.
       </p>
     </Template>
   )

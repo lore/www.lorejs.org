@@ -171,7 +171,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../../pagination/overview/">add support for pagination</Link>.
+        In the next section we'll <Link to="/quickstart/pagination/overview/">add support for pagination</Link>.
       </p>
 
     </Template>

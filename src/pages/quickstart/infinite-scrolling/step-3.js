@@ -464,7 +464,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../../cleanup/overview/">clean up our code base bit.</Link>.
+        Next we're going to <Link to="/quickstart/cleanup/overview/">clean up our code base bit.</Link>.
       </p>
     </Template>
   )

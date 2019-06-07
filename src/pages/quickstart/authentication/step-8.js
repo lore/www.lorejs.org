@@ -659,7 +659,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we're going to <Link to="../../server/overview/">replace the mock server with a real
+        In the next section we're going to <Link to="/quickstart/server/overview/">replace the mock server with a real
         server</Link>.
       </p>
     </Template>

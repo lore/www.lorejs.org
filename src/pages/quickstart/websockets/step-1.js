@@ -434,7 +434,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        In the next step we'll learn how to <Link to="../step-2/">fix the create bug</Link>.
+        In the next step we'll learn how to <Link to="/quickstart/websockets/step-2/">fix the create bug</Link>.
       </p>
     </Template>
   )

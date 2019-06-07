@@ -567,7 +567,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        In the next section we'll be <Link to="../../authorization/overview/">hiding the edit and delete
+        In the next section we'll be <Link to="/quickstart/authorization/overview/">hiding the edit and delete
         links</Link> to reflect the application's user permissions.
       </p>
     </Template>

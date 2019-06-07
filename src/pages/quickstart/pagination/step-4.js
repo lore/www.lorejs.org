@@ -590,7 +590,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we're going to <Link to="../../infinite-scrolling/overview/">replace our pagination links with infinite scrolling behavior</Link>.
+        In the next section we're going to <Link to="/quickstart/infinite-scrolling/overview/">replace our pagination links with infinite scrolling behavior</Link>.
       </p>
     </Template>
   )

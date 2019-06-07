@@ -359,7 +359,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to learn how to communicate with APIs and <Link to="../../fetching/overview/">replace our mock data with real data</Link>.
+        Next we're going to learn how to communicate with APIs and <Link to="/quickstart/fetching/overview/">replace our mock data with real data</Link>.
       </p>
     </Template>
   )

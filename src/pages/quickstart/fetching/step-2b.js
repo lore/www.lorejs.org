@@ -27,7 +27,7 @@ export default (props) => {
         provided in the developer tools for your browser, feel free to follow along with the steps below.
       </p>
       <p>
-        If not, feel free to <Link to="../step-3/">skip this step</Link>. <strong>It is entirely optional</strong>.
+        If not, feel free to <Link to="/quickstart/fetching/step-3/">skip this step</Link>. <strong>It is entirely optional</strong>.
       </p>
 
       <h3>
@@ -137,7 +137,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to see these in actions, and <Link to="../step-3/">connect our Feed to get real data</Link>.
+        Next we're going to see these in actions, and <Link to="/quickstart/fetching/step-3/">connect our Feed to get real data</Link>.
       </p>
     </Template>
   )

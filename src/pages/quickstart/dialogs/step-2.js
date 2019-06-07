@@ -393,7 +393,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../step-3/">create and mount a dialog</Link>.
+        Next we're going to <Link to="/quickstart/dialogs/step-3/">create and mount a dialog</Link>.
       </p>
     </Template>
   )

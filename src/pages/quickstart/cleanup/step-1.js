@@ -312,7 +312,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to add dialogs to our application <Link to="../../dialogs/overview/">so we can create,
+        Next we're going to add dialogs to our application <Link to="/quickstart/dialogs/overview/">so we can create,
         update and delete tweets</Link>.
       </p>
     </Template>

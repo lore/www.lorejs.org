@@ -494,7 +494,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll learn how to <Link to="../step-2/">display new tweets at the top of the Feed</Link>.
+        In the next section we'll learn how to <Link to="/quickstart/optimistic/step-2/">display new tweets at the top of the Feed</Link>.
       </p>
     </Template>
   )

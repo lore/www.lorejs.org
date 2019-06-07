@@ -180,7 +180,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../../layout/overview/">lay out the application</Link>.
+        Next we're going to <Link to="/quickstart/layout/overview/">lay out the application</Link>.
       </p>
     </Template>
   )

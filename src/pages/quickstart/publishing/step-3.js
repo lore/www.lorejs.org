@@ -158,7 +158,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../step-4/">publish the application to the web</Link>.
+        In the next section we'll <Link to="/quickstart/publishing/step-4/">publish the application to the web</Link>.
       </p>
     </Template>
   )

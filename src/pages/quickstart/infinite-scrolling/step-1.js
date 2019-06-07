@@ -458,7 +458,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we'll <Link to="../step-2/">create the second component we'll need for Infinite Scrolling</Link>.
+        Next we'll <Link to="/quickstart/infinite-scrolling/step-2/">create the second component we'll need for Infinite Scrolling</Link>.
       </p>
     </Template>
   )

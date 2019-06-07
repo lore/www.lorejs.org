@@ -438,7 +438,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-6/">add a logout route</Link>.
+        Next we're going to <Link to="/quickstart/authentication/step-6/">add a logout route</Link>.
       </p>
 
     </Template>

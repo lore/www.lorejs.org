@@ -345,7 +345,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../../authentication/overview/">learn how to implement an authentication flow</Link>.
+        Next we're going to <Link to="/quickstart/authentication/overview/">learn how to implement an authentication flow</Link>.
       </p>
 
     </Template>

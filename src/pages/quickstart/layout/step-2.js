@@ -595,7 +595,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../step-3/">add the header</Link>.
+        Next we're going to <Link to="/quickstart/layout/step-3/">add the header</Link>.
       </p>
     </Template>
   )

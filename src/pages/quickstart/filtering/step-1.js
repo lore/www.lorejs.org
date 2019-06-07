@@ -472,7 +472,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll add the ability to <Link to="../step-2/">view just the user's tweets</Link>.
+        In the next section we'll add the ability to <Link to="/quickstart/filtering/step-2/">view just the user's tweets</Link>.
       </p>
     </Template>
   )

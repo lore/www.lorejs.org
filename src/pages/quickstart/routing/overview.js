@@ -36,7 +36,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Ready? Let's <Link to="../step-1/">get started</Link>!
+        Ready? Let's <Link to="/quickstart/routing/step-1/">get started</Link>!
       </p>
     </Template>
   )

@@ -444,7 +444,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to learn about the data structure Lore uses and <Link to="../../data/overview/">add some mock data to our application </Link>.
+        Next we're going to learn about the data structure Lore uses and <Link to="/quickstart/data/overview/">add some mock data to our application </Link>.
       </p>
     </Template>
   )

@@ -324,7 +324,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../step-6/">hide tweets that have been deleted</Link>.
+        In the next section we'll <Link to="/quickstart/optimistic/step-6/">hide tweets that have been deleted</Link>.
       </p>
     </Template>
   )

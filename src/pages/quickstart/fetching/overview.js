@@ -26,7 +26,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../step-1/">tell Lore where our API server is located</Link>.
+        Next we're going to <Link to="/quickstart/fetching/step-1/">tell Lore where our API server is located</Link>.
       </p>
     </Template>
   )

@@ -12,7 +12,7 @@ export default (props) => {
 
       <p>
         Before you can use Lore, you will need to install Node. If you don't have it installed,
-        see <Link to="../../misc/installing-node/">these instructions</Link>.
+        see <Link to="/quickstart/misc/installing-node/">these instructions</Link>.
       </p>
 
       <h3>

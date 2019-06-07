@@ -230,7 +230,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        In the next section we'll learn how to <Link to="../../publishing/overview/">build and deploy the
+        In the next section we'll learn how to <Link to="/quickstart/publishing/overview/">build and deploy the
         application for production</Link>.
       </p>
     </Template>

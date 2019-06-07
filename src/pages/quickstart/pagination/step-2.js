@@ -410,7 +410,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next step we're going to <Link to="../step-3/">add pagination links</Link>.
+        Next step we're going to <Link to="/quickstart/pagination/step-3/">add pagination links</Link>.
       </p>
     </Template>
   )

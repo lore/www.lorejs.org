@@ -488,7 +488,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-5/">add an Authorization header to our network requests</Link>.
+        Next we're going to <Link to="/quickstart/server/step-5/">add an Authorization header to our network requests</Link>.
       </p>
 
     </Template>

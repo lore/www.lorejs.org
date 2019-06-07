@@ -662,7 +662,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-7/">create a way to delete tweets</Link>.
+        Next we're going to <Link to="/quickstart/dialogs/step-7/">create a way to delete tweets</Link>.
       </p>
 
     </Template>

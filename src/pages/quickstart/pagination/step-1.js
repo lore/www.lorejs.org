@@ -156,7 +156,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next step we're going to <Link to="../step-2/">paginate the feed</Link>.
+        Next step we're going to <Link to="/quickstart/pagination/step-2/">paginate the feed</Link>.
       </p>
     </Template>
   )

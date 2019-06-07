@@ -375,7 +375,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-4/">display a loading experience while the tweets are being fetched</Link>.
+        Next we're going to <Link to="/quickstart/fetching/step-4/">display a loading experience while the tweets are being fetched</Link>.
       </p>
     </Template>
   )

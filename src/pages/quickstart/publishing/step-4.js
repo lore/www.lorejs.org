@@ -145,7 +145,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section <Link to="../../next-steps/overview/">we'll talk about next steps</Link>.
+        In the next section <Link to="/quickstart/next-steps/overview/">we'll talk about next steps</Link>.
       </p>
     </Template>
   )

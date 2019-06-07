@@ -742,7 +742,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        In the next section we'll learn how to <Link to="../../optimistic/overview/">display new tweets at the
+        In the next section we'll learn how to <Link to="/quickstart/optimistic/overview/">display new tweets at the
         top of the Feed</Link>.
       </p>
     </Template>

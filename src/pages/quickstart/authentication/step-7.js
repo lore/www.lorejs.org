@@ -222,7 +222,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-8/">fetch the current user and save it to the application's context</Link>.
+        Next we're going to <Link to="/quickstart/authentication/step-8/">fetch the current user and save it to the application's context</Link>.
       </p>
     </Template>
   )

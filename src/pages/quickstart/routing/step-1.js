@@ -156,7 +156,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to create a <code>Feed</code> component for displaying tweets and <Link to="../step-2/">add
+        Next we're going to create a <code>Feed</code> component for displaying tweets and <Link to="/quickstart/routing/step-2/">add
         it to the routes</Link>.
       </p>
     </Template>

@@ -233,7 +233,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-3/">continue restoring functionality to the application</Link>.
+        Next we're going to <Link to="/quickstart/server/step-3/">continue restoring functionality to the application</Link>.
       </p>
     </Template>
   )

@@ -128,7 +128,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-2/">update our application to work with the new API</Link>.
+        Next we're going to <Link to="/quickstart/server/step-2/">update our application to work with the new API</Link>.
       </p>
     </Template>
   )

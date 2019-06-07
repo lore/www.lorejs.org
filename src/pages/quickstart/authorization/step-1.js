@@ -339,7 +339,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-2/">hide the delete link</Link>.
+        Next we're going to <Link to="/quickstart/authorization/step-2/">hide the delete link</Link>.
       </p>
     </Template>
   )

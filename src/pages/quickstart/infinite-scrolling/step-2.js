@@ -807,7 +807,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we'll <Link to="../step-3/">convert the Feed to use Infinite Scrolling</Link>.
+        Next we'll <Link to="/quickstart/infinite-scrolling/step-3/">convert the Feed to use Infinite Scrolling</Link>.
       </p>
     </Template>
   )

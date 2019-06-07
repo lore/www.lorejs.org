@@ -338,7 +338,7 @@ export default (props) => {
       </h3>
 
       <p>
-        Next we're going to <Link to="../step-4/">redirect the user to login page</Link> if they aren't logged in.
+        Next we're going to <Link to="/quickstart/authentication/step-4/">redirect the user to login page</Link> if they aren't logged in.
       </p>
 
     </Template>

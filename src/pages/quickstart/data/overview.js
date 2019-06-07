@@ -171,7 +171,7 @@ export default (props) => {
 
       <p>
         In the next step, we'll use this structure to add some mock data as
-        we <Link to="../step-1/">build the Tweet component</Link>.
+        we <Link to="/quickstart/data/step-1/">build the Tweet component</Link>.
       </p>
 
     </Template>

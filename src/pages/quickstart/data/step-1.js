@@ -500,7 +500,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-2/">create our Tweet component</Link>.
+        Next we're going to <Link to="/quickstart/data/step-2/">create our Tweet component</Link>.
       </p>
     </Template>
   )

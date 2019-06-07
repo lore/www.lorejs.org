@@ -494,7 +494,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-6/">create a way to edit tweets</Link>.
+        Next we're going to <Link to="/quickstart/dialogs/step-6/">create a way to edit tweets</Link>.
       </p>
 
     </Template>

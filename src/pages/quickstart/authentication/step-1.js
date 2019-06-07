@@ -547,7 +547,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-2/">configure Auth0 as our authentication service</Link>.
+        Next we're going to <Link to="/quickstart/authentication/step-2/">configure Auth0 as our authentication service</Link>.
       </p>
     </Template>
   )

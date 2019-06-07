@@ -408,7 +408,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll add a <Link to="../step-5/">visual cue when tweets are being created, updated
+        In the next section we'll add a <Link to="/quickstart/optimistic/step-5/">visual cue when tweets are being created, updated
         or deleted</Link>.
       </p>
     </Template>

@@ -530,7 +530,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next step we're going to <Link to="../step-4/">improve the user experience for pagination</Link>.
+        Next step we're going to <Link to="/quickstart/pagination/step-4/">improve the user experience for pagination</Link>.
       </p>
     </Template>
   )

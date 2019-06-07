@@ -92,7 +92,7 @@ export default (props) => {
         Next Steps
       </h2>
       <p>
-        Next we're going to <Link to="../step-4/">setup the mock API server</Link> we'll be using for this Quickstart.
+        Next we're going to <Link to="/quickstart/setup/step-4/">setup the mock API server</Link> we'll be using for this Quickstart.
       </p>
     </Template>
   )

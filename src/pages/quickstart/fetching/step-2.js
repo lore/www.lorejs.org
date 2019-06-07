@@ -109,7 +109,7 @@ export default (props) => {
 
       <p>
         Next we're going to talk about a design paradigm called convention over configuration,
-        and <Link to="../step-2b/">introduce some of the functionality we just unlocked</Link>.
+        and <Link to="/quickstart/fetching/step-2b/">introduce some of the functionality we just unlocked</Link>.
       </p>
     </Template>
   )

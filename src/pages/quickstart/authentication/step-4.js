@@ -189,7 +189,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-5/">add a callback route and save the token</Link>.
+        Next we're going to <Link to="/quickstart/authentication/step-5/">add a callback route and save the token</Link>.
       </p>
     </Template>
   );

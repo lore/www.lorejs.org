@@ -527,7 +527,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-7/">add an endpoint to the mock API that we can use to retrieve
+        Next we're going to <Link to="/quickstart/authentication/step-7/">add an endpoint to the mock API that we can use to retrieve
         the current user</Link>.
       </p>
     </Template>

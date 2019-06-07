@@ -241,7 +241,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../step-3/">create a production config to fix the redirect issue</Link>.
+        In the next section we'll <Link to="/quickstart/publishing/step-3/">create a production config to fix the redirect issue</Link>.
       </p>
     </Template>
   )

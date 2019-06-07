@@ -426,7 +426,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll learn how to <Link to="../../normalization/overview/">normalize an API response
+        In the next section we'll learn how to <Link to="/quickstart/normalization/overview/">normalize an API response
         to reduce the number of network requests</Link>.
       </p>
     </Template>

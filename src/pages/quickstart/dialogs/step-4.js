@@ -959,7 +959,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going <Link to="../step-5/">finish adding the create dialog</Link>.
+        Next we're going <Link to="/quickstart/dialogs/step-5/">finish adding the create dialog</Link>.
       </p>
     </Template>
   )

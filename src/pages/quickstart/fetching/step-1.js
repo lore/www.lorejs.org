@@ -129,7 +129,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="../step-2/">create our tweet model</Link>.
+        Next we're going to <Link to="/quickstart/fetching/step-2/">create our tweet model</Link>.
       </p>
     </Template>
   )

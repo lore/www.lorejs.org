@@ -409,7 +409,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll <Link to="../step-3/">remove the delay between creating a tweet and when it
+        In the next section we'll <Link to="/quickstart/optimistic/step-3/">remove the delay between creating a tweet and when it
         appears in the Feed</Link>.
       </p>
     </Template>

@@ -70,7 +70,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Ready? Let's <Link to="../step-1/">get started</Link>!
+        Ready? Let's <Link to="/quickstart/infinite-scrolling/step-1/">get started</Link>!
       </p>
     </Template>
   )

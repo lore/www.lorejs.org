@@ -273,7 +273,7 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we're going to look at <Link to="../step-3/">an alternative approach to hiding
+        In the next section we're going to look at <Link to="/quickstart/authorization/step-3/">an alternative approach to hiding
         components that doesn't use decorators</Link>.
       </p>
     </Template>
