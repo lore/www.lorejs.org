@@ -11,13 +11,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
-    // `gatsby-plugin-glamor`,
-    `gatsby-plugin-less`,
-    // {
-    //   resolve: `gatsby-plugin-typography`,
-    //   options: {
-    //     pathToConfigModule: `src/utils/typography`,
-    //   },
-    // },
+    `gatsby-plugin-less`
   ],
 };
