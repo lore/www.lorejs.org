@@ -21,7 +21,7 @@ export default (props) => {
       </div>
       <div className="stage" id="stage">
         <NavBar location={location} />
-        {children()}
+        {children}
         <Footer />
       </div>
     </div>

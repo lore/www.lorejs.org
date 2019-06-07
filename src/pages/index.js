@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import Layout from '../components/Layout';
 import Hero from '../components/home/hero';
 import Section1 from '../components/home/section1';
 import Section1b from '../components/home/section1b';
@@ -10,7 +11,7 @@ import Ribbon from '../components/home/ribbon';
 
 export default (props) => {
   return (
-    <div>
+    <Layout>
       <Hero />
       <Section1 />
       <Section1b />
@@ -18,6 +19,6 @@ export default (props) => {
       <Features1 />
       <Features2 />
       <Ribbon />
-    </div>
+    </Layout>
   );
 }

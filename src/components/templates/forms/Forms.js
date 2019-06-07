@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from '../../../components/Layout';
 import NavLink from '../../NavLink';
 import NavLinkPlaceholder from '../../NavLinkPlaceholder';
 import '../../../assets/less/docs.less';
@@ -7,7 +8,7 @@ export default (props) => {
   const { children } = props;
 
   return (
-    <div>
+    <Layout>
       <div className="docs-header" id="content">
         <div className="container">
           <h1>Lore Forms</h1>
@@ -51,6 +52,6 @@ export default (props) => {
           {children}
         </div>
       </div>
-    </div>
+    </Layout>
   )
 };
