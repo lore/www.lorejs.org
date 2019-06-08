@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import loginImage from '../../../assets/images/quickstart/authentication/login.png';
 import authorizeImage from '../../../assets/images/quickstart/authentication/authorize.png';
@@ -37,77 +35,29 @@ export default (props) => {
         your <code>Login</code> component to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Auth0 from 'auth0-js';
+      import ShowLoadingScreen from './ShowLoadingScreen';
 
-        export default createReactClass({
-          displayName: 'Login',
+      export default createReactClass({
+        displayName: 'Login',
 
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          },
+        componentDidMount() {
+          const auth0 = new Auth0.WebAuth(lore.config.auth0);
+          auth0.authorize();
+        },
 
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Login extends React.Component {
-
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default Login;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Login extends React.Component {
-
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        export default Login;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         When this component is mounted, we extract the <code>auth0</code> config object
@@ -225,77 +175,29 @@ export default (props) => {
       </h3>
 
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Auth0 from 'auth0-js';
+      import ShowLoadingScreen from './ShowLoadingScreen';
 
-        export default createReactClass({
-          displayName: 'Login',
+      export default createReactClass({
+        displayName: 'Login',
 
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          },
+        componentDidMount() {
+          const auth0 = new Auth0.WebAuth(lore.config.auth0);
+          auth0.authorize();
+        },
 
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Login extends React.Component {
-
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default Login;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Login extends React.Component {
-
-          componentDidMount() {
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-            auth0.authorize();
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        export default Login;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         routes.js

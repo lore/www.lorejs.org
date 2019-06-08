@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authorization/final.png';
 
@@ -61,95 +59,35 @@ export default (props) => {
       <p>
         Then replace the code with this:
       </p>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'IsOwner',
+      export default createReactClass({
+        displayName: 'IsOwner',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class IsOwner extends React.Component {
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
-          }
-
-        }
-
-        IsOwner.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        IsOwner.contextTypes = {
+        contextTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default IsOwner;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        render() {
+          const { tweet, children } = this.props;
+          const { user } = this.context;
 
-        class IsOwner extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          static contextTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
+          if (tweet.data.user === user.id) {
+            return children;
           }
 
+          return null;
         }
 
-        export default IsOwner;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         Similar to the decorators we created previously, this component expects to receive a <code>tweet</code> as
@@ -215,528 +153,181 @@ export default (props) => {
         src/components/IsOwner.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'IsOwner',
+      export default createReactClass({
+        displayName: 'IsOwner',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class IsOwner extends React.Component {
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
-          }
-
-        }
-
-        IsOwner.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        IsOwner.contextTypes = {
+        contextTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default IsOwner;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        render() {
+          const { tweet, children } = this.props;
+          const { user } = this.context;
 
-        class IsOwner extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          static contextTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, children } = this.props;
-            const { user } = this.context;
-
-            if (tweet.data.user === user.id) {
-              return children;
-            }
-
-            return null;
+          if (tweet.data.user === user.id) {
+            return children;
           }
 
+          return null;
         }
 
-        export default IsOwner;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/EditLink.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'EditLink',
+      export default createReactClass({
+        displayName: 'EditLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class EditLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        }
-
-        EditLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default EditLink;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        onClick() {
+          const { tweet } = this.props;
 
-        class EditLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.update(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.update(tweet, data).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              edit
+            </a>
+          );
         }
 
-        export default EditLink;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/DeleteLink.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'DeleteLink',
+      export default createReactClass({
+        displayName: 'DeleteLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class DeleteLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
-        }
-
-        DeleteLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default DeleteLink;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        onClick() {
+          const { tweet } = this.props;
 
-        class DeleteLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.destroy(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.destroy(tweet).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              delete
+            </a>
+          );
         }
 
-        export default DeleteLink;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/Tweet.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import moment from 'moment';
+      import { connect } from 'lore-hook-connect';
+      import EditLink from './EditLink';
+      import DeleteLink from './DeleteLink';
+      import IsOwner from './IsOwner';
 
-        export default connect(function(getState, props) {
-          const { tweet } = props;
+      export default connect(function(getState, props) {
+        const { tweet } = props;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Tweet',
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.user
+          })
+        };
+      })(
+      createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
-
-        class Tweet extends React.Component {
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
+        render() {
+          const { tweet, user } = this.props;
+          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
-
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
+          return (
+            <li className="list-group-item tweet">
+              <div className="image-container">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+              </div>
+              <div className="content-container">
+                <h4 className="list-group-item-heading title">
+                  {user.data.nickname}
+                </h4>
+                <h4 className="list-group-item-heading timestamp">
+                  {'- ' + timestamp}
+                </h4>
+                <p className="list-group-item-text text">
+                  {tweet.data.text}
+                </p>
+                <IsOwner tweet={tweet}>
+                  <div className="tweet-actions">
+                    <EditLink tweet={tweet} />
+                    <DeleteLink tweet={tweet} />
+                  </div>
+                </IsOwner>
+              </div>
+            </li>
+          );
         }
 
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

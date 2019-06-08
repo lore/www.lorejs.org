@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/filtering/final.png';
 
@@ -77,41 +75,17 @@ export default (props) => {
         To set that for the production build, edit your <code>production.js</code> config to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
+      <Markdown type="jsx" text={`
+      export default {
 
-          connections: {
-            default: {
-              apiRoot: 'https://api.example.com'
-            }
+        connections: {
+          default: {
+            apiRoot: 'https://api.example.com'
           }
-
-        };
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
-
-          connections: {
-            default: {
-              apiRoot: 'https://api.example.com'
-            }
-          }
-
         }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
 
-          connections: {
-            default: {
-              apiRoot: 'https://api.example.com'
-            }
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      };
+      `}/>
 
       <p>
         With that change in place, if you run <code>npm run build:prod</code> to rebuild the application, and then

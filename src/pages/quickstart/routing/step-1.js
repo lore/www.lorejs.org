@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/layout/final.png';
 
@@ -75,82 +73,30 @@ export default (props) => {
         src/components/Header.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { Link } from 'react-router';
 
-        export default createReactClass({
-          displayName: 'Header',
+      export default createReactClass({
+        displayName: 'Header',
 
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
+        render() {
+          return (
+            <nav className="navbar navbar-default navbar-static-top header">
+              <div className="container">
+                <div className="navbar-header">
+                  <Link className="navbar-brand" to="/">
+                    Lore Quickstart
+                  </Link>
                 </div>
-              </nav>
-            );
-          }
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                </div>
-              </nav>
-            );
-          }
-
+              </div>
+            </nav>
+          );
         }
-
-        export default Header;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                </div>
-              </nav>
-            );
-          }
-
-        }
-
-        export default Header;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

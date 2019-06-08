@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authentication/step-1.png';
 
@@ -56,41 +54,18 @@ export default (props) => {
         Create a new file in <code>/config</code> called <code>auth0.js</code> and paste in this content:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // config/auth0.js
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // config/auth0.js
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // config/auth0.js
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      // config/auth0.js
+      export default {
+        domain: 'lorejs.auth0.com',
+        clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
+        redirectUri: 'http://localhost:3000/auth/callback',
+        audience: 'https://lorejs.auth0.com/userinfo',
+        responseType: 'token id_token',
+        scope: 'openid'
+      }
+      `}/>
+
       <p>
         The <code>/config</code> folder in Lore is compiled into a single object, which you can access
         from <code>lore.config</code>. This means you can add your own files to the <code>/config</code> folder
@@ -123,38 +98,16 @@ export default (props) => {
         config/auth0.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
-          domain: 'lorejs.auth0.com',
-          clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
-          redirectUri: 'http://localhost:3000/auth/callback',
-          audience: 'https://lorejs.auth0.com/userinfo',
-          responseType: 'token id_token',
-          scope: 'openid'
-        }
-        `}/>
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      export default {
+        domain: 'lorejs.auth0.com',
+        clientID: 'XFcYHKv1NXCVrbtSaf0JZPRLtYj5UZ7E',
+        redirectUri: 'http://localhost:3000/auth/callback',
+        audience: 'https://lorejs.auth0.com/userinfo',
+        responseType: 'token id_token',
+        scope: 'openid'
+      }
+      `}/>
 
       <h3>
         Next Steps

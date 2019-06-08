@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/data/final.png';
 
@@ -30,70 +28,27 @@ export default (props) => {
         a look at this example <code>Tweet</code> component.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Tweet',
+      export default createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet } = this.props;
-
-            return (
-              {/* render tweet */}
-            );
-          }
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Tweet extends React.Component {
-          render() {
-            const { tweet } = this.props;
-
-            return (
-              {/* render tweet */}
-            );
-          }
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default Tweet;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        render() {
+          const { tweet } = this.props;
 
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          }
-
-          render() {
-            const { tweet } = this.props;
-
-            return (
-              {/* render tweet */}
-            );
-          }
+          return (
+            {/* render tweet */}
+          );
         }
-
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         This component receives a prop called <code>tweet</code> and then renders that <code>tweet</code>. But before

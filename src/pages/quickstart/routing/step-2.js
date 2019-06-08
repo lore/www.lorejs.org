@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/routing/final.png';
 
@@ -36,77 +34,29 @@ export default (props) => {
         Then update the code to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
+        render() {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className="media-list tweets">
+                {/* Tweets */}
+              </ul>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         Routes.js
@@ -232,78 +182,29 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
+        render() {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className="media-list tweets">
+                {/* Tweets */}
+              </ul>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {/* Tweets */}
-                </ul>
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
-
+      });
+      `}/>
 
       <h3>
         routes.js
@@ -339,105 +240,38 @@ export default (props) => {
       <h3>
         src/components/Layout.js
       </h3>
+      <Markdown type="jsx" text={`
+      /**
+       * This component is intended to reflect the high level structure of your application,
+       * and render any components that are common across all views, such as the header or
+       * top-level navigation. All other components should be rendered by route handlers.
+       */
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Header from './Header';
 
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
+      export default createReactClass({
+        displayName: 'Layout',
 
-        export default createReactClass({
-          displayName: 'Layout',
-
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-offset-3 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
+        render() {
+          return (
+            <div>
+              <Header />
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-offset-3 col-md-6">
+                    {React.cloneElement(this.props.children)}
                   </div>
                 </div>
               </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
-
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
-
-        class Layout extends React.Component {
-
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-offset-3 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Layout;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
-
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
-
-        class Layout extends React.Component {
-
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-offset-3 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        export default Layout;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

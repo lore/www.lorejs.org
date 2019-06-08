@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authorization/final.png';
 
@@ -61,35 +59,14 @@ export default (props) => {
         using <code>connect</code>.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/DeleteLink.js
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
+      <Markdown type="jsx" text={`
+      // src/components/DeleteLink.js
+      import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
 
-        export default UserCanDeleteTweet(createReactClass({
-          ...
-        }));
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/DeleteLink.js
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
-
-        class DeleteLink extends React.Component {
-          ...
-        }
-
-        export default UserCanDeleteTweet(DeleteLink);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/DeleteLink.js
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
-
-        @UserCanDeleteTweet
-        class DeleteLink extends React.Component {
-          ...
-        }
-        `}/>
-      </CodeTabs>
+      export default UserCanDeleteTweet(createReactClass({
+        ...
+      }));
+      `}/>
 
       <p>
         With that change in place, refresh the page, and the delete links should disappear from any tweets that
@@ -146,127 +123,42 @@ export default (props) => {
       <h3>
         src/components/DeleteLink.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
 
-        export default UserCanDeleteTweet(createReactClass({
-          displayName: 'DeleteLink',
+      export default UserCanDeleteTweet(createReactClass({
+        displayName: 'DeleteLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
-        }));
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
-
-        class DeleteLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
-        }
-
-        DeleteLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default UserCanDeleteTweet(DeleteLink);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import UserCanDeleteTweet from '../decorators/UserCanDeleteTweet';
+        onClick() {
+          const { tweet } = this.props;
 
-        @UserCanDeleteTweet
-        class DeleteLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.destroy(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.destroy(tweet).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.destroy(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.destroy(tweet).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                delete
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              delete
+            </a>
+          );
         }
 
-        export default DeleteLink;
-        `}/>
-      </CodeTabs>
+      }));
+      `}/>
 
       <h2>
         Next Steps

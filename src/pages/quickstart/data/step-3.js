@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/data/final.png';
 
@@ -62,61 +60,16 @@ export default (props) => {
         a <code>getDefaultProps()</code> method and populate it with some mock user data like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Tweet.js
-        ...
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  id: 1,
-                  nickname: "lucca",
-                  avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-                }
-              }
-            };
-          },
-        ...
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Tweet.js
-        class Tweet extends React.Component {
-          ...
-        }
-
-        Tweet.propTypes = {
+      <Markdown type="jsx" text={`
+      // src/components/Tweet.js
+      ...
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Tweet.defaultProps = {
-          user: {
-            id: 1,
-            data: {
-              id: 1,
-              nickname: "lucca",
-              avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-            }
-          }
-        };
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Tweet.js
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          static defaultProps = {
+        getDefaultProps() {
+          return {
             user: {
               id: 1,
               data: {
@@ -126,11 +79,9 @@ export default (props) => {
               }
             }
           };
-
-          ...
-        }
-        `}/>
-      </CodeTabs>
+        },
+      ...
+      `}/>
 
       <p>
         Next, locate the <code>render()</code> method, and use our new <code>user</code> prop to populate the
@@ -190,128 +141,22 @@ export default (props) => {
         src/components/Tweet.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import moment from 'moment';
 
-        export default createReactClass({
-          displayName: 'Tweet',
+      export default createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  id: 1,
-                  nickname: "lucca",
-                  avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-                }
-              }
-            };
-          },
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-
-        class Tweet extends React.Component {
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Tweet.defaultProps = {
-          user: {
-            id: 1,
-            data: {
-              id: 1,
-              nickname: "lucca",
-              avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-            }
-          }
-        };
-
-        export default Tweet;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          static defaultProps = {
+        getDefaultProps() {
+          return {
             user: {
               id: 1,
               data: {
@@ -321,38 +166,36 @@ export default (props) => {
               }
             }
           };
+        },
 
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+        render() {
+          const { tweet, user } = this.props;
+          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
+          return (
+            <li className="list-group-item tweet">
+              <div className="image-container">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+              </div>
+              <div className="content-container">
+                <h4 className="list-group-item-heading title">
+                  {user.data.nickname}
+                </h4>
+                <h4 className="list-group-item-heading timestamp">
+                  {'- ' + timestamp}
+                </h4>
+                <p className="list-group-item-text text">
+                  {tweet.data.text}
+                </p>
+              </div>
+            </li>
+          );
         }
 
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authorization/step-1.png';
 
@@ -30,41 +28,17 @@ export default (props) => {
         looks like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import { AuthorizationGenerator } from 'lore-auth';
+      <Markdown type="jsx" text={`
+      import { AuthorizationGenerator } from 'lore-auth';
 
-        export default AuthorizationGenerator({
-          displayName: 'UserIsAuthorized',
+      export default AuthorizationGenerator({
+        displayName: 'UserIsAuthorized',
 
-          isAuthorized() {
-            return true;
-          }
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import { AuthorizationGenerator } from 'lore-auth';
-
-        export default AuthorizationGenerator({
-          displayName: 'UserIsAuthorized',
-
-          isAuthorized() {
-            return true;
-          }
-        });
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import { AuthorizationGenerator } from 'lore-auth';
-
-        export default AuthorizationGenerator({
-          displayName: 'UserIsAuthorized',
-
-          isAuthorized() {
-            return true;
-          }
-        });
-        `}/>
-      </CodeTabs>
+        isAuthorized() {
+          return true;
+        }
+      });
+      `}/>
 
       <p>
         This decorator is designed to wrap a component, and will only render that component if
@@ -125,35 +99,14 @@ export default (props) => {
         would when using <code>connect</code>.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/EditLink.js
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
+      <Markdown type="jsx" text={`
+      // src/components/EditLink.js
+      import UserCanEditTweet from '../decorators/UserCanEditTweet';
 
-        export default UserCanEditTweet(createReactClass({
-          ...
-        }));
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/EditLink.js
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
-
-        class EditLink extends React.Component {
-          ...
-        }
-
-        export default UserCanEditTweet(EditLink);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/EditLink.js
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
-
-        @UserCanEditTweet
-        class EditLink extends React.Component {
-          ...
-        }
-        `}/>
-      </CodeTabs>
+      export default UserCanEditTweet(createReactClass({
+        ...
+      }));
+      `}/>
 
       <p>
         With that change in place, refresh the page, and the edit links should disappear from any tweets that were
@@ -212,127 +165,42 @@ export default (props) => {
         src/components/EditLink.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import UserCanEditTweet from '../decorators/UserCanEditTweet';
 
-        export default UserCanEditTweet(createReactClass({
-          displayName: 'EditLink',
+      export default UserCanEditTweet(createReactClass({
+        displayName: 'EditLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        }));
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
-
-        class EditLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        }
-
-        EditLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default UserCanEditTweet(EditLink);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import UserCanEditTweet from '../decorators/UserCanEditTweet';
+        onClick() {
+          const { tweet } = this.props;
 
-        @UserCanEditTweet
-        class EditLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.update(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.update(tweet, data).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              edit
+            </a>
+          );
         }
 
-        export default EditLink;
-        `}/>
-      </CodeTabs>
+      }));
+      `}/>
 
       <h2>
         Next Steps

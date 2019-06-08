@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/dialogs/final.png';
 
@@ -36,93 +34,31 @@ export default (props) => {
         Then modify the component to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'CreateButton',
+      export default createReactClass({
+        displayName: 'CreateButton',
 
-          onClick() {
-            console.log('Create tweet!');
-          },
+        onClick() {
+          console.log('Create tweet!');
+        },
 
-          render() {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            console.log('Create tweet!');
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
+        render() {
+          return (
+            <button
+              type="button"
+              className="btn btn-primary btn-lg create-button"
+              onClick={this.onClick}>
+              +
+            </button>
+          );
         }
 
-        export default CreateButton;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            console.log('Create tweet!');
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        }
-
-        export default CreateButton;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         Eventually, we'll have this component launch a dialog when the user clicks on it, but for now we'll just
@@ -137,92 +73,34 @@ export default (props) => {
         it into the <code>render()</code> method like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Header.js
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
+      <Markdown type="jsx" text={`
+      // src/components/Header.js
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { Link } from 'react-router';
+      import CreateButton from './CreateButton';
 
-        export default createReactClass({
-          displayName: 'Header',
+      export default createReactClass({
+        displayName: 'Header',
 
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
+        render() {
+          return (
+            <nav className="navbar navbar-default navbar-static-top header">
+              <div className="container">
+                <div className="navbar-header">
+                  <Link className="navbar-brand" to="/">
+                    Lore Quickstart
+                  </Link>
                 </div>
-              </nav>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Header.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
-                </div>
-              </nav>
-            );
-          }
-
+                <CreateButton/>
+              </div>
+            </nav>
+          );
         }
 
-        export default Header;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Header.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
-                </div>
-              </nav>
-            );
-          }
-
-        }
-
-        export default Header;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         Visual Check-in
@@ -246,181 +124,63 @@ export default (props) => {
         src/components/CreateButton.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'CreateButton',
+      export default createReactClass({
+        displayName: 'CreateButton',
 
-          onClick() {
-            console.log('Create tweet!');
-          },
+        onClick() {
+          console.log('Create tweet!');
+        },
 
-          render() {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            console.log('Create tweet!');
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
+        render() {
+          return (
+            <button
+              type="button"
+              className="btn btn-primary btn-lg create-button"
+              onClick={this.onClick}>
+              +
+            </button>
+          );
         }
 
-        export default CreateButton;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            console.log('Create tweet!');
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        }
-
-        export default CreateButton;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/Header.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { Link } from 'react-router';
+      import CreateButton from './CreateButton';
 
-        export default createReactClass({
-          displayName: 'Header',
+      export default createReactClass({
+        displayName: 'Header',
 
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
+        render() {
+          return (
+            <nav className="navbar navbar-default navbar-static-top header">
+              <div className="container">
+                <div className="navbar-header">
+                  <Link className="navbar-brand" to="/">
+                    Lore Quickstart
+                  </Link>
                 </div>
-              </nav>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
-                </div>
-              </nav>
-            );
-          }
-
+                <CreateButton/>
+              </div>
+            </nav>
+          );
         }
 
-        export default Header;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-        import CreateButton from './CreateButton';
-
-        class Header extends React.Component {
-
-          render() {
-            return (
-              <nav className="navbar navbar-default navbar-static-top header">
-                <div className="container">
-                  <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">
-                      Lore Quickstart
-                    </Link>
-                  </div>
-                  <CreateButton/>
-                </div>
-              </nav>
-            );
-          }
-
-        }
-
-        export default Header;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

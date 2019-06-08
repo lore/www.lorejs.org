@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authentication/step-1.png';
 
@@ -53,122 +51,44 @@ export default (props) => {
         Then update the file to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Auth0 from 'auth0-js';
+      import ShowLoadingScreen from './ShowLoadingScreen';
+      import auth from '../utils/auth';
 
-        export default createReactClass({
-          displayName: 'AuthCallback',
+      export default createReactClass({
+        displayName: 'AuthCallback',
 
-          propTypes: {
-            router: PropTypes.object.isRequired
-          },
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          },
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
-
-        class AuthCallback extends React.Component {
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        AuthCallback.propTypes = {
+        propTypes: {
           router: PropTypes.object.isRequired
-        };
+        },
 
-        export default AuthCallback;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
+        componentDidMount() {
+          const { router } = this.props;
+          const auth0 = new Auth0.WebAuth(lore.config.auth0);
 
-        class AuthCallback extends React.Component {
+          auth0.parseHash((err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+              auth.saveToken(authResult.idToken);
+              router.push('/');
+            } else if (err) {
+              console.log(err);
+              alert('An error occurred. See the console for more information.');
+            }
+          });
+        },
 
-          static propTypes = {
-            router: PropTypes.object.isRequired
-          };
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default AuthCallback;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         When this component gets mounted, we're going to once again create the <code>Auth0.WebAuth()</code> object
@@ -194,62 +114,24 @@ export default (props) => {
         look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // routes.js
-        ...
-        import AuthCallback from './src/components/AuthCallback';
+      <Markdown type="jsx" text={`
+      // routes.js
+      ...
+      import AuthCallback from './src/components/AuthCallback';
 
-        export default (
-          <Route>
-            <Route path="/login" component={Login} />
-            <Route path="/auth/callback" component={AuthCallback} />
+      export default (
+        <Route>
+          <Route path="/login" component={Login} />
+          <Route path="/auth/callback" component={AuthCallback} />
 
-            <Route component={UserIsAuthenticated(Master)}>
-              <Route path="/" component={Layout}>
-                <IndexRoute component={Feed} />
-              </Route>
+          <Route component={UserIsAuthenticated(Master)}>
+            <Route path="/" component={Layout}>
+              <IndexRoute component={Feed} />
             </Route>
           </Route>
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // routes.js
-        ...
-        import AuthCallback from './src/components/AuthCallback';
-
-        export default (
-          <Route>
-            <Route path="/login" component={Login} />
-            <Route path="/auth/callback" component={AuthCallback} />
-
-            <Route component={UserIsAuthenticated(Master)}>
-              <Route path="/" component={Layout}>
-                <IndexRoute component={Feed} />
-              </Route>
-            </Route>
-          </Route>
-        )
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // routes.js
-        ...
-        import AuthCallback from './src/components/AuthCallback';
-
-        export default (
-          <Route>
-            <Route path="/login" component={Login} />
-            <Route path="/auth/callback" component={AuthCallback} />
-
-            <Route component={UserIsAuthenticated(Master)}>
-              <Route path="/" component={Layout}>
-                <IndexRoute component={Feed} />
-              </Route>
-            </Route>
-          </Route>
-        )
-        `}/>
-      </CodeTabs>
+        </Route>
+      );
+      `}/>
 
       <p>
         Once that's done, refresh the browser and navigate to <code>/login</code>. This time, once you log in, Auth0
@@ -279,122 +161,44 @@ export default (props) => {
       <h3>
         src/components/AuthCallback.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Auth0 from 'auth0-js';
+      import ShowLoadingScreen from './ShowLoadingScreen';
+      import auth from '../utils/auth';
 
-        export default createReactClass({
-          displayName: 'AuthCallback',
+      export default createReactClass({
+        displayName: 'AuthCallback',
 
-          propTypes: {
-            router: PropTypes.object.isRequired
-          },
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          },
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
-
-        class AuthCallback extends React.Component {
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        AuthCallback.propTypes = {
+        propTypes: {
           router: PropTypes.object.isRequired
-        };
+        },
 
-        export default AuthCallback;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Auth0 from 'auth0-js';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-        import auth from '../utils/auth';
+        componentDidMount() {
+          const { router } = this.props;
+          const auth0 = new Auth0.WebAuth(lore.config.auth0);
 
-        class AuthCallback extends React.Component {
+          auth0.parseHash((err, authResult) => {
+            if (authResult && authResult.accessToken && authResult.idToken) {
+              auth.saveToken(authResult.idToken);
+              router.push('/');
+            } else if (err) {
+              console.log(err);
+              alert('An error occurred. See the console for more information.');
+            }
+          });
+        },
 
-          static propTypes = {
-            router: PropTypes.object.isRequired
-          };
-
-          componentDidMount() {
-            const { router } = this.props;
-            const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
-            auth0.parseHash((err, authResult) => {
-              if (authResult && authResult.accessToken && authResult.idToken) {
-                auth.saveToken(authResult.idToken);
-                router.push('/');
-              } else if (err) {
-                console.log(err);
-                alert('An error occurred. See the console for more information.');
-              }
-            });
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default AuthCallback;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         routes.js

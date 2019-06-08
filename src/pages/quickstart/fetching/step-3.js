@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/fetching/step-3.png';
 
@@ -34,32 +32,13 @@ export default (props) => {
         That decorator is called <code>connect</code> and the syntax for using it looks like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(createReactClass({...}));
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        class MyComponent extends React.Component {...}
-
-        connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(MyComponent);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        @connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })
-        class MyComponent extends React.Component {...}
-        `}/>
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      connect(function(getState, props) {
+        return {
+          tweets: getState('tweet.find')
+        };
+      })(createReactClass({...}));
+      `}/>
 
       <blockquote>
         <p>
@@ -102,54 +81,21 @@ export default (props) => {
         Open your <code>Feed</code> component and wrap it with the <code>connect</code> decorator like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        ...
-        import { connect } from 'lore-hook-connect';
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      ...
+      import { connect } from 'lore-hook-connect';
 
-        export default connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(
-        createReactClass({
-          ...
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        ...
-        import { connect } from 'lore-hook-connect';
-
-        class Feed extends React.Component {
-          ...
+      export default connect(function(getState, props) {
+        return {
+          tweets: getState('tweet.find')
         };
-
-        export default connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(Feed);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
+      })(
+      createReactClass({
         ...
-        import { connect } from 'lore-hook-connect';
-
-        @connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })
-        class Feed extends React.Component {
-          ...
-        };
-
-        export default Feed;
-          `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <p>
         Once you've wrapped the <code>Feed</code> component, reload the page, and you'll notice the mock data has
@@ -178,107 +124,26 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import Tweet from './Tweet';
 
-        export default connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(
-        createReactClass({
-          displayName: 'Feed',
-
-          propTypes: {
-            tweets: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          },
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          },
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        }
-
-        Feed.propTypes = {
-          tweets: PropTypes.object.isRequired
+      export default connect(function(getState, props) {
+        return {
+          tweets: getState('tweet.find')
         };
+      })(
+      createReactClass({
+        displayName: 'Feed',
 
-        Feed.defaultProps = (function() {
+        propTypes: {
+          tweets: PropTypes.object.isRequired
+        },
+
+        getDefaultProps() {
           const tweet = {
             id: 1,
             cid: 'c1',
@@ -297,78 +162,32 @@ export default (props) => {
               data: [tweet]
             }
           };
-        })();
+        },
 
-        export default connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })(Feed);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import Tweet from './Tweet';
+        renderTweet(tweet) {
+          return (
+            <Tweet key={tweet.id} tweet={tweet} />
+          );
+        },
 
-        @connect(function(getState, props) {
-          return {
-            tweets: getState('tweet.find')
-          };
-        })
-        class Feed extends React.Component {
+        render() {
+          const { tweets } = this.props;
 
-          static propTypes = {
-            tweets: PropTypes.object.isRequired
-          };
-
-          static defaultProps = (function() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          })();
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className="media-list tweets">
+                {tweets.data.map(this.renderTweet)}
+              </ul>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

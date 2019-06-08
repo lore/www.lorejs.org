@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authentication/step-1.png';
 
@@ -36,124 +34,20 @@ export default (props) => {
         the <code>getDefaultProps()</code> method. We'll replace this mock data with real user information soon.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Profile',
+      export default createReactClass({
+        displayName: 'Profile',
 
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  nickname: 'ayla',
-                  avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-                }
-              }
-            };
-          },
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Profile extends React.Component {
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        Profile.propTypes = {
+        propTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Profile.defaultProps = {
-          user: {
-            id: 1,
-            data: {
-              nickname: 'ayla',
-              avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-            }
-          }
-        };
-
-        export default Profile;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Profile extends React.Component {
-
-          static propTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          static defaultProps = {
+        getDefaultProps() {
+          return {
             user: {
               id: 1,
               data: {
@@ -162,40 +56,38 @@ export default (props) => {
               }
             }
           };
+        },
 
-          render() {
-            const { user } = this.props;
+        render() {
+          const { user } = this.props;
 
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
+          return (
+            <div className="card profile">
+              <div className="card-block">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+                <h4 className="card-title">
+                  Hi {user.data.nickname}!
+                </h4>
+                <div className="card-text">
+                  <p>You have permission to perform the following:</p>
+                  <ul className="permissions">
+                    <li>Create Tweets</li>
+                    <li>Edit your own tweets</li>
+                    <li>Delete your own tweets</li>
+                  </ul>
                 </div>
+                <button className="btn btn-primary">
+                  Log out
+                </button>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Profile;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         Add Profile to Layout
@@ -266,124 +158,20 @@ export default (props) => {
         src/components/Profile.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Profile',
+      export default createReactClass({
+        displayName: 'Profile',
 
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  nickname: 'ayla',
-                  avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-                }
-              }
-            };
-          },
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Profile extends React.Component {
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        Profile.propTypes = {
+        propTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Profile.defaultProps = {
-          user: {
-            id: 1,
-            data: {
-              nickname: 'ayla',
-              avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-            }
-          }
-        };
-
-        export default Profile;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Profile extends React.Component {
-
-          static propTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          static defaultProps = {
+        getDefaultProps() {
+          return {
             user: {
               id: 1,
               data: {
@@ -392,155 +180,79 @@ export default (props) => {
               }
             }
           };
+        },
 
-          render() {
-            const { user } = this.props;
+        render() {
+          const { user } = this.props;
 
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <button className="btn btn-primary">
-                    Log out
-                  </button>
+          return (
+            <div className="card profile">
+              <div className="card-block">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+                <h4 className="card-title">
+                  Hi {user.data.nickname}!
+                </h4>
+                <div className="card-text">
+                  <p>You have permission to perform the following:</p>
+                  <ul className="permissions">
+                    <li>Create Tweets</li>
+                    <li>Edit your own tweets</li>
+                    <li>Delete your own tweets</li>
+                  </ul>
                 </div>
+                <button className="btn btn-primary">
+                  Log out
+                </button>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Profile;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/Layout.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
+      <Markdown type="jsx" text={`
+      /**
+       * This component is intended to reflect the high level structure of your application,
+       * and render any components that are common across all views, such as the header or
+       * top-level navigation. All other components should be rendered by route handlers.
+       */
 
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
-        import Profile from './Profile';
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import Header from './Header';
+      import Profile from './Profile';
 
-        export default createReactClass({
-          displayName: 'Layout',
+      export default createReactClass({
+        displayName: 'Layout',
 
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-3">
-                      <Profile />
-                    </div>
-                    <div className="col-md-offset-1 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
+        render() {
+          return (
+            <div>
+              <Header />
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-3">
+                    <Profile />
+                  </div>
+                  <div className="col-md-offset-1 col-md-6">
+                    {React.cloneElement(this.props.children)}
                   </div>
                 </div>
               </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
-
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
-        import Profile from './Profile';
-
-        class Layout extends React.Component {
-
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-3">
-                      <Profile />
-                    </div>
-                    <div className="col-md-offset-1 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Layout;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        /**
-         * This component is intended to reflect the high level structure of your application,
-         * and render any components that are common across all views, such as the header or
-         * top-level navigation. All other components should be rendered by route handlers.
-         */
-
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import Header from './Header';
-        import Profile from './Profile';
-
-        class Layout extends React.Component {
-
-          render() {
-            return (
-              <div>
-                <Header />
-                <div className="container">
-                  <div className="row">
-                    <div className="col-md-3">
-                      <Profile />
-                    </div>
-                    <div className="col-md-offset-1 col-md-6">
-                      {React.cloneElement(this.props.children)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        export default Layout;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

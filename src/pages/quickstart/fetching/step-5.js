@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/fetching/final.png';
 
@@ -48,66 +46,27 @@ export default (props) => {
         the <code>getState()</code> method:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Tweet.js
+      <Markdown type="jsx" text={`
+      // src/components/Tweet.js
+      ...
+      import { connect } from 'lore-hook-connect';
+
+      export default connect(function(getState, props) {
+        const { tweet } = props;
+
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.userId
+          })
+        };
+      })(
+      createReactClass({
+        displayName: 'Tweet',
+
         ...
-        import { connect } from 'lore-hook-connect';
-
-        export default connect(function(getState, props) {
-          const { tweet } = props;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Tweet',
-
-          ...
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Tweet.js
-        ...
-        import { connect } from 'lore-hook-connect';
-
-        class Tweet extends React.Component {
-          ...
-        }
-
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
-          };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Tweet.js
-        ...
-        import { connect } from 'lore-hook-connect';
-
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
-          };
-        })
-        class Tweet extends React.Component {
-          ...
-        }
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <p>
         The string we're passing to the <code>getState()</code> method this time is <code>user.byId</code>. But
@@ -146,199 +105,82 @@ export default (props) => {
         src/models/user.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
+      <Markdown type="jsx" text={`
+      export default {
 
-        };
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
-
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
-
-        }
-        `}/>
-      </CodeTabs>
+      };
+      `}/>
 
       <h3>
         src/components/Tweet.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import moment from 'moment';
+      import { connect } from 'lore-hook-connect';
 
-        export default connect(function(getState, props) {
-          const { tweet } = props;
+      export default connect(function(getState, props) {
+        const { tweet } = props;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Tweet',
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.userId
+          })
+        };
+      })(
+      createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  id: 1,
-                  nickname: "lucca",
-                  avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
-                }
-              }
-            };
-          },
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-
-        class Tweet extends React.Component {
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
-
+        getDefaultProps() {
           return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
+            user: {
+              id: 1,
+              data: {
+                id: 1,
+                nickname: "lucca",
+                avatar: "https://cloud.githubusercontent.com/assets/2637399/19027072/a36f0c7a-88e1-11e6-931e-7f67fe01367b.png"
+              }
+            }
           };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
+        },
 
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
+        render() {
+          const { tweet, user } = this.props;
+          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.userId
-            })
-          };
-        })
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-
+          return (
+            <li className="list-group-item tweet">
+              <div className="image-container">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+              </div>
+              <div className="content-container">
+                <h4 className="list-group-item-heading title">
+                  {user.data.nickname}
+                </h4>
+                <h4 className="list-group-item-heading timestamp">
+                  {'- ' + timestamp}
+                </h4>
+                <p className="list-group-item-text text">
+                  {tweet.data.text}
+                </p>
+              </div>
+            </li>
+          );
         }
 
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

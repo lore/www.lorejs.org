@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/data/final.png';
 
@@ -100,29 +98,13 @@ export default (props) => {
         config/connections.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
-          default: {
-            apiRoot: 'http://localhost:1337'
-          }
-        };
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
-          default: {
-            apiRoot: 'http://localhost:1337'
-          }
+      <Markdown type="jsx" text={`
+      export default {
+        default: {
+          apiRoot: 'http://localhost:1337'
         }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
-          default: {
-            apiRoot: 'http://localhost:1337'
-          }
-        }
-        `}/>
-      </CodeTabs>
+      };
+      `}/>
 
       <h2>
         Next Steps

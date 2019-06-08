@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/optimistic/transition.png';
 
@@ -115,209 +113,74 @@ export default (props) => {
         src/components/Tweet.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import moment from 'moment';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import EditLink from './EditLink';
+      import DeleteLink from './DeleteLink';
+      import IsOwner from './IsOwner';
 
-        export default connect(function(getState, props) {
-          const { tweet } = props;
+      export default connect(function(getState, props) {
+        const { tweet } = props;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Tweet',
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.user
+          })
+        };
+      })(
+      createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-            const isOptimistic = (
-              tweet.state === PayloadStates.CREATING ||
-              tweet.state === PayloadStates.UPDATING ||
-              tweet.state === PayloadStates.DELETING
-            );
-
-            return (
-              <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
-
-        class Tweet extends React.Component {
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-            const isOptimistic = (
-              tweet.state === PayloadStates.CREATING ||
-              tweet.state === PayloadStates.UPDATING ||
-              tweet.state === PayloadStates.DELETING
-            );
-
-            return (
-              <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
+        render() {
+          const { tweet, user } = this.props;
+          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+          const isOptimistic = (
+            tweet.state === PayloadStates.CREATING ||
+            tweet.state === PayloadStates.UPDATING ||
+            tweet.state === PayloadStates.DELETING
+          );
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import EditLink from './EditLink';
-        import DeleteLink from './DeleteLink';
-        import IsOwner from './IsOwner';
-
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-            const isOptimistic = (
-              tweet.state === PayloadStates.CREATING ||
-              tweet.state === PayloadStates.UPDATING ||
-              tweet.state === PayloadStates.DELETING
-            );
-
-            return (
-              <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <IsOwner tweet={tweet}>
-                    <div className="tweet-actions">
-                      <EditLink tweet={tweet} />
-                      <DeleteLink tweet={tweet} />
-                    </div>
-                  </IsOwner>
-                </div>
-              </li>
-            );
-          }
-
+          return (
+            <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
+              <div className="image-container">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+              </div>
+              <div className="content-container">
+                <h4 className="list-group-item-heading title">
+                  {user.data.nickname}
+                </h4>
+                <h4 className="list-group-item-heading timestamp">
+                  {'- ' + timestamp}
+                </h4>
+                <p className="list-group-item-text text">
+                  {tweet.data.text}
+                </p>
+                <IsOwner tweet={tweet}>
+                  <div className="tweet-actions">
+                    <EditLink tweet={tweet} />
+                    <DeleteLink tweet={tweet} />
+                  </div>
+                </IsOwner>
+              </div>
+            </li>
+          );
         }
 
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

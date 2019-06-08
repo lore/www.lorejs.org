@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 
 export default (props) => {
   return (
@@ -17,17 +15,9 @@ export default (props) => {
         application. For this example we are going to call our application <code>lore-quickstart</code>.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" type="sh" text={`
-        $ lore new lore-quickstart
-        `} />
-        <CodeTab syntax="ES6" type="sh" text={`
-        $ lore new lore-quickstart --es6
-        `} />
-        <CodeTab syntax="ESNext" type="sh" text={`
-        $ lore new lore-quickstart --esnext
-        `} />
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      $ lore new lore-quickstart
+      `} />
 
       <p>
         This will create a new directory called <code>lore-quickstart</code>, and place all the application files

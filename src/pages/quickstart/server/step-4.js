@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/server/step-4.png';
 
@@ -47,83 +45,31 @@ export default (props) => {
         looks like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Master.js
-        export default createReactClass({
+      <Markdown type="jsx" text={`
+      // src/components/Master.js
+      export default createReactClass({
 
-          ...
+        ...
 
-          render() {
-            const { user } = this.props;
+        render() {
+          const { user } = this.props;
 
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
+          if (user.state === PayloadStates.FETCHING) {
             return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
+              <div className="loader" />
             );
           }
 
+          return (
+            <div>
+              <RemoveLoadingScreen />
+              {React.cloneElement(this.props.children)}
+            </div>
+          );
         }
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Master.js
-        class Master extends React.Component {
 
-          ...
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Master.js
-        class Master extends React.Component {
-
-          ...
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      }
+      `}/>
 
       <p>
         This component only has two states that it checks for:
@@ -150,116 +96,42 @@ export default (props) => {
         To add this experience, update the render method to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Master.js
-        export default createReactClass({
+      <Markdown type="jsx" text={`
+      // src/components/Master.js
+      export default createReactClass({
 
-          ...
+        ...
 
-          render() {
-            const { user } = this.props;
+        render() {
+          const { user } = this.props;
 
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
+          if (user.state === PayloadStates.FETCHING) {
+            return (
+              <div className="loader" />
+            );
+          }
 
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
+          if (user.state === PayloadStates.ERROR_FETCHING) {
             return (
               <div>
                 <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
+                <h1 className="full-page-text">
+                  Unauthorized
+                </h1>
               </div>
             );
           }
 
+          return (
+            <div>
+              <RemoveLoadingScreen />
+              {React.cloneElement(this.props.children)}
+            </div>
+          );
         }
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Master.js
-        class Master extends React.Component {
 
-          ...
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Master.js
-        class Master extends React.Component {
-
-          ...
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      }
+      `}/>
 
       <p>
         With that change in place, the application will now display <strong>"Unauthorized"</strong> when there's
@@ -297,157 +169,36 @@ export default (props) => {
         src/components/Master.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import RemoveLoadingScreen from './RemoveLoadingScreen';
+      import '../../assets/css/main.css';
 
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(
-          createReactClass({
-            displayName: 'Master',
-
-            propTypes: {
-              user: PropTypes.object.isRequired
-            },
-
-            childContextTypes: {
-              user: PropTypes.object
-            },
-
-            getChildContext() {
-              return {
-                user: this.props.user
-              };
-            },
-
-            render() {
-              const { user } = this.props;
-
-              if (user.state === PayloadStates.FETCHING) {
-                return (
-                  <div className="loader" />
-                );
-              }
-
-              if (user.state === PayloadStates.ERROR_FETCHING) {
-                return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-                );
-              }
-
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  {React.cloneElement(this.props.children)}
-                </div>
-              );
-            }
-
-          })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        class Master extends React.Component {
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          }
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-
-        Master.propTypes = {
-          user: PropTypes.object.isRequired
+      export default connect(function(getState, props) {
+        return {
+          user: getState('currentUser')
         };
+      }, { subscribe: true })(
+        createReactClass({
+          displayName: 'Master',
 
-        Master.childContextTypes = {
-          user: PropTypes.object
-        };
-
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(Master);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        @connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })
-        class Master extends React.Component {
-
-          static propTypes = {
+          propTypes: {
             user: PropTypes.object.isRequired
-          };
+          },
 
-          static childContextTypes = {
+          childContextTypes: {
             user: PropTypes.object
-          };
+          },
 
           getChildContext() {
             return {
               user: this.props.user
             };
-          }
+          },
 
           render() {
             const { user } = this.props;
@@ -460,12 +211,12 @@ export default (props) => {
 
             if (user.state === PayloadStates.ERROR_FETCHING) {
               return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
+              <div>
+                <RemoveLoadingScreen />
+                <h1 className="full-page-text">
+                  Unauthorized
+                </h1>
+              </div>
               );
             }
 
@@ -477,11 +228,9 @@ export default (props) => {
             );
           }
 
-        }
-
-        export default Master;
-        `}/>
-      </CodeTabs>
+        })
+      );
+      `}/>
 
       <h2>
         Next Steps

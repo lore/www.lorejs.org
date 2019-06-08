@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/server/final.png';
 
@@ -76,64 +74,25 @@ export default (props) => {
         To do that, update the <code>connect</code> call to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        export default connect(function(getState, props) {
-          const { location } = props;
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      export default connect(function(getState, props) {
+        const { location } = props;
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          }
-        })(
-        createReactClass({
-          ...
-        })
-        )
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        class Feed extends React.Component {
-         ...
+        return {
+          tweets: getState('tweet.find', {
+            pagination: {
+              sort: 'createdAt DESC',
+              page: location.query.page || '1'
+            }
+          })
         }
-
-        export default connect(function(getState, props) {
-          const { location } = props;
-
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })(Feed);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        @connect(function(getState, props) {
-          const { location } = props;
-
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })
-        class Feed extends React.Component {
-         ...
-        }
-        `}/>
-      </CodeTabs>
+      })(
+      createReactClass({
+        ...
+      })
+      )
+      `}/>
 
       <p>
         In the code above, we're first extracting <code>location</code> from <code>props</code>, which is provided
@@ -219,191 +178,68 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import Tweet from './Tweet';
 
-        export default connect(function(getState, props) {
-          const { location } = props;
+      export default connect(function(getState, props) {
+        const { location } = props;
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Feed',
-
-          propTypes: {
-            tweets: PropTypes.object.isRequired
-          },
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          },
-
-          render() {
-            const { tweets } = this.props;
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
+        return {
+          tweets: getState('tweet.find', {
+            pagination: {
+              sort: 'createdAt DESC',
+              page: location.query.page || '1'
             }
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
-            }
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        }
-
-        Feed.propTypes = {
-          tweets: PropTypes.object.isRequired
+          })
         };
+      })(
+      createReactClass({
+        displayName: 'Feed',
 
-        export default connect(function(getState, props) {
-          const { location } = props;
+        propTypes: {
+          tweets: PropTypes.object.isRequired
+        },
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })(Feed);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
+        renderTweet(tweet) {
+          return (
+            <Tweet key={tweet.id} tweet={tweet} />
+          );
+        },
 
-        @connect(function(getState, props) {
-          const { location } = props;
+        render() {
+          const { tweets } = this.props;
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })
-        class Feed extends React.Component {
-
-          static propTypes = {
-            tweets: PropTypes.object.isRequired
-          };
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
-            }
-
+          if (tweets.state === PayloadStates.FETCHING) {
             return (
               <div className="feed">
                 <h2 className="title">
                   Feed
                 </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
+                <div className="loader"/>
               </div>
             );
           }
 
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className="media-list tweets">
+                {tweets.data.map(this.renderTweet)}
+              </ul>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

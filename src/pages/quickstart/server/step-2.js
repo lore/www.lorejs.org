@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
@@ -168,65 +166,25 @@ export default (props) => {
         config/connections.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
+      <Markdown type="jsx" text={`
+      export default {
 
-          default: {
+        default: {
 
-            apiRoot: 'http://localhost:1337',
+          apiRoot: 'http://localhost:1337',
 
-            collections: {
-              properties: {
-                parse: function(response) {
-                  return response.data;
-                }
+          collections: {
+            properties: {
+              parse: function(response) {
+                return response.data;
               }
             }
-
           }
 
         }
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
 
-          default: {
-
-            apiRoot: 'http://localhost:1337',
-
-            collections: {
-              properties: {
-                parse: function(response) {
-                  return response.data;
-                }
-              }
-            }
-
-          }
-
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
-
-          default: {
-
-            apiRoot: 'http://localhost:1337',
-
-            collections: {
-              properties: {
-                parse: function(response) {
-                  return response.data;
-                }
-              }
-            }
-
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      }
+      `}/>
 
       <h2>
         Next Steps

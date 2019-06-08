@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/server/step-3.png';
 
@@ -186,50 +184,20 @@ export default (props) => {
         src/models/tweet.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default {
+      <Markdown type="jsx" text={`
+      export default {
 
-          properties: {
+        properties: {
 
-            parse: function(response, options) {
-              response.userId = response.user;
-              return response;
-            }
-
-          }
-
-        };
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default {
-
-          properties: {
-
-            parse: function(response, options) {
-              response.userId = response.user;
-              return response;
-            }
-
+          parse: function(response, options) {
+            response.userId = response.user;
+            return response;
           }
 
         }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        export default {
 
-          properties: {
-
-            parse: function(response, options) {
-              response.userId = response.user;
-              return response;
-            }
-
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      };
+      `}/>
 
       <h2>
         Next Steps

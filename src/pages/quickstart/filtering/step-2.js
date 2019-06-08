@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/filtering/step-2.png';
 
@@ -30,287 +28,99 @@ export default (props) => {
         by copying the <code>Feed</code> component and renaming it <code>UserTweets</code>.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
+      import moment from 'moment';
+      import PayloadStates from '../constants/PayloadStates';
+      import InfiniteScrollingList from './InfiniteScrollingList';
+      import Tweet from './Tweet';
 
-        export default createReactClass({
-          displayName: 'UserTweets',
+      export default createReactClass({
+        displayName: 'UserTweets',
 
-          getInitialState() {
-            return {
-              timestamp: new Date().toISOString()
-            };
-          },
+        getInitialState() {
+          return {
+            timestamp: new Date().toISOString()
+          };
+        },
 
-          render() {
-            const { timestamp } = this.state;
+        render() {
+          const { timestamp } = this.state;
 
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        return isOptimistic || isNew;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                  select={(getState) => {
-                    return getState('tweet.find', {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <InfiniteScrollingList
+                selectOther={(getState) => {
+                  return getState('tweet.all', {
+                    where: function(tweet) {
+                      const isOptimistic = !tweet.id;
+                      const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                      return isOptimistic || isNew;
+                    },
+                    sortBy: function(model) {
+                      return -moment(model.data.createdAt).unix();
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  });
+                }}
+                select={(getState) => {
+                  return getState('tweet.find', {
+                    where: {
                       where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
+                        createdAt: {
+                          '<=': timestamp
                         }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
                       }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
+                    },
+                    pagination: {
+                      sort: 'createdAt DESC',
+                      page: 1,
+                      populate: 'user'
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  });
+                }}
+                row={(tweet) => {
+                  return (
+                    <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+                  );
+                }}
+                refresh={(page, getState) => {
+                  return getState('tweet.find', _.defaultsDeep({
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  }, page.query));
+                }}
+                selectNextPage={(lastPage, getState) => {
+                  const lastPageNumber = lastPage.query.pagination.page;
 
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        return isOptimistic || isNew;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                />
-              </div>
-            );
-          }
-
+                  return getState('tweet.find', _.defaultsDeep({
+                    pagination: {
+                      page: lastPageNumber + 1
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  }, lastPage.query));
+                }}
+              />
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        return isOptimistic || isNew;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                />
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         Then update the <code>render()</code> method to include the changes below:
@@ -439,298 +249,102 @@ export default (props) => {
       <h3>
         src/components/UserTweets.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
+      import moment from 'moment';
+      import PayloadStates from '../constants/PayloadStates';
+      import InfiniteScrollingList from './InfiniteScrollingList';
+      import Tweet from './Tweet';
 
-        export default createReactClass({
-          displayName: 'UserTweets',
+      export default createReactClass({
+        displayName: 'UserTweets',
 
-          getInitialState() {
-            return {
-              timestamp: new Date().toISOString()
-            };
-          },
+        getInitialState() {
+          return {
+            timestamp: new Date().toISOString()
+          };
+        },
 
-          render() {
-            const { params } = this.props;
-            const { timestamp } = this.state;
+        render() {
+          const { params } = this.props;
+          const { timestamp } = this.state;
 
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <InfiniteScrollingList
+                select={(getState) => {
+                  return getState('tweet.find', {
+                    where: {
                       where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          },
-                          user: Number(params.userId)
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
+                        createdAt: {
+                          '<=': timestamp
+                        },
+                        user: Number(params.userId)
                       }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
+                    },
+                    pagination: {
+                      sort: 'createdAt DESC',
+                      page: 1,
+                      populate: 'user'
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  });
+                }}
+                row={(tweet) => {
+                  return (
+                    <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+                  );
+                }}
+                refresh={(page, getState) => {
+                  return getState('tweet.find', _.defaultsDeep({
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  }, page.query));
+                }}
+                selectNextPage={(lastPage, getState) => {
+                  const lastPageNumber = lastPage.query.pagination.page;
 
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        const isByUser = tweet.data.user === Number(params.userId);
-                        return (isOptimistic || isNew) && isByUser;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                />
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class UserTweets extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { params } = this.props;
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          },
-                          user: Number(params.userId)
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        const isByUser = tweet.data.user === Number(params.userId);
-                        return (isOptimistic || isNew) && isByUser;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                />
-              </div>
-            );
-          }
-
+                  return getState('tweet.find', _.defaultsDeep({
+                    pagination: {
+                      page: lastPageNumber + 1
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  }, lastPage.query));
+                }}
+                selectOther={(getState) => {
+                  return getState('tweet.all', {
+                    where: function(tweet) {
+                      const isOptimistic = !tweet.id;
+                      const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                      const isByUser = tweet.data.user === Number(params.userId);
+                      return (isOptimistic || isNew) && isByUser;
+                    },
+                    sortBy: function(model) {
+                      return -moment(model.data.createdAt).unix();
+                    },
+                    exclude: function(tweet) {
+                      return tweet.state === PayloadStates.DELETED;
+                    }
+                  });
+                }}
+              />
+            </div>
+          );
         }
 
-        export default UserTweets;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import moment from 'moment';
-        import PayloadStates from '../constants/PayloadStates';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class UserTweets extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { params } = this.props;
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          },
-                          user: Number(params.userId)
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1,
-                        populate: 'user'
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', _.defaultsDeep({
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, page.query));
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    }, lastPage.query));
-                  }}
-                  selectOther={(getState) => {
-                    return getState('tweet.all', {
-                      where: function(tweet) {
-                        const isOptimistic = !tweet.id;
-                        const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                        const isByUser = tweet.data.user === Number(params.userId);
-                        return (isOptimistic || isNew) && isByUser;
-                      },
-                      sortBy: function(model) {
-                        return -moment(model.data.createdAt).unix();
-                      },
-                      exclude: function(tweet) {
-                        return tweet.state === PayloadStates.DELETED;
-                      }
-                    });
-                  }}
-                />
-              </div>
-            );
-          }
-
-        }
-
-        export default UserTweets;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         routes.js

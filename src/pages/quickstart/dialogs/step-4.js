@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import doubleBackdropImage from '../../../assets/images/quickstart/dialogs/double-backdrop.png';
 import image from '../../../assets/images/quickstart/dialogs/step-3.png';
@@ -84,128 +82,42 @@ export default (props) => {
         backdrop:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
+      <Markdown type="jsx" text={`
+      // src/components/CreateTweetDialog.js
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
 
-        export default createReactClass({
-          displayName: 'CreateTweetDialog',
+      export default createReactClass({
+        displayName: 'CreateTweetDialog',
 
-          componentDidMount() {
-            this.show();
-          },
+        componentDidMount() {
+          this.show();
+        },
 
-          show() {
-            const modal = this.refs.modal;
-            $(modal).modal('show');
-          },
+        show() {
+          const modal = this.refs.modal;
+          $(modal).modal('show');
+        },
 
-          dismiss() {
-            const modal = this.refs.modal;
-            $(modal).modal('hide');
-          },
+        dismiss() {
+          const modal = this.refs.modal;
+          $(modal).modal('hide');
+        },
 
-          render() {
-            const { data } = this.state;
+        render() {
+          const { data } = this.state;
 
-            return (
-              <div ref="modal" className="modal fade">
-                {/* ...your dialog renders here... */}
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-
-        class CreateTweetDialog extends React.Component {
-
-          constructor(props) {
-            super(props);
-
-            // bind custom methods
-            this.show = this.show.bind(this);
-            this.dismiss = this.dismiss.bind(this);
-          }
-
-          componentDidMount() {
-            this.show();
-          }
-
-          show() {
-            const modal = this.refs.modal;
-            $(modal).modal('show');
-          }
-
-          dismiss() {
-            const modal = this.refs.modal;
-            $(modal).modal('hide');
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div ref="modal" className="modal fade">
-                {/* ...your dialog renders here... */}
-              </div>
-            );
-          }
-
+          return (
+            <div ref="modal" className="modal fade">
+              {/* ...your dialog renders here... */}
+            </div>
+          );
         }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
 
-        class CreateTweetDialog extends React.Component {
-
-          constructor(props) {
-            super(props);
-
-            // bind custom methods
-            this.show = this.show.bind(this);
-            this.dismiss = this.dismiss.bind(this);
-          }
-
-          componentDidMount() {
-            this.show();
-          }
-
-          show() {
-            const modal = this.refs.modal;
-            $(modal).modal('show');
-          }
-
-          dismiss() {
-            const modal = this.refs.modal;
-            $(modal).modal('hide');
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div ref="modal" className="modal fade">
-                {/* ...your dialog renders here... */}
-              </div>
-            );
-          }
-
-        }
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         Since the new <code>lore.dialog.show()</code> method automatically wraps each dialog with this code for us,
@@ -220,330 +132,110 @@ export default (props) => {
         Open the <code>CreateTweetDialog</code> and update it to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
+      <Markdown type="jsx" text={`
+      // src/components/CreateTweetDialog.js
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
 
-        export default createReactClass({
-          displayName: 'CreateTweetDialog',
+      export default createReactClass({
+        displayName: 'CreateTweetDialog',
 
-          propTypes: {
-            onCancel: PropTypes.func
-          },
+        propTypes: {
+          onCancel: PropTypes.func
+        },
 
-          getInitialState() {
-            return {
-              data: {
-                text: ''
-              }
-            };
-          },
-
-          request(data) {
-            lore.actions.tweet.create(data);
-          },
-
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          },
-
-          dismiss() {
-            this.props.onCancel();
-          },
-
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          },
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-
-        class CreateTweetDialog extends React.Component {
-
-          constructor(props) {
-            super(props);
-
-            // set initial state
-            this.state = {
-              data: {
-                text: ''
-              }
-            };
-
-            // bind custom methods
-            this.request = this.request.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.onChange = this.onChange.bind(this);
-          }
-
-          request(data) {
-            lore.actions.tweet.create(data);
-          }
-
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          }
-
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        CreateTweetDialog.propTypes = {
-          title: PropTypes.node,
-          description: PropTypes.node
-        };
-
-        export default CreateTweetDialog;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-
-        class CreateTweetDialog extends React.Component {
-
-          static propTypes = {
-            title: PropTypes.node,
-            description: PropTypes.node
+        getInitialState() {
+          return {
+            data: {
+              text: ''
+            }
           };
+        },
 
-          constructor(props) {
-            super(props);
+        request(data) {
+          lore.actions.tweet.create(data);
+        },
 
-            // set initial state
-            this.state = {
-              data: {
-                text: ''
-              }
-            };
+        onSubmit() {
+          const { data } = this.state;
+          this.request(data);
+          this.dismiss();
+        },
 
-            // bind custom methods
-            this.request = this.request.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.onChange = this.onChange.bind(this);
-          }
+        dismiss() {
+          this.props.onCancel();
+        },
 
-          request(data) {
-            lore.actions.tweet.create(data);
-          }
+        onChange(name, value) {
+          const nextData = _.merge({}, this.state.data);
+          nextData[name] = value;
+          this.setState({
+            data: nextData
+          });
+        },
 
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          }
+        render() {
+          const { data } = this.state;
 
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
+          return (
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" onClick={this.dismiss}>
+                    <span>&times;</span>
+                  </button>
+                  <h4 className="modal-title">
+                    Create Tweet
+                  </h4>
+                </div>
+                <div className="modal-body">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Message</label>
+                        <textarea
+                          className="form-control"
+                          rows="3"
+                          value={data.text}
+                          placeholder="What's happening?"
+                          onChange={(event) => {
+                            this.onChange('text', event.target.value)
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
+                <div className="modal-footer">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <button
+                        type="button"
+                        className="btn btn-default"
+                        onClick={this.dismiss}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={!data.text}
+                        onClick={this.onSubmit}
+                      >
+                        Create
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default CreateTweetDialog;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         With that change in place, if you launch your dialog again, it will look and behave like we expect, and
@@ -629,330 +321,110 @@ export default (props) => {
       <h3>
         src/components/CreateTweetDialog.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
+      <Markdown type="jsx" text={`
+      // src/components/CreateTweetDialog.js
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
 
-        export default createReactClass({
-          displayName: 'CreateTweetDialog',
+      export default createReactClass({
+        displayName: 'CreateTweetDialog',
 
-          propTypes: {
-            onCancel: PropTypes.func
-          },
+        propTypes: {
+          onCancel: PropTypes.func
+        },
 
-          getInitialState() {
-            return {
-              data: {
-                text: ''
-              }
-            };
-          },
-
-          request(data) {
-            lore.actions.tweet.create(data);
-          },
-
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          },
-
-          dismiss() {
-            this.props.onCancel();
-          },
-
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          },
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-
-        class CreateTweetDialog extends React.Component {
-
-          constructor(props) {
-            super(props);
-
-            // set initial state
-            this.state = {
-              data: {
-                text: ''
-              }
-            };
-
-            // bind custom methods
-            this.request = this.request.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.onChange = this.onChange.bind(this);
-          }
-
-          request(data) {
-            lore.actions.tweet.create(data);
-          }
-
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          }
-
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        CreateTweetDialog.propTypes = {
-          title: PropTypes.node,
-          description: PropTypes.node
-        };
-
-        export default CreateTweetDialog;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/CreateTweetDialog.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-
-        class CreateTweetDialog extends React.Component {
-
-          static propTypes = {
-            title: PropTypes.node,
-            description: PropTypes.node
+        getInitialState() {
+          return {
+            data: {
+              text: ''
+            }
           };
+        },
 
-          constructor(props) {
-            super(props);
+        request(data) {
+          lore.actions.tweet.create(data);
+        },
 
-            // set initial state
-            this.state = {
-              data: {
-                text: ''
-              }
-            };
+        onSubmit() {
+          const { data } = this.state;
+          this.request(data);
+          this.dismiss();
+        },
 
-            // bind custom methods
-            this.request = this.request.bind(this);
-            this.onSubmit = this.onSubmit.bind(this);
-            this.onChange = this.onChange.bind(this);
-          }
+        dismiss() {
+          this.props.onCancel();
+        },
 
-          request(data) {
-            lore.actions.tweet.create(data);
-          }
+        onChange(name, value) {
+          const nextData = _.merge({}, this.state.data);
+          nextData[name] = value;
+          this.setState({
+            data: nextData
+          });
+        },
 
-          onSubmit() {
-            const { data } = this.state;
-            this.request(data);
-            this.dismiss();
-          }
+        render() {
+          const { data } = this.state;
 
-          onChange(name, value) {
-            const nextData = _.merge({}, this.state.data);
-            nextData[name] = value;
-            this.setState({
-              data: nextData
-            });
-          }
-
-          render() {
-            const { data } = this.state;
-
-            return (
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <button type="button" className="close" onClick={this.dismiss}>
-                      <span>&times;</span>
-                    </button>
-                    <h4 className="modal-title">
-                      Create Tweet
-                    </h4>
-                  </div>
-                  <div className="modal-body">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <div className="form-group">
-                          <label>Message</label>
-                          <textarea
-                            className="form-control"
-                            rows="3"
-                            value={data.text}
-                            placeholder="What's happening?"
-                            onChange={(event) => {
-                              this.onChange('text', event.target.value)
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                    <div className="row">
-                      <div className="col-md-12">
-                        <button
-                          type="button"
-                          className="btn btn-default"
-                          onClick={this.dismiss}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          disabled={!data.text}
-                          onClick={this.onSubmit}
-                        >
-                          Create
-                        </button>
+          return (
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" onClick={this.dismiss}>
+                    <span>&times;</span>
+                  </button>
+                  <h4 className="modal-title">
+                    Create Tweet
+                  </h4>
+                </div>
+                <div className="modal-body">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label>Message</label>
+                        <textarea
+                          className="form-control"
+                          rows="3"
+                          value={data.text}
+                          placeholder="What's happening?"
+                          onChange={(event) => {
+                            this.onChange('text', event.target.value)
+                          }}
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
+                <div className="modal-footer">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <button
+                        type="button"
+                        className="btn btn-default"
+                        onClick={this.dismiss}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={!data.text}
+                        onClick={this.onSubmit}
+                      >
+                        Create
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default CreateTweetDialog;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

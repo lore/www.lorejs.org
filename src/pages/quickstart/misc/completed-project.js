@@ -17,14 +17,11 @@ export default (props) => {
       </p>
 
       <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        git clone git@github.com:lore/lore-quickstart-es5-v0.13.git
+        <CodeTab title="SSH" active={true} text={`
+        $ git clone git@github.com:lore/lore-quickstart-es5-v0.13.git
         `}/>
-        <CodeTab syntax="ES6" text={`
-        git clone git@github.com:lore/lore-quickstart-es6-v0.13.git
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        git clone git@github.com:lore/lore-quickstart-esnext-v0.13.git
+        <CodeTab title="HTTPS" text={`
+        $ git clone https://github.com/lore/lore-quickstart-es5-v0.13.git
         `}/>
       </CodeTabs>
 

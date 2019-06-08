@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/filtering/final.png';
 
@@ -77,41 +75,18 @@ export default (props) => {
         Next, initialize the hook by subscribing to data for <code>tweets</code> in the <code>Master</code> component
         when the application mounts, and unsubscribe to the data when the application unmounts:
       </p>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Master.js
-        componentDidMount() {
-          lore.websockets.tweet.connect();
-          lore.websockets.tweet.subscribe();
-        },
 
-        componentWillUnmount() {
-          lore.websockets.tweet.unsubscribe();
-        },
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Master.js
-        componentDidMount() {
-          lore.websockets.tweet.connect();
-          lore.websockets.tweet.subscribe();
-        }
+      <Markdown type="jsx" text={`
+      // src/components/Master.js
+      componentDidMount() {
+        lore.websockets.tweet.connect();
+        lore.websockets.tweet.subscribe();
+      },
 
-        componentWillUnmount() {
-          lore.websockets.tweet.unsubscribe();
-        }
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Master.js
-        componentDidMount() {
-          lore.websockets.tweet.connect();
-          lore.websockets.tweet.subscribe();
-        }
-
-        componentWillUnmount() {
-          lore.websockets.tweet.unsubscribe();
-        }
-        `}/>
-      </CodeTabs>
+      componentWillUnmount() {
+        lore.websockets.tweet.unsubscribe();
+      },
+      `}/>
 
       <p>
         That's it! With that change in place, the application will start listening for new data when it mounts,
@@ -217,218 +192,77 @@ export default (props) => {
       <h3>
         src/components/Master.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import RemoveLoadingScreen from './RemoveLoadingScreen';
+      import '../../assets/css/main.css';
 
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(
-        createReactClass({
-          displayName: 'Master',
+      export default connect(function(getState, props) {
+        return {
+          user: getState('currentUser')
+        };
+      }, { subscribe: true })(
+      createReactClass({
+        displayName: 'Master',
 
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          childContextTypes: {
-            user: PropTypes.object
-          },
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          },
-
-          componentDidMount() {
-            lore.websockets.tweet.connect();
-            lore.websockets.tweet.subscribe();
-          },
-
-          componentWillUnmount() {
-            lore.websockets.tweet.unsubscribe();
-          },
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        class Master extends React.Component {
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          }
-
-          componentDidMount() {
-            lore.websockets.tweet.connect();
-            lore.websockets.tweet.subscribe();
-          }
-
-          componentWillUnmount() {
-            lore.websockets.tweet.unsubscribe();
-          }
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-
-        Master.propTypes = {
+        propTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Master.childContextTypes = {
+        childContextTypes: {
           user: PropTypes.object
-        };
+        },
 
-        export default connect(function(getState, props) {
+        getChildContext() {
           return {
-            user: getState('currentUser')
+            user: this.props.user
           };
-        }, { subscribe: true })(Master);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
+        },
 
-        @connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })
-        class Master extends React.Component {
+        componentDidMount() {
+          lore.websockets.tweet.connect();
+          lore.websockets.tweet.subscribe();
+        },
 
-          static propTypes = {
-            user: PropTypes.object.isRequired
-          };
+        componentWillUnmount() {
+          lore.websockets.tweet.unsubscribe();
+        },
 
-          static childContextTypes = {
-            user: PropTypes.object
-          };
+        render() {
+          const { user } = this.props;
 
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
+          if (user.state === PayloadStates.FETCHING) {
+            return (
+              <div className="loader" />
+            );
           }
 
-          componentDidMount() {
-            lore.websockets.tweet.connect();
-            lore.websockets.tweet.subscribe();
-          }
-
-          componentWillUnmount() {
-            lore.websockets.tweet.unsubscribe();
-          }
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  <h1 className="full-page-text">
-                    Unauthorized
-                  </h1>
-                </div>
-              );
-            }
-
+          if (user.state === PayloadStates.ERROR_FETCHING) {
             return (
               <div>
                 <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
+                <h1 className="full-page-text">
+                  Unauthorized
+                </h1>
               </div>
             );
           }
 
+          return (
+            <div>
+              <RemoveLoadingScreen />
+              {React.cloneElement(this.props.children)}
+            </div>
+          );
         }
 
-        export default Master;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

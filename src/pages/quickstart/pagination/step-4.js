@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/pagination/final.png';
 
@@ -52,96 +50,36 @@ export default (props) => {
         to the <code>Feed</code> component that look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        ...
-        getInitialState() {
-          const { tweets } = this.props;
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      ...
+      getInitialState() {
+        const { tweets } = this.props;
 
-          return {
-            tweets: tweets,
-            nextTweets: tweets
-          };
-        },
+        return {
+          tweets: tweets,
+          nextTweets: tweets
+        };
+      },
 
-        componentWillReceiveProps(nextProps) {
-          const nextTweets = nextProps.tweets;
+      componentWillReceiveProps(nextProps) {
+        const nextTweets = nextProps.tweets;
 
-          if (nextTweets.state === PayloadStates.FETCHING) {
-            this.setState({
-              nextTweets: nextTweets,
-              isFetching: true
-            });
-          } else {
-            this.setState({
-              tweets: nextTweets,
-              nextTweets: nextTweets,
-              isFetching: false
-            });
-          }
-        },
-        ...
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        ...
-        constructor(props) {
-          super(props);
-          this.state = {
-            tweets: props.tweets,
-            nextTweets: props.tweets
-          };
+        if (nextTweets.state === PayloadStates.FETCHING) {
+          this.setState({
+            nextTweets: nextTweets,
+            isFetching: true
+          });
+        } else {
+          this.setState({
+            tweets: nextTweets,
+            nextTweets: nextTweets,
+            isFetching: false
+          });
         }
-
-        componentWillReceiveProps(nextProps) {
-          const nextTweets = nextProps.tweets;
-
-          if (nextTweets.state === PayloadStates.FETCHING) {
-            this.setState({
-              nextTweets: nextTweets,
-              isFetching: true
-            });
-          } else {
-            this.setState({
-              tweets: nextTweets,
-              nextTweets: nextTweets,
-              isFetching: false
-            });
-          }
-        }
-        ...
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        ...
-        constructor(props) {
-          super(props);
-          this.state = {
-            tweets: props.tweets,
-            nextTweets: props.tweets
-          };
-        }
-
-        componentWillReceiveProps(nextProps) {
-          const nextTweets = nextProps.tweets;
-
-          if (nextTweets.state === PayloadStates.FETCHING) {
-            this.setState({
-              nextTweets: nextTweets,
-              isFetching: true
-            });
-          } else {
-            this.setState({
-              tweets: nextTweets,
-              nextTweets: nextTweets,
-              isFetching: false
-            });
-          }
-        }
-        ...
-        `}/>
-      </CodeTabs>
+      },
+      ...
+      `}/>
 
       <p>
         Then update the <code>render()</code> method to look like this:
@@ -239,351 +177,122 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import { Link } from 'react-router';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import { Link } from 'react-router';
+      import PayloadStates from '../constants/PayloadStates';
+      import Tweet from './Tweet';
 
-        export default connect(function(getState, props) {
-          const { location } = props;
+      export default connect(function(getState, props) {
+        const { location } = props;
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Feed',
-
-          propTypes: {
-            tweets: PropTypes.object.isRequired
-          },
-
-          getInitialState() {
-            const { tweets } = this.props;
-
-            return {
-              tweets: tweets,
-              nextTweets: tweets
-            };
-          },
-
-          componentWillReceiveProps(nextProps) {
-            const nextTweets = nextProps.tweets;
-
-            if (nextTweets.state === PayloadStates.FETCHING) {
-              this.setState({
-                nextTweets: nextTweets,
-                isFetching: true
-              });
-            } else {
-              this.setState({
-                tweets: nextTweets,
-                nextTweets: nextTweets,
-                isFetching: false
-              });
+        return {
+          tweets: getState('tweet.find', {
+            pagination: {
+              sort: 'createdAt DESC',
+              page: location.query.page || '1'
             }
-          },
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          },
-
-          renderPaginationLink(page, currentPage) {
-            return (
-              <li key={page} className={currentPage === String(page) ? 'active' : ''}>
-                <Link to={{ pathname: '/', query: { page: page } }}>
-                  {page}
-                </Link>
-              </li>
-            );
-          },
-
-          render() {
-            const { tweets, nextTweets } = this.state;
-            const currentPage = nextTweets.query.pagination.page;
-            const paginationLinks = [];
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
-            }
-
-            // check if we're fetching the next page of tweets
-            const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
-
-            // calculate the number of pagination links from our metadata, then
-            // generate an array of pagination links
-            const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
-            for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-              paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
-            }
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className={\`media-list tweets \${isFetchingNextTweets ? 'transition' : ''}\`}>
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-                <nav>
-                  <ul className="pagination">
-                    {paginationLinks}
-                  </ul>
-                </nav>
-              </div>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import { Link } from 'react-router';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              tweets: props.tweets,
-              nextTweets: props.tweets
-            };
-          }
-
-          componentWillReceiveProps(nextProps) {
-            const nextTweets = nextProps.tweets;
-
-            if (nextTweets.state === PayloadStates.FETCHING) {
-              this.setState({
-                nextTweets: nextTweets,
-                isFetching: true
-              });
-            } else {
-              this.setState({
-                tweets: nextTweets,
-                nextTweets: nextTweets,
-                isFetching: false
-              });
-            }
-          }
-
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
-
-          renderPaginationLink(page, currentPage) {
-            return (
-              <li key={page} className={currentPage === String(page) ? 'active' : ''}>
-                <Link to={{ pathname: '/', query: { page: page } }}>
-                  {page}
-                </Link>
-              </li>
-            );
-          }
-
-          render() {
-            const { tweets, nextTweets } = this.state;
-            const currentPage = nextTweets.query.pagination.page;
-            const paginationLinks = [];
-
-            // check if we're fetching the next page of tweets
-            const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
-            }
-
-            // calculate the number of pagination links from our metadata, then
-            // generate an array of pagination links
-            const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
-            for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-              paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
-            }
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className={\`media-list tweets \$\{isFetchingNextTweets \? 'transition' : ''\}\`}>
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-                <nav>
-                  <ul className="pagination">
-                    {paginationLinks}
-                  </ul>
-                </nav>
-              </div>
-            );
-          }
-
-        }
-
-        Feed.propTypes = {
-          tweets: PropTypes.object.isRequired
+          })
         };
+      })(
+      createReactClass({
+        displayName: 'Feed',
 
-        export default connect(function(getState, props) {
-          const { location } = props;
+        propTypes: {
+          tweets: PropTypes.object.isRequired
+        },
 
-          return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
-          };
-        })(Feed);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import { Link } from 'react-router';
-        import PayloadStates from '../constants/PayloadStates';
-        import Tweet from './Tweet';
-
-        @connect(function(getState, props) {
-          const { location } = props;
+        getInitialState() {
+          const { tweets } = this.props;
 
           return {
-            tweets: getState('tweet.find', {
-              pagination: {
-                sort: 'createdAt DESC',
-                page: location.query.page || '1'
-              }
-            })
+            tweets: tweets,
+            nextTweets: tweets
           };
-        })
-        class Feed extends React.Component {
+        },
 
-          static propTypes = {
-            tweets: PropTypes.object.isRequired
-          };
+        componentWillReceiveProps(nextProps) {
+          const nextTweets = nextProps.tweets;
 
-          constructor(props) {
-            super(props);
-            this.state = {
-              tweets: props.tweets,
-              nextTweets: props.tweets
-            };
+          if (nextTweets.state === PayloadStates.FETCHING) {
+            this.setState({
+              nextTweets: nextTweets,
+              isFetching: true
+            });
+          } else {
+            this.setState({
+              tweets: nextTweets,
+              nextTweets: nextTweets,
+              isFetching: false
+            });
           }
+        },
 
-          componentWillReceiveProps(nextProps) {
-            const nextTweets = nextProps.tweets;
+        renderTweet(tweet) {
+          return (
+            <Tweet key={tweet.id} tweet={tweet} />
+          );
+        },
 
-            if (nextTweets.state === PayloadStates.FETCHING) {
-              this.setState({
-                nextTweets: nextTweets,
-                isFetching: true
-              });
-            } else {
-              this.setState({
-                tweets: nextTweets,
-                nextTweets: nextTweets,
-                isFetching: false
-              });
-            }
-          }
+        renderPaginationLink(page, currentPage) {
+          return (
+            <li key={page} className={currentPage === String(page) ? 'active' : ''}>
+              <Link to={{ pathname: '/', query: { page: page } }}>
+                {page}
+              </Link>
+            </li>
+          );
+        },
 
-          renderTweet(tweet) {
-            return (
-              <Tweet key={tweet.id} tweet={tweet} />
-            );
-          }
+        render() {
+          const { tweets, nextTweets } = this.state;
+          const currentPage = nextTweets.query.pagination.page;
+          const paginationLinks = [];
 
-          renderPaginationLink(page, currentPage) {
-            return (
-              <li key={page} className={currentPage === String(page) ? 'active' : ''}>
-                <Link to={{ pathname: '/', query: { page: page } }}>
-                  {page}
-                </Link>
-              </li>
-            );
-          }
-
-          render() {
-            const { tweets, nextTweets } = this.state;
-            const currentPage = nextTweets.query.pagination.page;
-            const paginationLinks = [];
-
-            // check if we're fetching the next page of tweets
-            const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
-
-            if (tweets.state === PayloadStates.FETCHING) {
-              return (
-                <div className="feed">
-                  <h2 className="title">
-                    Feed
-                  </h2>
-                  <div className="loader"/>
-                </div>
-              );
-            }
-
-            // calculate the number of pagination links from our metadata, then
-            // generate an array of pagination links
-            const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
-            for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-              paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
-            }
-
+          if (tweets.state === PayloadStates.FETCHING) {
             return (
               <div className="feed">
                 <h2 className="title">
                   Feed
                 </h2>
-                <ul className={\`media-list tweets \$\{isFetchingNextTweets ? 'transition' : ''\}\`}>
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-                <nav>
-                  <ul className="pagination">
-                    {paginationLinks}
-                  </ul>
-                </nav>
+                <div className="loader"/>
               </div>
             );
           }
 
+          // check if we're fetching the next page of tweets
+          const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
+
+          // calculate the number of pagination links from our metadata, then
+          // generate an array of pagination links
+          const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
+          for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
+            paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
+          }
+
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className={\`media-list tweets \${isFetchingNextTweets ? 'transition' : ''}\`}>
+                {tweets.data.map(this.renderTweet)}
+              </ul>
+              <nav>
+                <ul className="pagination">
+                  {paginationLinks}
+                </ul>
+              </nav>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h2>
         Next Steps

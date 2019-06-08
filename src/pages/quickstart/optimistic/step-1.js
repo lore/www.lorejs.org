@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authorization/final.png';
 
@@ -157,40 +155,16 @@ export default (props) => {
         component was mounted.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        ...
-        getInitialState() {
-          return {
-            timestamp: new Date().toISOString()
-          };
-        },
-        ...
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        ...
-        constructor(props) {
-          super(props);
-          this.state = {
-            timestamp: new Date().toISOString()
-          };
-        }
-        ...
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        ...
-        constructor(props) {
-          super(props);
-          this.state = {
-            timestamp: new Date().toISOString()
-          };
-        }
-        ...
-        `}/>
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      ...
+      getInitialState() {
+        return {
+          timestamp: new Date().toISOString()
+        };
+      },
+      ...
+      `}/>
 
       <h3>
         Fetching Tweets Relative to Timestamp
@@ -289,205 +263,71 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
+      import InfiniteScrollingList from './InfiniteScrollingList';
+      import Tweet from './Tweet';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          getInitialState() {
-            return {
-              timestamp: new Date().toISOString()
-            };
-          },
+        getInitialState() {
+          return {
+            timestamp: new Date().toISOString()
+          };
+        },
 
-          render() {
-            const { timestamp } = this.state;
+        render() {
+          const { timestamp } = this.state;
 
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <InfiniteScrollingList
+                select={(getState) => {
+                  return getState('tweet.find', {
+                    where: {
                       where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
+                        createdAt: {
+                          '<=': timestamp
                         }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
                       }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
+                    },
+                    pagination: {
+                      sort: 'createdAt DESC',
+                      page: 1
+                    }
+                  });
+                }}
+                row={(tweet) => {
+                  return (
+                    <Tweet key={tweet.id} tweet={tweet} />
+                  );
+                }}
+                refresh={(page, getState) => {
+                  return getState('tweet.find', page.query);
+                }}
+                selectNextPage={(lastPage, getState) => {
+                  const lastPageNumber = lastPage.query.pagination.page;
 
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
+                  return getState('tweet.find', _.defaultsDeep({
+                    pagination: {
+                      page: lastPageNumber + 1
+                    }
+                  }, lastPage.query));
+                }}
+              />
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = {
-              timestamp: new Date().toISOString()
-            };
-          }
-
-          render() {
-            const { timestamp } = this.state;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      where: {
-                        where: {
-                          createdAt: {
-                            '<=': timestamp
-                          }
-                        }
-                      },
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

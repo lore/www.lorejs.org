@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authentication/step-1.png';
 
@@ -44,95 +42,35 @@ export default (props) => {
         Then update the <code>Logout</code> component to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import auth from '../utils/auth';
+      import ShowLoadingScreen from './ShowLoadingScreen';
 
-        export default createReactClass({
-          displayName: 'Logout',
+      export default createReactClass({
+        displayName: 'Logout',
 
-          propTypes: {
-            router: PropTypes.object.isRequired
-          },
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          },
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Logout extends React.Component {
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        Logout.propTypes = {
+        propTypes: {
           router: PropTypes.object.isRequired
-        };
+        },
 
-        export default Logout;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+        componentDidMount() {
+          const { router } = this.props;
 
-        class Logout extends React.Component {
+          auth.deleteToken();
+          router.push('/');
+        },
 
-          static propTypes = {
-            router: PropTypes.object.isRequired
-          };
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default Logout;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         Add the /logout route
@@ -225,95 +163,35 @@ export default (props) => {
         src/components/Logout.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import auth from '../utils/auth';
+      import ShowLoadingScreen from './ShowLoadingScreen';
 
-        export default createReactClass({
-          displayName: 'Logout',
+      export default createReactClass({
+        displayName: 'Logout',
 
-          propTypes: {
-            router: PropTypes.object.isRequired
-          },
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          },
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
-
-        class Logout extends React.Component {
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
-        }
-
-        Logout.propTypes = {
+        propTypes: {
           router: PropTypes.object.isRequired
-        };
+        },
 
-        export default Logout;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import auth from '../utils/auth';
-        import ShowLoadingScreen from './ShowLoadingScreen';
+        componentDidMount() {
+          const { router } = this.props;
 
-        class Logout extends React.Component {
+          auth.deleteToken();
+          router.push('/');
+        },
 
-          static propTypes = {
-            router: PropTypes.object.isRequired
-          };
-
-          componentDidMount() {
-            const { router } = this.props;
-
-            auth.deleteToken();
-            router.push('/');
-          }
-
-          render() {
-            return (
-              <ShowLoadingScreen/>
-            );
-          }
-
+        render() {
+          return (
+            <ShowLoadingScreen/>
+          );
         }
 
-        export default Logout;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         routes.js
@@ -358,127 +236,21 @@ export default (props) => {
         src/components/Profile.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { Link } from 'react-router';
 
-        export default createReactClass({
-          displayName: 'Profile',
+      export default createReactClass({
+        displayName: 'Profile',
 
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            return {
-              user: {
-                id: 1,
-                data: {
-                  nickname: 'ayla',
-                  avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-                }
-              }
-            };
-          },
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-
-        class Profile extends React.Component {
-
-          render() {
-            const { user } = this.props;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        Profile.propTypes = {
+        propTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Profile.defaultProps = {
-          user: {
-            id: 1,
-            data: {
-              nickname: 'ayla',
-              avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-            }
-          }
-        };
-
-        export default Profile;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-
-        class Profile extends React.Component {
-
-          static propTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          static defaultProps = {
+        getDefaultProps() {
+          return {
             user: {
               id: 1,
               data: {
@@ -487,40 +259,38 @@ export default (props) => {
               }
             }
           };
+        },
 
-          render() {
-            const { user } = this.props;
+        render() {
+          const { user } = this.props;
 
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
+          return (
+            <div className="card profile">
+              <div className="card-block">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+                <h4 className="card-title">
+                  Hi {user.data.nickname}!
+                </h4>
+                <div className="card-text">
+                  <p>You have permission to perform the following:</p>
+                  <ul className="permissions">
+                    <li>Create Tweets</li>
+                    <li>Edit your own tweets</li>
+                    <li>Delete your own tweets</li>
+                  </ul>
                 </div>
+                <Link className="btn btn-primary" to="/logout">
+                  Log out
+                </Link>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Profile;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

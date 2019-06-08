@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authorization/final.png';
 
@@ -39,41 +37,19 @@ export default (props) => {
         yet. The code throwing the error is the <code>connect</code> decorator in the <code>Tweet</code>, shown
         below:
       </p>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
+      <Markdown type="jsx" text={`
+      export default connect(function(getState, props) {
+        const tweet = props.tweet;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.user
+          })
+        };
+      })
+      `}/>
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })
-        `}/>
-      </CodeTabs>
       <p>
         When we create data, the API will set the <code>user</code> property to the user who created it, and
         the <code>createdAt</code> date to the timestamp of when the tweet was saved to the database.
@@ -114,79 +90,17 @@ export default (props) => {
         Open the <code>CreateButton</code> component, import the user from context, and update
         the <code>onClick()</code> callback to look like this:
       </p>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-          // src/components/CreateButton.js
-          import _ from 'lodash';
-          ...
-          export default createReactClass({
-            displayName: 'CreateButton',
 
-            contextTypes: {
-              user: PropTypes.object.isRequired
-            },
-
-            onClick() {
-              const { user } = this.context;
-
-              lore.dialog.show(function() {
-                return lore.dialogs.tweet.create({
-                  blueprint: 'optimistic',
-                  request: function(data) {
-                    return lore.actions.tweet.create(_.defaults({
-                      user: user.id,
-                      createdAt: new Date().toISOString()
-                    }, data)).payload;
-                  }
-                });
-              });
-            },
-
-            ...
-
-          });
-        `}/>
-        <CodeTab syntax="ES6" text={`
+      <Markdown type="jsx" text={`
         // src/components/CreateButton.js
         import _ from 'lodash';
         ...
-        class CreateButton extends React.Component {
-          ...
-          onClick() {
-            const { user } = this.context;
+        export default createReactClass({
+          displayName: 'CreateButton',
 
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.create({
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.create(_.defaults({
-                    user: user.id,
-                    createdAt: new Date().toISOString()
-                  }, data)).payload;
-                }
-              });
-            });
-          }
-          ...
-        }
-
-        CreateButton.contextTypes = {
-          user: PropTypes.object.isRequired
-        };
-
-        export default CreateButton;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/CreateButton.js
-        import _ from 'lodash';
-        ...
-        class CreateButton extends React.Component {
-
-          static contextTypes = {
+          contextTypes: {
             user: PropTypes.object.isRequired
-          };
-
-          ...
+          },
 
           onClick() {
             const { user } = this.context;
@@ -202,13 +116,13 @@ export default (props) => {
                 }
               });
             });
-          }
-          ...
-        }
+          },
 
-        export default CreateButton;
-        `}/>
-      </CodeTabs>
+          ...
+
+        });
+      `}/>
+
       <p>
         Since we know the tweet is being created by the current user, the first thing we do is get
         the <code>user</code> from context. Then, instead of passing <code>data</code> directly to
@@ -262,146 +176,48 @@ export default (props) => {
         src/components/CreateButton.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
 
-        export default createReactClass({
-          displayName: 'CreateButton',
+      export default createReactClass({
+        displayName: 'CreateButton',
 
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { user } = this.context;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.create({
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.create(_.defaults({
-                    user: user.id,
-                    createdAt: new Date().toISOString()
-                  }, data)).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import CreateTweetDialog from './CreateTweetDialog';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { user } = this.context;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.create({
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.create(_.defaults({
-                    user: user.id,
-                    createdAt: new Date().toISOString()
-                  }, data)).payload;
-                }
-              });
-            });
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        }
-
-        CreateButton.contextTypes = {
+        contextTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default CreateButton;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import CreateTweetDialog from './CreateTweetDialog';
+        onClick() {
+          const { user } = this.context;
 
-        class CreateButton extends React.Component {
-
-          static contextTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { user } = this.context;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.create({
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.create(_.defaults({
-                    user: user.id,
-                    createdAt: new Date().toISOString()
-                  }, data)).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.create({
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.create(_.defaults({
+                  user: user.id,
+                  createdAt: new Date().toISOString()
+                }, data)).payload;
+              }
             });
-          }
+          });
+        },
 
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
+        render() {
+          return (
+            <button
+              type="button"
+              className="btn btn-primary btn-lg create-button"
+              onClick={this.onClick}>
+              +
+            </button>
+          );
         }
 
-        export default CreateButton;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/dialogs/step-6.png';
 
@@ -65,123 +63,41 @@ export default (props) => {
         Then update the component to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'EditLink',
+      export default createReactClass({
+        displayName: 'EditLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class EditLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        }
-
-        EditLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default EditLink;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        onClick() {
+          const { tweet } = this.props;
 
-        class EditLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.update(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.update(tweet, data).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              edit
+            </a>
+          );
         }
 
-        export default EditLink;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         In the code above, we're rendering a link with an <code>onClick</code> callback. When clicked, we'll
@@ -330,297 +246,102 @@ export default (props) => {
         src/components/EditLink.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'EditLink',
+      export default createReactClass({
+        displayName: 'EditLink',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          },
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class EditLink extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
-            });
-          }
-
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
-        }
-
-        EditLink.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired
-        };
+        },
 
-        export default EditLink;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        onClick() {
+          const { tweet } = this.props;
 
-        class EditLink extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired
-          };
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            const { tweet } = this.props;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.update(tweet, {
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.update(tweet, data).payload;
-                }
-              });
+          lore.dialog.show(function() {
+            return lore.dialogs.tweet.update(tweet, {
+              blueprint: 'optimistic',
+              request: function(data) {
+                return lore.actions.tweet.update(tweet, data).payload;
+              }
             });
-          }
+          });
+        },
 
-          render() {
-            return (
-              <a className="link" onClick={this.onClick}>
-                edit
-              </a>
-            );
-          }
-
+        render() {
+          return (
+            <a className="link" onClick={this.onClick}>
+              edit
+            </a>
+          );
         }
 
-        export default EditLink;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         src/components/Tweet.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import moment from 'moment';
+      import { connect } from 'lore-hook-connect';
+      import EditLink from './EditLink';
 
-        export default connect(function(getState, props) {
-          const { tweet } = props;
+      export default connect(function(getState, props) {
+        const { tweet } = props;
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(
-        createReactClass({
-          displayName: 'Tweet',
+        return {
+          user: getState('user.byId', {
+            id: tweet.data.user
+          })
+        };
+      })(
+      createReactClass({
+        displayName: 'Tweet',
 
-          propTypes: {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <div className="tweet-actions">
-                    <EditLink tweet={tweet} />
-                  </div>
-                </div>
-              </li>
-            );
-          }
-
-        })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
-
-        class Tweet extends React.Component {
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <div className="tweet-actions">
-                    <EditLink tweet={tweet} />
-                  </div>
-                </div>
-              </li>
-            );
-          }
-
-        }
-
-        Tweet.propTypes = {
+        propTypes: {
           tweet: PropTypes.object.isRequired,
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default connect(function(getState, props) {
-          const tweet = props.tweet;
+        render() {
+          const { tweet, user } = this.props;
+          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
 
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })(Tweet);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import moment from 'moment';
-        import { connect } from 'lore-hook-connect';
-        import EditLink from './EditLink';
-
-        @connect(function(getState, props) {
-          const tweet = props.tweet;
-
-          return {
-            user: getState('user.byId', {
-              id: tweet.data.user
-            })
-          };
-        })
-        class Tweet extends React.Component {
-
-          static propTypes = {
-            tweet: PropTypes.object.isRequired,
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { tweet, user } = this.props;
-            const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
+          return (
+            <li className="list-group-item tweet">
+              <div className="image-container">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+              </div>
+              <div className="content-container">
+                <h4 className="list-group-item-heading title">
+                  {user.data.nickname}
+                </h4>
+                <h4 className="list-group-item-heading timestamp">
+                  {'- ' + timestamp}
+                </h4>
+                <p className="list-group-item-text text">
+                  {tweet.data.text}
+                </p>
+                <div className="tweet-actions">
+                  <EditLink tweet={tweet} />
                 </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    {user.data.nickname}
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + timestamp}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                  <div className="tweet-actions">
-                    <EditLink tweet={tweet} />
-                  </div>
-                </div>
-              </li>
-            );
-          }
-
+              </div>
+            </li>
+          );
         }
 
-        export default Tweet;
-        `}/>
-      </CodeTabs>
+      })
+      );
+      `}/>
 
       <h3>
         src/models/tweet.js

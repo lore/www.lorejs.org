@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/data/step-1.png';
 
@@ -36,39 +34,17 @@ export default (props) => {
         a <code>prop</code> called <code>tweets</code>:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        export default createReactClass({
-          displayName: 'Feed',
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      export default createReactClass({
+        displayName: 'Feed',
 
-          propTypes: {
-            tweets: PropTypes.object.isRequired
-          },
-          ...
-        })
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        class Feed extends React.Component {
-          ...
-        }
-
-        Feed.propTypes = {
+        propTypes: {
           tweets: PropTypes.object.isRequired
-        };
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        class Feed extends React.Component {
-
-          static propTypes = {
-            tweets: PropTypes.object.isRequired
-          };
-          ...
-        }
-        `}/>
-      </CodeTabs>
+        },
+        ...
+      })
+      `}/>
 
       <h3>
         Create Mock Tweets
@@ -78,43 +54,11 @@ export default (props) => {
         populate <code>tweets</code> with mock data:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        const Feed = createReactClass({
-          ...
-          getDefaultProps() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          },
-          ...
-        })
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        class Feed extends React.Component {
-          ...
-        }
-
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      const Feed = createReactClass({
         ...
-
-        Feed.defaultProps = (function() {
+        getDefaultProps() {
           const tweet = {
             id: 1,
             cid: 'c1',
@@ -133,36 +77,10 @@ export default (props) => {
               data: [tweet]
             }
           };
-        })();
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        class Feed extends React.Component {
-          ...
-          static defaultProps = (function() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          })();
-          ...
-        }
-        `}/>
-      </CodeTabs>
+        },
+        ...
+      })
+      `}/>
 
       <blockquote>
         <p>
@@ -215,44 +133,18 @@ export default (props) => {
         a <code>renderTweet()</code> method to your <code>Feed</code> that looks like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Feed.js
-        ...
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          },
-        ...
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Feed.js
-        ...
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          }
-        ...
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Feed.js
-        ...
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          }
-        ...
-        `}/>
-      </CodeTabs>
+      <Markdown type="jsx" text={`
+      // src/components/Feed.js
+      ...
+        renderTweet(tweet) {
+          return (
+            <li key={tweet.id}>
+              {tweet.data.text}
+            </li>
+          );
+        },
+      ...
+      `}/>
 
       <p>
         Then update the <code>render()</code> method so that it iterates through each of the <code>tweets</code> and
@@ -318,101 +210,19 @@ export default (props) => {
         src/components/Feed.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          propTypes: {
-            tweets: PropTypes.object.isRequired
-          },
-
-          getDefaultProps() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          },
-
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          },
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class Feed extends React.Component {
-
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
-        }
-
-        Feed.propTypes = {
+        propTypes: {
           tweets: PropTypes.object.isRequired
-        };
+        },
 
-        Feed.defaultProps = (function() {
+        getDefaultProps() {
           const tweet = {
             id: 1,
             cid: 'c1',
@@ -431,69 +241,33 @@ export default (props) => {
               data: [tweet]
             }
           };
-        })();
+        },
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
+        renderTweet(tweet) {
+          return (
+            <li key={tweet.id}>
+              {tweet.data.text}
+            </li>
+          );
+        },
 
-        class Feed extends React.Component {
+        render() {
+          const { tweets } = this.props;
 
-          static propTypes = {
-            tweets: PropTypes.object.isRequired
-          };
-
-          static defaultProps = (function() {
-            const tweet = {
-              id: 1,
-              cid: 'c1',
-              state: 'RESOLVED',
-              data: {
-                id: 1,
-                userId: 1,
-                text: 'Nothing can beat science!',
-                createdAt: '2018-04-24T05:10:49.382Z'
-              }
-            };
-
-            return {
-              tweets: {
-                state: 'RESOLVED',
-                data: [tweet]
-              }
-            };
-          })();
-
-          renderTweet(tweet) {
-            return (
-              <li key={tweet.id}>
-                {tweet.data.text}
-              </li>
-            );
-          }
-
-          render() {
-            const { tweets } = this.props;
-
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <ul className="media-list tweets">
-                  {tweets.data.map(this.renderTweet)}
-                </ul>
-              </div>
-            );
-          }
-
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <ul className="media-list tweets">
+                {tweets.data.map(this.renderTweet)}
+              </ul>
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/dialogs/step-2.png';
 
@@ -231,105 +229,35 @@ export default (props) => {
         src/components/CreateButton.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
 
-        export default createReactClass({
-          displayName: 'CreateButton',
+      export default createReactClass({
+        displayName: 'CreateButton',
 
-          onClick() {
-            lore.dialog.show(function() {
-              return (
-                <h1>Dialog Placeholder</h1>
-              );
-            });
-          },
-
-          render() {
+        onClick() {
+          lore.dialog.show(function() {
             return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
+              <h1>Dialog Placeholder</h1>
             );
-          }
+          });
+        },
 
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            lore.dialog.show(function() {
-              return (
-                <h1>Dialog Placeholder</h1>
-              );
-            });
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
+        render() {
+          return (
+            <button
+              type="button"
+              className="btn btn-primary btn-lg create-button"
+              onClick={this.onClick}>
+              +
+            </button>
+          );
         }
 
-        export default CreateButton;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-
-        class CreateButton extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.onClick = this.onClick.bind(this);
-          }
-
-          onClick() {
-            lore.dialog.show(function() {
-              return (
-                <h1>Dialog Placeholder</h1>
-              );
-            });
-          }
-
-          render () {
-            return (
-              <button
-                type="button"
-                className="btn btn-primary btn-lg create-button"
-                onClick={this.onClick}>
-                +
-              </button>
-            );
-          }
-
-        }
-
-        export default CreateButton;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h3>
         index.js

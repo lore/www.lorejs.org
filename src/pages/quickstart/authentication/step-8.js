@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/authentication/final.png';
 
@@ -55,103 +53,22 @@ export default (props) => {
         look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Master.js
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
+      <Markdown type="jsx" text={`
+      // src/components/Master.js
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import RemoveLoadingScreen from './RemoveLoadingScreen';
+      import '../../assets/css/main.css';
 
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(
-          createReactClass({
-            displayName: 'Master',
-
-            render() {
-              const { user } = this.props;
-
-              if (user.state === PayloadStates.FETCHING) {
-                return (
-                  <div className="loader" />
-                );
-              }
-
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  {React.cloneElement(this.props.children)}
-                </div>
-              );
-            }
-
-          })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Master.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        class Master extends React.Component {
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-
-        Master.propTypes = {
-          user: PropTypes.object.isRequired
+      export default connect(function(getState, props) {
+        return {
+          user: getState('currentUser')
         };
-
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(Master);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Master.js
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        @connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })
-        class Master extends React.Component {
-
-          static propTypes = {
-            user: PropTypes.object.isRequired
-          };
+      }, { subscribe: true })(
+        createReactClass({
+          displayName: 'Master',
 
           render() {
             const { user } = this.props;
@@ -170,11 +87,9 @@ export default (props) => {
             );
           }
 
-        }
-
-        export default Master;
-        `}/>
-      </CodeTabs>
+        })
+      );
+      `}/>
 
       <h3>
         Save the User in Context
@@ -185,84 +100,32 @@ export default (props) => {
         necessary fields:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Master.js
-        ...
-        createReactClass({
-          ...
-
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          childContextTypes: {
-            user: PropTypes.object
-          },
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          },
-
-          render() {
-            ...
-          }
-
-        })
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Master.js
+      <Markdown type="jsx" text={`
+      // src/components/Master.js
+      ...
+      createReactClass({
         ...
 
-        class Master extends React.Component {
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          }
-
-          ...
-
-        }
-
-        Master.propTypes = {
+        propTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        Master.childContextTypes = {
+        childContextTypes: {
           user: PropTypes.object
-        };
+        },
 
-        ...
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Master.js
-        ...
-        class Master extends React.Component {
-
-          static propTypes = {
-            user: PropTypes.object.isRequired
+        getChildContext() {
+          return {
+            user: this.props.user
           };
+        },
 
-          static childContextTypes = {
-            user: PropTypes.object
-          };
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          }
-
+        render() {
           ...
-
         }
-        ...
-        `}/>
-      </CodeTabs>
+
+      })
+      `}/>
 
       <p>
         In the code above we've added <code>childContextTypes</code>, to declare that an object
@@ -277,64 +140,27 @@ export default (props) => {
         Next, open the <code>Profile</code> component and modify it to retrieve the current user
         from <code>context</code> instead of <code>props</code>:
       </p>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        // src/components/Profile.js
+
+      <Markdown type="jsx" text={`
+      // src/components/Profile.js
+      ...
+
+      export default createReactClass({
         ...
 
-        export default createReactClass({
-          ...
-
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          ...
-
-          render() {
-            const { user } = this.context;
-            ...
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        // src/components/Profile.js
-        ...
-        class Profile extends React.Component {
-          ...
-          render() {
-            const { user } = this.context;
-            ...
-          }
-        }
-
-        Profile.contextTypes = {
+        contextTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default Profile;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        // src/components/Profile.js
         ...
-        class Profile extends React.Component {
 
-          static contextTypes = {
-            user: PropTypes.object.isRequired
-          };
-
+        render() {
+          const { user } = this.context;
           ...
-
-          render() {
-            const { user } = this.context;
-            ...
-          }
         }
 
-        export default Profile;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <blockquote>
         <p>
@@ -365,135 +191,36 @@ export default (props) => {
         src/components/Master.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { connect } from 'lore-hook-connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import RemoveLoadingScreen from './RemoveLoadingScreen';
+      import '../../assets/css/main.css';
 
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(
-          createReactClass({
-            displayName: 'Master',
-
-            propTypes: {
-              user: PropTypes.object.isRequired
-            },
-
-            childContextTypes: {
-              user: PropTypes.object
-            },
-
-            getChildContext() {
-              return {
-                user: this.props.user
-              };
-            },
-
-            render() {
-              const { user } = this.props;
-
-              if (user.state === PayloadStates.FETCHING) {
-                return (
-                  <div className="loader" />
-                );
-              }
-
-              return (
-                <div>
-                  <RemoveLoadingScreen />
-                  {React.cloneElement(this.props.children)}
-                </div>
-              );
-            }
-
-          })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        class Master extends React.Component {
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          }
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        }
-
-        Master.propTypes = {
-          user: PropTypes.object.isRequired
+      export default connect(function(getState, props) {
+        return {
+          user: getState('currentUser')
         };
+      }, { subscribe: true })(
+        createReactClass({
+          displayName: 'Master',
 
-        Master.childContextTypes = {
-          user: PropTypes.object
-        };
-
-        export default connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })(Master);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { connect } from 'lore-hook-connect';
-        import PayloadStates from '../constants/PayloadStates';
-        import RemoveLoadingScreen from './RemoveLoadingScreen';
-        import '../../assets/css/main.css';
-
-        @connect(function(getState, props) {
-          return {
-            user: getState('currentUser')
-          };
-        }, { subscribe: true })
-        class Master extends React.Component {
-
-          static propTypes = {
+          propTypes: {
             user: PropTypes.object.isRequired
-          };
+          },
 
-          static childContextTypes = {
+          childContextTypes: {
             user: PropTypes.object
-          };
+          },
 
           getChildContext() {
             return {
               user: this.props.user
             };
-          }
+          },
 
           render() {
             const { user } = this.props;
@@ -512,147 +239,57 @@ export default (props) => {
             );
           }
 
-        }
-
-        export default Master;
-        `}/>
-      </CodeTabs>
+        })
+      );
+      `}/>
 
       <h3>
         src/components/Profile.js
       </h3>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import { Link } from 'react-router';
 
-        export default createReactClass({
-          displayName: 'Profile',
+      export default createReactClass({
+        displayName: 'Profile',
 
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          render() {
-            const { user } = this.context;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
-                </div>
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
-
-        class Profile extends React.Component {
-
-          render() {
-            const { user } = this.context;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
-                </div>
-              </div>
-            );
-          }
-
-        }
-
-        Profile.contextTypes = {
+        contextTypes: {
           user: PropTypes.object.isRequired
-        };
+        },
 
-        export default Profile;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import { Link } from 'react-router';
+        render() {
+          const { user } = this.context;
 
-        class Profile extends React.Component {
-
-          static contextTypes = {
-            user: PropTypes.object.isRequired
-          };
-
-          render() {
-            const { user } = this.context;
-
-            return (
-              <div className="card profile">
-                <div className="card-block">
-                  <img
-                    className="img-circle avatar"
-                    src={user.data.avatar} />
-                  <h4 className="card-title">
-                    Hi {user.data.nickname}!
-                  </h4>
-                  <div className="card-text">
-                    <p>You have permission to perform the following:</p>
-                    <ul className="permissions">
-                      <li>Create Tweets</li>
-                      <li>Edit your own tweets</li>
-                      <li>Delete your own tweets</li>
-                    </ul>
-                  </div>
-                  <Link className="btn btn-primary" to="/logout">
-                    Log out
-                  </Link>
+          return (
+            <div className="card profile">
+              <div className="card-block">
+                <img
+                  className="img-circle avatar"
+                  src={user.data.avatar} />
+                <h4 className="card-title">
+                  Hi {user.data.nickname}!
+                </h4>
+                <div className="card-text">
+                  <p>You have permission to perform the following:</p>
+                  <ul className="permissions">
+                    <li>Create Tweets</li>
+                    <li>Edit your own tweets</li>
+                    <li>Delete your own tweets</li>
+                  </ul>
                 </div>
+                <Link className="btn btn-primary" to="/logout">
+                  Log out
+                </Link>
               </div>
-            );
-          }
-
+            </div>
+          );
         }
 
-        export default Profile;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps

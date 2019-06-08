@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
-import CodeTabs from '../../../components/CodeTabs';
-import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import loadingImage from '../../../assets/images/quickstart/infinite-scrolling/step-3a.png';
 import image from '../../../assets/images/quickstart/infinite-scrolling/final.png';
@@ -32,119 +30,43 @@ export default (props) => {
         To start, open the <code>Feed</code> component and modify it to look like this:
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import InfiniteScrollingList from './InfiniteScrollingList';
+      import Tweet from './Tweet';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                />
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                />
-              </div>
-            );
-          }
-
+        render() {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <InfiniteScrollingList
+                select={(getState) => {
+                  return getState('tweet.find', {
+                    pagination: {
+                      sort: 'createdAt DESC',
+                      page: 1
+                    }
+                  });
+                }}
+                row={(tweet) => {
+                  return (
+                    <Tweet key={tweet.id} tweet={tweet} />
+                  );
+                }}
+              />
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                />
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <p>
         In the code above, we're providing two props to <code>InfiniteScrollingList</code>.
@@ -306,158 +228,56 @@ export default (props) => {
       <h3>
         src/components/Feed.js
       </h3>
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        import React from 'react';
-        import createReactClass from 'create-react-class';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
+      <Markdown type="jsx" text={`
+      import React from 'react';
+      import createReactClass from 'create-react-class';
+      import PropTypes from 'prop-types';
+      import _ from 'lodash';
+      import InfiniteScrollingList from './InfiniteScrollingList';
+      import Tweet from './Tweet';
 
-        export default createReactClass({
-          displayName: 'Feed',
+      export default createReactClass({
+        displayName: 'Feed',
 
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
+        render() {
+          return (
+            <div className="feed">
+              <h2 className="title">
+                Feed
+              </h2>
+              <InfiniteScrollingList
+                select={(getState) => {
+                  return getState('tweet.find', {
+                    pagination: {
+                      sort: 'createdAt DESC',
+                      page: 1
+                    }
+                  });
+                }}
+                row={(tweet) => {
+                  return (
+                    <Tweet key={tweet.id} tweet={tweet} />
+                  );
+                }}
+                refresh={(page, getState) => {
+                  return getState('tweet.find', page.query);
+                }}
+                selectNextPage={(lastPage, getState) => {
+                  const lastPageNumber = lastPage.query.pagination.page;
 
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
-        });
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
+                  return getState('tweet.find', _.defaultsDeep({
+                    pagination: {
+                      page: lastPageNumber + 1
+                    }
+                  }, lastPage.query));
+                }}
+              />
+            </div>
+          );
         }
 
-        export default Feed;
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        import React from 'react';
-        import PropTypes from 'prop-types';
-        import _ from 'lodash';
-        import InfiniteScrollingList from './InfiniteScrollingList';
-        import Tweet from './Tweet';
-
-        class Feed extends React.Component {
-
-          render() {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <InfiniteScrollingList
-                  select={(getState) => {
-                    return getState('tweet.find', {
-                      pagination: {
-                        sort: 'createdAt DESC',
-                        page: 1
-                      }
-                    });
-                  }}
-                  row={(tweet) => {
-                    return (
-                      <Tweet key={tweet.id} tweet={tweet} />
-                    );
-                  }}
-                  refresh={(page, getState) => {
-                    return getState('tweet.find', page.query);
-                  }}
-                  selectNextPage={(lastPage, getState) => {
-                    const lastPageNumber = lastPage.query.pagination.page;
-
-                    return getState('tweet.find', _.defaultsDeep({
-                      pagination: {
-                        page: lastPageNumber + 1
-                      }
-                    }, lastPage.query));
-                  }}
-                />
-              </div>
-            );
-          }
-
-        }
-
-        export default Feed;
-        `}/>
-      </CodeTabs>
+      });
+      `}/>
 
       <h2>
         Next Steps
