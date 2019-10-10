@@ -16,7 +16,7 @@ export default (props) => {
         the user navigates to.
       </p>
       <p>
-        To do that, we'll be using <a href="https://github.com/ReactTraining/react-router">react-router</a>,
+        To do that, we'll be using <a href="https://reacttraining.com/react-router/">react-router</a>,
         which is one of the core libraries that Lore is built on, and is included by default in all projects.
       </p>
       <blockquote>

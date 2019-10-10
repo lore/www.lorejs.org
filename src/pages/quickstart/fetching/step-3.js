@@ -20,38 +20,34 @@ export default (props) => {
       <QuickstartBranch branch="fetching.3" />
 
       <h3>
-        The Connect Decorator
+        The Connect Hook
       </h3>
       <p>
-        Lore provides a decorator (also known as a Higher Order Component) that allows components to declare
-        what data they need, and the framework will automatically retrieve it from the API if it doesn't exist
-        in the local store.
+        Lore provides a <a href="https://reactjs.org/docs/hooks-intro.html">React Hook</a> that allows components
+        to declare what data they need, and the framework will automatically retrieve it from the API if it
+        doesn't exist in the local store.
       </p>
 
       <p>
-        That decorator is called <code>connect</code> and the syntax for using it looks like this:
+        That Hook is called <code>useConnect</code> and the syntax for using it looks like this:
       </p>
 
       <Markdown type="jsx" text={`
-      connect(function(getState, props) {
-        return {
-          tweets: getState('tweet.find')
-        };
-      })(createReactClass({...}));
+      const tweets = useConnect('tweet.find');
       `}/>
 
       <blockquote>
         <p>
-          You can learn more about <code>connect</code> <Link to="/connect/">here</Link>.
+          You can learn more about <code>useConnect</code> <Link to="/connect/">here</Link>.
         </p>
       </blockquote>
 
       <p>
-        The first parameter, <code>getState</code>, is a function that will retrieve a piece of state from
+        The <code>useConnect()</code> Hook is a function that will retrieve a piece of state from
         the local store, or invoke the appropriate action to retrieve that data if it hasn't been fetched yet.
       </p>
       <p>
-        The string you provide to <code>getState()</code> is referred to as a "blueprint", and describes what you
+        The string you provide to the Hook is referred to as a "blueprint", and describes what you
         want the function to do. The first part, <code>tweet</code>, is the resource you want to fetch, and the
         second part, <code>find</code>, is the name of the blueprint.
       </p>
@@ -66,40 +62,39 @@ export default (props) => {
         </p>
       </blockquote>
       <p>
-        The data returned will then be passed to the <code>Feed</code> component through a prop
-        named <code>tweets</code>, since that's what we named the key.
+        The data returned will then be available to the <code>Feed</code> component through
+        the <code>tweets</code> variable.
       </p>
 
       <h3>
         Connect the Feed Component
       </h3>
       <p>
-        To use <code>connect</code>, you first need to import it from the <code>lore-hook-connect</code> package,
-        which is already included in your project (we'll introduce hooks later in this tutorial).
+        To use <code>connect</code>, you first need to import it from the <code>@lore/connect</code> package,
+        which is already included in your project.
       </p>
       <p>
-        Open your <code>Feed</code> component and wrap it with the <code>connect</code> decorator like this:
+        Open your <code>Feed</code> component and update the code so we're getting the list of tweets
+        from <code>useConnect</code> instead of props, like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
       ...
-      import { connect } from 'lore-hook-connect';
+      import { useConnect } from '@lore/connect';
 
-      export default connect(function(getState, props) {
+      export default function Feed(props) {
+        const tweets = useConnect('tweet.find');
+        
         return {
-          tweets: getState('tweet.find')
+          ...
         };
-      })(
-      createReactClass({
-        ...
-      })
-      );
+      }
       `}/>
 
       <p>
-        Once you've wrapped the <code>Feed</code> component, reload the page, and you'll notice the mock data has
-        been replaced by real data from the API.
+        Once you've done this, reload the page, and you'll notice the mock data has been replaced by real
+        data from the API.
       </p>
 
       <h3>
@@ -126,67 +121,53 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { connect } from 'lore-hook-connect';
       import Tweet from './Tweet';
-
-      export default connect(function(getState, props) {
-        return {
-          tweets: getState('tweet.find')
-        };
-      })(
-      createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          const tweet = {
+      import { useConnect } from '@lore/connect';
+      
+      Feed.propTypes = {
+        tweets: PropTypes.object.isRequired
+      };
+      
+      Feed.defaultProps = (function() {
+        const tweet = {
+          id: 1,
+          cid: 'c1',
+          state: 'RESOLVED',
+          data: {
             id: 1,
-            cid: 'c1',
+            userId: 1,
+            text: 'Nothing can beat science!',
+            createdAt: '2018-04-24T05:10:49.382Z'
+          }
+        };
+      
+        return {
+          tweets: {
             state: 'RESOLVED',
-            data: {
-              id: 1,
-              userId: 1,
-              text: 'Nothing can beat science!',
-              createdAt: '2018-04-24T05:10:49.382Z'
-            }
-          };
-
-          return {
-            tweets: {
-              state: 'RESOLVED',
-              data: [tweet]
-            }
-          };
-        },
-
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-
-        render() {
-          const { tweets } = this.props;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
-            </div>
-          );
-        }
-
-      })
-      );
+            data: [tweet]
+          }
+        };
+      })();
+      
+      export default function Feed(props) {
+        const tweets = useConnect('tweet.find');
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

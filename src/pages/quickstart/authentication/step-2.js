@@ -67,14 +67,18 @@ export default (props) => {
       `}/>
 
       <p>
-        The <code>/config</code> folder in Lore is compiled into a single object, which you can access
-        from <code>lore.config</code>. This means you can add your own files to the <code>/config</code> folder
-        and access their values from <code>lore.config</code>.
+        The <code>/config</code> folder in Lore is compiled into a single object, which you confirm by
+        inspecting <code>lore.config</code> from the developer console in the browser. This means you can add your
+        own files to the <code>/config</code> folder and access their values from <code>lore.config</code>.
       </p>
       <p>
         Since the name of the file we just added was <code>auth0</code>, that means we can now access these values
         from the <code>lore.config.auth0</code> object.
       </p>
+      <blockquote>
+        In practice, you'll access the config using the <code>useConfig()</code> Hook provided by
+        the <code>@lore/config</code> package, which we'll introduce soon.
+      </blockquote>
 
       <h3>
         Visual Check-in

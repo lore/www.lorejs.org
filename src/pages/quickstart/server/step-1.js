@@ -110,7 +110,7 @@ export default (props) => {
       </h3>
 
       <p>
-        At this point our application no longer works - this is epected. If you refresh your browser, you should
+        At this point our application no longer works - this is expected. If you refresh your browser, you should
         see this error in the console:
       </p>
 

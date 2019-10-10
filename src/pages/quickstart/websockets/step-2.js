@@ -80,9 +80,11 @@ export default (props) => {
 
       <Markdown text={`
       // config/actions.js
-      export default {
+      import { getConfig } from '@lore/actions';
+      
+      export default getConfig({
         addCidToBody: true
-      }
+      })
       `}/>
 
       <p>
@@ -126,25 +128,21 @@ export default (props) => {
       </p>
 
       <Markdown text={`
-      // config/connections.js
+      // config/models.js
+      import { getConfig } from '@lore/models';
       import uuid from 'node-uuid';
-      ...
-      export default {
 
+      export default getConfig({
         default: {
-          ...
-          models: {
-            properties: {
-              generateCid: function() {
-                return uuid.v4();
-              }
+          properties: {
+            generateCid: function() {
+              return uuid.v4();
             }
-          },
-          ...
+          }
         }
-
-      };
+      });
       `}/>
+
       <p>
         That's it! With that change in place, not only will the cid for your models be sent to the server, but
         the <code>cid</code> values will now look like <code>c69b66e8-14e1-4257-a43b-f8acbe6f2635</code> instead
@@ -174,53 +172,30 @@ export default (props) => {
         config/actions.js
       </h3>
       <Markdown text={`
-      export default {
+      import { getConfig } from '@lore/actions';
+      
+      export default getConfig({
         addCidToBody: true
-      }
+      })
       `}/>
 
       <h3>
-        config/connections.js
+        config/models.js
       </h3>
       <Markdown text={`
+      import { getConfig } from '@lore/models';
       import uuid from 'node-uuid';
-      import auth from '../src/utils/auth';
-
-      export default {
-
+      
+      export default getConfig({
         default: {
-
-          apiRoot: 'http://localhost:1337',
-
-          headers: function() {
-            return {
-              Authorization: \`Bearer \$\{auth.getToken()\}\`
-            };
-          },
-
-          models: {
-            properties: {
-              generateCid: function() {
-                return uuid.v4();
-              }
+          properties: {
+          
+            generateCid: function() {
+              return uuid.v4();
             }
-          },
-
-          collections: {
-            properties: {
-              parse: function(response) {
-                this.meta = {
-                  totalCount: response.meta.paginate.totalCount,
-                  perPage: response.meta.paginate.perPage,
-                  nextPage: response.meta.paginate.nextPage
-                };
-                return response.data;
-              }
-            }
-          }
-
+            
+          } 
         }
-
       };
       `}/>
 

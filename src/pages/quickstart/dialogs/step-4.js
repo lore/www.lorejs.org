@@ -14,7 +14,7 @@ export default (props) => {
       </h1>
 
       <p>
-        In this step we're going to introduce a version of <code>lore-hook-dialog</code> that is tailored for
+        In this step we're going to create a template for reducing some of the boilerplate associated with
         mounting, showing, and dismissing Bootstrap dialogs.
       </p>
 
@@ -30,40 +30,65 @@ export default (props) => {
         doing so</strong>.
       </p>
       <p>
-        So in this step, we're just going to embrace that, and we're going to introduce a version
-        of <code>lore-hook-dialog</code> that has been customized to understand how to show and dismiss
-        Bootstrap dialogs. This package is called <code>lore-hook-dialog-bootstrap</code>.
+        So in this step, we're just going to embrace that, and create a template that has been customized to
+        understand how to show and dismiss Bootstrap dialogs.
       </p>
 
       <h3>
-        Add Bootstrap-specific Dialog Hook
+        Create Dialog Template
       </h3>
       <p>
-        Run this command to install the package:
+        Create a new component in <code>src/dialogs</code> called <code>Dialog</code> and replace it with
+        this code:
       </p>
 
-      <Markdown type="sh" text={`
-      npm install lore-hook-dialog-bootstrap --save
+      <Markdown type="jsx" text={`
+      // src/dialogs/Dialog.js
+      import React, { useEffect, useRef } from 'react';
+      import PropTypes from 'prop-types';
+      
+      export default function Dialog(props) {
+        const modalRef = useRef(null);
+      
+        useEffect(() => {
+          show();
+        }, []);
+      
+        function show() {
+          $(modalRef.current).modal('show');
+        }
+      
+        function dismiss() {
+          $(modalRef.current).modal('hide');
+        }
+      
+        return (
+          <div ref={modalRef} className="modal fade">
+            {React.cloneElement(props.children, {
+              dismiss: dismiss
+            })}
+          </div>
+        );
+      }
       `}/>
 
       <p>
-        Next open <code>index.js</code> and replace the <code>lore-hook-dialog</code> hook
-        with <code>lore-hook-dialog-bootstrap</code> like this:
+        Next we're going to register this template with the <code>useDialog()</code> so that all dialogs use it
+        as the default. Open <code>config/dialogs.js</code> and update the configuration to look like this:
       </p>
 
       <Markdown text={`
-      // index.js
-      ...
-      import dialog from 'lore-hook-dialog-bootstrap';
-      ...
-
-      lore.summon({
-        hooks: {
-          ...
-          dialog,
-          ...
+      // config/dialogs.js
+      import { getConfig } from '@lore/dialogs';
+      import Dialog from '../src/dialogs/Dialog';
+      
+      export default getConfig({
+      
+        templates: {
+          default: Dialog
         }
-      });
+      
+      })
       `}/>
 
       <p>
@@ -83,45 +108,35 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      // src/components/CreateTweetDialog.js
-      import React from 'react';
-      import createReactClass from 'create-react-class';
-      import PropTypes from 'prop-types';
-      import _ from 'lodash';
-
-      export default createReactClass({
-        displayName: 'CreateTweetDialog',
-
-        componentDidMount() {
-          this.show();
-        },
-
-        show() {
-          const modal = this.refs.modal;
-          $(modal).modal('show');
-        },
-
-        dismiss() {
-          const modal = this.refs.modal;
-          $(modal).modal('hide');
-        },
-
-        render() {
-          const { data } = this.state;
-
-          return (
-            <div ref="modal" className="modal fade">
-              {/* ...your dialog renders here... */}
-            </div>
-          );
+      // src/dialogs/CreateTweetDialog.js
+      ...
+      export default function CreateTweetDialog(props) {
+        ...
+        useEffect(() => {
+          show();
+        }, []);
+      
+        function show() {
+          $(modalRef.current).modal('show');
         }
+      
+        function dismiss() {
+          $(modalRef.current).modal('hide');
+        }
+        
+        ...
 
-      });
+        return (
+          <div ref="modal" className="modal fade">
+            {/* ...your dialog renders here... */}
+          </div>
+        );
+      }
       `}/>
 
       <p>
-        Since the new <code>lore.dialog.show()</code> method automatically wraps each dialog with this code for us,
-        we can now remove this boilerplate from <em>our</em> dialog.
+        By registering the new template, we've set made is the <code>show()</code> method automatically wraps
+        each dialog with this code for us, so we can now remove this boilerplate from <em>our</em> dialog.
       </p>
 
       <h3>
@@ -133,108 +148,90 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      // src/components/CreateTweetDialog.js
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      // src/dialogs/CreateTweetDialog.js
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-
-      export default createReactClass({
-        displayName: 'CreateTweetDialog',
-
-        propTypes: {
-          onCancel: PropTypes.func
-        },
-
-        getInitialState() {
-          return {
-            data: {
-              text: ''
-            }
-          };
-        },
-
-        request(data) {
-          lore.actions.tweet.create(data);
-        },
-
-        onSubmit() {
-          const { data } = this.state;
-          this.request(data);
-          this.dismiss();
-        },
-
-        dismiss() {
-          this.props.onCancel();
-        },
-
-        onChange(name, value) {
-          const nextData = _.merge({}, this.state.data);
+      import { useActions } from '@lore/actions';
+      
+      export default function CreateTweetDialog(props) {
+        const { dismiss } = props;
+      
+        const [data, setData] = useState({
+          text: ''
+        });
+      
+        const actions = useActions();
+      
+        function request(data) {
+          actions.tweet.create(data);
+        }
+      
+        function onSubmit() {
+          request(data);
+          dismiss();
+        }
+      
+        function onChange(name, value) {
+          const nextData = _.cloneDeep(data);
           nextData[name] = value;
-          this.setState({
-            data: nextData
-          });
-        },
-
-        render() {
-          const { data } = this.state;
-
-          return (
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" onClick={this.dismiss}>
-                    <span>&times;</span>
-                  </button>
-                  <h4 className="modal-title">
-                    Create Tweet
-                  </h4>
-                </div>
-                <div className="modal-body">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <label>Message</label>
-                        <textarea
-                          className="form-control"
-                          rows="3"
-                          value={data.text}
-                          placeholder="What's happening?"
-                          onChange={(event) => {
-                            this.onChange('text', event.target.value)
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <button
-                        type="button"
-                        className="btn btn-default"
-                        onClick={this.dismiss}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        disabled={!data.text}
-                        onClick={this.onSubmit}
-                      >
-                        Create
-                      </button>
+          setData(nextData);
+        }
+      
+        return (
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" onClick={dismiss}>
+                  <span>&times;</span>
+                </button>
+                <h4 className="modal-title">
+                  Create Tweet
+                </h4>
+              </div>
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Message</label>
+                      <textarea
+                        className="form-control"
+                        rows="3"
+                        value={data.text}
+                        placeholder="What's happening?"
+                        onChange={(event) => {
+                          onChange('text', event.target.value)
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
+              <div className="modal-footer">
+                <div className="row">
+                  <div className="col-md-12">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={dismiss}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!data.text}
+                      onClick={onSubmit}
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -261,169 +258,138 @@ export default (props) => {
       </p>
 
       <h3>
-        index.js
+        config/dialogs.js
       </h3>
       <Markdown text={`
-      /**
-       * This file kicks off the build process for the application.  It also attaches
-       * the Lore singleton to the window, so you can access it from the command line
-       * in case you need to play with it or want to manually kick off actions or check
-       * the reducer state (through \`lore.actions.xyz\`, \`lore.reducers.xyz\`,
-       * \`lore.models.xyz\`, etc.)
-       */
-
-      import lore from 'lore';
-      import _ from 'lodash';
-
-      // Import the styles for the loading screen. We're doing that here to make
-      // sure they get loaded regardless of the entry point for the application.
-      import './assets/css/loading-screen.css';
-
-      // Allows you to access your lore app globally as well as from within
-      // the console. Remove this line if you don't want to be able to do that.
-      window.lore = lore;
-
-      // Hooks
-      import auth from 'lore-hook-auth';
-      import actions from 'lore-hook-actions';
-      import bindActions from 'lore-hook-bind-actions';
-      import collections from 'lore-hook-collections';
-      import connections from 'lore-hook-connections';
-      import connect from 'lore-hook-connect';
-      import dialog from 'lore-hook-dialog-bootstrap';
-      import models from 'lore-hook-models';
-      import react from 'lore-hook-react';
-      import reducers from 'lore-hook-reducers';
-      import redux from 'lore-hook-redux';
-      import router from 'lore-hook-router';
-
-      // Summon the app!
-      lore.summon({
-        hooks: {
-          auth,
-          actions,
-          bindActions,
-          collections,
-          connections,
-          connect,
-          dialog,
-          models,
-          react,
-          reducers,
-          redux: _.extend(redux, {
-            dependencies: ['reducers', 'auth']
-          }),
-          router
+      import { getConfig } from '@lore/dialogs';
+      import Dialog from '../src/dialogs/Dialog';
+      
+      export default getConfig({
+        templates: {
+          default: Dialog
         }
-      });
+      })
       `}/>
 
       <h3>
-        src/components/CreateTweetDialog.js
+        src/dialogs/Dialog.js
       </h3>
       <Markdown type="jsx" text={`
-      // src/components/CreateTweetDialog.js
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useEffect, useRef } from 'react';
+      import PropTypes from 'prop-types';
+      
+      export default function Dialog(props) {
+        const modalRef = useRef(null);
+      
+        useEffect(() => {
+          show();
+        }, []);
+      
+        function show() {
+          $(modalRef.current).modal('show');
+        }
+      
+        function dismiss() {
+          $(modalRef.current).modal('hide');
+        }
+      
+        return (
+          <div ref={modalRef} className="modal fade">
+            {React.cloneElement(props.children, {
+              dismiss: dismiss
+            })}
+          </div>
+        );
+      }
+      `}/>
+
+      <h3>
+        src/dialogs/CreateTweetDialog.js
+      </h3>
+      <Markdown type="jsx" text={`
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-
-      export default createReactClass({
-        displayName: 'CreateTweetDialog',
-
-        propTypes: {
-          onCancel: PropTypes.func
-        },
-
-        getInitialState() {
-          return {
-            data: {
-              text: ''
-            }
-          };
-        },
-
-        request(data) {
-          lore.actions.tweet.create(data);
-        },
-
-        onSubmit() {
-          const { data } = this.state;
-          this.request(data);
-          this.dismiss();
-        },
-
-        dismiss() {
-          this.props.onCancel();
-        },
-
-        onChange(name, value) {
-          const nextData = _.merge({}, this.state.data);
+      import { useActions } from '@lore/actions';
+      
+      export default function CreateTweetDialog(props) {
+        const { dismiss } = props;
+      
+        const [data, setData] = useState({
+          text: ''
+        });
+      
+        const actions = useActions();
+      
+        function request(data) {
+          actions.tweet.create(data);
+        }
+      
+        function onSubmit() {
+          request(data);
+          dismiss();
+        }
+      
+        function onChange(name, value) {
+          const nextData = _.cloneDeep(data);
           nextData[name] = value;
-          this.setState({
-            data: nextData
-          });
-        },
-
-        render() {
-          const { data } = this.state;
-
-          return (
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" onClick={this.dismiss}>
-                    <span>&times;</span>
-                  </button>
-                  <h4 className="modal-title">
-                    Create Tweet
-                  </h4>
-                </div>
-                <div className="modal-body">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <div className="form-group">
-                        <label>Message</label>
-                        <textarea
-                          className="form-control"
-                          rows="3"
-                          value={data.text}
-                          placeholder="What's happening?"
-                          onChange={(event) => {
-                            this.onChange('text', event.target.value)
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <div className="row">
-                    <div className="col-md-12">
-                      <button
-                        type="button"
-                        className="btn btn-default"
-                        onClick={this.dismiss}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        disabled={!data.text}
-                        onClick={this.onSubmit}
-                      >
-                        Create
-                      </button>
+          setData(nextData);
+        }
+      
+        return (
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" onClick={dismiss}>
+                  <span>&times;</span>
+                </button>
+                <h4 className="modal-title">
+                  Create Tweet
+                </h4>
+              </div>
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Message</label>
+                      <textarea
+                        className="form-control"
+                        rows="3"
+                        value={data.text}
+                        placeholder="What's happening?"
+                        onChange={(event) => {
+                          onChange('text', event.target.value)
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
               </div>
+              <div className="modal-footer">
+                <div className="row">
+                  <div className="col-md-12">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={dismiss}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!data.text}
+                      onClick={onSubmit}
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <h2>
@@ -431,7 +397,7 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going <Link to="/quickstart/dialogs/step-5/">finish adding the create dialog</Link>.
+        Next we're going to <Link to="/quickstart/dialogs/step-5/">create a way to edit tweets</Link>.
       </p>
     </Template>
   )

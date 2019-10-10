@@ -30,24 +30,19 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Tweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { tweet } = this.props;
-
-          return (
-            {/* render tweet */}
-          );
-        }
-      });
+      
+      Tweet.propTypes = {
+        tweet: PropTypes.object.isRequired
+      };
+      
+      export default function Tweet(props) {
+        const { tweet } = props;
+      
+        return (
+          {/* render tweet */}
+        );
+      }
       `}/>
 
       <p>

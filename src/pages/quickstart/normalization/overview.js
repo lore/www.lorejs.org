@@ -195,7 +195,7 @@ export default (props) => {
       </p>
       <p>
         To avoid these issues entirely, it's recommended that instead of storing that data as a <strong>tweet that
-        contain the user</strong>, you instead break apart the API response and store
+        contains the user</strong>, you instead break apart the API response and store
         the <strong>tweet</strong> and <strong>user</strong> separately, exactly as you would have before nesting
         the data.
       </p>

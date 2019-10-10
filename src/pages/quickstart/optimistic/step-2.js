@@ -62,7 +62,7 @@ export default (props) => {
       </p>
       <Markdown type="jsx" text={`
       // src/components/InfiniteScrollingList.js
-      render() {
+      export default function InfiniteScrollingList(props) {
         ...
         return (
           <div>
@@ -73,6 +73,7 @@ export default (props) => {
             // ...
           </div>
         );
+        ...
       }
       `}/>
 
@@ -81,36 +82,30 @@ export default (props) => {
       </h3>
       <p>
         To get tweets to appear here, we simply need to provide the "other" data to the list. Open
-        the <code>Feed</code> component and update the <code>render()</code> method to look like this:
+        the <code>Feed</code> component and provide a <code>selectOther</code> method to
+        the <code>InfiniteScrollingList</code> that looks like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
       import moment from 'moment';
       ...
-      render() {
+      <InfiniteScrollingList
         ...
-        return (
-          <div className="feed">
-            ...
-            <InfiniteScrollingList
-              ...
-              selectOther={(getState) => {
-                return getState('tweet.all', {
-                  where: function(tweet) {
-                    const isReal = tweet.id;
-                    const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                    return isReal && isNew;
-                  },
-                  sortBy: function(model) {
-                    return -moment(model.data.createdAt).unix();
-                  }
-                });
-              }}
-            />
-          </div>
-        );
-      }
+        selectOther={(getState) => {
+          return getState('tweet.all', {
+            where: function(tweet) {
+              const isReal = tweet.id;
+              const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+              return isReal && isNew;
+            },
+            sortBy: function(model) {
+              return -moment(model.data.createdAt).unix();
+            }
+          });
+        }}
+      />
+      ...
       `}/>
       <p>
         Here we've provided a <code>selectOther()</code> prop to the <code>InfiniteScrollingList</code>, which
@@ -136,7 +131,7 @@ export default (props) => {
       </h3>
       <p>
         With that change in place, new tweets will show up at the top of the <code>Feed</code> shortly after
-        you create them. You'll notice however that there's a shortly delay between the time you create a tweet
+        you create them. You'll notice however that there's a short delay between the time you create a tweet
         and when it actually shows up in the list.
       </p>
       <p>
@@ -164,82 +159,70 @@ export default (props) => {
         src/components/Feed.js
       </h3>
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-      import moment from 'moment';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        getInitialState() {
-          return {
-            timestamp: new Date().toISOString()
-          };
-        },
-
-        render() {
-          const { timestamp } = this.state;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <InfiniteScrollingList
-                select={(getState) => {
-                  return getState('tweet.find', {
+      import moment from 'moment';
+      
+      export default function Feed(props) {
+        const [timestamp] = useState(new Date().toISOString());
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <InfiniteScrollingList
+              select={(getState) => {
+                return getState('tweet.find', {
+                  where: {
                     where: {
-                      where: {
-                        createdAt: {
-                          '<=': timestamp
-                        }
+                      createdAt: {
+                        '<=': timestamp
                       }
-                    },
-                    pagination: {
-                      sort: 'createdAt DESC',
-                      page: 1
                     }
-                  });
-                }}
-                row={(tweet) => {
-                  return (
-                    <Tweet key={tweet.id} tweet={tweet} />
-                  );
-                }}
-                refresh={(page, getState) => {
-                  return getState('tweet.find', page.query);
-                }}
-                selectNextPage={(lastPage, getState) => {
-                  const lastPageNumber = lastPage.query.pagination.page;
-
-                  return getState('tweet.find', _.defaultsDeep({
-                    pagination: {
-                      page: lastPageNumber + 1
-                    }
-                  }, lastPage.query));
-                }}
-                selectOther={(getState) => {
-                  return getState('tweet.all', {
-                    where: function(tweet) {
-                      const isReal = tweet.id;
-                      const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                      return isReal && isNew;
-                    },
-                    sortBy: function(model) {
-                      return -moment(model.data.createdAt).unix();
-                    }
-                  });
-                }}
-              />
-            </div>
-          );
-        }
-
-      });
+                  },
+                  pagination: {
+                    sort: 'createdAt DESC',
+                    page: 1
+                  }
+                });
+              }}
+              row={(tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              }}
+              refresh={(page, getState) => {
+                return getState('tweet.find', page.query);
+              }}
+              selectNextPage={(lastPage, getState) => {
+                const lastPageNumber = lastPage.query.pagination.page;
+      
+                return getState('tweet.find', _.defaultsDeep({
+                  pagination: {
+                    page: lastPageNumber + 1
+                  }
+                }, lastPage.query));
+              }}
+              selectOther={(getState) => {
+                return getState('tweet.all', {
+                  where: function(tweet) {
+                    const isReal = tweet.id;
+                    const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                    return isReal && isNew;
+                  },
+                  sortBy: function(model) {
+                    return -moment(model.data.createdAt).unix();
+                  }
+                });
+              }}
+            />
+          </div>
+        );
+      }
       `}/>
 
       <h2>

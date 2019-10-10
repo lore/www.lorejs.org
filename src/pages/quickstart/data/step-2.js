@@ -38,42 +38,38 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Tweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { tweet } = this.props;
-
-          return (
-            <li className="list-group-item tweet">
-              <div className="image-container">
-                <img
-                  className="img-circle avatar"
-                  src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
-              </div>
-              <div className="content-container">
-                <h4 className="list-group-item-heading title">
-                  Nickname
-                </h4>
-                <h4 className="list-group-item-heading timestamp">
-                  {'- Timestamp'}
-                </h4>
-                <p className="list-group-item-text text">
-                  {'This is a quote from Chrono Trigger.'}
-                </p>
-              </div>
-            </li>
-          );
-        }
-
-      });
+      
+      Tweet.propTypes = {
+        tweet: PropTypes.object.isRequired
+      };
+      
+      Tweet.defaultProps = {};
+      
+      export default function Tweet(props) {
+        const { tweet } = props;
+      
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                Nickname
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- Timestamp'}
+              </h4>
+              <p className="list-group-item-text text">
+                {'This is a quote from Chrono Trigger.'}
+              </p>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <p>
@@ -86,19 +82,31 @@ export default (props) => {
       </h3>
       <p>
         With our <code>Tweet</code> component created, let’s use it in our Feed. Open the <code>Feed</code> component
-        and update the <code>renderTweet()</code> method to look like this:
+        and update the code that renders the list of tweets to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
       import Tweet from './Tweet';
       ...
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-      ...
+      export default function Feed(props) {
+        const { tweets } = props;
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -121,31 +129,30 @@ export default (props) => {
       <Markdown type="jsx" text={`
       // src/components/Tweet.js
       ...
-          render() {
-            const { tweet } = this.props;
-
-            return (
-              <li className="list-group-item tweet">
-                <div className="image-container">
-                  <img
-                    className="img-circle avatar"
-                    src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
-                </div>
-                <div className="content-container">
-                  <h4 className="list-group-item-heading title">
-                    Nickname
-                  </h4>
-                  <h4 className="list-group-item-heading timestamp">
-                    {'- ' + tweet.data.createdAt}
-                  </h4>
-                  <p className="list-group-item-text text">
-                    {tweet.data.text}
-                  </p>
-                </div>
-              </li>
-            );
-          }
-        ...
+      export default function Tweet(props) {
+        const { tweet } = props;
+      
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                Nickname
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + tweet.data.createdAt}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <p>
@@ -158,9 +165,9 @@ export default (props) => {
         Fix the Timestamp
       </h3>
       <p>
-        That's a little better, but what's up with that ugly timestamp of <code>2018-04-24T05:10:49.382Z</code>? That's not what we want;
-        we want a clear statement like <code>3 days</code> to show how old the Tweet is. Luckily we can easily fix that using a library
-        called <a href="http://momentjs.com/">moment</a>.
+        That's a little better, but what's up with that ugly timestamp of <code>2018-04-24T05:10:49.382Z</code>?
+        That's not what we want; we want a clear statement like <code>3 days</code> to show how old the Tweet is.
+        Luckily we can easily fix that using a library called <a href="http://momentjs.com/">moment</a>.
       </p>
       <blockquote>
         <p>
@@ -192,34 +199,32 @@ export default (props) => {
       <Markdown type="jsx" text={`
       // src/components/Tweet.js
       import moment from 'moment';
-
       ...
-        render() {
-          const { tweet } = this.props;
-          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-          return (
-            <li className="list-group-item tweet">
-              <div className="image-container">
-                <img
-                  className="img-circle avatar"
-                  src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
-              </div>
-              <div className="content-container">
-                <h4 className="list-group-item-heading title">
-                  Nickname
-                </h4>
-                <h4 className="list-group-item-heading timestamp">
-                  {'- ' + timestamp}
-                </h4>
-                <p className="list-group-item-text text">
-                  {tweet.data.text}
-                </p>
-              </div>
-            </li>
-          );
-        }
-      ...
+      export default function Tweet(props) {
+        const { tweet } = props;
+        const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+      
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                Nickname
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + timestamp}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <p>
@@ -264,44 +269,40 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import moment from 'moment';
-
-      export default createReactClass({
-        displayName: 'Tweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { tweet } = this.props;
-          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-
-          return (
-            <li className="list-group-item tweet">
-              <div className="image-container">
-                <img
-                  className="img-circle avatar"
-                  src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
-              </div>
-              <div className="content-container">
-                <h4 className="list-group-item-heading title">
-                  Nickname
-                </h4>
-                <h4 className="list-group-item-heading timestamp">
-                  {'- ' + timestamp}
-                </h4>
-                <p className="list-group-item-text text">
-                  {tweet.data.text}
-                </p>
-              </div>
-            </li>
-          );
-        }
-
-      });
+      
+      Tweet.propTypes = {
+        tweet: PropTypes.object.isRequired
+      };
+      
+      Tweet.defaultProps = {};
+      
+      export default function Tweet(props) {
+        const { tweet } = props;
+        const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+      
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={'http://ssl.gstatic.com/images/icons/material/product/1x/avatar_circle_blue_120dp.png'} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                Nickname
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + timestamp}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <h3>
@@ -310,60 +311,52 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import Tweet from './Tweet';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          const tweet = {
+      
+      Feed.propTypes = {
+        tweets: PropTypes.object.isRequired
+      };
+      
+      Feed.defaultProps = (function() {
+        const tweet = {
+          id: 1,
+          cid: 'c1',
+          state: 'RESOLVED',
+          data: {
             id: 1,
-            cid: 'c1',
+            userId: 1,
+            text: 'Nothing can beat science!',
+            createdAt: '2018-04-24T05:10:49.382Z'
+          }
+        };
+      
+        return {
+          tweets: {
             state: 'RESOLVED',
-            data: {
-              id: 1,
-              userId: 1,
-              text: 'Nothing can beat science!',
-              createdAt: '2018-04-24T05:10:49.382Z'
-            }
-          };
-
-          return {
-            tweets: {
-              state: 'RESOLVED',
-              data: [tweet]
-            }
-          };
-        },
-
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-
-        render() {
-          const { tweets } = this.props;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
-            </div>
-          );
-        }
-
-      });
+            data: [tweet]
+          }
+        };
+      })();
+      
+      export default function Feed(props) {
+        const { tweets } = props;
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

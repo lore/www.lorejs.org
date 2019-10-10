@@ -97,7 +97,7 @@ export default (props) => {
       </h3>
 
       <p>
-        If everything went well, your application should now look like this. Exactly the same :)
+        If everything went well, your application should now look like this. Exactly the same : )
       </p>
 
       <img className="drop-shadow" src={image} />

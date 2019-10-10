@@ -52,47 +52,38 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
-      import PropTypes from 'prop-types';
+      import React, { useState, useEffect } from 'react';
+      import { withRouter } from 'react-router-dom';
+      import { useConfig } from '@lore/config';
       import Auth0 from 'auth0-js';
-      import ShowLoadingScreen from './ShowLoadingScreen';
       import auth from '../utils/auth';
-
-      export default createReactClass({
-        displayName: 'AuthCallback',
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        componentDidMount() {
-          const { router } = this.props;
-          const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
+      
+      export default withRouter(function AuthCallback(props) {
+        const { history } = props;
+      
+        const config = useConfig();
+      
+        useEffect(() => {
+          const auth0 = new Auth0.WebAuth(config.auth0);
+      
           auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
               auth.saveToken(authResult.idToken);
-              router.push('/');
+              history.push('/');
             } else if (err) {
               console.log(err);
               alert('An error occurred. See the console for more information.');
             }
           });
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
+        }, []);
+      
+        return null;
       });
       `}/>
 
       <p>
-        When this component gets mounted, we're going to once again create the <code>Auth0.WebAuth()</code> object
-        and provide it with our <code>auth0</code> config at <code>lore.config.auth0</code>.
+        When this component gets mounted, we're going to once again create the <code>Auth0.WebAuth()</code> instance
+        and provide it with our <code>auth0</code> settings from the <code>config</code>.
       </p>
       <p>
         Then we're going to call <code>auth0.parseHash()</code>, which will extract the query parameters we need
@@ -120,23 +111,20 @@ export default (props) => {
       import AuthCallback from './src/components/AuthCallback';
 
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-          <Route path="/auth/callback" component={AuthCallback} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/auth/callback" component={AuthCallback} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
       <p>
         Once that's done, refresh the browser and navigate to <code>/login</code>. This time, once you log in, Auth0
         will redirect you to the <code>/auth/callback</code> route, which will store the token we need, and redirect
-        you back to the home route.
+        you back to the root route.
       </p>
 
       <h3>
@@ -162,41 +150,32 @@ export default (props) => {
         src/components/AuthCallback.js
       </h3>
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
-      import PropTypes from 'prop-types';
+      import React, { useState, useEffect } from 'react';
+      import { withRouter } from 'react-router-dom';
+      import { useConfig } from '@lore/config';
       import Auth0 from 'auth0-js';
-      import ShowLoadingScreen from './ShowLoadingScreen';
       import auth from '../utils/auth';
-
-      export default createReactClass({
-        displayName: 'AuthCallback',
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        componentDidMount() {
-          const { router } = this.props;
-          const auth0 = new Auth0.WebAuth(lore.config.auth0);
-
+      
+      export default withRouter(function AuthCallback(props) {
+        const { history } = props;
+      
+        const config = useConfig();
+      
+        useEffect(() => {
+          const auth0 = new Auth0.WebAuth(config.auth0);
+      
           auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
               auth.saveToken(authResult.idToken);
-              router.push('/');
+              history.push('/');
             } else if (err) {
               console.log(err);
               alert('An error occurred. See the console for more information.');
             }
           });
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
+        }, []);
+      
+        return null;
       });
       `}/>
 
@@ -205,35 +184,33 @@ export default (props) => {
       </h3>
       <Markdown text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
       /**
-       * Wrapping the Master component with this decorator provides an easy way
-       * to redirect the user to a login experience if we don't know who they are.
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
        */
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
       /**
        * Routes are used to declare your view hierarchy
-       * See: https://github.com/ReactTraining/react-router/blob/v3/docs/API.md
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
+      
+      import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
       import Login from './src/components/Login';
       import AuthCallback from './src/components/AuthCallback';
-
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-          <Route path="/auth/callback" component={AuthCallback} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/auth/callback" component={AuthCallback} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 

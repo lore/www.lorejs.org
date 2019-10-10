@@ -136,7 +136,7 @@ export default (props) => {
 
       <blockquote>
         <p>
-          While <code>config/connections.js</code> <em>does</em> contain a parse method for <code>models</code>,
+          While <code>config/models.js</code> <em>does</em> contain a parse method for <code>models</code>,
           that method will affect <em>all</em> models in the application, which isn't what we want, since this
           issue only affects the <code>tweet</code> models.
         </p>
@@ -183,19 +183,14 @@ export default (props) => {
       <h3>
         src/models/tweet.js
       </h3>
-
       <Markdown type="jsx" text={`
       export default {
-
         properties: {
-
           parse: function(response, options) {
             response.userId = response.user;
             return response;
           }
-
         }
-
       };
       `}/>
 

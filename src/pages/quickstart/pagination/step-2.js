@@ -52,61 +52,59 @@ export default (props) => {
       </h3>
 
       <p>
-        Open the <code>Feed</code> component and take a look at the <code>connect</code> decorator, which currently
+        Open the <code>Feed</code> component and take a look at the <code>useConnect</code> Hook, which currently
         looks like this:
       </p>
 
       <Markdown text={`
       // src/components/Feed.js
-      connect(function(getState, props) {
-        return {
-          tweets: getState('tweet.find')
-        };
-      })
+      const tweets = useConnect('tweet.find');
       `}/>
 
       <p>
-        Since we didn't provide any additional information to <code>getState('tweet.find')</code>, the API call
+        Since we didn't provide any additional information to <code>useConnect('tweet.find')</code>, the API call
         that's produced is simply a network request to <code>/tweets</code>. But if we're going to use paginated
         data, we need network calls that look like <code>/tweets?page=1</code>.
       </p>
       <p>
-        To do that, update the <code>connect</code> call to look like this:
+        To do that, update the <code>Feed</code> to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
-      export default connect(function(getState, props) {
+      ...
+      import { parse } from 'query-string';
+      
+      export default function Feed(props) {
         const { location } = props;
-
-        return {
-          tweets: getState('tweet.find', {
-            pagination: {
-              sort: 'createdAt DESC',
-              page: location.query.page || '1'
-            }
-          })
-        }
-      })(
-      createReactClass({
+      
+        const tweets = useConnect('tweet.find', {
+          pagination: {
+            sort: 'createdAt DESC',
+            page: parse(location.search).page || '1'
+          }
+        });
+        
         ...
-      })
-      )
+      }
       `}/>
 
       <p>
-        In the code above, we're first extracting <code>location</code> from <code>props</code>, which is provided
-        by React Router and contains information like the current URL and any query parameters.
+        In the code above, we're first importing the <code>parse</code> method from
+        the <code>query-string</code> library, which we'll use to parse query string parameters in the URL. Then
+        we're extracting <code>location</code> from <code>props</code>, which is provided by React Router (due to
+        this component being a component of a <code>Route</code>), and which contains information like the current
+        URL and any query parameters.
       </p>
       <p>
-        Then we're providing an object to <code>getState('tweet.find')</code> in order to be more specific about
+        Then we're providing an object to <code>useConnect('tweet.find')</code> in order to be more specific about
         what question we want to ask the API.
       </p>
 
       <blockquote>
         <p>
           The <code>find</code> part of <code>tweet.find</code> is actually the name of a blueprint that determines
-          what options can be provided in the second argument to <code>getState()</code>. The same is true
+          what options can be provided in the second argument to <code>useConnect()</code>. The same is true
           of <code>tweet.byId</code>, and it's actually the <code>byId</code> blueprint that requires there to be
           an <code>id</code> provided when using it.
         </p>
@@ -180,65 +178,48 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { connect } from 'lore-hook-connect';
-      import PayloadStates from '../constants/PayloadStates';
       import Tweet from './Tweet';
-
-      export default connect(function(getState, props) {
+      import { useConnect } from '@lore/connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import { parse } from 'query-string';
+      
+      export default function Feed(props) {
         const { location } = props;
-
-        return {
-          tweets: getState('tweet.find', {
-            pagination: {
-              sort: 'createdAt DESC',
-              page: location.query.page || '1'
-            }
-          })
-        };
-      })(
-      createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-
-        render() {
-          const { tweets } = this.props;
-
-          if (tweets.state === PayloadStates.FETCHING) {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <div className="loader"/>
-              </div>
-            );
+      
+        const tweets = useConnect('tweet.find', {
+          pagination: {
+            sort: 'createdAt DESC',
+            page: parse(location.search).page || '1'
           }
-
+        });
+      
+        if (tweets.state === PayloadStates.FETCHING) {
           return (
             <div className="feed">
               <h2 className="title">
                 Feed
               </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
+              <div className="loader"/>
             </div>
           );
         }
-
-      })
-      );
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

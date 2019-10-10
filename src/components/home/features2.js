@@ -11,8 +11,8 @@ export default (props) => {
             <span className="icon icon-bar-graph feature-divider" />
             <h6 className="text-muted text-uppercase">Focus on adding value without constraint</h6>
             <h3 className="m-t-0">
-              Thoughtfully designed to support <strong style={{ textDecoration: 'underline' }}>features you'll need</strong>
-              as you're app grows.
+              Thoughtfully designed to support <strong style={{ textDecoration: 'underline' }}>features you'll
+              need</strong> as you're app grows.
             </h3>
             <p className="lead">
               Lore is serious about building scalable apps. The architectural patterns in the framework are taken from

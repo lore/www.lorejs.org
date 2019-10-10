@@ -36,26 +36,20 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        render() {
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {/* Tweets */}
-              </ul>
-            </div>
-          );
-        }
-
-      });
+      
+      export default function Feed(props) {
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {/* Tweets */}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -66,18 +60,31 @@ export default (props) => {
       </p>
       <Markdown type="jsx" text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
+      /**
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
+       */
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
+      /**
+       * Routes are used to declare your view hierarchy
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
+       */
+      
+      import NotFoundPage from './src/components/NotFound';
+      
       export default (
-        <Route component={UserIsAuthenticated(Master)}>
-          <Route path="/" component={Layout} />
-        </Route>
+        <Switch>
+          <AuthenticatedRoute exact path="/" component={() => <h1>Placeholder</h1>} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
+
       `}/>
+
       <p>
         This file declares the route hierarchy for your application, which is a set of instructions that determine
         what gets rendered based on the URL in the browser. If you've used <code>react-router</code> before,
@@ -105,19 +112,17 @@ export default (props) => {
       // routes.js
       ...
       import Feed from './src/components/Feed';
-
+      
       export default (
-        <Route component={UserIsAuthenticated(Master)}>
-          <Route path="/" component={Layout}>
-            <IndexRoute component={Feed} />
-          </Route>
-        </Route>
-      )
+        <Switch>
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      );
       `}/>
+
       <p>
-        Here we've added an <code>IndexRoute</code> inside the root route and configured it to render
-        the <code>Feed</code>. This configuration gives us the flexibility to change what should be displayed on
-        the homepage later, while also declaring that the default view should be the Feed.
+        Here we've replaced the placeholder code and configured the root route to render the <code>Feed</code>.
       </p>
 
       <h3>
@@ -147,14 +152,15 @@ export default (props) => {
       <Markdown text={`
       // src/components/Layout.js
       <div className="col-md-offset-3 col-md-6">
-        {React.cloneElement(this.props.children)}
+        {props.children}
       </div>
       `} />
 
       <p>
         When we added the <code>Feed</code> component to <code>routes.js</code>, we listed it as
-        a <strong>child</strong> of the <code>Layout</code>. The code we just pasted says <em>"clone my children and
-        render them here"</em>, which means the <code>Layout</code> will be inserted into that <code>div</code> tag.
+        the <strong>child</strong> component of the <code>AuthenticatedRoute</code>. The code we just pasted
+        says <em>"clone my children and render them here"</em>, which means the <code>Feed</code> will be inserted
+        into that <code>div</code> tag.
       </p>
       <p>
         With this change in place, refresh the application and you should now see <strong>"Feed"</strong> displayed
@@ -184,26 +190,20 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        render() {
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {/* Tweets */}
-              </ul>
-            </div>
-          );
-        }
-
-      });
+      
+      export default function Feed(props) {
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {/* Tweets */}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -211,28 +211,28 @@ export default (props) => {
       </h3>
       <Markdown text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
       /**
-       * Wrapping the Master component with this decorator provides an easy way
-       * to redirect the user to a login experience if we don't know who they are.
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
        */
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
       /**
        * Routes are used to declare your view hierarchy
-       * See: https://github.com/ReactTraining/react-router/blob/v3/docs/API.md
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
+      
+      import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
-
+      
       export default (
-        <Route component={UserIsAuthenticated(Master)}>
-          <Route path="/" component={Layout}>
-            <IndexRoute component={Feed} />
-          </Route>
-        </Route>
+        <Switch>
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
@@ -246,31 +246,25 @@ export default (props) => {
        * and render any components that are common across all views, such as the header or
        * top-level navigation. All other components should be rendered by route handlers.
        */
-
+      
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import Header from './Header';
-
-      export default createReactClass({
-        displayName: 'Layout',
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-offset-3 col-md-6">
-                    {React.cloneElement(this.props.children)}
-                  </div>
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-offset-3 col-md-6">
+                  {props.children}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <h2>

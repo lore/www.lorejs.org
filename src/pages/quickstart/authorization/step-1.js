@@ -3,18 +3,18 @@ import Link from 'gatsby-link';
 import Template from '../../../components/templates/Quickstart';
 import Markdown from '../../../components/Markdown';
 import QuickstartBranch from '../../../components/QuickstartBranch';
-import image from '../../../assets/images/quickstart/authorization/step-1.png';
+import image from '../../../assets/images/quickstart/authorization/final.png';
 
 export default (props) => {
   return (
     <Template>
       <h1>
-        Step 1: Hide Edit Link
+        Step 1: Hide Edit and Delete Links
       </h1>
 
       <p>
-        In this step we're going to wrap our <code>EditLink</code> with a decorator that will only display it for
-        the user who created that tweet.
+        In this step we're update the <code>Tweet</code> so that the <code>edit</code> and <code>delete</code> links
+        only appear on tweets created by the current user.
       </p>
 
       <QuickstartBranch branch="authorization.1" />
@@ -29,95 +29,140 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import { AuthorizationGenerator } from 'lore-auth';
-
-      export default AuthorizationGenerator({
-        displayName: 'UserIsAuthorized',
-
-        isAuthorized() {
-          return true;
-        }
-      });
-      `}/>
-
-      <p>
-        This decorator is designed to wrap a component, and will only render that component if
-        the <code>isAuthorized()</code> method returns true.
-      </p>
-
-      <p>
-        We're going to use this decorator to hide the edit link from any users who were not the author of the tweet.
-      </p>
-
-
-      <h3>
-        Create the UserCanEditTweet Decorator
-      </h3>
-      <p>
-        Create a copy of the <code>UserIsAuthorized</code> decorator and rename it to <code>UserCanEditTweet</code>.
-        Then update the code to look like this:
-      </p>
-
-      <Markdown type="jsx" text={`
+      // src/decorators/UserIsAuthorized.js
+      import React, { useContext } from 'react';
       import PropTypes from 'prop-types';
-      import { AuthorizationGenerator } from 'lore-auth';
-
-      export default AuthorizationGenerator({
-        displayName: 'UserCanEditTweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        contextTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        isAuthorized() {
-          const { tweet } = this.props;
-          const { user } = this.context;
-
-          return tweet.data.user === user.id;
+      import { UserContext } from '@lore/auth';
+      
+      UserIsAuthorized.propTypes = {
+        authorized: PropTypes.func.isRequired
+      };
+      
+      export default function UserIsAuthorized(props) {
+        const { authorized, children } = props;
+      
+        const user = useContext(UserContext);
+      
+        if (authorized(user)) {
+          return children;
         }
-      });
+      
+        return null;
+      };
       `}/>
 
       <p>
-        In the code above we're declaring that the decorator expects to receive a <code>tweet</code> from props,
-        and will need the <code>user</code> from context.
+        This component expects a prop function called <code>authorized</code>, and will only render the provided
+        children if that function returns true.
       </p>
       <p>
-        Then in the <code>isAuthorized()</code> method, we're checking whether the current user was the author of the
-        tweet.
+        We're going to use this component to hide the edit and delete links for any tweets not created
+        by the current user.
       </p>
 
       <h3>
-        Wrap the Edit Link
+        Hide Edit and Delete Links
       </h3>
       <p>
-        To use this decorator, open the <code>EditLink</code> component and decorate the component just like you
-        would when using <code>connect</code>.
+        To use this component, open the <code>Tweet</code> component, import
+        the <code>UserIsAuthorized</code> component, and update the rendered code to look like this:
+      </p>
+      <Markdown type="jsx" text={`
+      // src/components/Tweet.js
+      ...
+      import UserIsAuthorized from '../decorators/UserIsAuthorized';
+      ...
+      export default function Tweet(props) {
+        ...
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                {user.data.nickname}
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + timestamp}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+              <UserIsAuthorized authorized={(user) => user.id === tweet.data.user}>
+                <div className="tweet-actions">
+                  <EditLink tweet={tweet} />
+                  <DeleteLink tweet={tweet} />
+                </div>
+              </UserIsAuthorized>
+            </div>
+          </li>
+        );
+      }
+      `}/>
+
+
+      <p>
+        With that change in place, refresh the page, and the edit and delete links should disappear from any
+        tweets that were not created by Marle.
+      </p>
+
+
+      <h3>
+        Alternative Approach: Create an IsAuthor Component (optional)
+      </h3>
+      <p>
+        The <code>UserIsAuthorized</code> component uses a callback to determine whether the user is authorized
+        which makes it generic and flexible. But if you needed to check authorship in multiple places in your app,
+        you might get tired of writing the same comparison logic. In that case, an alternative approach might
+        be to create an <code>IsAuthor</code> component with that comparison logic coded inside.
+      </p>
+      <p>
+        An implementation of that might look like this:
       </p>
 
       <Markdown type="jsx" text={`
-      // src/components/EditLink.js
-      import UserCanEditTweet from '../decorators/UserCanEditTweet';
-
-      export default UserCanEditTweet(createReactClass({
-        ...
-      }));
+      // src/decorators/IsAuthor.js
+      import React, { useContext } from 'react';
+      import PropTypes from 'prop-types';
+      import { useUser } from '@lore/auth';
+      
+      IsAuthor.propTypes = {
+        tweet: PropTypes.func.isRequired
+      };
+      
+      export default function IsAuthor(props) {
+        const { tweet, children } = props;
+      
+        const user = useUser();
+      
+        if (tweet.data.user === user.id) {
+          return children;
+        }
+      
+        return null;
+      };
       `}/>
 
       <p>
-        With that change in place, refresh the page, and the edit links should disappear from any tweets that were
-        not created by Ayla.
+        This component takes a <code>tweet</code> and does the comparison internally to see if the current user
+        created the tweet. Usage would look like this:
       </p>
+      <Markdown type="jsx" text={`
+      <IsAuthor tweet={tweet}>
+        <div className="tweet-actions">
+          <EditLink tweet={tweet} />
+          <DeleteLink tweet={tweet} />
+        </div>
+      </IsAuthor>
+      `}/>
 
 
       <h3>
         Visual Check-in
       </h3>
-
       <p>
         If everything went well, your application should now look like this.
       </p>
@@ -128,78 +173,61 @@ export default (props) => {
       <h2>
         Code Changes
       </h2>
-
       <p>
         Below is a list of files modified during this step.
       </p>
 
       <h3>
-        src/decorators/UserCanEditTweet.js
+        src/components/Tweet.js
       </h3>
-
-      <Markdown text={`
-      import PropTypes from 'prop-types';
-      import { AuthorizationGenerator } from 'lore-auth';
-
-      export default AuthorizationGenerator({
-        displayName: 'UserCanEditTweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        contextTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        isAuthorized() {
-          const { tweet } = this.props;
-          const { user } = this.context;
-
-          return tweet.data.user === user.id;
-        }
-      });
-      `}/>
-
-      <h3>
-        src/components/EditLink.js
-      </h3>
-
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import UserCanEditTweet from '../decorators/UserCanEditTweet';
-
-      export default UserCanEditTweet(createReactClass({
-        displayName: 'EditLink',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired
-        },
-
-        onClick() {
-          const { tweet } = this.props;
-
-          lore.dialog.show(function() {
-            return lore.dialogs.tweet.update(tweet, {
-              blueprint: 'optimistic',
-              request: function(data) {
-                return lore.actions.tweet.update(tweet, data).payload;
-              }
-            });
-          });
-        },
-
-        render() {
-          return (
-            <a className="link" onClick={this.onClick}>
-              edit
-            </a>
-          );
-        }
-
-      }));
+      import moment from 'moment';
+      import { useConnect } from '@lore/connect';
+      import EditLink from './EditLink';
+      import DeleteLink from './DeleteLink';
+      import UserIsAuthorized from '../decorators/UserIsAuthorized';
+      
+      Tweet.propTypes = {
+        tweet: PropTypes.object.isRequired
+      };
+      
+      export default function Tweet(props) {
+        const { tweet } = props;
+        const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+      
+        const user = useConnect('user.byId', {
+          id: tweet.data.user
+        });
+      
+        return (
+          <li className="list-group-item tweet">
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                {user.data.nickname}
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + timestamp}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+              <UserIsAuthorized authorized={(user) => user.id === tweet.data.user}>
+                <div className="tweet-actions">
+                  <EditLink tweet={tweet} />
+                  <DeleteLink tweet={tweet} />
+                </div>
+              </UserIsAuthorized>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <h2>
@@ -207,7 +235,8 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we're going to <Link to="/quickstart/authorization/step-2/">hide the delete link</Link>.
+        In the next section we'll learn how to <Link to="/quickstart/optimistic/overview/">display new tweets at the
+        top of the Feed</Link>.
       </p>
     </Template>
   )

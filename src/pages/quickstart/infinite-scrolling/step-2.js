@@ -40,123 +40,95 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      // src/components/InfiniteScrollingList.js
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-      import { getState } from 'lore-hook-connect';
+      import { useConnect } from '@lore/connect';
       import PayloadStates from '../constants/PayloadStates';
       import LoadMoreButton from './LoadMoreButton';
-
-      export default createReactClass({
-        displayName: 'InfiniteScrollingList',
-
-        propTypes: {
-          row: PropTypes.func.isRequired,
-          select: PropTypes.func.isRequired,
-          selectNextPage: PropTypes.func,
-          refresh: PropTypes.func,
-          selectOther: PropTypes.func,
-          exclude: PropTypes.func
-        },
-
-        getDefaultProps() {
-          return {
-            exclude: function(model) {
-              return false;
-            }
-          };
-        },
-
-        getInitialState() {
-          return {
-            other: null,
-            pages: []
-          };
-        },
-
-        // fetch first page
-        componentWillMount() {
-          const { select, selectOther } = this.props;
-          const nextState = this.state;
-
-          nextState.pages.push(select(getState));
-
-          if (selectOther) {
-            nextState.other = selectOther(getState);
-          }
-
-          this.setState(nextState);
-        },
-
+      
+      InfiniteScrollingList.propTypes = {
+        row: PropTypes.func.isRequired,
+        select: PropTypes.func.isRequired,
+        selectNextPage: PropTypes.func,
+        refresh: PropTypes.func,
+        selectOther: PropTypes.func,
+        exclude: PropTypes.func
+      };
+      
+      InfiniteScrollingList.defaultProps = {
+        exclude: function(model) {
+          return false;
+        }
+      };
+      
+      export default function InfiniteScrollingList(props) {
+        const {
+          row,
+          exclude,
+          select,
+          refresh,
+          selectNextPage,
+          selectOther
+        } = props;
+      
+        const connect = useConnect();
+      
+        const [pages, setPages] = useState([select(connect)]);
+      
+        let _pages = pages;
+        let _other = null;
+      
         // refresh data in all pages
-        componentWillReceiveProps(nextProps) {
-          const { refresh, selectOther } = this.props;
-          const { pages } = this.state;
-          const nextState = {};
-
-          if (refresh) {
-            nextState.pages = pages.map(function(page) {
-              return refresh(page, getState);
-            });
-          }
-
-          if (selectOther) {
-            nextState.other = selectOther(getState);
-          }
-
-          this.setState(nextState);
-        },
-
-        onLoadMore() {
-          const { selectNextPage } = this.props;
-          const { pages } = this.state;
-          const lastPage = pages[pages.length - 1];
-
-          pages.push(selectNextPage(lastPage, getState));
-
-          this.setState({
-            pages: pages
+        if (refresh) {
+          _pages = pages.map(function(page) {
+            return refresh(page, connect);
           });
-        },
-
-        render() {
-          const { row, exclude, selectNextPage } = this.props;
-          const { pages, other } = this.state;
-          const numberOfPages = pages.length;
-          const firstPage = pages[0];
-          const lastPage = pages[pages.length - 1];
-
-          // if we only have one page, and it's fetching, then it's the initial
-          // page load so let the user know we're loading the data
-          if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
-            return (
-              <div className="loader" />
-            );
-          }
-
+        }
+      
+        // select other data if provided
+        if (selectOther) {
+          _other = selectOther(connect);
+        }
+      
+        const numberOfPages = _pages.length;
+        const firstPage = _pages[0];
+        const lastPage = _pages[_pages.length - 1];
+      
+        // if we only have one page, and it's fetching, then it's the initial
+        // page load so let the user know we're loading the data
+        if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
           return (
-            <div>
-              <ul className="media-list tweets">
-                {other ? other.data.map(row) : null}
-                {_.flatten(pages.map((models) => {
-                  return _.filter(models.data, (model) => {
-                    return !exclude(model);
-                  }).map(row);
-                }))}
-              </ul>
-              {selectNextPage ? (
-                <LoadMoreButton
-                  lastPage={lastPage}
-                  onLoadMore={this.onLoadMore}
-                  nextPageMetaField="nextPage"
-                />
-              ) : null}
-            </div>
+            <div className="loader" />
           );
         }
-
-      });
+      
+        function onLoadMore() {
+          _pages.push(selectNextPage(lastPage, connect));
+          setPages(_pages);
+        }
+      
+        return (
+          <div>
+            <ul className="media-list tweets">
+              {_other ? _other.data.map(row) : null}
+              {_.flatten(_pages.map((models) => {
+                return _.filter(models.data, (model) => {
+                  return !exclude(model);
+                }).map(row);
+              }))}
+            </ul>
+            {selectNextPage ? (
+              <LoadMoreButton
+                lastPage={lastPage}
+                onLoadMore={onLoadMore}
+                nextPageMetaField="nextPage"
+              />
+            ) : null}
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -170,7 +142,7 @@ export default (props) => {
       </h3>
 
       <p>
-        If everything went well, your application should now look like this. Still exactly the same :)
+        If everything went well, your application should now look like this. Still exactly the same : )
       </p>
 
       <img className="drop-shadow" src={image} />
@@ -185,127 +157,98 @@ export default (props) => {
       </p>
 
       <h3>
-        src/decorators/InfiniteScrolling.js
+        src/components/InfiniteScrolling.js
       </h3>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-      import { getState } from 'lore-hook-connect';
+      import { useConnect } from '@lore/connect';
       import PayloadStates from '../constants/PayloadStates';
       import LoadMoreButton from './LoadMoreButton';
-
-      export default createReactClass({
-        displayName: 'InfiniteScrollingList',
-
-        propTypes: {
-          row: PropTypes.func.isRequired,
-          select: PropTypes.func.isRequired,
-          selectNextPage: PropTypes.func,
-          refresh: PropTypes.func,
-          selectOther: PropTypes.func,
-          exclude: PropTypes.func
-        },
-
-        getDefaultProps() {
-          return {
-            exclude: function(model) {
-              return false;
-            }
-          };
-        },
-
-        getInitialState() {
-          return {
-            other: null,
-            pages: []
-          };
-        },
-
-        // fetch first page
-        componentWillMount() {
-          const { select, selectOther } = this.props;
-          const nextState = this.state;
-
-          nextState.pages.push(select(getState));
-
-          if (selectOther) {
-            nextState.other = selectOther(getState);
-          }
-
-          this.setState(nextState);
-        },
-
+      
+      InfiniteScrollingList.propTypes = {
+        row: PropTypes.func.isRequired,
+        select: PropTypes.func.isRequired,
+        selectNextPage: PropTypes.func,
+        refresh: PropTypes.func,
+        selectOther: PropTypes.func,
+        exclude: PropTypes.func
+      };
+      
+      InfiniteScrollingList.defaultProps = {
+        exclude: function(model) {
+          return false;
+        }
+      };
+      
+      export default function InfiniteScrollingList(props) {
+        const {
+          row,
+          exclude,
+          select,
+          refresh,
+          selectNextPage,
+          selectOther
+        } = props;
+      
+        const connect = useConnect();
+      
+        const [pages, setPages] = useState([select(connect)]);
+      
+        let _pages = pages;
+        let _other = null;
+      
         // refresh data in all pages
-        componentWillReceiveProps(nextProps) {
-          const { refresh, selectOther } = this.props;
-          const { pages } = this.state;
-          const nextState = {};
-
-          if (refresh) {
-            nextState.pages = pages.map(function(page) {
-              return refresh(page, getState);
-            });
-          }
-
-          if (selectOther) {
-            nextState.other = selectOther(getState);
-          }
-
-          this.setState(nextState);
-        },
-
-        onLoadMore() {
-          const { selectNextPage } = this.props;
-          const { pages } = this.state;
-          const lastPage = pages[pages.length - 1];
-
-          pages.push(selectNextPage(lastPage, getState));
-
-          this.setState({
-            pages: pages
+        if (refresh) {
+          _pages = pages.map(function(page) {
+            return refresh(page, connect);
           });
-        },
-
-        render() {
-          const { row, exclude, selectNextPage } = this.props;
-          const { pages, other } = this.state;
-          const numberOfPages = pages.length;
-          const firstPage = pages[0];
-          const lastPage = pages[pages.length - 1];
-
-          // if we only have one page, and it's fetching, then it's the initial
-          // page load so let the user know we're loading the data
-          if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
-            return (
-              <div className="loader" />
-            );
-          }
-
+        }
+      
+        // select other data if provided
+        if (selectOther) {
+          _other = selectOther(connect);
+        }
+      
+        const numberOfPages = _pages.length;
+        const firstPage = _pages[0];
+        const lastPage = _pages[_pages.length - 1];
+      
+        // if we only have one page, and it's fetching, then it's the initial
+        // page load so let the user know we're loading the data
+        if (numberOfPages === 1 && lastPage.state === PayloadStates.FETCHING) {
           return (
-            <div>
-              <ul className="media-list tweets">
-                {other ? other.data.map(row) : null}
-                {_.flatten(pages.map((models) => {
-                  return _.filter(models.data, (model) => {
-                    return !exclude(model);
-                  }).map(row);
-                }))}
-              </ul>
-              {selectNextPage ? (
-                <LoadMoreButton
-                  lastPage={lastPage}
-                  onLoadMore={this.onLoadMore}
-                  nextPageMetaField="nextPage"
-                />
-              ) : null}
-            </div>
+            <div className="loader" />
           );
         }
-
-      });
+      
+        function onLoadMore() {
+          _pages.push(selectNextPage(lastPage, connect));
+          setPages(_pages);
+        }
+      
+        return (
+          <div>
+            <ul className="media-list tweets">
+              {_other ? _other.data.map(row) : null}
+              {_.flatten(_pages.map((models) => {
+                return _.filter(models.data, (model) => {
+                  return !exclude(model);
+                }).map(row);
+              }))}
+            </ul>
+            {selectNextPage ? (
+              <LoadMoreButton
+                lastPage={lastPage}
+                onLoadMore={onLoadMore}
+                nextPageMetaField="nextPage"
+              />
+            ) : null}
+          </div>
+        );
+      }
       `}/>
 
       <h2>

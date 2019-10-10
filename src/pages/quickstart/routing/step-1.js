@@ -39,7 +39,7 @@ export default (props) => {
       </p>
       <Markdown text={`
       // src/components/Header.js
-      import { Link } from 'react-router';
+      import { Link } from 'react-router-dom';
       ...
       <Link className="navbar-brand" to="/">
         Lore Quickstart
@@ -75,27 +75,22 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { Link } from 'react-router';
-
-      export default createReactClass({
-        displayName: 'Header',
-
-        render() {
-          return (
-            <nav className="navbar navbar-default navbar-static-top header">
-              <div className="container">
-                <div className="navbar-header">
-                  <Link className="navbar-brand" to="/">
-                    Lore Quickstart
-                  </Link>
-                </div>
+      import { Link } from 'react-router-dom';
+      
+      export default function Header(props) {
+        return (
+          <nav className="navbar navbar-default navbar-static-top header">
+            <div className="container">
+              <div className="navbar-header">
+                <Link className="navbar-brand" to="/">
+                  Lore Quickstart
+                </Link>
               </div>
-            </nav>
-          );
-        }
-      });
+            </div>
+          </nav>
+        );
+      }
       `}/>
 
       <h2>

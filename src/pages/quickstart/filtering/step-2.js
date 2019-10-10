@@ -29,111 +29,22 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-      import moment from 'moment';
-      import PayloadStates from '../constants/PayloadStates';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-
-      export default createReactClass({
-        displayName: 'UserTweets',
-
-        getInitialState() {
-          return {
-            timestamp: new Date().toISOString()
-          };
-        },
-
-        render() {
-          const { timestamp } = this.state;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <InfiniteScrollingList
-                selectOther={(getState) => {
-                  return getState('tweet.all', {
-                    where: function(tweet) {
-                      const isOptimistic = !tweet.id;
-                      const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                      return isOptimistic || isNew;
-                    },
-                    sortBy: function(model) {
-                      return -moment(model.data.createdAt).unix();
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  });
-                }}
-                select={(getState) => {
-                  return getState('tweet.find', {
-                    where: {
-                      where: {
-                        createdAt: {
-                          '<=': timestamp
-                        }
-                      }
-                    },
-                    pagination: {
-                      sort: 'createdAt DESC',
-                      page: 1,
-                      populate: 'user'
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  });
-                }}
-                row={(tweet) => {
-                  return (
-                    <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                  );
-                }}
-                refresh={(page, getState) => {
-                  return getState('tweet.find', _.defaultsDeep({
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  }, page.query));
-                }}
-                selectNextPage={(lastPage, getState) => {
-                  const lastPageNumber = lastPage.query.pagination.page;
-
-                  return getState('tweet.find', _.defaultsDeep({
-                    pagination: {
-                      page: lastPageNumber + 1
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  }, lastPage.query));
-                }}
-              />
-            </div>
-          );
-        }
-
-      });
-      `}/>
-
-      <p>
-        Then update the <code>render()</code> method to include the changes below:
-      </p>
-      <Markdown text={`
-      // src/components/UserTweets.js
-      render() {
-        const { params } = this.props;
-        const { timestamp } = this.state;
-
+      import moment from 'moment';
+      import PayloadStates from '../constants/PayloadStates';
+      
+      export default function UserTweets(props) {
+        const [timestamp] = useState(new Date().toISOString());
+      
         return (
           <div className="feed">
-            // ...
+            <h2 className="title">
+              Feed
+            </h2>
             <InfiniteScrollingList
               select={(getState) => {
                 return getState('tweet.find', {
@@ -141,8 +52,7 @@ export default (props) => {
                     where: {
                       createdAt: {
                         '<=': timestamp
-                      },
-                      user: Number(params.userId)
+                      }
                     }
                   },
                   pagination: {
@@ -155,14 +65,36 @@ export default (props) => {
                   }
                 });
               }}
-              ...
+              row={(tweet) => {
+                return (
+                  <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+                );
+              }}
+              refresh={(page, getState) => {
+                return getState('tweet.find', _.defaultsDeep({
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                }, page.query));
+              }}
+              selectNextPage={(lastPage, getState) => {
+                const lastPageNumber = lastPage.query.pagination.page;
+      
+                return getState('tweet.find', _.defaultsDeep({
+                  pagination: {
+                    page: lastPageNumber + 1
+                  },
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                }, lastPage.query));
+              }}
               selectOther={(getState) => {
                 return getState('tweet.all', {
                   where: function(tweet) {
                     const isOptimistic = !tweet.id;
                     const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                    const isByUser = tweet.data.user === Number(params.userId);
-                    return (isOptimistic || isNew) && isByUser;
+                    return isOptimistic || isNew;
                   },
                   sortBy: function(model) {
                     return -moment(model.data.createdAt).unix();
@@ -179,8 +111,59 @@ export default (props) => {
       `}/>
 
       <p>
-        Here we've extracted <code>params</code> from <code>props</code>, which is automatically provided
-        by <code>react-router</code>, so that we can get the <code>userId</code> provided in the URL.
+        Then update the <code>InfiniteScrollingList</code> props to include the changes below:
+      </p>
+      <Markdown text={`
+      // src/components/UserTweets.js
+      export default function UserTweets(props) {
+        const { match } = props;
+        ...
+        <InfiniteScrollingList
+          select={(getState) => {
+            return getState('tweet.find', {
+              where: {
+                where: {
+                  createdAt: {
+                    '<=': timestamp
+                  },
+                  user: Number(match.params.userId)
+                }
+              },
+              pagination: {
+                sort: 'createdAt DESC',
+                page: 1,
+                populate: 'user'
+              },
+              exclude: function(tweet) {
+                return tweet.state === PayloadStates.DELETED;
+              }
+            });
+          }}
+          ...
+          selectOther={(getState) => {
+            return getState('tweet.all', {
+              where: function(tweet) {
+                const isOptimistic = !tweet.id;
+                const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                const isByUser = tweet.data.user === Number(match.params.userId);
+                return (isOptimistic || isNew) && isByUser;
+              },
+              sortBy: function(model) {
+                return -moment(model.data.createdAt).unix();
+              },
+              exclude: function(tweet) {
+                return tweet.state === PayloadStates.DELETED;
+              }
+            });
+          }}
+        />
+        ...
+      }
+      `}/>
+
+      <p>
+        Here we've extracted <code>match</code> from <code>props</code>, which is automatically provided
+        by <code>React Router</code>, so that we can get the <code>userId</code> provided in the URL.
       </p>
       <p>
         For the <code>selectOther()</code> callback, we've added an <code>isByUser</code> variable, to detect whether
@@ -188,7 +171,7 @@ export default (props) => {
         user will show up on this page.
       </p>
       <p>
-        For the <code>select()</code> callback, we did something similar, added the <code>user</code> to the query
+        For the <code>select()</code> callback, we did something similar, and added the <code>user</code> to the query
         parameters, so that the API will only return tweets created by that user. That means the Feed on the "My
         Tweets" page will consist only of tweets created by a single user.
       </p>
@@ -205,20 +188,17 @@ export default (props) => {
       // routes.js
       ...
       import UserTweets from './src/components/UserTweets';
-
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/auth/callback" component={AuthCallback} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-              <Route path="users/:userId" component={UserTweets} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/auth/callback" component={AuthCallback} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <AuthenticatedRoute exact path="/users/:userId" component={UserTweets} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
@@ -230,7 +210,6 @@ export default (props) => {
       <h3>
         Visual Check-in
       </h3>
-
       <p>
         If everything went well, your application should now look like this when you select "My Tweets":
       </p>
@@ -250,100 +229,88 @@ export default (props) => {
         src/components/UserTweets.js
       </h3>
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-      import moment from 'moment';
-      import PayloadStates from '../constants/PayloadStates';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-
-      export default createReactClass({
-        displayName: 'UserTweets',
-
-        getInitialState() {
-          return {
-            timestamp: new Date().toISOString()
-          };
-        },
-
-        render() {
-          const { params } = this.props;
-          const { timestamp } = this.state;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <InfiniteScrollingList
-                select={(getState) => {
-                  return getState('tweet.find', {
+      import moment from 'moment';
+      import PayloadStates from '../constants/PayloadStates';
+      
+      export default function UserTweets(props) {
+        const { match } = props;
+        const [timestamp] = useState(new Date().toISOString());
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <InfiniteScrollingList
+              select={(getState) => {
+                return getState('tweet.find', {
+                  where: {
                     where: {
-                      where: {
-                        createdAt: {
-                          '<=': timestamp
-                        },
-                        user: Number(params.userId)
-                      }
-                    },
-                    pagination: {
-                      sort: 'createdAt DESC',
-                      page: 1,
-                      populate: 'user'
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
+                      createdAt: {
+                        '<=': timestamp
+                      },
+                      user: Number(match.params.userId)
                     }
-                  });
-                }}
-                row={(tweet) => {
-                  return (
-                    <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
-                  );
-                }}
-                refresh={(page, getState) => {
-                  return getState('tweet.find', _.defaultsDeep({
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  }, page.query));
-                }}
-                selectNextPage={(lastPage, getState) => {
-                  const lastPageNumber = lastPage.query.pagination.page;
-
-                  return getState('tweet.find', _.defaultsDeep({
-                    pagination: {
-                      page: lastPageNumber + 1
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  }, lastPage.query));
-                }}
-                selectOther={(getState) => {
-                  return getState('tweet.all', {
-                    where: function(tweet) {
-                      const isOptimistic = !tweet.id;
-                      const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
-                      const isByUser = tweet.data.user === Number(params.userId);
-                      return (isOptimistic || isNew) && isByUser;
-                    },
-                    sortBy: function(model) {
-                      return -moment(model.data.createdAt).unix();
-                    },
-                    exclude: function(tweet) {
-                      return tweet.state === PayloadStates.DELETED;
-                    }
-                  });
-                }}
-              />
-            </div>
-          );
-        }
-
-      });
+                  },
+                  pagination: {
+                    sort: 'createdAt DESC',
+                    page: 1,
+                    populate: 'user'
+                  },
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                });
+              }}
+              row={(tweet) => {
+                return (
+                  <Tweet key={tweet.id || tweet.cid} tweet={tweet} />
+                );
+              }}
+              refresh={(page, getState) => {
+                return getState('tweet.find', _.defaultsDeep({
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                }, page.query));
+              }}
+              selectNextPage={(lastPage, getState) => {
+                const lastPageNumber = lastPage.query.pagination.page;
+      
+                return getState('tweet.find', _.defaultsDeep({
+                  pagination: {
+                    page: lastPageNumber + 1
+                  },
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                }, lastPage.query));
+              }}
+              selectOther={(getState) => {
+                return getState('tweet.all', {
+                  where: function(tweet) {
+                    const isOptimistic = !tweet.id;
+                    const isNew = moment(tweet.data.createdAt).diff(timestamp) > 0;
+                    const isByUser = tweet.data.user === Number(match.params.userId);
+                    return (isOptimistic || isNew) && isByUser;
+                  },
+                  sortBy: function(model) {
+                    return -moment(model.data.createdAt).unix();
+                  },
+                  exclude: function(tweet) {
+                    return tweet.state === PayloadStates.DELETED;
+                  }
+                });
+              }}
+            />
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -351,39 +318,37 @@ export default (props) => {
       </h3>
       <Markdown text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
       /**
-       * Wrapping the Master component with this decorator provides an easy way
-       * to redirect the user to a login experience if we don't know who they are.
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
        */
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
       /**
        * Routes are used to declare your view hierarchy
-       * See: https://github.com/ReactTraining/react-router/blob/v3/docs/API.md
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
+      
+      import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
       import Login from './src/components/Login';
-      import AuthCallback from './src/components/AuthCallback';
       import Logout from './src/components/Logout';
+      import AuthCallback from './src/components/AuthCallback';
       import UserTweets from './src/components/UserTweets';
-
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/auth/callback" component={AuthCallback} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-              <Route path="users/:userId" component={UserTweets} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/auth/callback" component={AuthCallback} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <AuthenticatedRoute exact path="/users/:userId" component={UserTweets} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 

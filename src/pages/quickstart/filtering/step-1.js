@@ -36,35 +36,26 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { Link, IndexLink } from 'react-router';
-
-      export default createReactClass({
-        displayName: 'Filter',
-
-        contextTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { user } = this.context;
-
-          return (
-            <div className="filter">
-              <ul className="list-group">
-                <IndexLink className="list-group-item" activeClassName="active" to="/">
-                  Feed
-                </IndexLink>
-                <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-                  My Tweets
-                </Link>
-              </ul>
-            </div>
-          );
-        }
-
-      });
+      import { NavLink } from 'react-router-dom';
+      import { useUser } from '@lore/auth';
+      
+      export default function Filter(props) {
+        const user = useUser();
+      
+        return (
+          <div className="filter">
+            <ul className="list-group">
+              <NavLink className="list-group-item" activeClassName="active" to="/" exact={true}>
+                Feed
+              </NavLink>
+              <NavLink className="list-group-item" activeClassName="active" to={\`/users/\${user.id}\`}>
+                My Tweets
+              </NavLink>
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -85,35 +76,31 @@ export default (props) => {
       // src/components/Layout.js
       ...
       import Filter from './Filter';
-
-      export default createReactClass({
-        displayName: 'Layout',
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-3">
-                    <Profile />
-                    <Filter />
-                  </div>
-                  <div className="col-md-offset-1 col-md-6">
-                    {React.cloneElement(this.props.children)}
-                  </div>
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                  <Profile />
+                  <Filter />
+                </div>
+                <div className="col-md-offset-1 col-md-6">
+                  {props.children}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <p>
-        If you refresh the page you should now see the Filter displayed right below the Profile. Clicking on a link will
-        generate a console error however, as the <code>/users/:userId</code> route doesn't exist yet. We'll fix that next.
+        If you refresh the page you should now see the Filter displayed right below the Profile. Clicking on a
+        link will generate a 404 NOT FOUND page however, as the <code>/users/:userId</code> route doesn't exist yet.
+        We'll fix that next.
       </p>
 
       <h3>
@@ -137,75 +124,58 @@ export default (props) => {
       <h3>
         src/components/Filter.js
       </h3>
-
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { Link, IndexLink } from 'react-router';
-
-      export default createReactClass({
-        displayName: 'Filter',
-
-        contextTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { user } = this.context;
-
-          return (
-            <div className="filter">
-              <ul className="list-group">
-                <IndexLink className="list-group-item" activeClassName="active" to="/">
-                  Feed
-                </IndexLink>
-                <Link className="list-group-item" activeClassName="active" to={"/users/" + user.id}>
-                  My Tweets
-                </Link>
-              </ul>
-            </div>
-          );
-        }
-
-      });
+      import { NavLink } from 'react-router-dom';
+      import { useUser } from '@lore/auth';
+      
+      export default function Filter(props) {
+        const user = useUser();
+      
+        return (
+          <div className="filter">
+            <ul className="list-group">
+              <NavLink className="list-group-item" activeClassName="active" to="/" exact={true}>
+                Feed
+              </NavLink>
+              <NavLink className="list-group-item" activeClassName="active" to={\`/users/\${user.id}\`}>
+                My Tweets
+              </NavLink>
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
         src/components/Layout.js
       </h3>
-
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import Header from './Header';
       import Profile from './Profile';
       import Filter from './Filter';
-
-      export default createReactClass({
-        displayName: 'Layout',
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-3">
-                    <Profile />
-                    <Filter />
-                  </div>
-                  <div className="col-md-offset-1 col-md-6">
-                    {React.cloneElement(this.props.children)}
-                  </div>
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                  <Profile />
+                  <Filter />
+                </div>
+                <div className="col-md-offset-1 col-md-6">
+                  {props.children}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <h2>

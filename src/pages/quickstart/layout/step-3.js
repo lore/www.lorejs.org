@@ -42,26 +42,24 @@ export default (props) => {
       </blockquote>
       <p>
         This command will generate a component called <code>Header</code> and place it
-        at <code>src/components/Header.js</code>. The syntax of this file will match whichever version of JavaScript
-        you specified when you created the project (ES5, ES6 or ESNext) and will look like this:
+        at <code>src/components/Header.js</code>. The file will look like this:
       </p>
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Header',
-
-        propTypes: {},
-
-        render() {
-          return (
-            <div></div>
-          );
-        }
-      });
+      
+      Header.propTypes = {
+        // models: PropTypes.object.isRequired
+      };
+      
+      Header.defaultProps = {};
+      
+      export default function Header(props) {
+        return (
+          <div></div>
+        );
+      }
       `}/>
 
       <h3>
@@ -69,26 +67,25 @@ export default (props) => {
       </h3>
 
       <p>
-        Next, modify the <code>render()</code> method to look like this:
+        Next, modify the component to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Header.js
       ...
-        render() {
-          return (
-            <nav className="navbar navbar-default navbar-static-top header">
-              <div className="container">
-                <div className="navbar-header">
-                  <div className="navbar-brand">
-                    Lore Quickstart
-                  </div>
+      export default function Header(props) {
+        return (
+          <nav className="navbar navbar-default navbar-static-top header">
+            <div className="container">
+              <div className="navbar-header">
+                <div className="navbar-brand">
+                  Lore Quickstart
                 </div>
               </div>
-            </nav>
-          );
-        }
-      ...
+            </div>
+          </nav>
+        );
+      }
       `}/>
 
 
@@ -98,28 +95,28 @@ export default (props) => {
 
       <p>
         Finally, let's render the <code>Header</code> in the browser. Open the <code>Layout</code> component and
-        import the <code>Header</code>. Then update the <code>render()</code> method to look like this:
+        import the <code>Header</code>. Then update the code that gets returned to look like this:
       </p>
 
       <Markdown syntax="jsx" text={`
       // src/components/Layout.js
-      import Header from './Header';
       ...
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-offset-3 col-md-6">
-                    {/* Feed will go here */}
-                  </div>
+      import Header from './Header';
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-offset-3 col-md-6">
+                  {/* Feed will go here */}
                 </div>
               </div>
             </div>
-          );
-        }
-      ...
+          </div>
+        );
+      }
       `}/>
 
 
@@ -147,27 +144,21 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Header',
-
-        render() {
-          return (
-            <nav className="navbar navbar-default navbar-static-top header">
-              <div className="container">
-                <div className="navbar-header">
-                  <div className="navbar-brand">
-                    Lore Tutorial
-                  </div>
+      
+      export default function Header(props) {
+        return (
+          <nav className="navbar navbar-default navbar-static-top header">
+            <div className="container">
+              <div className="navbar-header">
+                <div className="navbar-brand">
+                  Lore Quickstart
                 </div>
               </div>
-            </nav>
-          );
-        }
-
-      });
+            </div>
+          </nav>
+        );
+      }
       `}/>
 
       <h3>
@@ -180,31 +171,25 @@ export default (props) => {
        * and render any components that are common across all views, such as the header or
        * top-level navigation. All other components should be rendered by route handlers.
        */
-
+      
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import Header from './Header';
-
-      export default createReactClass({
-        displayName: 'Layout',
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-offset-3 col-md-6">
-                    {/* Feed will go here */}
-                  </div>
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-offset-3 col-md-6">
+                  {/* Feed will go here */}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <h2>

@@ -39,7 +39,9 @@ export default (props) => {
 
       <Markdown text={`
       // config/connections.js
-      export default {
+      import { getConfig } from '@lore/connections';
+      
+      export default getConfig({
 
         default: {
 
@@ -53,7 +55,7 @@ export default (props) => {
 
         }
 
-      };
+      });
       `}/>
 
       <p>
@@ -62,9 +64,10 @@ export default (props) => {
 
       <Markdown text={`
       // config/connections.js
+      import { getConfig } from '@lore/connections';
       import auth from '../src/utils/auth';
 
-      export default {
+      export default getConfig({
 
         default: {
 
@@ -79,7 +82,7 @@ export default (props) => {
           ...
         }
 
-      };
+      });
       `}/>
 
       <p>
@@ -138,10 +141,10 @@ export default (props) => {
         config/connections.js
       </h3>
       <Markdown text={`
+      import { getConfig } from '@lore/connections';
       import auth from '../src/utils/auth';
 
-      export default {
-
+      export default getConfig({
         default: {
 
           apiRoot: 'http://localhost:1337',
@@ -150,18 +153,10 @@ export default (props) => {
             return {
               Authorization: \`Bearer \${auth.getToken()}\`
             };
-          },
-
-          collections: {
-            properties: {
-              parse: function(response) {
-                return response.data;
-              }
-            }
           }
 
         }
-      };
+      });
       `}/>
 
       <h2>

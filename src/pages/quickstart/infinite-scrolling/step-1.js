@@ -68,12 +68,11 @@ export default (props) => {
       </p>
       <p>
         To use that field in our application, we need to add it to be <code>meta</code> property of collections. To
-        do that, open <code>config/connections.js</code> and update the <code>parse()</code> method
-        for collections to look like this:
+        do that, open <code>config/collections.js</code> and update the <code>parse()</code> method to look like this:
       </p>
 
       <Markdown text={`
-      // config/connections.js
+      // config/collections.js
       ...
         parse: function(response) {
           this.meta = {
@@ -108,51 +107,46 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
+      // src/components/LoadMoreButton.js
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import PayloadStates from '../constants/PayloadStates';
-
-      export default createReactClass({
-        displayName: 'LoadMoreButton',
-
-        propTypes: {
-          lastPage: PropTypes.object.isRequired,
-          onLoadMore: PropTypes.func.isRequired,
-          nextPageMetaField: PropTypes.string.isRequired
-        },
-
-        render() {
-          const {
-            lastPage,
-            onLoadMore,
-            nextPageMetaField
-          } = this.props;
-
-          if(lastPage.state === PayloadStates.FETCHING) {
-            return (
-              <div className="footer">
-                <div className="loader"/>
-              </div>
-            );
-          }
-
-          if (!lastPage.meta[nextPageMetaField]) {
-            return (
-              <div className="footer"/>
-            );
-          }
-
+      
+      LoadMoreButton.propTypes = {
+        lastPage: PropTypes.object.isRequired,
+        onLoadMore: PropTypes.func.isRequired,
+        nextPageMetaField: PropTypes.string.isRequired
+      };
+      
+      export default function LoadMoreButton(props) {
+        const {
+          lastPage,
+          onLoadMore,
+          nextPageMetaField
+        } = props;
+      
+        if(lastPage.state === PayloadStates.FETCHING) {
           return (
             <div className="footer">
-              <button className="btn btn-default btn-lg" onClick={onLoadMore}>
-                Load More
-              </button>
+              <div className="loader"/>
             </div>
           );
         }
-
-      });
+      
+        if (!lastPage.meta[nextPageMetaField]) {
+          return (
+            <div className="footer"/>
+          );
+        }
+      
+        return (
+          <div className="footer">
+            <button className="btn btn-default btn-lg" onClick={onLoadMore}>
+              Load More
+            </button>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -160,7 +154,7 @@ export default (props) => {
       </h3>
 
       <p>
-        If everything went well, your application should now look like this. Still exactly the same :)
+        If everything went well, your application should now look like this. Still exactly the same : )
       </p>
 
       <img className="drop-shadow" src={image} />
@@ -175,39 +169,25 @@ export default (props) => {
       </p>
 
       <h3>
-        config/connections.js
+        config/collections.js
       </h3>
-
       <Markdown type="jsx" text={`
-      import auth from '../src/utils/auth';
-
-      export default {
-
+      import { getConfig } from '@lore/collections';
+      
+      export default getConfig({
         default: {
-
-          apiRoot: 'http://localhost:1337',
-
-          headers: function() {
-            return {
-              Authorization: \`Bearer \${auth.getToken()}\`
-            };
-          },
-
-          collections: {
-            properties: {
-              parse: function(response) {
-                this.meta = {
-                  totalCount: response.meta.paginate.totalCount,
-                  perPage: response.meta.paginate.perPage,
-                  nextPage: response.meta.paginate.nextPage
-                };
-                return response.data;
-              }
+          properties: {
+            parse: function(response) {
+              this.meta = {
+                totalCount: response.meta.paginate.totalCount,
+                perPage: response.meta.paginate.perPage,
+                nextPage: response.meta.paginate.nextPage
+              };
+              return response.data;
             }
           }
-
         }
-      };
+      });
       `}/>
 
       <h3>
@@ -216,50 +196,44 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import PayloadStates from '../constants/PayloadStates';
-
-      export default createReactClass({
-        displayName: 'LoadMoreButton',
-
-        propTypes: {
-          lastPage: PropTypes.object.isRequired,
-          onLoadMore: PropTypes.func.isRequired,
-          nextPageMetaField: PropTypes.string.isRequired
-        },
-
-        render() {
-          const {
-            lastPage,
-            onLoadMore,
-            nextPageMetaField
-          } = this.props;
-
-          if(lastPage.state === PayloadStates.FETCHING) {
-            return (
-              <div className="footer">
-                <div className="loader" />
-              </div>
-            );
-          }
-
-          if (!lastPage.meta[nextPageMetaField]) {
-            return (
-              <div className="footer" />
-            );
-          }
-
+      
+      LoadMoreButton.propTypes = {
+        lastPage: PropTypes.object.isRequired,
+        onLoadMore: PropTypes.func.isRequired,
+        nextPageMetaField: PropTypes.string.isRequired
+      };
+      
+      export default function LoadMoreButton(props) {
+        const {
+          lastPage,
+          onLoadMore,
+          nextPageMetaField
+        } = props;
+      
+        if(lastPage.state === PayloadStates.FETCHING) {
           return (
             <div className="footer">
-              <button className="btn btn-default btn-lg" onClick={onLoadMore}>
-                Load More
-              </button>
+              <div className="loader"/>
             </div>
           );
         }
-
-      });
+      
+        if (!lastPage.meta[nextPageMetaField]) {
+          return (
+            <div className="footer"/>
+          );
+        }
+      
+        return (
+          <div className="footer">
+            <button className="btn btn-default btn-lg" onClick={onLoadMore}>
+              Load More
+            </button>
+          </div>
+        );
+      }
       `}/>
 
       <h2>
@@ -267,7 +241,8 @@ export default (props) => {
       </h2>
 
       <p>
-        Next we'll <Link to="/quickstart/infinite-scrolling/step-2/">create the second component we'll need for Infinite Scrolling</Link>.
+        Next we'll <Link to="/quickstart/infinite-scrolling/step-2/">create the second component we'll need
+        for Infinite Scrolling</Link>.
       </p>
     </Template>
   )

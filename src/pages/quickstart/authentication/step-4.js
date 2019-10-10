@@ -60,54 +60,91 @@ export default (props) => {
         Redirect the User
       </h3>
       <p>
-        Open <code>routes.js</code> and find the route that renders the <code>Master</code> component. It should
+        Open <code>routes.js</code> and find the route that renders the <code>Feed</code> component. It should
         look like this:
       </p>
 
       <Markdown text={`
       // routes.js
-      <Route component={UserIsAuthenticated(Master)}>
-        ...
-      </Route>
+      <AuthenticatedRoute exact path="/" component={Feed} />
       `}/>
 
       <p>
-        The <code>UserIsAuthenticated()</code> function that wraps <code>Master</code> is a higher order component that
-        can block access to the application if the user isn't authenticated. Currently this component isn't doing
-        anything because the blocking behavior is turned off. Let's turn it on.
+        The <code>AuthenticatedRoute</code> is a custom version of the standard <code>Route</code> designed to only
+        show the provided component if the user is authenticated (logged in). If the user is not authenticated, it
+        has the ability to redirect them to a login page. Current this isn't happening because the blocking behavior
+        is disabled. Let's fix that.
+      </p>
+      <p>
+        If you open <code>src/routes/AuthenticatedRoute.js</code> you'll see the code for that Route looks like this:
+      </p>
+
+      <Markdown type="jsx" text={`
+      // src/routes/AuthenticatedRoute.js
+      import UserIsAuthenticated from '../decorators/UserIsAuthenticated';
+      import Master from '../components/Master';
+      import Layout from '../components/Layout';
+      
+      export default ({ component: Component, render, ...rest }) => {
+        return (
+          <Route {...rest} render={(props) => {
+            return (
+              <UserIsAuthenticated>
+                <Master {...props}>
+                  <Layout {...props}>
+                    {Component ? (
+                      <Component {...props} />
+                    ) : render ? render(props) : null}
+                  </Layout>
+                </Master>
+              </UserIsAuthenticated>
+            );
+          }} />)
+        ;
+      };
+      `}/>
+
+      <p>
+        This component is a little complicated, but essentially it's a wrapper around whatever component you provide.
+        Part of that wrapper code is the <code>UserIsAuthenticated</code> component, which checks if the user is
+        authenticated, and if they are, renders the <code>Master</code> and <code>Layout</code> components, followed
+        by whatever component you provide yourself.
       </p>
 
       <p>
-        To do that, open <code>src/decorators/UserIsAuthenticated.js</code>, which looks like this:
+        To enable the authentication check, open <code>UserIsAuthenticated</code>, located
+        at <code>src/decorators/UserIsAuthenticated.js</code>, which looks like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/decorators/UserIsAuthenticated.js
+      import React, { useState, useEffect } from 'react';
+      import { withRouter } from 'react-router-dom';
       import PropTypes from 'prop-types';
-      import { AuthenticationGenerator } from 'lore-auth';
-
-      export default AuthenticationGenerator({
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        redirect() {
-          const { router } = this.props;
-          router.push('/login');
-        },
-
-        isAuthenticated() {
-          return true;
+      
+      export default withRouter(function UserIsAuthenticated(props) {
+        const { history, children } = props;
+      
+        const [authenticated, setAuthenticated] = useState(true);
+      
+        useEffect(() => {
+          if (!authenticated) {
+            // history.push('/login');
+          }
+        }, []);
+      
+        if (authenticated) {
+          return children;
         }
-
+      
+        return null;
       });
       `}/>
 
       <p>
-        When this component gets mounted, the <code>isAuthenticated()</code> method is called. If it
-        returns <code>true</code>, whatever component this wraps is rendered. If it returns <code>false</code>,
-        the <code>redirect()</code> method is called, and you can send the user somewhere else.
+        When this component is rendered, a value is assigned to the <code>authenticated</code> variable. If
+        that value is <code>true</code>, whatever component this wraps is rendered. If the value is <code>false</code>,
+        nothing will be rendered, and once this component is mounted, you can redirect the user somewhere else.
       </p>
 
       <blockquote>
@@ -117,20 +154,36 @@ export default (props) => {
       </blockquote>
 
       <p>
-        Since this function currently returns <code>true</code>, the application never redirects the user
-        to <code>/login</code>. To get the behavior we want, import <code>src/utils/auth.js</code> and update
-        the <code>isAuthenticated()</code> method to look like this:
+        Since <code>authenticated</code> is currently hard-coded to <code>true</code>, the application never
+        redirects the user to <code>/login</code>. To get the behavior we want, update the code to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/decorators/UserIsAuthenticated.js
+      ...
       import auth from '../utils/auth';
-      ...
-        isAuthenticated() {
-          return auth.hasToken();
-        }
-      ...
+      
+      export default withRouter(function UserIsAuthenticated(props) {
+        ...
+      
+        const [authenticated, setAuthenticated] = useState(auth.hasToken());
+      
+        useEffect(() => {
+          if (!authenticated) {
+            history.push('/login');
+          }
+        }, []);
+      
+        ...
+      });
       `}/>
+
+      <p>
+        In the code above, we made three changes. First, we imported <code>src/utils/auth.js</code>. Second we
+        updated the value of <code>authenticated</code> to be based on whether an authentication token exists
+        in localStorage. And third, if the user is not authenticated (meaning no token exists) then once this
+        component is mounted, we redirect the user to the <code>/login</code> route.
+      </p>
 
       <p>
         If you now try to navigate to the root route at <code>https://localhost:3000</code>, the application will
@@ -160,25 +213,27 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
+      import React, { useState, useEffect } from 'react';
+      import { withRouter } from 'react-router-dom';
       import PropTypes from 'prop-types';
-      import { AuthenticationGenerator } from 'lore-auth';
       import auth from '../utils/auth';
-
-      export default AuthenticationGenerator({
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        redirect() {
-          const { router } = this.props;
-          router.push('/login');
-        },
-
-        isAuthenticated() {
-          return auth.hasToken();
+      
+      export default withRouter(function UserIsAuthenticated(props) {
+        const { history, children } = props;
+      
+        const [authenticated, setAuthenticated] = useState(auth.hasToken());
+      
+        useEffect(() => {
+          if (!authenticated) {
+            history.push('/login');
+          }
+        }, []);
+      
+        if (authenticated) {
+          return children;
         }
-
+      
+        return null;
       });
       `}/>
 

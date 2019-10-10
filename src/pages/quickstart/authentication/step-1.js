@@ -31,62 +31,54 @@ export default (props) => {
 
       <p>
         Update the component to look like this. Note that we're also adding a mock user in
-        the <code>getDefaultProps()</code> method. We'll replace this mock data with real user information soon.
+        the <code>defaultProps</code> property. We'll replace this mock data with real user information soon.
       </p>
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Profile',
-
-        propTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          return {
-            user: {
-              id: 1,
-              data: {
-                nickname: 'ayla',
-                avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-              }
-            }
-          };
-        },
-
-        render() {
-          const { user } = this.props;
-
-          return (
-            <div className="card profile">
-              <div className="card-block">
-                <img
-                  className="img-circle avatar"
-                  src={user.data.avatar} />
-                <h4 className="card-title">
-                  Hi {user.data.nickname}!
-                </h4>
-                <div className="card-text">
-                  <p>You have permission to perform the following:</p>
-                  <ul className="permissions">
-                    <li>Create Tweets</li>
-                    <li>Edit your own tweets</li>
-                    <li>Delete your own tweets</li>
-                  </ul>
-                </div>
-                <button className="btn btn-primary">
-                  Log out
-                </button>
-              </div>
-            </div>
-          );
+      
+      Profile.propTypes = {
+        user: PropTypes.object.isRequired
+      };
+      
+      Profile.defaultProps = {
+        user: {
+          id: 1,
+          data: {
+            nickname: 'ayla',
+            avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
+          }
         }
-
-      });
+      };
+      
+      export default function Profile(props) {
+        const { user } = props;
+      
+        return (
+          <div className="card profile">
+            <div className="card-block">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+              <h4 className="card-title">
+                Hi {user.data.nickname}!
+              </h4>
+              <div className="card-text">
+                <p>You have permission to perform the following:</p>
+                <ul className="permissions">
+                  <li>Create Tweets</li>
+                  <li>Edit your own tweets</li>
+                  <li>Delete your own tweets</li>
+                </ul>
+              </div>
+              <button className="btn btn-primary">
+                Log out
+              </button>
+            </div>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -95,7 +87,7 @@ export default (props) => {
       <p>
         Now that we've created our <code>Profile</code> component, let's modify the <code>Layout</code> to display
         it. Open your <code>Layout</code> and import the <code>Profile</code> component we just created. Then
-        update the render method to look like this:
+        update the code to look like this:
       </p>
 
       <blockquote>
@@ -108,27 +100,23 @@ export default (props) => {
       ...
       import Profile from './Profile';
 
-      ...
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-3">
-                    <Profile />
-                  </div>
-                  <div className="col-md-offset-1 col-md-6">
-                    {React.cloneElement(this.props.children)}
-                  </div>
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                  <Profile />
+                </div>
+                <div className="col-md-offset-1 col-md-6">
+                  {props.children}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      ...
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -160,57 +148,49 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Profile',
-
-        propTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          return {
-            user: {
-              id: 1,
-              data: {
-                nickname: 'ayla',
-                avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-              }
-            }
-          };
-        },
-
-        render() {
-          const { user } = this.props;
-
-          return (
-            <div className="card profile">
-              <div className="card-block">
-                <img
-                  className="img-circle avatar"
-                  src={user.data.avatar} />
-                <h4 className="card-title">
-                  Hi {user.data.nickname}!
-                </h4>
-                <div className="card-text">
-                  <p>You have permission to perform the following:</p>
-                  <ul className="permissions">
-                    <li>Create Tweets</li>
-                    <li>Edit your own tweets</li>
-                    <li>Delete your own tweets</li>
-                  </ul>
-                </div>
-                <button className="btn btn-primary">
-                  Log out
-                </button>
-              </div>
-            </div>
-          );
+      
+      Profile.propTypes = {
+        user: PropTypes.object.isRequired
+      };
+      
+      Profile.defaultProps = {
+        user: {
+          id: 1,
+          data: {
+            nickname: 'ayla',
+            avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
+          }
         }
-
-      });
+      };
+      
+      export default function Profile(props) {
+        const { user } = props;
+      
+        return (
+          <div className="card profile">
+            <div className="card-block">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+              <h4 className="card-title">
+                Hi {user.data.nickname}!
+              </h4>
+              <div className="card-text">
+                <p>You have permission to perform the following:</p>
+                <ul className="permissions">
+                  <li>Create Tweets</li>
+                  <li>Edit your own tweets</li>
+                  <li>Delete your own tweets</li>
+                </ul>
+              </div>
+              <button className="btn btn-primary">
+                Log out
+              </button>
+            </div>
+          </div>
+        );
+      }
       `}/>
 
       <h3>
@@ -223,35 +203,29 @@ export default (props) => {
        * and render any components that are common across all views, such as the header or
        * top-level navigation. All other components should be rendered by route handlers.
        */
-
+      
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import Header from './Header';
       import Profile from './Profile';
-
-      export default createReactClass({
-        displayName: 'Layout',
-
-        render() {
-          return (
-            <div>
-              <Header />
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-3">
-                    <Profile />
-                  </div>
-                  <div className="col-md-offset-1 col-md-6">
-                    {React.cloneElement(this.props.children)}
-                  </div>
+      
+      export default function Layout(props) {
+        return (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <div className="col-md-3">
+                  <Profile />
+                </div>
+                <div className="col-md-offset-1 col-md-6">
+                  {props.children}
                 </div>
               </div>
             </div>
-          );
-        }
-
-      });
+          </div>
+        );
+      }
       `}/>
 
       <h2>

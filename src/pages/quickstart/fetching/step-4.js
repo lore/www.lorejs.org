@@ -73,6 +73,7 @@ export default (props) => {
         open it, there will a commented out section that shows the default states used by the framework, which are
         these:
       </p>
+
       <Markdown text={`
       export default {
         INITIAL_STATE: 'INITIAL_STATE',
@@ -89,9 +90,12 @@ export default (props) => {
         ERROR_CREATING: 'ERROR_CREATING',
         ERROR_UPDATING: 'ERROR_UPDATING',
         ERROR_DELETING: 'ERROR_DELETING',
-        ERROR_FETCHING: 'ERROR_FETCHING'
+        ERROR_FETCHING: 'ERROR_FETCHING',
+        
+        MANAGED: 'MANAGED'
       };
       `}/>
+
       <p>
         Let's use this file to create our loading experience.
       </p>
@@ -114,40 +118,41 @@ export default (props) => {
       ...
       import PayloadStates from '../constants/PayloadStates';
       ...
-
-        render() {
-          const { tweets } = this.props;
-
-          if (tweets.state === PayloadStates.FETCHING) {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <div className="loader"/>
-              </div>
-            );
-          }
-
+      export default function Feed(props) {
+        const tweets = useConnect('tweet.find');
+      
+        if (tweets.state === PayloadStates.FETCHING) {
           return (
             <div className="feed">
               <h2 className="title">
                 Feed
               </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
+              <div className="loader"/>
             </div>
           );
         }
-
-      ...
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
+
       <p>
         Here we've added a check if the <code>tweet.state</code> property is equal
         to <code>PayloadStates.FETCHING</code>, and if it is, then we're rendering our loading experience.
       </p>
-
       <p>
         Refresh the browser and you <em>might</em> see an animated "loader" flash on the screen right before the
         tweets are rendered. But if you can't see it (and you probably can't) don't worry; later we'll connect to a
@@ -177,79 +182,65 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { connect } from 'lore-hook-connect';
-      import PayloadStates from '../constants/PayloadStates';
       import Tweet from './Tweet';
-
-      export default connect(function(getState, props) {
-        return {
-          tweets: getState('tweet.find')
-        };
-      })(
-      createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          const tweet = {
+      import { useConnect } from '@lore/connect';
+      import PayloadStates from '../constants/PayloadStates';
+      
+      Feed.propTypes = {
+        tweets: PropTypes.object.isRequired
+      };
+      
+      Feed.defaultProps = (function() {
+        const tweet = {
+          id: 1,
+          cid: 'c1',
+          state: 'RESOLVED',
+          data: {
             id: 1,
-            cid: 'c1',
-            state: 'RESOLVED',
-            data: {
-              id: 1,
-              userId: 1,
-              text: 'Nothing can beat science!',
-              createdAt: '2018-04-24T05:10:49.382Z'
-            }
-          };
-
-          return {
-            tweets: {
-              state: 'RESOLVED',
-              data: [tweet]
-            }
-          };
-        },
-
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-
-        render() {
-          const { tweets } = this.props;
-
-          if (tweets.state === PayloadStates.FETCHING) {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <div className="loader"/>
-              </div>
-            );
+            userId: 1,
+            text: 'Nothing can beat science!',
+            createdAt: '2018-04-24T05:10:49.382Z'
           }
-
+        };
+      
+        return {
+          tweets: {
+            state: 'RESOLVED',
+            data: [tweet]
+          }
+        };
+      })();
+      
+      export default function Feed(props) {
+        const tweets = useConnect('tweet.find');
+      
+        if (tweets.state === PayloadStates.FETCHING) {
           return (
             <div className="feed">
               <h2 className="title">
                 Feed
               </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
+              <div className="loader"/>
             </div>
           );
         }
-
-      })
-      );
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

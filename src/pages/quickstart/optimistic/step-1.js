@@ -30,8 +30,8 @@ export default (props) => {
         But if you create a tweet and <em>THEN</em> load more tweets, you'll see this warning in the console:
       </p>
 
-      <Markdown text={`
-      Warning: flattenChildren(...): Encountered two children with the same key
+      <Markdown type="sh" text={`
+      Warning: Encountered two children with the same key.
       `}/>
 
       <p>
@@ -152,18 +152,20 @@ export default (props) => {
       </h3>
       <p>
         Open your <code>Feed</code> component and add initial state that includes a timestamp of when that
-        component was mounted.
+        component was created.
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
+      import React, { useState } from 'react';
       ...
-      getInitialState() {
-        return {
-          timestamp: new Date().toISOString()
-        };
-      },
-      ...
+      export default function Feed(props) {
+        const [timestamp] = useState(new Date().toISOString());
+      
+        return (
+          ...
+        );
+      }
       `}/>
 
       <h3>
@@ -200,43 +202,37 @@ export default (props) => {
       </h3>
 
       <p>
-        To leverage this ability, open your <code>Feed</code> component and modify the <code>render()</code> method
-        to look like this:
+        To leverage this ability, open your <code>Feed</code> component and modify the <code>select</code> callback
+        in to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
-      render() {
-        const { timestamp } = this.state;
-
-        return (
-          <div className="feed">
-            ...
-            <InfiniteScrollingList
-              select={(getState) => {
-                return getState('tweet.find', {
-                  where: {
-                    where: {
-                      createdAt: {
-                        '<=': timestamp
-                      }
-                    }
-                  },
-                  pagination: {
-                    sort: 'createdAt DESC',
-                    page: 1
-                  }
-                });
-              }}
-              ...
-            />
-          </div>
-        );
+      ...
+      <InfiniteScrollingList
+        select={(getState) => {
+          return getState('tweet.find', {
+            where: {
+              where: {
+                createdAt: {
+                  '<=': timestamp
+                }
+              }
+            },
+            pagination: {
+              sort: 'createdAt DESC',
+              page: 1
+            }
+          });
+        }}
+        ...
+      />
+      ...
       }
       `}/>
       <p>
-        Here we're modifying the <code>select()</code> callback by adding a <code>where</code> property to
-        the <code>getState()</code> call, and providing the object we want sent to the API.
+        Here we're adding a <code>where</code> property to the <code>getState()</code> call, and providing the
+        object we want sent to the API.
       </p>
 
       <h3>
@@ -264,69 +260,57 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        getInitialState() {
-          return {
-            timestamp: new Date().toISOString()
-          };
-        },
-
-        render() {
-          const { timestamp } = this.state;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <InfiniteScrollingList
-                select={(getState) => {
-                  return getState('tweet.find', {
+      
+      export default function Feed(props) {
+        const [timestamp] = useState(new Date().toISOString());
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <InfiniteScrollingList
+              select={(getState) => {
+                return getState('tweet.find', {
+                  where: {
                     where: {
-                      where: {
-                        createdAt: {
-                          '<=': timestamp
-                        }
+                      createdAt: {
+                        '<=': timestamp
                       }
-                    },
-                    pagination: {
-                      sort: 'createdAt DESC',
-                      page: 1
                     }
-                  });
-                }}
-                row={(tweet) => {
-                  return (
-                    <Tweet key={tweet.id} tweet={tweet} />
-                  );
-                }}
-                refresh={(page, getState) => {
-                  return getState('tweet.find', page.query);
-                }}
-                selectNextPage={(lastPage, getState) => {
-                  const lastPageNumber = lastPage.query.pagination.page;
-
-                  return getState('tweet.find', _.defaultsDeep({
-                    pagination: {
-                      page: lastPageNumber + 1
-                    }
-                  }, lastPage.query));
-                }}
-              />
-            </div>
-          );
-        }
-
-      });
+                  },
+                  pagination: {
+                    sort: 'createdAt DESC',
+                    page: 1
+                  }
+                });
+              }}
+              row={(tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              }}
+              refresh={(page, getState) => {
+                return getState('tweet.find', page.query);
+              }}
+              selectNextPage={(lastPage, getState) => {
+                const lastPageNumber = lastPage.query.pagination.page;
+      
+                return getState('tweet.find', _.defaultsDeep({
+                  pagination: {
+                    page: lastPageNumber + 1
+                  }
+                }, lastPage.query));
+              }}
+            />
+          </div>
+        );
+      }
       `}/>
 
       <h2>
@@ -334,7 +318,8 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll learn how to <Link to="/quickstart/optimistic/step-2/">display new tweets at the top of the Feed</Link>.
+        In the next section we'll learn how to <Link to="/quickstart/optimistic/step-2/">display new tweets at
+        the top of the Feed</Link>.
       </p>
     </Template>
   )

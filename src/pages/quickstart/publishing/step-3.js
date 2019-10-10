@@ -31,7 +31,7 @@ export default (props) => {
         customize your configuration for different deploy environments.
       </p>
       <p>
-        The files in <code>/config</code> are meant to be your defaults; the settings that make most sense in
+        The files in <code>/config</code> are meant to be your defaults; the settings that make the most sense in
         development. But other environments, like <strong>staging</strong> and <strong>production</strong>, will
         have different needs, like as a different API, or different feature flags, or different rules about error
         reporting.

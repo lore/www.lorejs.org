@@ -43,33 +43,27 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useEffect } from 'react';
       import PropTypes from 'prop-types';
       import auth from '../utils/auth';
       import ShowLoadingScreen from './ShowLoadingScreen';
-
-      export default createReactClass({
-        displayName: 'Logout',
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        componentDidMount() {
-          const { router } = this.props;
-
+      
+      Logout.propTypes = {
+        history: PropTypes.object.isRequired
+      };
+      
+      export default function Logout(props) {
+        const { history } = props;
+      
+        useEffect(() => {
           auth.deleteToken();
-          router.push('/');
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
-      });
+          history.push('/');
+        }, []);
+      
+        return (
+          <ShowLoadingScreen />
+        );
+      };
       `}/>
 
       <h3>
@@ -86,13 +80,13 @@ export default (props) => {
       import Logout from './src/components/Logout';
 
       export default (
-        <Route>
+        <Switch>
           <Route path="/login" component={Login} />
           <Route path="/logout" component={Logout} />
           <Route path="/auth/callback" component={AuthCallback} />
 
           ...
-        </Route>
+        </Switch>
       );
       `}/>
 
@@ -122,7 +116,7 @@ export default (props) => {
 
       <Markdown text={`
       // src/components/Profile.js
-      import { Link } from 'react-router';
+      import { Link } from 'react-router-dom';
       ...
         render() {
           ...
@@ -164,33 +158,27 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useEffect } from 'react';
       import PropTypes from 'prop-types';
       import auth from '../utils/auth';
       import ShowLoadingScreen from './ShowLoadingScreen';
-
-      export default createReactClass({
-        displayName: 'Logout',
-
-        propTypes: {
-          router: PropTypes.object.isRequired
-        },
-
-        componentDidMount() {
-          const { router } = this.props;
-
+      
+      Logout.propTypes = {
+        history: PropTypes.object.isRequired
+      };
+      
+      export default function Logout(props) {
+        const { history } = props;
+      
+        useEffect(() => {
           auth.deleteToken();
-          router.push('/');
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
-      });
+          history.push('/');
+        }, []);
+      
+        return (
+          <ShowLoadingScreen />
+        );
+      };
       `}/>
 
       <h3>
@@ -198,37 +186,35 @@ export default (props) => {
       </h3>
       <Markdown text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
       /**
-       * Wrapping the Master component with this decorator provides an easy way
-       * to redirect the user to a login experience if we don't know who they are.
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
        */
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
       /**
        * Routes are used to declare your view hierarchy
-       * See: https://github.com/ReactTraining/react-router/blob/v3/docs/API.md
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
+      
+      import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
       import Login from './src/components/Login';
-      import AuthCallback from './src/components/AuthCallback';
       import Logout from './src/components/Logout';
-
+      import AuthCallback from './src/components/AuthCallback';
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          <Route path="/auth/callback" component={AuthCallback} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/logout" component={Logout} />
+          <Route exact path="/auth/callback" component={AuthCallback} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
@@ -238,58 +224,50 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { Link } from 'react-router';
-
-      export default createReactClass({
-        displayName: 'Profile',
-
-        propTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          return {
-            user: {
-              id: 1,
-              data: {
-                nickname: 'ayla',
-                avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
-              }
-            }
-          };
-        },
-
-        render() {
-          const { user } = this.props;
-
-          return (
-            <div className="card profile">
-              <div className="card-block">
-                <img
-                  className="img-circle avatar"
-                  src={user.data.avatar} />
-                <h4 className="card-title">
-                  Hi {user.data.nickname}!
-                </h4>
-                <div className="card-text">
-                  <p>You have permission to perform the following:</p>
-                  <ul className="permissions">
-                    <li>Create Tweets</li>
-                    <li>Edit your own tweets</li>
-                    <li>Delete your own tweets</li>
-                  </ul>
-                </div>
-                <Link className="btn btn-primary" to="/logout">
-                  Log out
-                </Link>
-              </div>
-            </div>
-          );
+      import { Link } from 'react-router-dom';
+      
+      Profile.propTypes = {
+        user: PropTypes.object.isRequired
+      };
+      
+      Profile.defaultProps = {
+        user: {
+          id: 1,
+          data: {
+            nickname: 'ayla',
+            avatar: 'https://cloud.githubusercontent.com/assets/2637399/19027069/a356e82a-88e1-11e6-87d8-e3e74f55c069.png'
+          }
         }
-
-      });
+      };
+      
+      export default function Profile(props) {
+        const { user } = props;
+      
+        return (
+          <div className="card profile">
+            <div className="card-block">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+              <h4 className="card-title">
+                Hi {user.data.nickname}!
+              </h4>
+              <div className="card-text">
+                <p>You have permission to perform the following:</p>
+                <ul className="permissions">
+                  <li>Create Tweets</li>
+                  <li>Edit your own tweets</li>
+                  <li>Delete your own tweets</li>
+                </ul>
+              </div>
+              <Link className="btn btn-primary" to="/logout">
+                Log out
+              </Link>
+            </div>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

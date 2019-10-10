@@ -36,55 +36,58 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
-      export default createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
+      ...
+      
+      Feed.propTypes = {
+        tweets: PropTypes.object.isRequired
+      };
+      
+      export default function Feed(props) {
         ...
-      })
+      }
       `}/>
 
       <h3>
         Create Mock Tweets
       </h3>
       <p>
-        Next, add a <code>getDefaultProps()</code> method to your <code>Feed</code> component and use it to
+        Next, add a <code>defaultProps</code> property to your <code>Feed</code> component and use it to
         populate <code>tweets</code> with mock data:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
-      const Feed = createReactClass({
-        ...
-        getDefaultProps() {
-          const tweet = {
+      ...
+      
+      Feed.defaultProps = (function() {
+        const tweet = {
+          id: 1,
+          cid: 'c1',
+          state: 'RESOLVED',
+          data: {
             id: 1,
-            cid: 'c1',
-            state: 'RESOLVED',
-            data: {
-              id: 1,
-              userId: 1,
-              text: 'Nothing can beat science!',
-              createdAt: '2018-04-24T05:10:49.382Z'
-            }
-          };
+            userId: 1,
+            text: 'Nothing can beat science!',
+            createdAt: '2018-04-24T05:10:49.382Z'
+          }
+        };
 
-          return {
-            tweets: {
-              state: 'RESOLVED',
-              data: [tweet]
-            }
-          };
-        },
+        return {
+          tweets: {
+            state: 'RESOLVED',
+            data: [tweet]
+          }
+        };
+      })();
+      
+      export default function Feed(props) {
         ...
-      })
+      }
       `}/>
 
       <blockquote>
         <p>
-          <code>getDefaultProps()</code> is a great method to use for mock data, since it will only populate
+          <code>defaultProps</code> a great property to use for mock data, since it will only populate
           the <code>tweets</code> prop if no data is passed in. So if you use this method for your mock data, it
           will automatically be replaced with real data once it's provided, which is pretty convenient.
         </p>
@@ -105,22 +108,20 @@ export default (props) => {
       <Markdown text={`
       // src/components/Feed.js
       ...
-        getDefaultProps() {
-          return {
-            tweets: {
-              data: [
-                {
-                  id: 1,
-                  data: {
-                    userId: 1,
-                    text: 'Nothing can beat science!',
-                    createdAt: '2018-04-24T05:10:49.382Z'
-                  }
-                }
-              ]
+      Feed.defaultProps = {
+        tweets: {
+          data: [
+            {
+              id: 1,
+              data: {
+                userId: 1,
+                text: 'Nothing can beat science!',
+                createdAt: '2018-04-24T05:10:49.382Z'
+              }
             }
-          };
-        },
+          ]
+        }
+      };
       ...
       `}/>
       </blockquote>
@@ -129,46 +130,34 @@ export default (props) => {
         Render the Tweets
       </h3>
       <p>
-        Now that we have some mock data created, let's display it on screen. First, add
-        a <code>renderTweet()</code> method to your <code>Feed</code> that looks like this:
+        Now that we have some mock data created, let's display it on screen. Update the rendered code of
+        you <code>Feed</code> so that it iterates through each of the <code>tweets</code> and renders a simple
+        list item for each of them.
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
       ...
-        renderTweet(tweet) {
-          return (
-            <li key={tweet.id}>
-              {tweet.data.text}
-            </li>
-          );
-        },
-      ...
-      `}/>
-
-      <p>
-        Then update the <code>render()</code> method so that it iterates through each of the <code>tweets</code> and
-        renders them using the <code>renderTweet()</code> method:
-      </p>
-
-      <Markdown type="jsx" text={`
-      // src/components/Feed.js
-      ...
-        render() {
-          const { tweets } = this.props;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
-            </div>
-          );
-        }
-      ...
+      export default function Feed(props) {
+        const { tweets } = props;
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <li key={tweet.id}>
+                    {tweet.data.text}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <p>
@@ -212,61 +201,53 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        getDefaultProps() {
-          const tweet = {
+      
+      Feed.propTypes = {
+        tweets: PropTypes.object.isRequired
+      };
+      
+      Feed.defaultProps = (function() {
+        const tweet = {
+          id: 1,
+          cid: 'c1',
+          state: 'RESOLVED',
+          data: {
             id: 1,
-            cid: 'c1',
+            userId: 1,
+            text: 'Nothing can beat science!',
+            createdAt: '2018-04-24T05:10:49.382Z'
+          }
+        };
+      
+        return {
+          tweets: {
             state: 'RESOLVED',
-            data: {
-              id: 1,
-              userId: 1,
-              text: 'Nothing can beat science!',
-              createdAt: '2018-04-24T05:10:49.382Z'
-            }
-          };
-
-          return {
-            tweets: {
-              state: 'RESOLVED',
-              data: [tweet]
-            }
-          };
-        },
-
-        renderTweet(tweet) {
-          return (
-            <li key={tweet.id}>
-              {tweet.data.text}
-            </li>
-          );
-        },
-
-        render() {
-          const { tweets } = this.props;
-
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <ul className="media-list tweets">
-                {tweets.data.map(this.renderTweet)}
-              </ul>
-            </div>
-          );
-        }
-
-      });
+            data: [tweet]
+          }
+        };
+      })();
+      
+      export default function Feed(props) {
+        const { tweets } = props;
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className="media-list tweets">
+              {tweets.data.map((tweet) => {
+                return (
+                  <li key={tweet.id}>
+                    {tweet.data.text}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

@@ -23,7 +23,7 @@ export default (props) => {
       </p>
 
       <Markdown type="sh" text={`
-      $ npm install -g lore-cli
+      $ npm install -g @lore/cli
       `} />
 
       <p>
@@ -38,7 +38,6 @@ export default (props) => {
 
       Commands:
       new       Create a new application
-      extract   Create files that mirror the blueprint behavior
       generate  Generate common project files
 
 

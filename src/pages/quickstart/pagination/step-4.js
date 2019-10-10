@@ -52,99 +52,75 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
+      import React, { useState, useEffect } from 'react';
       ...
-      getInitialState() {
-        const { tweets } = this.props;
-
-        return {
-          tweets: tweets,
-          nextTweets: tweets
-        };
-      },
-
-      componentWillReceiveProps(nextProps) {
-        const nextTweets = nextProps.tweets;
-
-        if (nextTweets.state === PayloadStates.FETCHING) {
-          this.setState({
-            nextTweets: nextTweets,
-            isFetching: true
-          });
-        } else {
-          this.setState({
-            tweets: nextTweets,
-            nextTweets: nextTweets,
-            isFetching: false
-          });
-        }
-      },
-      ...
+      
+      export default function Feed(props) {
+        const { location } = props;
+      
+        const _tweets = useConnect('tweet.find', {
+          pagination: {
+            sort: 'createdAt DESC',
+            page: parse(location.search).page || '1'
+          }
+        });
+      
+        const [tweets, setTweets] = useState(_tweets);
+        const [nextTweets, setNextTweets] = useState(_tweets);
+        const [isFetching, setIsFetching] = useState(_tweets.state === PayloadStates.FETCHING);
+      
+        // check if we're fetching the next page of tweets
+        const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
+      
+        useEffect(() => {
+          const nextTweets = _tweets;
+      
+          if (nextTweets.state === PayloadStates.FETCHING) {
+            setNextTweets(nextTweets);
+            setIsFetching(true);
+          } else {
+            setTweets(nextTweets);
+            setNextTweets(nextTweets);
+            setIsFetching(false);
+          }
+        });
+        
+        ...
+      }
       `}/>
 
       <p>
-        Then update the <code>render()</code> method to look like this:
+        In the code above, we're import <code>useState</code> and <code>useEffect</code> from React, and then
+        creating some state variables to store the current page of tweets, the next page of tweets, and a boolean
+        value that tracks whether the next page is being fetched. The <code>useEffect</code> Hook is being used
+        to replace the current page of tweets with the next page once it's done being fetched.
+      </p>
+      <p>
+        Next update the code that gets rendered to look like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Feed.js
-      render() {
-        const { tweets, nextTweets } = this.state;
-        const currentPage = nextTweets.query.pagination.page;
-        const paginationLinks = [];
-
-        // check if we're fetching the next page of tweets
-        const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
-
-        if (tweets.state === PayloadStates.FETCHING) {
-          return (
-            <div className="feed">
-              <h2 className="title">
-                Feed
-              </h2>
-              <div className="loader"/>
-            </div>
-          );
-        }
-
-        // calculate the number of pagination links from our metadata, then
-        // generate an array of pagination links
-        const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
-        for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-          paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
-        }
-
+      ...
+      
+      export default function Feed(props) {
+        ...
+      
         return (
           <div className="feed">
-            <h2 className="title">
-              Feed
-            </h2>
+            ...
             <ul className={\`media-list tweets \${isFetchingNextTweets ? 'transition' : ''}\`}>
-              {tweets.data.map(this.renderTweet)}
+              ...
             </ul>
-            <nav>
-              <ul className="pagination">
-                {paginationLinks}
-              </ul>
-            </nav>
+            ...
           </div>
         );
       }
       `}/>
 
       <p>
-        In the code above, we've created a <code>state</code> variable called <code>tweets</code>, and updated our
-        <code>render()</code> method so that we render the <code>state</code> version of <code>tweets</code> instead
-        of what we get from <code>props</code>. Then we've added a <code>componentWillReceiveProps()</code> method
-        that will allow us to inspect the incoming data from <code>props</code> and decide whether or not to render it.
-      </p>
-      <p>
-        If the new page <em>is</em> being fetched, then we continue to render the previous page, but add
-        the <code>transition</code> class to the rendered list, which will provide a visual cue to the user
-        that the new page is being fetched.
-      </p>
-      <p>
-        If the data is <em>not</em> being fetched, then we update our <code>state</code> variable to reflect the
-        new page.
+        Here we're adding a <code>transition</code> class to the <code>media-list</code> while the next page is
+        being fetched, which will fade out the current page to provide a visual cue to the user.
       </p>
 
       <blockquote>
@@ -178,120 +154,95 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState, useEffect } from 'react';
       import PropTypes from 'prop-types';
-      import { connect } from 'lore-hook-connect';
-      import { Link } from 'react-router';
-      import PayloadStates from '../constants/PayloadStates';
       import Tweet from './Tweet';
-
-      export default connect(function(getState, props) {
+      import { useConnect } from '@lore/connect';
+      import PayloadStates from '../constants/PayloadStates';
+      import { parse, stringify } from 'query-string';
+      import { Link } from 'react-router-dom';
+      
+      export default function Feed(props) {
         const { location } = props;
-
-        return {
-          tweets: getState('tweet.find', {
-            pagination: {
-              sort: 'createdAt DESC',
-              page: location.query.page || '1'
-            }
-          })
-        };
-      })(
-      createReactClass({
-        displayName: 'Feed',
-
-        propTypes: {
-          tweets: PropTypes.object.isRequired
-        },
-
-        getInitialState() {
-          const { tweets } = this.props;
-
-          return {
-            tweets: tweets,
-            nextTweets: tweets
-          };
-        },
-
-        componentWillReceiveProps(nextProps) {
-          const nextTweets = nextProps.tweets;
-
+      
+        const _tweets = useConnect('tweet.find', {
+          pagination: {
+            sort: 'createdAt DESC',
+            page: parse(location.search).page || '1'
+          }
+        });
+      
+        const [tweets, setTweets] = useState(_tweets);
+        const [nextTweets, setNextTweets] = useState(_tweets);
+        const [isFetching, setIsFetching] = useState(_tweets.state === PayloadStates.FETCHING);
+      
+        // check if we're fetching the next page of tweets
+        const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
+      
+        useEffect(() => {
+          const nextTweets = _tweets;
+      
           if (nextTweets.state === PayloadStates.FETCHING) {
-            this.setState({
-              nextTweets: nextTweets,
-              isFetching: true
-            });
+            setNextTweets(nextTweets);
+            setIsFetching(true);
           } else {
-            this.setState({
-              tweets: nextTweets,
-              nextTweets: nextTweets,
-              isFetching: false
-            });
+            setTweets(nextTweets);
+            setNextTweets(nextTweets);
+            setIsFetching(false);
           }
-        },
-
-        renderTweet(tweet) {
-          return (
-            <Tweet key={tweet.id} tweet={tweet} />
-          );
-        },
-
-        renderPaginationLink(page, currentPage) {
-          return (
-            <li key={page} className={currentPage === String(page) ? 'active' : ''}>
-              <Link to={{ pathname: '/', query: { page: page } }}>
-                {page}
-              </Link>
-            </li>
-          );
-        },
-
-        render() {
-          const { tweets, nextTweets } = this.state;
-          const currentPage = nextTweets.query.pagination.page;
-          const paginationLinks = [];
-
-          if (tweets.state === PayloadStates.FETCHING) {
-            return (
-              <div className="feed">
-                <h2 className="title">
-                  Feed
-                </h2>
-                <div className="loader"/>
-              </div>
-            );
-          }
-
-          // check if we're fetching the next page of tweets
-          const isFetchingNextTweets = nextTweets.state === PayloadStates.FETCHING;
-
-          // calculate the number of pagination links from our metadata, then
-          // generate an array of pagination links
-          const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
-          for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-            paginationLinks.push(this.renderPaginationLink(pageNumber, currentPage));
-          }
-
+        });
+      
+        if (tweets.state === PayloadStates.FETCHING) {
           return (
             <div className="feed">
               <h2 className="title">
                 Feed
               </h2>
-              <ul className={\`media-list tweets \${isFetchingNextTweets ? 'transition' : ''}\`}>
-                {tweets.data.map(this.renderTweet)}
-              </ul>
-              <nav>
-                <ul className="pagination">
-                  {paginationLinks}
-                </ul>
-              </nav>
+              <div className="loader"/>
             </div>
           );
         }
-
-      })
-      );
+      
+        const currentPage = tweets.query.pagination.page;
+        const paginationLinks = [];
+      
+        function renderPaginationLink(page, currentPage) {
+          return (
+            <li key={page} className={currentPage === String(page) ? 'active' : ''}>
+              <Link to={{ pathname: '/', search: stringify({ page: page }) }}>
+                {page}
+              </Link>
+            </li>
+          );
+        }
+      
+        // calculate the number of pagination links from our metadata, then
+        // generate an array of pagination links
+        const numberOfPages = Math.ceil(tweets.meta.totalCount / tweets.meta.perPage);
+        for (let pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
+          paginationLinks.push(renderPaginationLink(pageNumber, currentPage));
+        }
+      
+        return (
+          <div className="feed">
+            <h2 className="title">
+              Feed
+            </h2>
+            <ul className={\`media-list tweets \${isFetchingNextTweets ? 'transition' : ''}\`}>
+              {tweets.data.map((tweet) => {
+                return (
+                  <Tweet key={tweet.id} tweet={tweet} />
+                );
+              })}
+            </ul>
+            <nav>
+              <ul className="pagination">
+                {paginationLinks}
+              </ul>
+            </nav>
+          </div>
+        );
+      }
       `}/>
 
       <h2>

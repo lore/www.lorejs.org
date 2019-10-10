@@ -28,6 +28,29 @@ export default (props) => {
         If not, feel free to <Link to="/quickstart/fetching/step-3/">skip this step</Link>. <strong>It is entirely optional</strong>.
       </p>
 
+      <h3>The Lore Global</h3>
+      <p>
+        In order to make it easier to explore Lore from the command line, a global <code>lore</code> object
+        is created and exposed in the <code>index.js</code> file at the root of your project. We'll be using
+        this object below to demonstrate some of the functionality provided by the framework.
+      </p>
+      <p>
+        If you don't want this global object exposed in production, simply locate the code below at the bottom
+        of your <code>index.js</code> file and comment it out.
+      </p>
+      <Markdown text={`
+      // index.js
+      ...
+      window.lore = {
+        environment: environment,
+        config: config,
+        models: models,
+        collections: collections,
+        actions: boundActions,
+        store: store
+      };
+      `}/>
+
       <h3>
         Console Demo: Actions
       </h3>
@@ -48,13 +71,11 @@ export default (props) => {
         The command you just entered invoked the <code>find</code> action to fetch tweets from the API, and if you
         examine the network tab, you'll see a GET request was sent to <code>http://localhost:1337/tweets</code>.
       </p>
-
       <p>
         The URL for this API call was composed from a convention, which defaults to "pluralize the model name
         and append it to the apiRoot", but you can change this convention as needed by modifying the properties
         in the <code>tweet</code> model.
       </p>
-
       <p>
         You can also fetch tweets by a specific user, by providing an object of query parameters to
         the <code>find()</code> method like this:

@@ -32,7 +32,7 @@ export default (props) => {
       </ol>
 
       <p>
-        If we look at the API response from the server, we can see that that information is provided in the response
+        If we look at the API response from the server, we can see that information is provided in the response
         as <code>meta.paginate</code>:
       </p>
 
@@ -64,14 +64,14 @@ export default (props) => {
         Add Pagination Data to Collections
       </h3>
       <p>
-        To do that open up <code>config/connections.js</code> and find the <code>parse()</code> method
-        for <code>collections</code>. Update that method to look like this:
+        To do that open up <code>config/collections.js</code> and find the <code>parse()</code> method
+        for the default connection. Update that method to look like this:
       </p>
 
       <Markdown text={`
-      // config/connections.js
-      ...
-        collections: {
+      // config/collections.js
+      {
+        default: {
           properties: {
             parse: function(response) {
               this.meta = {
@@ -82,7 +82,7 @@ export default (props) => {
             }
           }
         }
-      ...
+      }
       `}/>
 
       <p>
@@ -99,7 +99,7 @@ export default (props) => {
       </h3>
 
       <p>
-        If everything went well, your application should now look like this. Exactly the same :)
+        If everything went well, your application should now look like this. Exactly the same : )
       </p>
 
       <img className="drop-shadow" src={image} />
@@ -114,39 +114,25 @@ export default (props) => {
       </p>
 
       <h3>
-        config/connections.js
+        config/collections.js
       </h3>
 
       <Markdown text={`
-      // config/connections.js
-      import auth from '../src/utils/auth';
-
-      export default {
-
+      import { getConfig } from '@lore/collections';
+      
+      export default getConfig({
         default: {
-
-          apiRoot: 'http://localhost:1337',
-
-          headers: function() {
-            return {
-              Authorization: \`Bearer \${auth.getToken()}\`
-            };
-          },
-
-          collections: {
-            properties: {
-              parse: function(response) {
-                this.meta = {
-                  totalCount: response.meta.paginate.totalCount,
-                  perPage: response.meta.paginate.perPage
-                };
-                return response.data;
-              }
+          properties: {
+            parse: function(response) {
+              this.meta = {
+                totalCount: response.meta.paginate.totalCount,
+                perPage: response.meta.paginate.perPage
+              };
+              return response.data;
             }
           }
-
         }
-      };
+      });
       `}/>
 
       <h2>

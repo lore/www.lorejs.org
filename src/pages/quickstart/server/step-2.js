@@ -71,8 +71,7 @@ export default (props) => {
         Parse the Collection Response
       </h3>
       <p>
-        To fix the application, open <code>config/connections.js</code>. Towards the bottom of the file you'll see
-        a property named <code>collections</code>.
+        To fix the application, open <code>config/collections.js</code>.
       </p>
 
       <blockquote>
@@ -86,14 +85,13 @@ export default (props) => {
       </blockquote>
 
       <p>
-        Nested within that property is a commented out function called <code>parse()</code> that looks like this:
+        Within the <code>default</code> key (representing the default API) you'll see of properties with a
+        commented out function called <code>parse()</code> that looks like this:
       </p>
 
       <Markdown text={`
       {
-        apiRoot: 'http://localhost:1337',
-        ...
-        collections: {
+        default: {
           properties: {
             // parse: function(response) {
             //   return response;
@@ -126,15 +124,15 @@ export default (props) => {
       </p>
 
       <Markdown text={`
-      ...
-        collections: {
+      {
+        default: {
           properties: {
             parse: function(response) {
               return response.data;
             }
           }
         }
-      ...
+      }
       `}/>
 
       <h3>
@@ -167,23 +165,17 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
-      export default {
-
+      import { getConfig } from '@lore/connections';
+      
+      export default getConfig({
         default: {
-
-          apiRoot: 'http://localhost:1337',
-
-          collections: {
-            properties: {
-              parse: function(response) {
-                return response.data;
-              }
+          properties: {
+            parse: function(response) {
+              return response.data;
             }
           }
-
         }
-
-      }
+      })
       `}/>
 
       <h2>

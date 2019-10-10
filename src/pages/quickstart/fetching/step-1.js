@@ -81,7 +81,7 @@ export default (props) => {
       </h3>
 
       <p>
-        If everything went well, your application should now look like this. Exactly the same as before :)
+        If everything went well, your application should now look like this. Exactly the same as before : )
       </p>
 
       <img className="drop-shadow" src={image} />
@@ -99,11 +99,13 @@ export default (props) => {
       </h3>
 
       <Markdown type="jsx" text={`
-      export default {
+      import { getConfig } from '@lore/connections';
+      
+      export default getConfig({
         default: {
           apiRoot: 'http://localhost:1337'
         }
-      };
+      });
       `}/>
 
       <h2>

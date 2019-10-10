@@ -19,7 +19,7 @@ export default (props) => {
       <QuickstartBranch branch="dialogs.2" />
 
       <h3>
-        Introduction to Hooks
+        Reintroduction to Lore
       </h3>
       <p>
         We've seen Lore do a lot of things up to this point, including mounting the application, setting up routing,
@@ -28,112 +28,50 @@ export default (props) => {
         functionality built into it.
       </p>
       <p>
-        Lore itself isn't a framework so much as a plugin engine, and it's all the plugins that combine
-        to <em>make</em> it a framework for building React applications. At it's core, Lore only does two things:
+        Lore itself isn't a framework so much as a series of libraries that were designed to complement each other,
+        along with a default project structure that allows all those libraries to come preconfigured. It's the
+        combination that makes Lore appear like a framework, but the libraries themselves are largely capable of
+        operating independently.
       </p>
-      <ol>
-        <li>
-          Define the rules for how <code>config</code> files are loaded and combined
-        </li>
-        <li>
-          Define the interface for what these plugins should look like, and how to specify dependencies between
-          them, in order to determine the order they should be loaded
-        </li>
-      </ol>
       <p>
-        These plugins are referred to as <strong>hooks</strong>, and we're going to be installing some additional
-        hooks throughout this section in order to simplify the process of generating and mounting dialogs.
+        The <code>index.js</code> file at the root of your project is where most of that configuration happens, such
+        as generating the project configuration, creating the actions and reducers for Redux, setting up the store,
+        and initializing React Router. If there are aspects of the project behavior you want to change (such as
+        replacing React Router), that's a good place to start looking.
       </p>
-      <blockquote>
-        <p>
-          You can learn more about how to create your own hooks <Link to="/hooks/tutorial/">here</Link>.
-        </p>
-      </blockquote>
-
-      <h3>
-        Install the Dialog Hook
-      </h3>
-      <p>
-        The first hook we'll install is called <code>lore-hook-dialog</code>. Install it by running this command:
-      </p>
-      <Markdown type="sh" text={`
-      npm install lore-hook-dialog --save
-      `}/>
-
-      <p>
-        Next open <code>index.js</code> and locate the call for <code>lore.summon(...)</code>. Here you can see
-        a list of all the hooks the framework includes by default.
-      </p>
-
-      <Markdown text={`
-      // index.js
-      lore.summon({
-        hooks: {
-          auth,
-          actions,
-          bindActions,
-          collections,
-          connections,
-          connect,
-          models,
-          react,
-          reducers,
-          redux: _.extend(redux, {
-            dependencies: ['reducers', 'auth']
-          }),
-          router
-        }
-      });
-      `}/>
 
       <blockquote>
         <p>
-          You've already seen some of these hooks in action:
+          The <code>.lore</code> folder at the root of your project contains the more advanced initialization
+          logic, some of which you've already seen in action:
         </p>
         <ul>
           <li>
-            The <code>actions</code> hook converts your models into actions
+            The <code>.lore/config.js</code> script constructs the project configuration based on the environment
           </li>
           <li>
-            The <code>reducers</code> hook creates reducers for each of your models
+            The <code>.lore/actions.js</code> script converts your models into actions
           </li>
           <li>
-            The <code>connect</code> hook provides the <code>connect</code> decorator that invokes actions to fetch
-            data if it doesn't exist in the store
+            The <code>.lore/reducers.js</code> script creates reducers for each of your models
           </li>
         </ul>
+        <p>
+          These scripts are also in charge of some of the conventions we've seen, such as looking
+          in <code>src/models</code> for the models we should create blueprints for, so if you want to change
+          any of the conventions, that's a good place to look.
+        </p>
       </blockquote>
 
-      <p>
-        To use the hook we just installed, simply add it to the <code>hooks</code> object like this:
-      </p>
-
-      <Markdown text={`
-      // index.js
-      ...
-      import dialog from 'lore-hook-dialog';
-      ...
-
-      lore.summon({
-        hooks: {
-          ...
-          connect,
-          dialog,
-          models,
-          ...
-        }
-      });
-      `}/>
-
       <h3>
-        The Dialog Utility
+        The Dialog Hook
       </h3>
       <p>
-        The hook we just installed adds a utility for mounting dialogs, and it exposes this utility through the
-        method <code>lore.dialog.show()</code>.
+        In this section we're going to be mounting dialogs, and we'll be using a Hook
+        called <code>useDialog</code> from the <code>@lore/dialogs</code> package to do that.
       </p>
       <p>
-        To understand what this method does, open the <code>index.html</code> at the root of your project, and find
+        To understand what this Hook does, open the <code>index.html</code> at the root of your project, and find
         the element in the body with an id of <code>dialog</code>:
       </p>
 
@@ -172,7 +110,7 @@ export default (props) => {
 
       <p>
         The <code>dialog</code> element is intended to be used as target for mounting dialogs, in order to avoid
-        those issues, and the <code>lore.dialog.show()</code> method is a helper that renders a React component to
+        those issues, and the <code>useDialog()</code> Hook provides a helper that renders a React component to
         that element.
       </p>
 
@@ -187,14 +125,19 @@ export default (props) => {
       <Markdown text={`
       // src/components/CreateButton.js
       ...
-        onClick() {
-          lore.dialog.show(function() {
-            return (
-              <h1>Dialog Placeholder</h1>
-            );
-          });
-        },
-      ...
+      import { useDialog } from '@lore/dialogs';
+      
+      export default function CreateButton(props) {
+        const show = useDialog();
+      
+        function onClick() {
+          show(
+            <h1>Dialog Placeholder</h1>
+          );
+        }
+      
+        ...
+      }
       `}/>
 
       <p>
@@ -231,90 +174,27 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-
-      export default createReactClass({
-        displayName: 'CreateButton',
-
-        onClick() {
-          lore.dialog.show(function() {
-            return (
-              <h1>Dialog Placeholder</h1>
-            );
-          });
-        },
-
-        render() {
-          return (
-            <button
-              type="button"
-              className="btn btn-primary btn-lg create-button"
-              onClick={this.onClick}>
-              +
-            </button>
+      import { useDialog } from '@lore/dialogs';
+      
+      export default function CreateButton(props) {
+        const show = useDialog();
+      
+        function onClick() {
+          show(
+            <h1>Dialog Placeholder</h1>
           );
         }
-
-      });
-      `}/>
-
-      <h3>
-        index.js
-      </h3>
-      <Markdown text={`
-      /**
-       * This file kicks off the build process for the application.  It also attaches
-       * the Lore singleton to the window, so you can access it from the command line
-       * in case you need to play with it or want to manually kick off actions or check
-       * the reducer state (through \`lore.actions.xyz\`, \`lore.reducers.xyz\`,
-       * \`lore.models.xyz\`, etc.)
-       */
-
-      import lore from 'lore';
-      import _ from 'lodash';
-
-      // Import the styles for the loading screen. We're doing that here to make
-      // sure they get loaded regardless of the entry point for the application.
-      import './assets/css/loading-screen.css';
-
-      // Allows you to access your lore app globally as well as from within
-      // the console. Remove this line if you don't want to be able to do that.
-      window.lore = lore;
-
-      // Hooks
-      import auth from 'lore-hook-auth';
-      import actions from 'lore-hook-actions';
-      import bindActions from 'lore-hook-bind-actions';
-      import collections from 'lore-hook-collections';
-      import connections from 'lore-hook-connections';
-      import connect from 'lore-hook-connect';
-      import dialog from 'lore-hook-dialog';
-      import models from 'lore-hook-models';
-      import react from 'lore-hook-react';
-      import reducers from 'lore-hook-reducers';
-      import redux from 'lore-hook-redux';
-      import router from 'lore-hook-router';
-
-      // Summon the app!
-      lore.summon({
-        hooks: {
-          auth,
-          actions,
-          bindActions,
-          collections,
-          connections,
-          connect,
-          dialog,
-          models,
-          react,
-          reducers,
-          redux: _.extend(redux, {
-            dependencies: ['reducers', 'auth']
-          }),
-          router
-        }
-      });
+      
+        return (
+          <button
+            type="button"
+            className="btn btn-primary btn-lg create-button"
+            onClick={onClick}>
+            +
+          </button>
+        );
+      }
       `}/>
 
       <h2>

@@ -34,20 +34,19 @@ export default (props) => {
       </h3>
       <p>
         This error is happening because we're trying to render a tweet that doesn't have a <code>user</code> property
-        yet. The code throwing the error is the <code>connect</code> decorator in the <code>Tweet</code>, shown
+        yet. The code throwing the error is the <code>useConnect</code> Hook in the <code>Tweet</code>, shown
         below:
       </p>
 
       <Markdown type="jsx" text={`
-      export default connect(function(getState, props) {
-        const tweet = props.tweet;
-
-        return {
-          user: getState('user.byId', {
-            id: tweet.data.user
-          })
-        };
-      })
+      export default function Tweet(props) {
+        const { tweet } = props;
+      
+        const user = useConnect('user.byId', {
+          id: tweet.data.user
+        });
+        ...
+      }
       `}/>
 
       <p>
@@ -87,47 +86,42 @@ export default (props) => {
         Add Optimistic Values
       </h3>
       <p>
-        Open the <code>CreateButton</code> component, import the user from context, and update
-        the <code>onClick()</code> callback to look like this:
+        Open the <code>CreateTweetDialog</code> and import the <code>useUser</code> Hook
+        from <code>@lore/auth</code>. Then use the hook to retrieve the current user, and update
+        the <code>request</code> method to look like this:
       </p>
 
       <Markdown type="jsx" text={`
-        // src/components/CreateButton.js
-        import _ from 'lodash';
+      // src/dialogs/CreateTweetDialog.js
+      ...
+      import { useUser } from '@lore/auth';
+      
+      export default function CreateTweetDialog(props) {
         ...
-        export default createReactClass({
-          displayName: 'CreateButton',
-
-          contextTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          onClick() {
-            const { user } = this.context;
-
-            lore.dialog.show(function() {
-              return lore.dialogs.tweet.create({
-                blueprint: 'optimistic',
-                request: function(data) {
-                  return lore.actions.tweet.create(_.defaults({
-                    user: user.id,
-                    createdAt: new Date().toISOString()
-                  }, data)).payload;
-                }
-              });
-            });
-          },
-
-          ...
-
-        });
+        const user = useUser();
+      
+        function request(data) {
+          actions.tweet.create({
+            user: user.id,
+            createdAt: new Date().toISOString(),
+            ...data
+          });
+        }
+        
+        ...
+      }
       `}/>
 
       <p>
-        Since we know the tweet is being created by the current user, the first thing we do is get
-        the <code>user</code> from context. Then, instead of passing <code>data</code> directly to
-        the <code>create</code> action, we're setting the <code>user</code> and <code>createdAt</code> properties
-        to what we know they'll be after the API request returns.
+        In the code above, instead of passing <code>data</code> directly to the <code>create</code> action,
+        we're setting the <code>user</code> and <code>createdAt</code> properties to what we know they'll be
+        after the API request returns.
+      </p>
+      <p>
+        If you're not familiar with the <code>{`{ ...data }`}</code> syntax above, we're using
+        the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#Spread_in_object_literals">spread
+        operator</a> in JavaScript to copy the properties from <code>data</code> to the object we're providing to
+        the create action.
       </p>
       <blockquote>
         <p>
@@ -173,50 +167,99 @@ export default (props) => {
       </p>
 
       <h3>
-        src/components/CreateButton.js
+        src/dialogs/CreateTweetDialog.js
       </h3>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
+      import React, { useState } from 'react';
       import PropTypes from 'prop-types';
       import _ from 'lodash';
-
-      export default createReactClass({
-        displayName: 'CreateButton',
-
-        contextTypes: {
-          user: PropTypes.object.isRequired
-        },
-
-        onClick() {
-          const { user } = this.context;
-
-          lore.dialog.show(function() {
-            return lore.dialogs.tweet.create({
-              blueprint: 'optimistic',
-              request: function(data) {
-                return lore.actions.tweet.create(_.defaults({
-                  user: user.id,
-                  createdAt: new Date().toISOString()
-                }, data)).payload;
-              }
-            });
+      import { useActions } from '@lore/actions';
+      import { useUser } from '@lore/auth';
+      
+      export default function CreateTweetDialog(props) {
+        const { dismiss } = props;
+      
+        const [data, setData] = useState({
+          text: ''
+        });
+      
+        const actions = useActions();
+        const user = useUser();
+      
+        function request(data) {
+          actions.tweet.create({
+            user: user.id,
+            createdAt: new Date().toISOString(),
+            ...data
           });
-        },
-
-        render() {
-          return (
-            <button
-              type="button"
-              className="btn btn-primary btn-lg create-button"
-              onClick={this.onClick}>
-              +
-            </button>
-          );
         }
-
-      });
+      
+        function onSubmit() {
+          request(data);
+          dismiss();
+        }
+      
+        function onChange(name, value) {
+          const nextData = _.cloneDeep(data);
+          nextData[name] = value;
+          setData(nextData);
+        }
+      
+        return (
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" onClick={dismiss}>
+                  <span>&times;</span>
+                </button>
+                <h4 className="modal-title">
+                  Create Tweet
+                </h4>
+              </div>
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>Message</label>
+                      <textarea
+                        className="form-control"
+                        rows="3"
+                        value={data.text}
+                        placeholder="What's happening?"
+                        onChange={(event) => {
+                          onChange('text', event.target.value)
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <div className="row">
+                  <div className="col-md-12">
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={dismiss}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!data.text}
+                      onClick={onSubmit}
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
       `}/>
 
       <h2>
@@ -224,8 +267,8 @@ export default (props) => {
       </h2>
 
       <p>
-        In the next section we'll add a <Link to="/quickstart/optimistic/step-5/">visual cue when tweets are being created, updated
-        or deleted</Link>.
+        In the next section we'll add a <Link to="/quickstart/optimistic/step-5/">visual cue when tweets are
+        being created, updated or deleted</Link>.
       </p>
     </Template>
   )

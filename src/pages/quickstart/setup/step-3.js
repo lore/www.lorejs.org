@@ -26,32 +26,33 @@ export default (props) => {
       webpack-dev-server --hot --env.webpack=development --env.lore=development
 
       build [==                  ] 10%
-      Project is running at http://localhost:3000/
-
-      webpack output is served from /
-      404s will fallback to /index.html
+      ｢wds｣: Project is running at http://localhost:3000/
+      
+      ｢wds｣: webpack output is served from /
+      ｢wds｣: 404s will fallback to /index.html
 
       Build completed in 6.541s
 
       Hash: 199de1b7032b223700a9
-      Version: webpack 3.12.0
+      Version: webpack 4.35.0
       Time: 6712ms
 
-                       Asset   Size       Chunks                    Chunk Names
-        favicons/favicon.ico   33.3 kB            [emitted]
-       favicon-manifest.json   613 bytes          [emitted]
-      assets/images/logo.png   27.7 kB            [emitted]
-              bundle.main.js   3.16 MB         0  [emitted]  [big]  main
-            bundle.vendor.js   1.27 MB         1  [emitted]  [big]  vendor
-                  index.html   4.41 kB            [emitted]
-
+                       Asset       Size        Chunks             Chunk Names
+      assets/images/logo.png   27.1 KiB                [emitted]  
+              bundle.main.js    461 KiB          main  [emitted]  main
+      bundle.vendors~main.js   12.4 MiB  vendors~main  [emitted]  vendors~main  
+        favicons/favicon.ico   32.5 KiB                [emitted]  
+                  index.html   4.26 KiB                [emitted] 
+                                                 
+      Entrypoint main = bundle.vendors~main.js bundle.main.js
+      
       ...
-
-      webpack: Compiled successfully.
+                                                 
+      [wdm]: Compiled successfully.
       `} />
 
       <p>
-        This step invokes <a href="https://webpack.github.io/">Webpack</a> to build the application and starts a
+        This step invokes <a href="https://webpack.js.org/">Webpack</a> to build the application and starts a
         development server so you can view it in the browser.
       </p>
       <blockquote>

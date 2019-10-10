@@ -40,46 +40,30 @@ export default (props) => {
         Add Visual Cue for Optimistic Changes
       </h3>
       <p>
-        Update the <code>render()</code> method of the <code>Tweet</code> component to look like this:
+        Update the <code>Tweet</code> component to look like this:
       </p>
 
       <Markdown text={`
       // src/components/Tweet.js
       import PayloadStates from '../constants/PayloadStates';
-      ...
-      render() {
-        const { tweet, user } = this.props;
+      ...      
+      export default function Tweet(props) {
+        const { tweet } = props;
         const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+        
         const isOptimistic = (
           tweet.state === PayloadStates.CREATING ||
           tweet.state === PayloadStates.UPDATING ||
           tweet.state === PayloadStates.DELETING
         );
-
+        
+        const user = useConnect('user.byId', {
+          id: tweet.data.user
+        });
+        
         return (
-          <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
-            <div className="image-container">
-              <img
-                className="img-circle avatar"
-                src={user.data.avatar} />
-            </div>
-            <div className="content-container">
-              <h4 className="list-group-item-heading title">
-                {user.data.nickname}
-              </h4>
-              <h4 className="list-group-item-heading timestamp">
-                {'- ' + timestamp}
-              </h4>
-              <p className="list-group-item-text text">
-                {tweet.data.text}
-              </p>
-              <IsOwner tweet={tweet}>
-                <div className="tweet-actions">
-                  <EditLink tweet={tweet} />
-                  <DeleteLink tweet={tweet} />
-                </div>
-              </IsOwner>
-            </div>
+          <li className={\`list-group-item tweet \${isOptimistic ? ' transition' : ''}\`}>
+            ...
           </li>
         );
       }
@@ -115,71 +99,59 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
       import moment from 'moment';
-      import { connect } from 'lore-hook-connect';
-      import PayloadStates from '../constants/PayloadStates';
+      import { useConnect } from '@lore/connect';
       import EditLink from './EditLink';
       import DeleteLink from './DeleteLink';
-      import IsOwner from './IsOwner';
-
-      export default connect(function(getState, props) {
+      import UserIsAuthorized from '../decorators/UserIsAuthorized';
+      import PayloadStates from '../constants/PayloadStates';
+      
+      Tweet.propTypes = {
+        tweet: PropTypes.object.isRequired
+      };
+      
+      export default function Tweet(props) {
         const { tweet } = props;
-
-        return {
-          user: getState('user.byId', {
-            id: tweet.data.user
-          })
-        };
-      })(
-      createReactClass({
-        displayName: 'Tweet',
-
-        propTypes: {
-          tweet: PropTypes.object.isRequired,
-          user: PropTypes.object.isRequired
-        },
-
-        render() {
-          const { tweet, user } = this.props;
-          const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
-          const isOptimistic = (
-            tweet.state === PayloadStates.CREATING ||
-            tweet.state === PayloadStates.UPDATING ||
-            tweet.state === PayloadStates.DELETING
-          );
-
-          return (
-            <li className={"list-group-item tweet" + (isOptimistic ? " transition" : "")}>
-              <div className="image-container">
-                <img
-                  className="img-circle avatar"
-                  src={user.data.avatar} />
-              </div>
-              <div className="content-container">
-                <h4 className="list-group-item-heading title">
-                  {user.data.nickname}
-                </h4>
-                <h4 className="list-group-item-heading timestamp">
-                  {'- ' + timestamp}
-                </h4>
-                <p className="list-group-item-text text">
-                  {tweet.data.text}
-                </p>
-                <IsOwner tweet={tweet}>
-                  <div className="tweet-actions">
-                    <EditLink tweet={tweet} />
-                    <DeleteLink tweet={tweet} />
-                  </div>
-                </IsOwner>
-              </div>
-            </li>
-          );
-        }
-
-      })
-      );
+        const timestamp = moment(tweet.data.createdAt).fromNow().split(' ago')[0];
+      
+        const isOptimistic = (
+          tweet.state === PayloadStates.CREATING ||
+          tweet.state === PayloadStates.UPDATING ||
+          tweet.state === PayloadStates.DELETING
+        );
+      
+        const user = useConnect('user.byId', {
+          id: tweet.data.user
+        });
+      
+        return (
+          <li className={\`list-group-item tweet \${isOptimistic ? ' transition' : ''}\`}>
+            <div className="image-container">
+              <img
+                className="img-circle avatar"
+                src={user.data.avatar} />
+            </div>
+            <div className="content-container">
+              <h4 className="list-group-item-heading title">
+                {user.data.nickname}
+              </h4>
+              <h4 className="list-group-item-heading timestamp">
+                {'- ' + timestamp}
+              </h4>
+              <p className="list-group-item-text text">
+                {tweet.data.text}
+              </p>
+              <UserIsAuthorized authorized={(user) => user.id === tweet.data.user}>
+                <div className="tweet-actions">
+                  <EditLink tweet={tweet} />
+                  <DeleteLink tweet={tweet} />
+                </div>
+              </UserIsAuthorized>
+            </div>
+          </li>
+        );
+      }
       `}/>
 
       <h2>

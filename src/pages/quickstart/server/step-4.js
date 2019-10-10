@@ -41,33 +41,25 @@ export default (props) => {
       </h3>
       <p>
         The fact that our application is rendering a broken experience isn't ideal. The reason this is
-        happening is because the <code>render()</code> method of the <code>Master</code> component currently
-        looks like this:
+        happening is because the render logic for the <code>Master</code> component currently looks like this:
       </p>
 
       <Markdown type="jsx" text={`
       // src/components/Master.js
-      export default createReactClass({
-
-        ...
-
-        render() {
-          const { user } = this.props;
-
-          if (user.state === PayloadStates.FETCHING) {
-            return (
-              <div className="loader" />
-            );
-          }
-
-          return (
-            <div>
-              <RemoveLoadingScreen />
-              {React.cloneElement(this.props.children)}
-            </div>
-          );
+      ...
+      export default function Master(props) {
+        const user = useConnect('currentUser');
+      
+        if (user.state === PayloadStates.FETCHING) {
+          return null;
         }
-
+      
+        return (
+          <UserContext.Provider value={user}>
+            <RemoveLoadingScreen />
+            {props.children}
+          </UserContext.Provider>
+        );
       }
       `}/>
 
@@ -77,7 +69,7 @@ export default (props) => {
 
       <ul>
         <li>
-          If the current user is being fetched, display a loading experience.
+          If the current user is being fetched, continue displaying the loading experience.
         </li>
         <li>
           If the current user is NOT being fetched, render the application.
@@ -98,38 +90,31 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       // src/components/Master.js
-      export default createReactClass({
-
-        ...
-
-        render() {
-          const { user } = this.props;
-
-          if (user.state === PayloadStates.FETCHING) {
-            return (
-              <div className="loader" />
-            );
-          }
-
-          if (user.state === PayloadStates.ERROR_FETCHING) {
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                <h1 className="full-page-text">
-                  Unauthorized
-                </h1>
-              </div>
-            );
-          }
-
+      ...
+      export default function Master(props) {
+        const user = useConnect('currentUser');
+      
+        if (user.state === PayloadStates.FETCHING) {
+          return null;
+        }
+      
+        if (user.state === PayloadStates.ERROR_FETCHING) {
           return (
             <div>
               <RemoveLoadingScreen />
-              {React.cloneElement(this.props.children)}
+              <h1 className="full-page-text">
+                Unauthorized
+              </h1>
             </div>
           );
         }
-
+      
+        return (
+          <UserContext.Provider value={user}>
+            <RemoveLoadingScreen />
+            {props.children}
+          </UserContext.Provider>
+        );
       }
       `}/>
 
@@ -171,65 +156,37 @@ export default (props) => {
 
       <Markdown type="jsx" text={`
       import React from 'react';
-      import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
-      import { connect } from 'lore-hook-connect';
+      import { useConnect } from '@lore/connect';
+      import { UserContext } from '@lore/auth';
       import PayloadStates from '../constants/PayloadStates';
-      import RemoveLoadingScreen from './RemoveLoadingScreen';
-      import '../../assets/css/main.css';
-
-      export default connect(function(getState, props) {
-        return {
-          user: getState('currentUser')
-        };
-      }, { subscribe: true })(
-        createReactClass({
-          displayName: 'Master',
-
-          propTypes: {
-            user: PropTypes.object.isRequired
-          },
-
-          childContextTypes: {
-            user: PropTypes.object
-          },
-
-          getChildContext() {
-            return {
-              user: this.props.user
-            };
-          },
-
-          render() {
-            const { user } = this.props;
-
-            if (user.state === PayloadStates.FETCHING) {
-              return (
-                <div className="loader" />
-              );
-            }
-
-            if (user.state === PayloadStates.ERROR_FETCHING) {
-              return (
-              <div>
-                <RemoveLoadingScreen />
-                <h1 className="full-page-text">
-                  Unauthorized
-                </h1>
-              </div>
-              );
-            }
-
-            return (
-              <div>
-                <RemoveLoadingScreen />
-                {React.cloneElement(this.props.children)}
-              </div>
-            );
-          }
-
-        })
-      );
+      import RemoveLoadingScreen from '../components/RemoveLoadingScreen';
+      
+      export default function Master(props) {
+        const user = useConnect('currentUser');
+      
+        if (user.state === PayloadStates.FETCHING) {
+          return null;
+        }
+      
+        if (user.state === PayloadStates.ERROR_FETCHING) {
+          return (
+            <div>
+              <RemoveLoadingScreen />
+              <h1 className="full-page-text">
+                Unauthorized
+              </h1>
+            </div>
+          );
+        }
+      
+        return (
+          <UserContext.Provider value={user}>
+            <RemoveLoadingScreen />
+            {props.children}
+          </UserContext.Provider>
+        );
+      }
       `}/>
 
       <h2>

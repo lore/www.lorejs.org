@@ -36,34 +36,46 @@ export default (props) => {
       </p>
 
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
-      import PropTypes from 'prop-types';
+      import React, { useEffect } from 'react';
       import Auth0 from 'auth0-js';
-      import ShowLoadingScreen from './ShowLoadingScreen';
-
-      export default createReactClass({
-        displayName: 'Login',
-
-        componentDidMount() {
-          const auth0 = new Auth0.WebAuth(lore.config.auth0);
+      import { useConfig } from '@lore/config';
+      
+      export default function Login(props) {
+        const config = useConfig();
+      
+        useEffect(() => {
+          const auth0 = new Auth0.WebAuth(config.auth0);
           auth0.authorize();
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
-      });
+        }, []);
+      
+        return null;
+      }
       `}/>
 
       <p>
-        When this component is mounted, we extract the <code>auth0</code> config object
-        from <code>lore.config.auth0</code> and pass it to the <code>Auth0.WebAuth()</code> constructor, which will
-        automatically redirect the user to Auth0 when we call <code>auth0.authorize()</code>.
+        When this component is mounted, we extract the <code>auth0</code> object from the <code>config</code> and
+        pass it to the <code>Auth0.WebAuth()</code> constructor, which will automatically redirect the user to
+        Auth0 when we call <code>auth0.authorize()</code>.
       </p>
+      <blockquote>
+        <p>
+          Before the <code>useConfig()</code> Hook can provide the config, it first needs to know what the config
+          object is. We do that within <code>index.js</code> by providing the value of the config to
+          the <code>ConfigContext</code> Provider, as shown in the code snippet below:
+        </p>
+      <Markdown type="jsx" text={`
+      ...
+      const config = getConfig(environment);
+      ...
+      import { ConfigContext } from '@lore/config';
+      ...
+      ReactDOM.render((
+        <ConfigContext.Provider value={config}>
+          ...
+        </ConfigContext.Provider>
+      ), document.getElementById(domElementId));
+      `}/>
+      </blockquote>
 
       <h3>
         Create the Login Route
@@ -77,17 +89,14 @@ export default (props) => {
       <Markdown type="jsx" text={`
       ...
       import Login from './src/components/Login';
-
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
@@ -135,15 +144,9 @@ export default (props) => {
       </h3>
 
       <p>
-        After you login, you'll be taken back to the application, where you'll see the loading screen, but
-        it will never go away. If you look at the developer console, you'll see an error that looks like this:
+        After you login, you'll be taken back to the application, where you'll see the <code>404 NOT FOUND</code> page,
+        provided by the <code>NotFound</code> component.
       </p>
-
-      <Markdown text={`
-      Warning: [react-router]
-      Location "/auth/callback ... did not match any routes
-      `}/>
-
       <p>
         This occurs because Auth0 tried to redirect us back to <code>http://localhost:3000/auth/callback</code>,
         but that route doesn't exist yet. We'll create it soon, but for now, navigate back to the homepage
@@ -173,30 +176,21 @@ export default (props) => {
       <h3>
         src/components/Login.js
       </h3>
-
-
       <Markdown type="jsx" text={`
-      import React from 'react';
-      import createReactClass from 'create-react-class';
-      import PropTypes from 'prop-types';
+      import React, { useEffect } from 'react';
       import Auth0 from 'auth0-js';
-      import ShowLoadingScreen from './ShowLoadingScreen';
-
-      export default createReactClass({
-        displayName: 'Login',
-
-        componentDidMount() {
-          const auth0 = new Auth0.WebAuth(lore.config.auth0);
+      import { useConfig } from '@lore/config';
+      
+      export default function Login(props) {
+        const config = useConfig();
+      
+        useEffect(() => {
+          const auth0 = new Auth0.WebAuth(config.auth0);
           auth0.authorize();
-        },
-
-        render() {
-          return (
-            <ShowLoadingScreen/>
-          );
-        }
-
-      });
+        }, []);
+      
+        return null;
+      }
       `}/>
 
       <h3>
@@ -205,33 +199,31 @@ export default (props) => {
 
       <Markdown text={`
       import React from 'react';
-      import { Route, IndexRoute, Redirect } from 'react-router';
-
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      
       /**
-       * Wrapping the Master component with this decorator provides an easy way
-       * to redirect the user to a login experience if we don't know who they are.
+       * The AuthenticatedRoute provides an easy way to redirect the user
+       * to a login experience if we don't know who they are.
        */
-      import UserIsAuthenticated from './src/decorators/UserIsAuthenticated';
-
+      
+      import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
+      
       /**
        * Routes are used to declare your view hierarchy
-       * See: https://github.com/ReactTraining/react-router/blob/v3/docs/API.md
+       * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      import Master from './src/components/Master';
-      import Layout from './src/components/Layout';
+      
+      import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
       import Login from './src/components/Login';
-
+      
       export default (
-        <Route>
-          <Route path="/login" component={Login} />
-
-          <Route component={UserIsAuthenticated(Master)}>
-            <Route path="/" component={Layout}>
-              <IndexRoute component={Feed} />
-            </Route>
-          </Route>
-        </Route>
+        <Switch>
+          <Route exact path="/login" component={Login} />
+      
+          <AuthenticatedRoute exact path="/" component={Feed} />
+          <Route component={NotFoundPage} />
+        </Switch>
       );
       `}/>
 
@@ -240,7 +232,8 @@ export default (props) => {
       </h3>
 
       <p>
-        Next we're going to <Link to="/quickstart/authentication/step-4/">redirect the user to login page</Link> if they aren't logged in.
+        Next we're going to <Link to="/quickstart/authentication/step-4/">redirect the user to login page</Link> if
+        they aren't logged in.
       </p>
 
     </Template>
