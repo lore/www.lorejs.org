@@ -4,6 +4,17 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
+// exports.modifyWebpackConfig = function ({ config, stage }) {
+//
+//   switch (stage) {
+//     case 'develop':
+//       config._config.devtool = 'eval';
+//       break;
+//   }
+//
+//   return config;
+// };
+
 exports.onCreateWebpackConfig = function({ stage, actions }) {
 
   switch (stage) {

@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+
+body {
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.max-w-screen-xl {
+  max-width: 1280px !important;
+}
+
+@tailwind utilities;

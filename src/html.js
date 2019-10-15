@@ -1,86 +1,45 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600' rel='stylesheet'>
-
-let stylesStr;
-if (process.env.NODE_ENV === `production`) {
-  try {
-    stylesStr = require(`!raw-loader!../public/styles.css`)
-  } catch (e) {
-    console.log(e)
-  }
-}
-
-export default class HTML extends React.Component {
-  render() {
-    let css;
-    if (process.env.NODE_ENV === `production`) {
-      css = (
-        <style
-          id="gatsby-inlined-css"
-          dangerouslySetInnerHTML={{ __html: stylesStr }}
-        />
-      )
-    }
-    return (
-      <html {...this.props.htmlAttributes}>
-        <head>
-          <meta charSet="utf-8" />
-          <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-          <title>Lore | Convention-driven Framework for React</title>
-
-          {/* Fonts */}
-          <link href="https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600" rel="stylesheet" />
-
-          {/* Twitter Card data */}
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="Lore" />
-          <meta name="twitter:description" content="Convention-driven framework for React. Built on Webpack, Redux and React Router." />
-          <meta name="twitter:creator" content="@loreframework" />
-          <meta name="twitter:image:src" content="http://www.lorejs.org/assets/images/social/lore-social-image.jpg" />
-
-          {/* Open Graph data */}
-          <meta property="og:title" content="Lore" />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="http://www.lorejs.org/" />
-          <meta property="og:image" content="http://www.lorejs.org/assets/images/social/lore-social-image-large.jpg" />
-          <meta property="og:description" content="Convention-driven framework for React. Built on Webpack, Redux and React Router." />
-          <meta property="og:site_name" content="Lore" />
-          <meta name="viewport" content="width=device-width" />
-
-          {/* Schema.org markup for Google+ */}
-          <meta itemProp="name" content="Lore" />
-          <meta itemProp="description" content="Convention-driven framework for React. Built on Webpack, Redux and React Router." />
-          <meta itemProp="image" content="http://www.lorejs.org/assets/images/social/lore-social-image-large.jpg" />
-
-          {/* Favicons */}
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
-          <link rel="manifest" href="/site.webmanifest"/>
-          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b6793"/>
-          <meta name="msapplication-TileColor" content="#4b6793"/>
-          <meta name="theme-color" content="#ffffff"/>
-
-          {/* Other */}
-          {this.props.headComponents}
-          {css}
-        </head>
-        <body {...this.props.bodyAttributes}>
-          {this.props.preBodyComponents}
-          <div
-            key={`body`}
-            id="___gatsby"
-            dangerouslySetInnerHTML={{ __html: this.props.body }}
-          />
-          {this.props.postBodyComponents}
-          <script src="/assets/js/jquery.min.js" />
-          <script src="/assets/js/toolkit.js" />
-          <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js" />
-          <script src="/assets/js/signup-forms.js" />
-        </body>
-      </html>
-    )
-  }
+HTML.propTypes = {
+  htmlAttributes: PropTypes.object,
+  headComponents: PropTypes.array,
+  bodyAttributes: PropTypes.object,
+  preBodyComponents: PropTypes.array,
+  body: PropTypes.string,
+  postBodyComponents: PropTypes.array,
 };
+
+export default function HTML(props) {
+  return (
+    <html {...props.htmlAttributes} className="bg-white antialiased">
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        {props.headComponents}
+
+        {/* Custom head components */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"/>
+
+      </head>
+      <body {...props.bodyAttributes}>
+        {props.preBodyComponents}
+        <noscript key="noscript" id="gatsby-noscript">
+          This app works best with JavaScript enabled.
+        </noscript>
+        <div
+          key={`body`}
+          id="___gatsby"
+          dangerouslySetInnerHTML={{ __html: props.body }}
+        />
+        {props.postBodyComponents}
+
+        {/* Custom head components */}
+      </body>
+    </html>
+  )
+}
