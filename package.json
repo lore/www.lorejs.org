@@ -8,8 +8,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "tailwind:build": "postcss src/assets/sass/main.scss -o src/assets/css/tailwind.css",
-    "tailwind:watch": "postcss src/assets/sass/main.scss -o src/assets/css/tailwind.css --watch"
+    "tailwind:build": "postcss src/assets/sass/main.scss -o tailwind.css",
+    "tailwind:watch": "postcss src/assets/sass/main.scss -o tailwind.css --watch"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
