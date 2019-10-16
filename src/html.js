@@ -38,7 +38,11 @@ export default function HTML(props) {
         />
         {props.postBodyComponents}
 
-        {/* Custom head components */}
+        {/* Custom body components */}
+        <script
+          src="https://code.jquery.com/jquery-3.4.1.min.js"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          crossOrigin="anonymous"></script>
       </body>
     </html>
   )
