@@ -61,8 +61,9 @@ img {
 blockquote {
   @apply drop-shadow;
   @apply rounded-lg;
-  padding: 1rem;
-  background-color: #fff;
+  @apply bg-gray-300 text-gray-700;
+  padding: 1.5rem;
+  //background-color: #fff;
   box-shadow: 0px 0px 21px 0px #e6e6e6;
   margin-bottom: 1.5rem;
 
@@ -110,13 +111,22 @@ blockquote {
     margin-bottom: 1.5rem;
   }
 
+  li {
+    @apply mb-2;
+
+    &:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+  }
+
   img {
     @apply drop-shadow;
     @apply rounded-lg;
   }
 }
 
-p > code {
+p > code,
+li > code {
   font-family: Menlo,Monaco,Consolas,Courier New,monospace;
   border-radius: 4px;
   padding: 2px 4px;
@@ -131,6 +141,29 @@ code, pre {
   font-size: 1rem;
 }
 
-@import "prism-atom-dark";
+//@import "prism-atom-dark";
+
+/* Code blocks */
+pre[class*="language-"] {
+  @apply p-4;
+  // padding: 1rem;
+  // margin: .5rem 0;
+  overflow: auto;
+  border-radius: 0.3rem;
+}
 
 @tailwind utilities;
+
+@variants responsive, hover {
+  .translate-r-2px {
+    transform: translateX(2px);
+  }
+
+  .translate-t-2px {
+    transform: translateY(-2px);
+  }
+
+  .transition-fast {
+    transition: all .2s ease;
+  }
+}

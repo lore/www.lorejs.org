@@ -1,37 +1,27 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Layout from '../../../components/Layout';
+import Template from '../../../components/templates/Quickstart';
 import Code from '../../../components/Code';
-import Markdown from '../../../components/Markdown';
 import QuickstartBranch from '../../../components/QuickstartBranch';
 import image from '../../../assets/images/quickstart/fetching/step-3.png';
 
 export default (props) => {
   return (
-    <Layout
-      title="Step 3: Connect Feed Component"
-      subtitle="Utilities for controlling the leading (line height) of an element."
-      description={(
-        <>
-        <Markdown text={`
-In this step we're going to learn about the \`connect\` decorator, and use it to allow our Tweet
-component to declare what data it needs.
-      `}/>
-        <QuickstartBranch branch="fetching.3" />
-      </>
-      )}
-    >
+    <Template>
+      <h1>
+        Step 3: Connect Feed Component
+      </h1>
 
       <p>
         In this step we're going to learn about the <code>connect</code> decorator, and use it to allow our Tweet
         component to declare what data it needs.
       </p>
 
+      <QuickstartBranch branch="fetching.3" />
 
-
-      <h2>
+      <h3>
         The Connect Hook
-      </h2>
+      </h3>
       <p>
         Lore provides a <a href="https://reactjs.org/docs/hooks-intro.html">React Hook</a> that allows components
         to declare what data they need, and the framework will automatically retrieve it from the API if it
@@ -76,9 +66,9 @@ component to declare what data it needs.
         the <code>tweets</code> variable.
       </p>
 
-      <h2>
+      <h3>
         Connect the Feed Component
-      </h2>
+      </h3>
       <p>
         To use <code>connect</code>, you first need to import it from the <code>@lore/connect</code> package,
         which is already included in your project.
@@ -107,9 +97,9 @@ component to declare what data it needs.
         data from the API.
       </p>
 
-      <h2>
+      <h3>
         Visual Check-in
-      </h2>
+      </h3>
 
       <p>
         If everything went well, your application should now look like this.
@@ -125,9 +115,9 @@ component to declare what data it needs.
         Below is a list of files modified during this step.
       </p>
 
-      <h2>
+      <h3>
         src/components/Feed.js
-      </h2>
+      </h3>
 
       <Code type="jsx" text={`
       import React from 'react';
@@ -187,6 +177,6 @@ component to declare what data it needs.
       <p>
         Next we're going to <Link to="/quickstart/fetching/step-4/">display a loading experience while the tweets are being fetched</Link>.
       </p>
-    </Layout>
+    </Template>
   )
 };

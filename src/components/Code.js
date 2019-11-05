@@ -46,7 +46,7 @@ marked.setOptions({
   }
 });
 
-export default function Markdown(props) {
+export default function Code(props) {
   const { type, text } = props;
 
   const markdownRef = useRef(null);

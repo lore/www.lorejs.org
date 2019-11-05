@@ -24,7 +24,7 @@ export default function HTML(props) {
 
         {/* Custom head components */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"/>
-
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
       </head>
       <body {...props.bodyAttributes}>
         {props.preBodyComponents}
@@ -39,10 +39,8 @@ export default function HTML(props) {
         {props.postBodyComponents}
 
         {/* Custom body components */}
-        <script
-          src="https://code.jquery.com/jquery-3.4.1.min.js"
-          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-          crossOrigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossOrigin="anonymous"></script>
+        <script src="https://cdn.rawgit.com/mike-zarandona/PrettyEmbed.js/master/jquery.prettyembed.min.js" />
       </body>
     </html>
   )
