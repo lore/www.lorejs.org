@@ -5,7 +5,7 @@ import tutorialImage from '../../assets/images/quickstart/lore-tutorial-twitter.
 
 export default (props) => {
   return (
-    <Template>
+    <Template showSiteNavigation={false}>
       <h1>
         Introduction
       </h1>

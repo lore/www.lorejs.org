@@ -8,14 +8,14 @@ import Navigation from './Navigation';
 import '../../../assets/sass/main.scss';
 
 export default (props) => {
-  const { title, subtitle, description, navigation, children } = props;
+  const { title, subtitle, description, navigation, showSiteNavigation, children } = props;
 
   return (
     <>
       <Header />
       <div className="w-full max-w-screen-lg mx-auto px-6">
         <div className="lg:flex -mx-6">
-          <Sidebar>
+          <Sidebar showSiteNavigation={showSiteNavigation}>
             <Navigation categories={navigation} />
           </Sidebar>
           <div id="content-wrapper" className="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4 xl:w-4/5">

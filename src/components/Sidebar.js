@@ -106,7 +106,7 @@ const DocumentationIcon2 = () => (
 );
 
 export default function(props) {
-  const { children } = props;
+  const { children, showSiteNavigation=true } = props;
 
   return (
     <Location>
@@ -118,47 +118,49 @@ export default function(props) {
             <div id="navWrapper" className="h-full overflow-y-auto scrolling-touch lg:h-auto lg:block lg:relative lg:sticky lg:top-16 bg-white lg:bg-transparent">
               <div id="navGradient" className="hidden" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))' }}></div>
               <nav id="nav" className="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-12 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16)">
-                <div className="mb-10">
-                  {[
-                    ['/features/', 'Features', <i className="material-icons">apps</i>],
-                    ['/docs/', 'Documentation', <i className="material-icons">format_list_bulleted</i>],
-                    ['/quickstart/', 'Quickstart', <i className="material-icons">menu_book</i>],
-                    ['/anatomy/', 'Project Structure', <i className="material-icons">format_align_left</i>],
+                {showSiteNavigation && (
+                  <div className="mb-10">
+                    {[
+                      ['/features/', 'Features', <i className="material-icons">apps</i>],
+                      ['/docs/', 'Documentation', <i className="material-icons">format_list_bulleted</i>],
+                      // ['/quickstart/', 'Quickstart', <i className="material-icons">menu_book</i>],
+                      ['/anatomy/', 'Project Structure', <i className="material-icons">format_align_left</i>],
 
-                    // Libraries
-                    ['/actions/', 'Actions', <i className="material-icons">import_export</i>], // sync
-                    ['/reducers/', 'Reducers', <i className="material-icons">storage</i>],
-                    ['/connect/', 'Connect', <i className="material-icons">share</i>],
-                    ['/models/', 'Models', <i className="material-icons">person</i>],
-                    ['/collections/', 'Collections', <i className="material-icons">people</i>],
+                      // Libraries
+                      ['/actions/', 'Actions', <i className="material-icons">import_export</i>], // sync
+                      ['/reducers/', 'Reducers', <i className="material-icons">storage</i>],
+                      ['/connect/', 'Connect', <i className="material-icons">share</i>],
+                      ['/models/', 'Models', <i className="material-icons">person</i>],
+                      ['/collections/', 'Collections', <i className="material-icons">people</i>],
 
-                    // Other
-                    ['/examples/', 'Examples', <i className="material-icons">help_outline</i>],
-                    ['/architecture/', 'Architecture', <i className="material-icons">business</i>]
-                  ].map(function(value, index) {
-                    const href = value[0];
-                    const text = value[1];
-                    const icon = value[2];
+                      // Other
+                      ['/examples/', 'Examples', <i className="material-icons">help_outline</i>],
+                      ['/architecture/', 'Architecture', <i className="material-icons">business</i>]
+                    ].map(function(value, index) {
+                      const href = value[0];
+                      const text = value[1];
+                      const icon = value[2];
 
-                    const active = pathname.indexOf(href) === 0;
+                      const active = pathname.indexOf(href) === 0;
 
-                    return (
-                      <Link key={index} to={href} className={active ?
-                        index === 0 ?
-                          "flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-bold text-gray-900" :
-                          "mt-3 lg:mt-1 flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-bold text-gray-900" :
-                        index === 0 ?
-                          "flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-semibold text-gray-600" :
-                          "mt-3 lg:mt-1 flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-semibold text-gray-600"
-                      }>
-                        {icon}
-                        <span className="ml-3">
-                          {text}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
+                      return (
+                        <Link key={index} to={href} className={active ?
+                          index === 0 ?
+                            "flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-bold text-gray-900" :
+                            "mt-3 lg:mt-1 flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-bold text-gray-900" :
+                          index === 0 ?
+                            "flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-semibold text-gray-600" :
+                            "mt-3 lg:mt-1 flex items-center px-2 -mx-2 py-1 hover:text-gray-900 font-semibold text-gray-600"
+                        }>
+                          {icon}
+                          <span className="ml-3">
+                            {text}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
                 {children}
               </nav>
             </div>
