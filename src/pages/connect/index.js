@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -17,7 +17,7 @@ export default (props) => {
       <p>
         The <code>connect</code> decorator is used throughout the Quickstart and looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect(function(getState, props) {
@@ -173,7 +173,7 @@ export default (props) => {
         tweets from the server.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect(function(getState, props) {
@@ -205,7 +205,7 @@ export default (props) => {
         <code>action</code>, that's not always the case. If we were to request a specific tweet for example, we
         would use the follow <code>getState</code> call:
       </p>
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect(function(getState, props) {

@@ -18,9 +18,9 @@ export default (props) => {
         the error and try again.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what error handling looks like. Screenshots are from the <em>Simply Social</em> prototype
         that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
@@ -28,9 +28,30 @@ export default (props) => {
 
       <Video videoId="rQagIXhEK7s" />
 
+      <h2>
+        Architecture
+      </h2>
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The challenge when incorporating error handling into your applications architecture is making sure server errors
+        are communicated back to components, so we can can inform the user when something bad happened and at least give
+        them a chance to copy out their data or fix and retry the request.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore provides support for error handling.
+      </p>
+
+      <Video videoId="P27Ow1NyGTg" />
+
+      <h2>
+        Usage
+      </h2>
       <p>
         As described in <Link to="/features/data-structure/">Data Structure</Link> and {' '}
         <Link to="/features/visual-cues/">Visual Cues</Link> the default actions in Lore include payload

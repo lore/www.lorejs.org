@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -20,7 +20,7 @@ export default (props) => {
       <p>
         Example usage is below:
       </p>
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect((getState, props) => {
@@ -121,7 +121,7 @@ export default (props) => {
       <h3>
         Blueprint
       </h3>
-      <Markdown text={`
+      <Code text={`
       export default {
 
         defaults: {

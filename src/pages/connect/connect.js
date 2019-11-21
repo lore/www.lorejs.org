@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -16,7 +16,7 @@ export default (props) => {
         The basic usage looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect(function(getState, props, context) {
@@ -36,7 +36,7 @@ export default (props) => {
         And full usage (showing all available options) looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect(function(getState, props, context) {
@@ -67,7 +67,7 @@ export default (props) => {
         And a simplified view of the interface looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(select, options = {})(
         //...component...
       )
@@ -89,7 +89,7 @@ export default (props) => {
         The first argument, <code>select</code>, is a function that controls what data gets passed to the decorated
         component through <code>props</code>. In the example usage above, it's the function that looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       function select(getState, props, context) {
         return {
           tweets: getState('tweet.find')
@@ -107,7 +107,7 @@ export default (props) => {
         The first argument is <code>getState</code>, which is a function responsible for retrieving data from the
         reducers, and invoking an action if that data doesn't exist. Typical usage looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       getState('tweet.find', {
         where: {
           user: 1
@@ -117,7 +117,7 @@ export default (props) => {
       <p>
         And a simplified view of the interface looks like this (note the third argument):
       </p>
-      <Markdown text={`
+      <Code text={`
       getState(blueprintKey, params, options)
       `}/>
       <p>
@@ -135,7 +135,7 @@ export default (props) => {
         For example, this example call invokes the <code>find</code> blueprint, and expresses that it wants to
         use it with the <code>tweet</code> data.
       </p>
-      <Markdown text={`
+      <Code text={`
       getState('tweet.find')
       `}/>
 
@@ -150,7 +150,7 @@ export default (props) => {
         To illustrate, let's expand on the example usage above, and provide a params object to communicate that we
         only wants the tweets where <code>id</code> of the <code>user</code> who created them is <code>1</code>.
       </p>
-      <Markdown text={`
+      <Code text={`
       getState('tweet.find', {
         where: {
           user: 1
@@ -161,7 +161,7 @@ export default (props) => {
         Other blueprints will have different behavior, such as the <code>byId</code> blueprint, whose usage looks like
         this:
       </p>
-      <Markdown text={`
+      <Code text={`
       getState('tweet.byId', {
         id: 1
       })
@@ -187,7 +187,7 @@ export default (props) => {
         type of behavior would immitate the way a server-side rendered application behaves, and we can achieve that
         by providing a <code>forceFetchOnMount</code> attribute in the <code>options</code> object like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       getState('tweet.find', {
         where: {
           user: 1
@@ -209,7 +209,7 @@ export default (props) => {
       <p>
         This is useful when you need to use those props to compose your <code>getState</code> call like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props, context) {
         const { user } = props;
         return {
@@ -231,7 +231,7 @@ export default (props) => {
         if we want to fetch the tweets for the current user, we would use the <code>context</code> argument
         like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props, context) {
         const { user } = context;
         return {
@@ -255,7 +255,7 @@ export default (props) => {
         The second argument to <code>connect</code> is <code>options</code>, and this object is used to tailor the
         behavior of <code>connect</code>. Example usage looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props, context) {
         // ...
       }, {
@@ -281,7 +281,7 @@ export default (props) => {
         For example, let's say we want to fetch all the tweets for the current user, who is stored in context
         as <code>user</code>. We could do that like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props, context) {
         const { user } = context;
         return {
@@ -316,7 +316,7 @@ export default (props) => {
         But if you <strong>wanted</strong> to manually subscribe a compoent to changes in the Redux store, you could
         do so like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props, context) {
         // ...data...
       }, {

@@ -18,9 +18,9 @@ export default (props) => {
         loaders and blank pages are both poor user experiences.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what 404 pages look like. Screenshots are from the <em>Simply Social</em> prototype
         that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
@@ -28,9 +28,33 @@ export default (props) => {
 
       <Video videoId="s_jWh7h_j1w" />
 
+      <h2>
+        Architecture
+      </h2>
+      <p>
+        Challenge when implementing 404 Pages and architectural approach Lore uses to address it.
+      </p>
+
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The challenge when incorporating 404 pages into your applications architecture is making sure that components
+        can CLEARLY discover when a request returns a 404.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore provides support for 404 pages.
+      </p>
+
+      <Video videoId="wWijTeUAB48" />
+
+      <h2>
+        Usage
+      </h2>
       <p>
         Lore handles 404 errors by treating them as a special case of <Link to="/features/error-handling/">Error Handling</Link>.
         Normally if you were fetching a <code>post</code> with an <code>id</code> of 1, and the API returned a 404 status code, the action creator

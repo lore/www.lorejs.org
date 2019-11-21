@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -48,7 +48,7 @@ export default (props) => {
         If you want to fetch the first page of posts, you can do so by calling <code>post.find</code>.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @lore.connect(function(getState, props) {
         return {
           posts: getState('post.find')
@@ -64,7 +64,7 @@ export default (props) => {
         into the <code>post.find</code> call.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @lore.connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -84,7 +84,7 @@ export default (props) => {
         the post with the id of "123" using <code>post.byId</code>.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @lore.connect(function(getState, props) {
         return {
           posts: getState('post.byId', {
@@ -108,7 +108,7 @@ export default (props) => {
         clause.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @lore.connect(function(getState, props) {
         return {
           posts: getState('post.find', {

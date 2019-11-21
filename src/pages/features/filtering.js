@@ -17,9 +17,9 @@ export default (props) => {
         Useful for viewing a subset of data that matches a specific criteria.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what filtering looks like. Screenshots are from the <em>Simply Social</em> prototype
         that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
@@ -27,9 +27,35 @@ export default (props) => {
 
       <Video videoId="2Q8sH_pxYoo" />
 
+      <h2>
+        Architecture
+      </h2>
+      <p>
+        Challenge when implementing filtering and architectural approach Lore uses to address it.
+      </p>
+
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The challenge when incorporating filtering in your applications architecture is preventing action/reducer explosion.
+        While sending a query to the server is fairly straight forward, the challenge is whether you can implement the
+        functionality in a way where you don't need to add additional actions/reducers for every different type of question
+        you need to ask.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore implements filtering.
+      </p>
+
+      <Video videoId="zkjcJsamLkU" />
+
+      <h2>
+        Usage
+      </h2>
       <p>
         Let's say you have an API with a <code>/posts</code> endpoint, and you want to retrieve a list of Posts created by the Author
         whose id is <code>123</code>. To do that, pass a <code>where</code> clause to the <code>connect</code> call like this:
@@ -238,87 +264,8 @@ export default (props) => {
         Example code showing how to filter data.
       </p>
 
-      <CodeTabs>
-        <CodeTab syntax="ES5" text={`
-        connect(function(getState, props) {
-            return {
-              posts: getState('post.find', {
-                where: {
-                  authorId: props.params.authorId
-                }
-              })
-            };
-          })(
-          createReactClass({
-
-            propTypes: {
-              posts: React.PropTypes.object.isRequired
-            },
-
-            renderPost: function(post) {
-              return (
-                <li key={post.id || post.cid}>
-                  {post.data.title}
-                </li>
-              );
-            },
-
-            render: function() {
-              var posts = this.props.posts;
-
-              if (posts.state === PayloadStates.FETCHING) {
-                return (
-                  <div>Loading posts...</div>
-                );
-              }
-
-              return (
-                <ul>
-                  {posts.data.map(this.renderPost)}
-                </ul>
-              );
-            }
-          })
-        );
-        `}/>
-        <CodeTab syntax="ES6" text={`
-        class Component extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.renderPost = this.renderPost.bind(this);
-          }
-
-          renderPost(post) {
-            return (
-              <li key={post.id || post.cid}>
-                {post.data.title}
-              </li>
-            );
-          }
-
-          render() {
-            var posts = this.props.posts;
-
-            if (posts.state === PayloadStates.FETCHING) {
-              return (
-                <div>Loading posts...</div>
-              );
-            }
-
-            return (
-              <ul>
-                {posts.data.map(this.renderPost)}
-              </ul>
-            );
-          }
-        };
-
-        Component.PropTypes = {
-          posts: React.PropTypes.object.isRequired
-        };
-
-        export default connect(function(getState, props) {
+      <Code text={`
+      connect(function(getState, props) {
           return {
             posts: getState('post.find', {
               where: {
@@ -326,38 +273,22 @@ export default (props) => {
               }
             })
           };
-        })(Component);
-        `}/>
-        <CodeTab syntax="ESNext" text={`
-        @connect(function(getState, props) {
-          return {
-            posts: getState('post.find', {
-              where: {
-                authorId: props.params.authorId
-              }
-            })
-          };
-        })
-        class Component extends React.Component {
+        })(
+        createReactClass({
 
-          static propTypes = {
+          propTypes: {
             posts: React.PropTypes.object.isRequired
-          };
+          },
 
-          constructor(props) {
-            super(props);
-            this.renderPost = this.renderPost.bind(this);
-          }
-
-          renderPost(post) {
+          renderPost: function(post) {
             return (
               <li key={post.id || post.cid}>
                 {post.data.title}
               </li>
             );
-          }
+          },
 
-          render() {
+          render: function() {
             var posts = this.props.posts;
 
             if (posts.state === PayloadStates.FETCHING) {
@@ -372,9 +303,9 @@ export default (props) => {
               </ul>
             );
           }
-        };
-        `}/>
-      </CodeTabs>
+        })
+      );
+      `}/>
     </Template>
   )
 };

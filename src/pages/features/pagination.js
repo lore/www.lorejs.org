@@ -17,9 +17,9 @@ export default (props) => {
         Useful for moving through large datasets, and providing the user with a sliced view of the data.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what pagination looks like. Screenshots are from the <em>Simply Social</em> prototype
         that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
@@ -27,9 +27,44 @@ export default (props) => {
 
       <Video videoId="JpztALTbySU" />
 
+      <h2>
+        Pagination: Architecture
+      </h2>
+      <p>
+        Challenge when implementing pagination and architectural approach Lore uses to address it.
+      </p>
+
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The core challenge here, similar to filtering, is preventing action/reducer explosion, but also being able to work
+        <em>along side</em> filtering. Both of these involve slicing data up into pieces and you need both of them to work
+        together and side-by-side.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore implements pagination.
+      </p>
+
+      <blockquote>
+        <p>
+          NOTE: Seeing as pagination is no longer a proposal (and is now part of the framework) this video is currently
+          outdated. The approach it illustrates however does closely describe how Lore implements pagination.
+        </p>
+        <p>
+          In the future this video will be updated to fully reflect the final implementation.
+        </p>
+      </blockquote>
+
+      <Video videoId="4lsKM1WvdL4" />
+
+      <h2>
+        Usage
+      </h2>
       <p>
         Let's say you have an API with a <code>/posts</code> endpoint, and you want to create an experience that lets a user browse
         through all the Posts. But there are a lot of posts, and they can't all be retrieved in a single request. Instead,

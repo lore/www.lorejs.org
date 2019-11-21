@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Examples';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -40,7 +40,7 @@ export default (props) => {
         Running the Example
       </h3>
 
-      <Markdown type="sh" text={`
+      <Code type="sh" text={`
       git clone https://github.com/lore/lore.git
 
       cd lore/examples/todomvc

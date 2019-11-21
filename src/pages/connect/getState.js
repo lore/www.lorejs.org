@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -17,7 +17,7 @@ export default (props) => {
         The basic usage looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
@@ -57,7 +57,7 @@ export default (props) => {
         Considering obtaining a copy of <code>getState</code> is the principle purpose of <code>connect</code>,
         it's possible to create a components without using <code>connect</code> directly by doing the following.
       </p>
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';

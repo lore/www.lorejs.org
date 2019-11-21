@@ -18,9 +18,9 @@ export default (props) => {
         completed. Examples include fetching, updating and creating data.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what visual cues look like. Screenshots are from the <em>Simply Social</em> prototype
         that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
@@ -28,9 +28,33 @@ export default (props) => {
 
       <Video videoId="6uJ7Y6p7eBU" />
 
+      <h2>
+        Visual Cues: Architecture
+      </h2>
+      <p>
+        Challenge when implementing Visual Cues and architectural approach Lore uses to address it.
+      </p>
+
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The core challenge is making sure that any information that components need to know in order to render the correct
+        view is contained within the data they're provided.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore implements support for visual cues.
+      </p>
+
+      <Video videoId="vSmMg_q_DII" />
+
+      <h2>
+        Usage
+      </h2>
       <p>
         This section demonstrates how to <em>use</em> the <Link to="/features/data-structure/">data structure provided by Lore</Link> so
         please read that first if you're unfamiliar with the data structure.

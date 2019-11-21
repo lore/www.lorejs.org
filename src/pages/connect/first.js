@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -28,7 +28,7 @@ export default (props) => {
       <p>
         Example usage is below:
       </p>
-      <Markdown text={`
+      <Code text={`
       import { connect } from 'lore-hook-connect';
 
       connect((getState, props) => {
@@ -56,7 +56,7 @@ export default (props) => {
         If the query has never been asked, the response will look like this (because it's being retrieved from
         the API):
       </p>
-      <Markdown text={`
+      <Code text={`
       const tweet = {
         state: PayloadStates.FETCHING
       };
@@ -68,7 +68,7 @@ export default (props) => {
       <p>
         If the API response contains data, this will return the first resource in the list:
       </p>
-      <Markdown text={`
+      <Code text={`
       const tweet = {
         id: 1,
         cid: '1',
@@ -87,7 +87,7 @@ export default (props) => {
         as the <code>meta</code> and <code>query</code> parameters from the collection that describe what question
         was asked.
       </p>
-      <Markdown text={`
+      <Code text={`
       const tweet = {
         id: undefined,
         cid: undefined,
@@ -102,7 +102,7 @@ export default (props) => {
       <h3>
         Blueprint
       </h3>
-      <Markdown text={`
+      <Code text={`
       export default _.defaultsDeep({
 
         defaults: {

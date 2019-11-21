@@ -27,7 +27,7 @@ export default (props) => {
         </p>
       </blockquote>
 
-      <h3>Visualization</h3>
+      <h2>Visualization</h2>
       <p>
         This video demonstrates what real-time functionality looks like. Screenshots are from
         the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you
@@ -35,6 +35,31 @@ export default (props) => {
       </p>
 
       <Video videoId="sPry_VqVT6c" />
+
+      <h2>
+        WebSockets: Architecture
+      </h2>
+      <p>
+        Challenge when implementing WebSockets and architectural approach Lore uses to address it.
+      </p>
+
+      <h3>
+        Challenge
+      </h3>
+      <p>
+        The challenge with adding support for WebSockets is finding a way to integrate it into the existing infrastructure
+        that supports REST API interactions <em>without</em> having to duplicate actions or reducers for every real-time
+        endpoint (which would be tedious and error prone).
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        This video describes how Lore will most likely implement support for WebSockets
+      </p>
+
+      <Video videoId="jWn8oCMzb6U" />
     </Template>
   )
 };

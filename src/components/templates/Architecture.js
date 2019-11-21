@@ -11,19 +11,6 @@ export default (props) => {
         ]
       },
       {
-        title: 'Features',
-        links: [
-          ['Filtering', '/architecture/features/filtering/'],
-          ['Pagination', '/architecture/features/pagination/'],
-          ['Infinite Scrolling', '/architecture/features/infinite-scrolling/'],
-          ['WebSockets', '/architecture/features/websockets/'],
-          ['Visual Cues', '/architecture/features/visual-cues/'],
-          ['Optimistic Updates', '/architecture/features/optimistic-updates/'],
-          ['Error Handling', '/architecture/features/error-handling/'],
-          ['404 Pages', '/architecture/features/404-pages/'],
-        ]
-      },
-      {
         title: 'AJAX Communication',
         links: [
           ['AJAX Abstraction', '/architecture/ajax/ajax-abstraction/'],
@@ -37,14 +24,14 @@ export default (props) => {
       {
         title: 'Extending Lore',
         links: [
-          ['Extending Lore', '/architecture/extending-lore/'],
-          ['Extending the Lore CLI', '/architecture/extending-lore-cli/'],
+          ['Extending Lore', '/architecture/extending/extending-lore/'],
+          ['Extending the Lore CLI', '/architecture/extending/extending-lore-cli/'],
         ]
       },
       {
         title: 'Connect',
         links: [
-          ['Lore Connect vs. React-Redux Connect', '/architecture/connect-difference/'],
+          ['Lore Connect vs. React-Redux Connect', '/architecture/misc/connect-difference/'],
         ]
       },
     ]} />

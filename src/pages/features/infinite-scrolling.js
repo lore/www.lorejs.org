@@ -17,9 +17,9 @@ export default (props) => {
         Mobile friendly style of pagination that aggregates fetched data into a single scrollable list.
       </p>
 
-      <h3>
+      <h2>
         Visualization
-      </h3>
+      </h2>
       <p>
         This video demonstrates what infinite scrolling looks like. Screenshots are from
         the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you
@@ -28,9 +28,32 @@ export default (props) => {
 
       <Video videoId="sPry_VqVT6c" />
 
+      <h2>
+        Infinite Scrolling: Architecture
+      </h2>
+      <p>
+        Challenge when implementing infinite scrolling and architectural approach Lore uses to address it.
+      </p>
+
       <h3>
-        Usage
+        Challenge
       </h3>
+      <p>
+        The core challenge here is recognizing that Infinite Scrolling is primarily a view concern, in that it's exactly the
+        same as traditional pagination except for how the data is displayed to the user.
+      </p>
+
+      <h3>
+        Implementation
+      </h3>
+      <p>
+        Since Infinite Scrolling shares the same infrastructure as traditional pagination, please
+        see <Link to="/features/pagination/">Pagination</Link> for a description of how to implement support for it.
+      </p>
+
+      <h2>
+        Usage
+      </h2>
       <p>
         Infinite Scrolling is a variation on traditional pagination, with two key differences:
       </p>

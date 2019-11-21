@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -27,7 +27,7 @@ export default (props) => {
       <p>
         This is the structure of a template.
       </p>
-      <Markdown text={`
+      <Code text={`
       export default {
 
         defaults: {
@@ -63,7 +63,7 @@ export default (props) => {
         First, you need to define the blueprint in the <code>config/connect.js</code> file like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       // config/connect.js
       import _ from 'lodash';
 
@@ -125,7 +125,7 @@ export default (props) => {
         and we can use the new <code>*</code> syntax to say "this mapping applies to all models".
       </p>
 
-      <Markdown text={`
+      <Code text={`
       // config/connect.js
       export default {
         blueprints: {

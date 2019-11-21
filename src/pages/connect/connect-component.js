@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Connect';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -17,7 +17,7 @@ export default (props) => {
         Example usage looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import { Connect } from 'lore-hook-connect';
 
       export default createReactClass({
@@ -59,7 +59,7 @@ export default (props) => {
       <p>
         Let's say we have an API with the following data:
       </p>
-      <Markdown text={`
+      <Code text={`
       {
         tweets: [
           {
@@ -97,7 +97,7 @@ export default (props) => {
         component below.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
@@ -125,7 +125,7 @@ export default (props) => {
         out below.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
@@ -167,7 +167,7 @@ export default (props) => {
       }))
       `}/>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
@@ -216,7 +216,7 @@ export default (props) => {
         do it one component.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import createReactClass from 'create-react-class';
       import PropTypes from 'prop-types';
