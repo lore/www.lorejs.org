@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -39,7 +39,7 @@ export default (props) => {
         defaults to an empty object;
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: undefined,
         cid: 'c1',
@@ -65,7 +65,7 @@ export default (props) => {
         If an action makes a network request to create a model, that request might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       POST https://api.myapp.com/posts
 
       {
@@ -79,7 +79,7 @@ export default (props) => {
         a helpful message about what the specific issue is. Let's say the body of the response looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       {
         statusCode: 409,
         message: 'Post already exists with that title'
@@ -92,7 +92,7 @@ export default (props) => {
         the server returned the error like above, the <code>model</code> would be transformed to look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: undefined,
         cid: 'c1',
@@ -111,7 +111,7 @@ export default (props) => {
         And you can access the error from within your components by looking at the <code>model.error</code> field like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {

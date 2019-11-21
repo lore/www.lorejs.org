@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -66,7 +66,7 @@ export default (props) => {
         <code>src/constants/PayloadStates.js</code> in your project. That file looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       PayloadStates = {
         RESOLVED: 'RESOLVED',
 
@@ -96,7 +96,7 @@ export default (props) => {
         This is the <em>static</em> state of data, when it exists and is not being acted upon. An example <code>post</code> might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -118,7 +118,7 @@ export default (props) => {
         You can also think of resolved resources as the default rendering state, like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
         displayName: 'Post',
 
@@ -147,7 +147,7 @@ export default (props) => {
         An example <code>post</code> for a resource being created might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: undefined,
         cid: 'c1',
@@ -171,7 +171,7 @@ export default (props) => {
         to avoid React warnings you can use the <code>cid</code> property.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -203,7 +203,7 @@ export default (props) => {
         An example <code>post</code> for a resource being updated might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -226,7 +226,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -258,7 +258,7 @@ export default (props) => {
         An example <code>post</code> for a resource being deleted might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -280,7 +280,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -312,7 +312,7 @@ export default (props) => {
         An example <code>post</code> for a resource being fetched might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -333,7 +333,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -365,7 +365,7 @@ export default (props) => {
         When there is an error creating a resource the data structure might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: undefined,
         cid: 'c1',
@@ -390,7 +390,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -425,7 +425,7 @@ export default (props) => {
         When there is an error creating a resource the data structure might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -451,7 +451,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -486,7 +486,7 @@ export default (props) => {
         When there is an error creating a resource the data structure might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -512,7 +512,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {
@@ -547,7 +547,7 @@ export default (props) => {
         When there is an error creating a resource the data structure might look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -570,7 +570,7 @@ export default (props) => {
         to provide a visual indication of this state to the user.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {

@@ -13,7 +13,7 @@ export default (props) => {
   return (
     <>
       <Header />
-      <div className="w-full max-w-screen-xl mx-auto px-6">
+      <div className="w-full max-w-screen-lg mx-auto px-6">
         <div className="lg:flex -mx-6">
           <Sidebar>
             <Navigation categories={navigation} />
@@ -23,7 +23,8 @@ export default (props) => {
               <div id="app" className="flex">
                 <div className="pt-24 pb-16 lg:pt-28 w-full">
                   {title && (
-                    <div className="markdown mb-6 px-6 max-w-3xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0 xl:px-12 xl:w-3/4">
+                    <div className="markdown mb-6 px-6 max-w-4xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0 xl:px-12">
+                    {/*<div className="markdown mb-6 px-6 max-w-3xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0 xl:px-12 xl:w-4/5">*/}
                       <h1>
                         {title}
                       </h1>
@@ -35,10 +36,11 @@ export default (props) => {
                     </div>
                   )}
                   <div className="flex">
-                    <div className="markdown px-6 xl:px-12 w-full max-w-3xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0 xl:w-3/4">
+                    {/*<div className="markdown px-6 xl:px-12 w-full max-w-3xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0 xl:w-3/4x xl:w-4/5">*/}
+                    <div className="markdown px-6 xl:px-12 w-full max-w-4xl mx-auto lg:ml-0 lg:mr-auto xl:mx-0">
                       {children}
                     </div>
-                    <ContentSidebar/>
+                    {/*<ContentSidebar/>*/}
                   </div>
                 </div>
               </div>

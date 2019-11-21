@@ -9,6 +9,10 @@ body {
   max-width: 1280px !important;
 }
 
+.max-w-screen-lg {
+  max-width: 1080px !important;
+}
+
 .z-90 {
   z-index: 90;
 }
@@ -150,6 +154,55 @@ pre[class*="language-"] {
   // margin: .5rem 0;
   overflow: auto;
   border-radius: 0.3rem;
+}
+
+.clip-path-top-right {
+  clip-path: polygon(
+      0% 0%,
+      100% 3.49vw,
+      100% 100%,
+      0% 100%
+  );
+}
+
+.clip-path-top-left {
+  clip-path: polygon(
+      0% 3.49vw,
+      100% 0%,
+      100% 100%,
+      0% 100%
+  );
+}
+
+.clip-path-bottom-right {
+  clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% calc(100% - 3.49vw),
+      0% 100%
+  );
+}
+
+.clip-path-bottom-left {
+  clip-path: polygon(
+      0% 0%,
+      100% 0%,
+      100% 100%,
+      0% calc(100% - 3.49vw)
+  );
+}
+
+.transform-rotate-right {
+  transform: rotate(2deg);
+}
+
+.transform-rotate-left {
+  transform: rotate(-2deg);
+}
+
+.bg-lore-gradient {
+  background-color: #685d9f;
+  background-image: linear-gradient(#6c5b7b, #355c7d 60%) !important;
 }
 
 @tailwind utilities;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -48,7 +48,7 @@ export default (props) => {
         you'll make a call to the <code>post.create</code> action like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       lore.action.post.create({
         title: 'Cornbread is Yummy'
       })
@@ -58,7 +58,7 @@ export default (props) => {
         This will then send a network request to the API server that looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       POST http://api.example.com/posts
 
       {
@@ -71,7 +71,7 @@ export default (props) => {
         describing the data the user just "created". That action will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       action = {
         type: 'ADD_POST',
         payload: {
@@ -91,7 +91,7 @@ export default (props) => {
         application will rerender. Now let's say we have a component renders a list of posts:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find')
@@ -128,7 +128,7 @@ export default (props) => {
         will go away (we'll use the <code>cid</code> if the <code>id</code> is undefined):
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find')
@@ -163,7 +163,7 @@ export default (props) => {
         real data comes back from the server. Let's pretend this is the response from the API server:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       201 https://api.myapp.com/posts
 
       {
@@ -184,7 +184,7 @@ export default (props) => {
         illustrate let's take a look at a simplified blueprint for the <code>create</code> method:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       module.exports = function create(params) {
         return function(dispatch) {
           var model = new Post(params);
@@ -218,7 +218,7 @@ export default (props) => {
         post instance is created, the data for the resulting <code>model</code> looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: undefined,
         cid: 'c1',
@@ -240,7 +240,7 @@ export default (props) => {
         this time the data in the <code>model</code> looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: 1,
         cid: 'c1',
@@ -256,7 +256,7 @@ export default (props) => {
         exists. Because of this, we're able to hold onto the original <code>cid</code>, and our second action will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       action = {
         type: 'UPDATE_POST',
         payload: {

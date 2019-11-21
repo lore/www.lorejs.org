@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Features';
-import Markdown from '../../../components/Markdown';
+import Code from '../../../components/Code';
 
 export default (props) => {
   return (
@@ -15,7 +15,7 @@ export default (props) => {
         data structure for a collection looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         state: 'FETCHING',
         data: [],

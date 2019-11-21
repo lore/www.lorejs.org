@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -61,7 +61,7 @@ export default (props) => {
         Let's start from the part where we are displaying the first page of <code>posts</code>:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -109,7 +109,7 @@ export default (props) => {
         Now that we're displaying our first page of data, we need to add a button the user can click to load the next page:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -172,7 +172,7 @@ export default (props) => {
         in the <code>getInitialState</code> method, and we'll populate it with the first page:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -237,7 +237,7 @@ export default (props) => {
         single array of list items for display:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -315,7 +315,7 @@ export default (props) => {
         in the Redux store and recreating the <code>pages</code> array using the most up-to-date data.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -410,7 +410,7 @@ export default (props) => {
         <code>pages</code> array:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -508,7 +508,7 @@ export default (props) => {
         the data that represents the section page of requests. That data will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       posts = {
         state: 'FETCHING',
         data: [],

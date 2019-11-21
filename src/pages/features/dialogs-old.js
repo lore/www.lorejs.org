@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -29,7 +29,7 @@ export default (props) => {
         an <code>id</code> of <code>root</code> and one with an <code>id</code> of <code>dialog</code>:
       </p>
 
-      <Markdown type="html" text={`
+      <Code type="html" text={`
       <body>
         <div id="root"></div>
         <div id="dialog"></div>
@@ -68,7 +68,7 @@ export default (props) => {
         invoke it like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       var Dialog = createReactClass({
         render: function() {
           return (
@@ -103,7 +103,7 @@ export default (props) => {
         <code>dialog</code> tag):
       </p>
 
-      <Markdown type="html" text={`
+      <Code type="html" text={`
       <body>
         <div id="root"></div>
         <div id="dialog">
@@ -142,7 +142,7 @@ export default (props) => {
         our <code>Dialog</code> component above to look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import React from 'react';
       import PropTypes from 'prop-types';
       import createReactClass from 'create-react-class';
@@ -231,7 +231,7 @@ export default (props) => {
         when the user submits it. Invoking this specific dialog would then look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       import Dialog from '../dialogs/ExampleDialog';
 
       createReactClass({

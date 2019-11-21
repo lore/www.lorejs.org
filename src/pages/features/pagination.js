@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -42,7 +42,7 @@ export default (props) => {
         <code>connect</code> call like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -59,7 +59,7 @@ export default (props) => {
         network request:
       </p>
 
-      <Markdown type="sh" text={`
+      <Code type="sh" text={`
       https://api.example.com/posts?page=1
       `}/>
 
@@ -68,7 +68,7 @@ export default (props) => {
         to the <code>where</code> clause, like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       pagination: {
         page: 1,
         pageSize: 20
@@ -79,7 +79,7 @@ export default (props) => {
         It would get converted into this network request:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       https://api.example.com/posts?page=1&pageSize=20
       `}/>
 
@@ -91,7 +91,7 @@ export default (props) => {
           You can also combine a <code>where</code> clause with <code>pagination</code> in order to paginate through
           the result of a query. To do that, create a <code>connect</code> call that looks like this:
         </p>
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -109,7 +109,7 @@ export default (props) => {
           In this case, the final query parameters will be composed of both the <code>where</code> parameters and
           the <code>pagination</code> parameters, creating a network request that looks like this:
         </p>
-      <Markdown text={`
+      <Code text={`
       https://api.example.com/posts?authorId=123&page=1
       `}/>
       </blockquote>
@@ -119,7 +119,7 @@ export default (props) => {
         to receive a prop named <code>posts</code> containing the result of our request for data.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -147,7 +147,7 @@ export default (props) => {
         Since our network request was just sent out, we won't have any data yet. So <code>posts</code> will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       posts = {
         state: 'FETCHING',
         data: [],
@@ -161,7 +161,7 @@ export default (props) => {
         from the API server.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -196,7 +196,7 @@ export default (props) => {
         But this time we'll actually have data, so our <code>posts</code> will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       posts = {
         state: 'RESOLVED',
         data: [
@@ -228,7 +228,7 @@ export default (props) => {
         <code>data</code> property contains an array of <code>Posts</code>. So let's render that array to display the first page of posts:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -277,7 +277,7 @@ export default (props) => {
         take advantage of <code>react-router</code> and render a couple navigation links below our list of posts:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
@@ -328,7 +328,7 @@ export default (props) => {
         Whenever the user clicks on these links, the browser URL will change and resemble something like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       https://www.myapp.com/posts?page=2
       `}/>
 
@@ -339,7 +339,7 @@ export default (props) => {
         URL:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
         return {
           posts: getState('post.find', {

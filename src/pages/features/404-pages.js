@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -37,7 +37,7 @@ export default (props) => {
         blueprint would emit an action with a payload that looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: 1,
         cid: 'c1',
@@ -56,7 +56,7 @@ export default (props) => {
         payload will contain this more specific error message:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       model = {
         id: 1,
         cid: 'c1',
@@ -73,7 +73,7 @@ export default (props) => {
         This in turn allows you to communicate "not found" experiences much easier to a user:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       createReactClass({
 
         propTypes: {

@@ -12,7 +12,7 @@ export default (props) => {
   return (
     <>
       <Header />
-      <div className="w-full max-w-screen-xl mx-auto px-6">
+      <div className="w-full max-w-screen-lg mx-auto px-6">
         <div className="lg:flex -mx-6">
           <Sidebar />
           <div id="content-wrapper" className="min-h-screen w-full lg:static lg:max-h-full lg:overflow-visible lg:w-3/4 xl:w-4/5">

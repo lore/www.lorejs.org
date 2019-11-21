@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -52,7 +52,7 @@ export default (props) => {
         <code>https://api.myapp.com/posts/1</code>. The default data structure for a model looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         id: 1,
         cid: 'c1',
@@ -109,7 +109,7 @@ export default (props) => {
         <code>https://api.myapp.com/posts</code>. The default data structure for a collection looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       post = {
         state: 'FETCHING',
         data: [],

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Features';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 import QuickstartBranch from '../../components/QuickstartBranch';
@@ -35,7 +35,7 @@ export default (props) => {
         whose id is <code>123</code>. To do that, pass a <code>where</code> clause to the <code>connect</code> call like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -52,7 +52,7 @@ export default (props) => {
         network request:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       http://api.example.com/posts?authorId=123
       `}/>
 
@@ -61,7 +61,7 @@ export default (props) => {
         to the <code>where</code> clause, like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       where: {
         authorId: '123',
         title: 'Bacon'
@@ -72,7 +72,7 @@ export default (props) => {
         It would get converted into this network request:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       http://api.example.com/posts?authorId=123&title=Bacon
       `}/>
 
@@ -81,7 +81,7 @@ export default (props) => {
         to receive a prop named <code>posts</code> containing the result of our request for data.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -109,7 +109,7 @@ export default (props) => {
         Since our network request was just sent out, we won't have any data yet. So <code>posts</code> will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       posts = {
         state: 'FETCHING',
         data: [],
@@ -123,7 +123,7 @@ export default (props) => {
         data to return from the API server.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       @connect(function(getState, props) {
         return {
           posts: getState('post.find', {
@@ -158,7 +158,7 @@ export default (props) => {
         But this time we'll actually have data, so our <code>posts</code> will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       posts = {
         state: 'RESOLVED',
         data: [
@@ -190,7 +190,7 @@ export default (props) => {
         <code>data</code> property contains an array of <code>Posts</code>. So let's render that array to display the lists of posts by that author:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       connect(function(getState, props) {
           return {
             posts: getState('post.find', {
