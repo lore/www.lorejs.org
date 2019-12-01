@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Features';
-import Code from '../../components/Code';
-import CodeTabs from '../../components/CodeTabs';
-import CodeTab from '../../components/CodeTab';
-import QuickstartBranch from '../../components/QuickstartBranch';
-import Video from '../../components/Video';
+import Template from '../../../components/templates/Features';
+import Code from '../../../components/Code';
+import CodeTabs from '../../../components/CodeTabs';
+import CodeTab from '../../../components/CodeTab';
+import QuickstartBranch from '../../../components/QuickstartBranch';
+import Video from '../../../components/Video';
 
 export default (props) => {
   return (
@@ -48,7 +48,7 @@ export default (props) => {
       </h3>
       <p>
         Since Infinite Scrolling shares the same infrastructure as traditional pagination, please
-        see <Link to="/features/pagination/">Pagination</Link> for a description of how to implement support for it.
+        see <Link to="/features/patterns/pagination/">Pagination</Link> for a description of how to implement support for it.
       </p>
 
       <h2>

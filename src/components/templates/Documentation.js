@@ -100,14 +100,6 @@ export default (props) => {
         ]
       },
       {
-        title: 'Data Structure',
-        links: [
-          ['Overview', '/features/data-structure/'],
-          ['Models', '/features/data-structure/models/'],
-          ['Collections', '/features/data-structure/collections/']
-        ]
-      },
-      {
         title: 'Building',
         links: [
           ['Introduction', '/building/'],

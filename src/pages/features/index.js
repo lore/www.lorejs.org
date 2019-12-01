@@ -121,7 +121,7 @@ export default (props) => {
       </p>
 
       <h3>
-        UI Patterns
+        Supported Patterns
       </h3>
       <p>
         Lore's focus is the development of browser-based web applications, and one of the metrics by which it measures
@@ -131,7 +131,7 @@ export default (props) => {
       </p>
       <p>
         You can learn more about each of the primary patterns Lore was built to support by clicking the respective
-        link in the "UI Patterns" section of the navigation on the right.
+        link in the "Supported Patterns" section of the navigation on the right.
       </p>
 
       <h3>

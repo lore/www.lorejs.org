@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Features';
-import Code from '../../components/Code';
-import CodeTabs from '../../components/CodeTabs';
-import CodeTab from '../../components/CodeTab';
-import QuickstartBranch from '../../components/QuickstartBranch';
-import Video from '../../components/Video';
+import Template from '../../../components/templates/Features';
+import Code from '../../../components/Code';
+import CodeTabs from '../../../components/CodeTabs';
+import CodeTab from '../../../components/CodeTab';
+import QuickstartBranch from '../../../components/QuickstartBranch';
+import Video from '../../../components/Video';
 
 export default (props) => {
   return (
@@ -56,14 +56,14 @@ export default (props) => {
         Usage
       </h2>
       <p>
-        This section demonstrates how to <em>use</em> the <Link to="/features/data-structure/">data structure provided by Lore</Link> so
-        please read that first if you're unfamiliar with the data structure.
+        This section demonstrates how to <em>use</em> the <Link to="/features/principles/data-driven/">data
+        structure provided by Lore</Link> so please read that first if you're unfamiliar with the data structure.
       </p>
 
       <p>
         Data can go through a lot of different states during the lifecycle of an application. Lore calls these states
-        <code>PayloadStates</code>, after the <code>payload</code> field in the actions dispatched to the Redux store, and accounts for the following
-        scenarios by default:
+        <code>PayloadStates</code>, after the <code>payload</code> field in the actions dispatched to the
+        Redux store, and accounts for the following scenarios by default:
       </p>
 
       <ul>

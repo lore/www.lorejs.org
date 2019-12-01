@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Features';
-import Code from '../../components/Code';
-import CodeTabs from '../../components/CodeTabs';
-import CodeTab from '../../components/CodeTab';
-import QuickstartBranch from '../../components/QuickstartBranch';
+import Template from '../../../components/templates/Features';
+import Code from '../../../components/Code';
+import CodeTabs from '../../../components/CodeTabs';
+import CodeTab from '../../../components/CodeTab';
+import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
   return (
@@ -13,7 +13,7 @@ export default (props) => {
         Wizards
       </h1>
       <p>
-        Wizards are a complex multi-step version of a form. And similar to <Link to="/features/dialogs/">
+        Wizards are a complex multi-step version of a form. And similar to <Link to="/features/patterns/dialogs/">
         dialogs</Link>, while the <em>behavior</em> of wizards tends to be fairly similar across applications, the
         visual appearance and content can drastically based on an application's branding.
       </p>

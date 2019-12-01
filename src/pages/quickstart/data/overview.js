@@ -31,14 +31,14 @@ export default (props) => {
       <Code type="jsx" text={`
       import React from 'react';
       import PropTypes from 'prop-types';
-      
+
       Tweet.propTypes = {
         tweet: PropTypes.object.isRequired
       };
-      
+
       export default function Tweet(props) {
         const { tweet } = props;
-      
+
         return (
           {/* render tweet */}
         );
@@ -78,7 +78,7 @@ export default (props) => {
       <blockquote>
         <p>
           At first glance, this might seem a little verbose, but each property exists to solve a specific problem, which
-          you can <Link to="/features/data-structure/">read more about here</Link> if you'd like.
+          you can <Link to="/features/principles/data-driven/">read more about here</Link> if you'd like.
         </p>
         <p>
           For this Quickstart, all you need to know is that the data structure is designed to solve application

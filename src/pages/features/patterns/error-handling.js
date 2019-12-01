@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Features';
-import Code from '../../components/Code';
-import CodeTabs from '../../components/CodeTabs';
-import CodeTab from '../../components/CodeTab';
-import QuickstartBranch from '../../components/QuickstartBranch';
-import Video from '../../components/Video';
+import Template from '../../../components/templates/Features';
+import Code from '../../../components/Code';
+import CodeTabs from '../../../components/CodeTabs';
+import CodeTab from '../../../components/CodeTab';
+import QuickstartBranch from '../../../components/QuickstartBranch';
+import Video from '../../../components/Video';
 
 export default (props) => {
   return (
@@ -53,8 +53,8 @@ export default (props) => {
         Usage
       </h2>
       <p>
-        As described in <Link to="/features/data-structure/">Data Structure</Link> and {' '}
-        <Link to="/features/visual-cues/">Visual Cues</Link> the default actions in Lore include payload
+        As described by the <Link to="/features/principles/data-driven/">Data Driven</Link> principle and {' '}
+        <Link to="/features/patterns/visual-cues/">Visual Cues</Link> the default actions in Lore include payload
         states for <code>ERROR_FETCHING</code>, <code>ERROR_CREATING</code>, <code>ERROR_UPDATING</code> and
         <code>ERROR_DELETING</code>. There is also an <code>error</code> field included in every <code>model</code> and <code>collection</code> that
         defaults to an empty object;
