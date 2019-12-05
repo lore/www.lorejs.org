@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -29,7 +29,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       var path = require('path');
       var webpack = require('webpack');
       var ProgressBarPlugin = require('progress-bar-webpack-plugin');

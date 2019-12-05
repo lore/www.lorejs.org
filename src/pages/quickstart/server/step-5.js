@@ -40,7 +40,7 @@ export default (props) => {
       <Code text={`
       // config/connections.js
       import { getConfig } from '@lore/connections';
-      
+
       export default getConfig({
 
         default: {
@@ -102,7 +102,7 @@ export default (props) => {
         <p>
           As a reminder, you can login as any of the characters below:
         </p>
-        <ul>
+        <ul className="list-disc pl-10">
           <li>ayla</li>
           <li>crono</li>
           <li>frog</li>

@@ -9,20 +9,20 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Filtering
-      </h1>
-      <p>
-        Useful for viewing a subset of data that matches a specific criteria.
-      </p>
-
+    <Template
+      title="Filtering"
+      description={(
+        <p>
+          Useful for viewing a subset of data that matches a specific criteria.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what filtering looks like. Screenshots are from the <em>Simply Social</em> prototype
-        that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
+        that <a href="https://www.invisionapp.com/">InVision</a> provides you when you sign up for an account.
       </p>
 
       <Video videoId="2Q8sH_pxYoo" />
@@ -242,7 +242,7 @@ export default (props) => {
             }
 
             return (
-              <ul>
+              <ul className="list-disc pl-10">
                 {posts.data.map((post) => {
                   return (
                     <li key={post.id || post.cid}>
@@ -298,7 +298,7 @@ export default (props) => {
             }
 
             return (
-              <ul>
+              <ul className="list-disc pl-10">
                 {posts.data.map(this.renderPost)}
               </ul>
             );

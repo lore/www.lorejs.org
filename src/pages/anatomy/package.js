@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -23,7 +23,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       {
         "name": "lore-quickstart",
         "private": true,
@@ -114,7 +114,7 @@ export default (props) => {
       <p>
         For example, if you want to run the application on port 3001, use this command to start the project:
       </p>
-      <Markdown type="json" text={`
+      <Code type="json" text={`
       npm start -- --port=3001
       `} />
 
@@ -126,7 +126,7 @@ export default (props) => {
         change the port the server runs on, you can do that by either editing the <code>sever</code> script in
         this file directly, or by using an alternate syntax to start the server.
       </p>
-      <Markdown type="sh" text={`
+      <Code type="sh" text={`
       ./node_modules/json-server/bin/index.js --watch db.json --port=1337
       `} />
     </Template>

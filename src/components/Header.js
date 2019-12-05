@@ -31,7 +31,7 @@ export default function() {
 
             <div className="hidden lg:flex lg:items-center lg:justify-between xl:w-1/4 px-6">
               <div className="flex w-full justify-end items-center text-gray-500">
-                <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/docs/getting-started/installation/">
+                <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/docs/">
                   Docs
                 </Link>
                 <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/quickstart/">

@@ -5,6 +5,12 @@ export default (props) => {
   return (
     <Documentation {...props} navigation={[
       {
+        title: 'Introduction',
+        links: [
+          ['Overview', '/docs/'],
+        ]
+      },
+      {
         title: 'Getting Started',
         links: [
           // ['Overview', '/features/'],
@@ -12,7 +18,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Store (v1)',
+        title: 'Store',
         links: [
           ['Concept', '/docs/store/'],
           ['Setup', '/docs/store/setup/'],
@@ -20,7 +26,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Bind Actions (v1)',
+        title: 'Bind Actions',
         links: [
           ['Concept', '/docs/bind-actions/'],
           ['Setup', '/docs/bind-actions/setup/'],
@@ -28,7 +34,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Data Structure (v1)',
+        title: 'Data Structure',
         links: [
           ['Concept', '/docs/data-structure/'],
           ['Setup', '/docs/data-structure/setup/'],
@@ -36,7 +42,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Initializers (v1)',
+        title: 'Initializers',
         links: [
           ['Concept', '/docs/initializers/'],
           ['Setup', '/docs/initializers/setup/'],
@@ -44,7 +50,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Modules (v1)',
+        title: 'Modules',
         links: [
           ['Concept', '/docs/modules/'],
           ['Setup', '/docs/modules/setup/'],
@@ -52,7 +58,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Environment (v1)',
+        title: 'Environment',
         links: [
           ['Concept', '/docs/environment/'],
           ['Setup', '/docs/environment/setup/'],
@@ -60,7 +66,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Config (v1)',
+        title: 'Config',
         links: [
           ['Concept', '/docs/config/'],
           ['Setup', '/docs/config/setup/'],
@@ -68,7 +74,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Models (v1)',
+        title: 'Models',
         links: [
           ['Concept', '/docs/models/'],
           ['Setup', '/docs/models/setup/'],
@@ -76,7 +82,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Collections (v1)',
+        title: 'Collections',
         links: [
           ['Concept', '/docs/collections/'],
           ['Setup', '/docs/collections/setup/'],
@@ -84,7 +90,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Actions (v1)',
+        title: 'Actions',
         links: [
           ['Concept', '/docs/actions/'],
           ['Setup', '/docs/actions/setup/'],
@@ -92,41 +98,11 @@ export default (props) => {
         ]
       },
       {
-        title: 'Reducers (v1)',
+        title: 'Reducers',
         links: [
           ['Concept', '/docs/reducers/'],
           ['Setup', '/docs/reducers/setup/'],
           ['Usage', '/docs/reducers/usage/']
-        ]
-      },
-      {
-        title: 'Building',
-        links: [
-          ['Introduction', '/building/'],
-
-          // Build Environments
-          ['Development', '/building/environments/development/'],
-          ['Production', '/building/environments/production/'],
-          ['Custom', '/building/environments/custom/'],
-        ]
-      },
-      {
-        title: 'Publishing',
-        links: [
-          ['Introduction', '/publishing/'],
-
-          // Deploy Hosts
-          ['Now', '/publishing/providers/now/'],
-
-          // Misc
-          ['Removing Now Support', '/publishing/misc/removing-now/'],
-        ]
-      },
-      {
-        title: 'Misc',
-        links: [
-          ['Authentication', '/docs/authentication/'],
-          ['React', '/docs/react/'],
         ]
       }
     ]} />

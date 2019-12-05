@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../../components/templates/Documentation';
+import Template from '../../../components/templates/Publishing';
 import Code from '../../../components/Code';
 import CodeTabs from '../../../components/CodeTabs';
 import CodeTab from '../../../components/CodeTab';
@@ -29,7 +29,7 @@ export default (props) => {
       <p>
         This particular service provides several nice features for hosting static applications, including:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           An easy deploy process
         </li>
@@ -133,7 +133,7 @@ export default (props) => {
       <p>
         The <code>deploy</code> script does two things:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           First, it copies the <code>package.json</code> file from the <code>/.now</code> folder at the root of
           your project into the <code>/dist</code> folder.

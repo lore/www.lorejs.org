@@ -30,7 +30,7 @@ export default (props) => {
         This example demonstrates:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Creating a model</li>
         <li>Connecting a component to the data store</li>
         <li>CRUD Actions</li>

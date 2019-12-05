@@ -5,37 +5,30 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Data Structure
-      </h1>
+    <Template
+      title="Efficient Networking (No Duplicate Requests)"
+      subtitle="Design principle"
+    >
       <p>
-        Enables data-driven components by supplying components with both data and context.
+        Provides the ability for an application's data to update without requiring the user to
+        refresh the page. Especially useful in applications where multiple people view and interact
+        with the same data, especially when data changes at a high frequency, or for certain classes
+        of problems that need status checks to see when they’re completed (queuing a task to send
+        an email, spinning up a server, etc)
       </p>
 
-      <h3>
-        Overview
-      </h3>
+      <h2>
+        Connect Hook
+      </h2>
       <p>
-        Providing the user with visual feedback about what's happening in an application is <em>extremely</em> important for providing
-        a good user experience. In order to do that, the data components receives needs to be self-describing. That means that
-        no matter what is happening in the application, or what response the API returned for a request, the data structure
-        you use must be able to represent it, so that all the information a component needs in order to know what to render
-        is contained in the data it receives.
+        Lore provides a hook called connect that is designed to fetch data from the local cache if
+        it exists, or automatically fetch it from the API if it doesn't. It can even tell if data
+        is already (currently) being fetched in order to guarantee that there’s never more than a
+        single network request for the same data. Preventing duplicate requests not only reduces
+        server load, but makes sure the data you actually need is being prioritized and retrieved
+        as quickly as possible.
       </p>
 
-      <p>
-        There are two data containers in Lore; a <Link to="./models/">model</Link> and a <Link to="./collections/">collection</Link>.
-      </p>
-
-      <h3>
-        Visualization
-      </h3>
-      <p>
-        This video describes the data structure Lore uses to enable data-driven components.
-      </p>
-
-      <Video videoId="ZRcExHzY9W0" />
     </Template>
   )
 };

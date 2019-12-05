@@ -22,7 +22,7 @@ export default (props) => {
         how to extend the framework to customize it's behavior. If that's the case, the documentation below will
         help you gain that understanding:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           If you'd like to develop a better understanding of how Redux works, you can find some recommended
           resources for learning it <Link to="/redux/">here.</Link>

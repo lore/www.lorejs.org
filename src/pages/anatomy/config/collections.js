@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Anatomy';
-import Markdown from '../../../components/Markdown';
+import Code from '../../../components/Code';
 
 export default (props) => {
   return (
@@ -40,7 +40,7 @@ export default (props) => {
       <p>
         The default config is shown below.
       </p>
-      <Markdown text={`
+      <Code text={`
       /**
        * Configuration file for collections
        *

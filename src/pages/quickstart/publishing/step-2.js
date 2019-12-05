@@ -32,7 +32,7 @@ export default (props) => {
       <p>
         This particular service is being used for several reasons:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           Easy deploy process
         </li>
@@ -114,7 +114,7 @@ export default (props) => {
         <p>
           This script does two things:
         </p>
-        <ul>
+        <ul className="list-disc pl-10">
           <li>
             First, it copies the <code>package.json</code> file from the <code>/.now</code> folder at the root of
             your project into the <code>/dist</code> folder. This file is required in order to get expected behavior

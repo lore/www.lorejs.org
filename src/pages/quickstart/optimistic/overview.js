@@ -39,7 +39,7 @@ export default (props) => {
         If an application chooses to wait until the server confirms the request before displaying the tweet, then
         it has a couple options for what type of experience to provide:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           <p>
             One option is to display a "saving experience" to the user, and prevent them from interacting with

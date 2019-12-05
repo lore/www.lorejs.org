@@ -29,7 +29,7 @@ export default (props) => {
         This example demonstrates:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Launching dialogs</li>
         <li>Querying the server for a subset of data (todos that belong to a specific list)</li>
       </ul>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Documentation';
+import Template from '../../components/templates/Publishing';
 import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
@@ -35,7 +35,7 @@ export default (props) => {
       <p>
         This particular service provides several advantages for hosting static applications, including:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           An easy deploy process
         </li>

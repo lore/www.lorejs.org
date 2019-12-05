@@ -39,15 +39,15 @@ export default (props) => {
       import React, { useEffect } from 'react';
       import Auth0 from 'auth0-js';
       import { useConfig } from '@lore/config';
-      
+
       export default function Login(props) {
         const config = useConfig();
-      
+
         useEffect(() => {
           const auth0 = new Auth0.WebAuth(config.auth0);
           auth0.authorize();
         }, []);
-      
+
         return null;
       }
       `}/>
@@ -89,11 +89,11 @@ export default (props) => {
       <Code type="jsx" text={`
       ...
       import Login from './src/components/Login';
-      
+
       export default (
         <Switch>
           <Route exact path="/login" component={Login} />
-      
+
           <AuthenticatedRoute exact path="/" component={Feed} />
           <Route component={NotFoundPage} />
         </Switch>
@@ -109,7 +109,7 @@ export default (props) => {
         as any of the characters below:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>ayla</li>
         <li>crono</li>
         <li>frog</li>
@@ -180,15 +180,15 @@ export default (props) => {
       import React, { useEffect } from 'react';
       import Auth0 from 'auth0-js';
       import { useConfig } from '@lore/config';
-      
+
       export default function Login(props) {
         const config = useConfig();
-      
+
         useEffect(() => {
           const auth0 = new Auth0.WebAuth(config.auth0);
           auth0.authorize();
         }, []);
-      
+
         return null;
       }
       `}/>
@@ -200,27 +200,27 @@ export default (props) => {
       <Code text={`
       import React from 'react';
       import { Switch, Route, Redirect } from 'react-router-dom';
-      
+
       /**
        * The AuthenticatedRoute provides an easy way to redirect the user
        * to a login experience if we don't know who they are.
        */
-      
+
       import AuthenticatedRoute from './src/routes/AuthenticatedRoute';
-      
+
       /**
        * Routes are used to declare your view hierarchy
        * See: https://reacttraining.com/react-router/web/guides/quick-start
        */
-      
+
       import NotFoundPage from './src/components/NotFound';
       import Feed from './src/components/Feed';
       import Login from './src/components/Login';
-      
+
       export default (
         <Switch>
           <Route exact path="/login" component={Login} />
-      
+
           <AuthenticatedRoute exact path="/" component={Feed} />
           <Route component={NotFoundPage} />
         </Switch>

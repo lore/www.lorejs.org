@@ -5,37 +5,43 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Data Structure
-      </h1>
+    <Template
+    title="Real-time Considerations"
+    subtitle="Design principle"
+    >
       <p>
-        Enables data-driven components by supplying components with both data and context.
+        Provides the ability for an application's data to update without requiring the user to
+        refresh the page. Especially useful in applications where multiple people view and
+        interact with the same data, especially when data changes at a high frequency, or for
+        certain classes of problems that need status checks to see when they’re completed (queuing
+        a task to send an email, spinning up a server, etc)
       </p>
 
-      <h3>
-        Overview
-      </h3>
+      <h2>
+        Polling
+      </h2>
       <p>
-        Providing the user with visual feedback about what's happening in an application is <em>extremely</em> important for providing
-        a good user experience. In order to do that, the data components receives needs to be self-describing. That means that
-        no matter what is happening in the application, or what response the API returned for a request, the data structure
-        you use must be able to represent it, so that all the information a component needs in order to know what to render
-        is contained in the data it receives.
+        Polling is a pattern where data is refetched on a set interval, like every 5 seconds, with
+        the intention of checking to see if it’s changed. While this approach only works for small
+        applications or in limited scope, due to browsers limiting the number of concurrent network
+        requests, it still has its place, and is a strategy that can be used with any server. Lore
+        provides a component that makes it easy to specify which resource you want polled, and is
+        easy to start and stop.
       </p>
 
+      <h2>
+        Websockets (beta)
+      </h2>
       <p>
-        There are two data containers in Lore; a <Link to="./models/">model</Link> and a <Link to="./collections/">collection</Link>.
+        Websockets are a protocol that allow a client application to subscribe to data, and the
+        server will push new data to the client. Applications that have a high real-time expectation
+        (like chat applications) are largely to be using this approach. Provides the ability for an
+        application's data to update without requiring the user to refresh the page. Especially useful
+        in applications where multiple people view and interact with the same data, especially when
+        data changes at a high frequency. Lore provides a package that integrates seamlessly with
+        existing actions and reducer patterns, though it hasn’t been used in production. It’s more a
+        proof of concept that likely has some blind spots : )
       </p>
-
-      <h3>
-        Visualization
-      </h3>
-      <p>
-        This video describes the data structure Lore uses to enable data-driven components.
-      </p>
-
-      <Video videoId="ZRcExHzY9W0" />
     </Template>
   )
 };

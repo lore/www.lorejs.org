@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Anatomy';
-import Markdown from '../../../components/Markdown';
+import Code from '../../../components/Code';
 import CodeTabs from '../../../components/CodeTabs';
 import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
@@ -25,7 +25,7 @@ export default (props) => {
       <p>
         The default config is shown below.
       </p>
-      <Markdown text={`
+      <Code text={`
       /**
        * This file is where you define overrides for the default routing behavior.
        **/

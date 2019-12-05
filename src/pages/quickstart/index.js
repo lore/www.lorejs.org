@@ -5,10 +5,13 @@ import tutorialImage from '../../assets/images/quickstart/lore-tutorial-twitter.
 
 export default (props) => {
   return (
-    <Template showSiteNavigation={false}>
-      <h1>
+    <Template
+      title="Quickstart"
+      // subtitle="Introduction"
+    >
+      <h2>
         Introduction
-      </h1>
+      </h2>
       <p>
         This Quickstart is intended to provide a fast-paced introduction to Lore, to give you a sense of what the
         framework feels like and whether it's something you want to invest more time in.
@@ -17,9 +20,9 @@ export default (props) => {
         Explanations for the opinions expressed in the framework will be left for elsewhere in the documentation.
       </p>
 
-      <h3>
+      <h2>
         What You'll Build
-      </h3>
+      </h2>
       <p>
         This is the application we'll be building. It is a Twitter-like app, pre-populated with characters and
         quotes from <a href="https://en.wikipedia.org/wiki/Chrono_Trigger">Chrono Trigger</a>.
@@ -29,13 +32,13 @@ export default (props) => {
 
       <img className="drop-shadow" src={tutorialImage}/>
 
-      <h3>
+      <h2>
         Concepts Covered
-      </h3>
+      </h2>
       <p>
         This Quickstart will cover the following concepts:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Creating and building a React application</li>
         <li>Layout out your application visuals with mock data</li>
         <li>Routing</li>
@@ -54,9 +57,9 @@ export default (props) => {
         <li>Publishing your application</li>
       </ul>
 
-      <h3>
+      <h2>
         Questions/Issues
-      </h3>
+      </h2>
       <p>
         If you have any questions or concerns while navigating through the Quickstart,
         please <a href="https://github.com/lore/lore/issues">submit an issue on GitHub</a>. Your

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 
@@ -112,7 +112,7 @@ export default (props) => {
         A <code>.lorerc</code> file that completely replaces the current set of CLI commands looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       {
         "generators": {
           "language": "es5"
@@ -149,7 +149,7 @@ export default (props) => {
         it by specifying a key called "hello" with a value pointing to the module location:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       {
         "generators": {
           "language": "es5"
@@ -172,7 +172,7 @@ export default (props) => {
         to nest your command inside a category, like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       {
         "generators": {
           "language": "es5"
@@ -211,7 +211,7 @@ export default (props) => {
         in the <code>options</code> object of the <code>.lorerc</code> file.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       {
         "generators": {
           "language": "es5"
@@ -227,7 +227,7 @@ export default (props) => {
         loaded, which can be helpful to confirm the CLI has loaded your custom command:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       Loading absolute module: /Users/jchansen/lore/packages/lore-cli/node_modules/lore-extract-action
       Loading absolute module: /Users/jchansen/lore/packages/lore-cli/node_modules/lore-extract-reducer
       Loading directory module: ../../packages/lore-extract-action

@@ -121,25 +121,52 @@ export default function(props) {
                 {showSiteNavigation && (
                   <div className="mb-10">
                     {[
+                      // ['Usage'],
                       ['/features/', 'Features', <i className="material-icons">apps</i>],
                       ['/docs/', 'Documentation', <i className="material-icons">format_list_bulleted</i>],
                       // ['/quickstart/', 'Quickstart', <i className="material-icons">menu_book</i>],
                       ['/anatomy/', 'Project Structure', <i className="material-icons">format_align_left</i>],
 
-                      // Libraries
+                      // AJAX
+                      ['AJAX'],
+                      ['/models/', 'Models', <i className="material-icons">person</i>],
+                      ['/collections/', 'Collections', <i className="material-icons">people</i>],
+                      ['/sync/', 'Sync', <i className="material-icons">repeat</i>],
+
+                      // Redux
+                      ['Redux'],
                       ['/actions/', 'Actions', <i className="material-icons">import_export</i>], // sync
                       ['/reducers/', 'Reducers', <i className="material-icons">storage</i>],
                       ['/connect/', 'Connect', <i className="material-icons">share</i>],
-                      ['/models/', 'Models', <i className="material-icons">person</i>],
-                      ['/collections/', 'Collections', <i className="material-icons">people</i>],
+
+                      // Build/Deploy
+                      ['Build/Deploy'],
+                      ['/webpack/', 'Webpack', <i className="material-icons">pie_chart</i>],
+                      // ['/webpack/', 'Webpack', <i className="material-icons">view_compact</i>],
+                      // ['/webpack/', 'Webpack', <i className="material-icons">category</i>],
+                      // ['/webpack/', 'Webpack', <i className="material-icons">layers</i>],
+                      ['/building/', 'Building', <i className="material-icons">build</i>],
+                      ['/publishing/', 'Publishing', <i className="material-icons">cloud_upload</i>],
+                      // [''],
 
                       // Other
-                      ['/examples/', 'Examples', <i className="material-icons">help_outline</i>],
-                      ['/architecture/', 'Architecture', <i className="material-icons">business</i>]
+                      // ['/examples/', 'Examples', <i className="material-icons">help_outline</i>],
+                      // ['/architecture/', 'Architecture', <i className="material-icons">business</i>]
                     ].map(function(value, index) {
                       const href = value[0];
                       const text = value[1];
                       const icon = value[2];
+
+                      if (value.length === 1) {
+                        return (
+                          <>
+                            <hr className="mt-4 mb-1"/>
+                            <div className="text-gray-500 font-bold text-xs uppercase mb-4">
+                              {value[0]}
+                            </div>
+                          </>
+                        );
+                      }
 
                       const active = pathname.indexOf(href) === 0;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Anatomy';
-import Markdown from '../../../components/Markdown';
+import Code from '../../../components/Code';
 import CodeTabs from '../../../components/CodeTabs';
 import CodeTab from '../../../components/CodeTab';
 import QuickstartBranch from '../../../components/QuickstartBranch';
@@ -24,7 +24,7 @@ export default (props) => {
       <p>
         The default config is shown below.
       </p>
-      <Markdown text={`
+      <Code text={`
       /**
        * Local environment settings
        *
@@ -69,7 +69,7 @@ export default (props) => {
         config modifications you want to make.
       </p>
 
-      <Markdown text={`
+      <Code text={`
       module.exports = {
 
         connections: {

@@ -9,21 +9,21 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Optimistic Updates
-      </h1>
-      <p>
-        Useful for providing the application with a feeling a snappy responsiveness by assuming server calls will
-        be successful.
-      </p>
-
+    <Template
+      title="Optimistic Updates"
+      description={(
+        <p>
+          Useful for providing the application with a feeling a snappy responsiveness by assuming server calls will
+          be successful.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what optimistic updates looks like. Screenshots are from
-        the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">Invision</a> provides
+        the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">InVision</a> provides
         you when you sign up for an account.
       </p>
 
@@ -138,7 +138,7 @@ export default (props) => {
           var posts = this.props.posts;
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {posts.data.map(this.renderPost)}
             </ul>
           )
@@ -175,7 +175,7 @@ export default (props) => {
           var posts = this.props.posts;
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {posts.data.map(this.renderPost)}
             </ul>
           )

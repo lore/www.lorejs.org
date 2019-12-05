@@ -24,7 +24,7 @@ export default (props) => {
       <p>
         The major differences between <code>Backbone.Model</code> and this version of <code>Model</code> are:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           All event emitters have been removed. This is purely an abstraction tier, not a way to store
           your data, or detect when that data has changed.

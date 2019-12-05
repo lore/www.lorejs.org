@@ -72,7 +72,9 @@ function PackageValue(props) {
 function PictureSection(props) {
   const {
     title='Title',
+    subtitle,
     image=ReactLogo,
+    link,
     reversed=false,
     children,
     className,
@@ -87,14 +89,28 @@ function PictureSection(props) {
         </div>
       )}
       <div className="w-1/2 px-8 self-center">
-        <h2 className="block text-2xl font-black mb-5">
+        <h2 className={`block text-2xl font-black ${!subtitle ? 'mb-5' : ''}`}>
           {title}
         </h2>
+        {subtitle && (
+          <h3 className="block text-lg mb-5 text-gray-600 font-semibold">
+            {subtitle}
+          </h3>
+        )}
         {typeof children === 'string' ? (
           <p>
             {children}
           </p>
         ) : children}
+        {link && (
+          <Link
+            className="inline-block bg-lore-gradient text-center px-8 py-3 mt-4 rounded-full text-white hover:text-gray-300 shadow uppercase text-sm font-bold"
+            // style={{ backgroundColor: 'rgb(53, 92, 125)' }}
+            to={link}
+          >
+            Learn more
+          </Link>
+        )}
       </div>
       {!reversed && (
         <div className="w-1/2 px-20">
@@ -115,27 +131,44 @@ function PatternSection(props) {
   return (
     <div>
       <div className="mb-32">
-        <h2 className="block text-2xl font-black mb-2 text-center">
-          {title}
-        </h2>
-        <div className="bg-gray-900 h-1 w-12 mx-auto mb-3" />
-        <div className="max-w-lg markdown text-center mx-auto">
-          <p>
-            {description}
-          </p>
-        </div>
+        {title && (
+          <h2 className="block text-2xl font-black mb-2 text-center">
+            {title}
+          </h2>
+        )}
+        {title || description && (
+          <div className="bg-gray-900 h-1 w-12 mx-auto mb-3" />
+        )}
+        {description && (
+          <div className="max-w-lg markdown text-center mx-auto">
+            <p>
+              {description}
+            </p>
+          </div>
+        )}
       </div>
       {patterns.map(function(pattern, index) {
         return (
-          <PictureSection
-            key={index}
-            className="mb-12"
-            title={pattern.title}
-            image={pattern.image}
-            reversed={index % 2}
-          >
-            {pattern.description}
-          </PictureSection>
+          <React.Fragment key={index}>
+            <PictureSection
+              // key={index}
+              className="mb-12"
+              title={pattern.title}
+              subtitle={pattern.subtitle}
+              image={pattern.image}
+              link={pattern.link}
+              reversed={index % 2}
+            >
+              {pattern.description}
+            </PictureSection>
+            {index < patterns.length - 1 && (
+              index % 2 ? (
+                <hr className="my-24 transform-rotate-right"/>
+              ) : (
+                <hr className="my-24 transform-rotate-left"/>
+              )
+            )}
+          </React.Fragment>
         );
       })}
     </div>
@@ -162,10 +195,10 @@ export default (props) => {
               <div className="w-full lg:px-6 xl:w-3/4 xl:px-12"/>
               <div className="hidden lg:flex lg:items-center lg:justify-between xl:w-1/4 px-6">
                 <div className="flex justify-end w-full items-center text-gray-500">
-                  <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/docs/getting-started/installation">
+                  <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/docs/">
                     Docs
                   </Link>
-                  <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/quickstart">
+                  <Link className="block hover:text-gray-100 text-gray-400 mr-5 font-bold text" to="/quickstart/">
                     Quickstart
                   </Link>
                   <a className="block flex items-center hover:text-gray-100 text-gray-400 mr-5" href="https://github.com/lore/lore">
@@ -229,7 +262,7 @@ export default (props) => {
       <div className="py-20">
         <div className="w-full max-w-screen-lg mx-auto">
           <h2 className="block text-2xl font-black mb-5 text-center">
-            Curated libraries with flexible configurations.
+            Remove the guesswork. Start with a solid foundation.
           </h2>
           <div className="max-w-lg markdown text-center mx-auto">
             <p>
@@ -237,6 +270,10 @@ export default (props) => {
               you’re using, it can be time-consuming to find patterns for using them that feel
               simple and flexible. That feeling that resonates inside you that says “Oh, this, I
               like this”.
+            </p>
+            <p>
+              Lore is designed around a curated set of popular libraries and and includes thoughtfully
+              crafted (flexible) configurations that address the core challenges with working with them.
             </p>
           </div>
           <div className="flex flex-wrap -mx-5 -my-5 mt-20">
@@ -278,7 +315,7 @@ export default (props) => {
       <div className="py-20 bg-lore-gradient clip-path-bottom-left">
         <div className="w-full max-w-screen-lg mx-auto">
           <h2 className="block text-2xl font-black text-white mb-5 text-center mb-8">
-            Patterns that support real-world applications.
+            Designed with principles and patterns that support real-world applications.
           </h2>
           <div className="w-7/12 markdown text-white text-center mx-auto">
             <p>
@@ -290,197 +327,84 @@ export default (props) => {
           </div>
         </div>
       </div>
-      <div className="py-20">
+      <div className="pb-20">
         <div className="w-full max-w-screen-lg mx-auto">
           <PatternSection
-            title="Data Driven"
-            description={`
-              React applications are much simpler to build when the data being visualized is 
-              self-describing. Imagine if you could inspect data and easily know the context, 
-              such as whether that resource was being fetched, incurred an error while being 
-              created, or what query the data represents. All data in Lore is wrapped in a simple 
-              structure that makes it easy to understand those types of things.
-            `}
+            // title="Data Driven"
+            // description={`
+            //   React applications are much simpler to build when the data being visualized is
+            //   self-describing. Imagine if you could inspect data and easily know the context,
+            //   such as whether that resource was being fetched, incurred an error while being
+            //   created, or what query the data represents. All data in Lore is wrapped in a simple
+            //   structure that makes it easy to understand those types of things.
+            // `}
             patterns={[
               {
-                title: 'Data (resource)',
+                title: 'Data Driven',
+                subtitle: 'Simpler code.',
                 image: WebsiteImage,
                 description: (`
-                  All individual resources are wrapped in this data structure. In addition to standard 
-                  fields like the resource id and data, Lore also includes a client-side id (to support 
-                  optimistic behavior), a state attribute (to know if the resource is being created, 
-                  deleted, etc), and an error field (which will include whatever data the server error 
-                  provided if one occurs).
-                `)
+                  React applications are much simpler to build when the data being visualized is
+                  self-describing. Imagine if you could inspect data and easily know the context,
+                  such as whether that resource was being fetched, incurred an error while being
+                  created, or what query the data represents. All data in Lore is wrapped in a simple
+                  structure that makes it easy to understand those types of things.
+                `),
+                link: '/features/principles/data-driven/'
               },
               {
-                title: 'Data (query)',
+                title: 'No Boilerplate',
+                subtitle: 'Less code. Fewer errors.',
                 image: WebsiteImage,
                 description: (`
-                  Any data that reflects a server query is wrapped in this structure. The state will 
-                  reflect whether the query is being fetched or has been resolved, while the query
-                   attribute reflects the query parameters sent to the server, and the meta field reflects 
-                   metadata information such as pagination.
-                `)
-              }
-            ]}
-          />
-          <hr className="my-24 transform-rotate-left"/>
-          <PatternSection
-            title="No Boilerplate"
-            description={`
-              Code in web applications can be roughly split into two categories; code that visualizes 
-              data, and code that operates on data (fetching, updating, etc). In practice the code that 
-              communicates with servers to operate on data can be extremely repetitive to write, and 
-              have so much similarity that it feels like writing boilerplate (code that you generate 
-              by coping other code and making small modifications). If not managed carefully, these 
-              boilerplate files can easily mount into dozens or even hundreds, but with some thoughtful 
-              patterns, you can eliminate most of that code entirely. See how Lore addresses this below.
-            `}
-            patterns={[
-              {
-                title: 'Action Creator Blueprints',
-                image: WebsiteImage,
-                description: (`
-                  Servers that expose a REST API often follow conventions that make their behavior 
-                  easy to predict, such as naming endpoints after resources and using the http request 
-                  method to determine the action (create, update, delete, etc). While normally a huge 
-                  source of boilerplate code, with some thoughtful patterns you can take advantage of 
-                  those conventions in order to create blueprints capable of generating action creators 
-                  for you. Curious? See how Lore does it.
-                `)
+                  Code in web applications can be roughly split into two categories; code that visualizes
+                  data, and code that operates on data (fetching, updating, etc). In practice the code that
+                  communicates with servers to operate on data can be extremely repetitive to write, and
+                  have so much similarity that it feels like writing boilerplate (code that you generate
+                  by coping other code and making small modifications). If not managed carefully, these
+                  boilerplate files can easily mount into dozens or even hundreds, but with some thoughtful
+                  patterns, you can eliminate most of that code entirely. See how Lore addresses this below.
+                `),
+                link: '/features/principles/no-boilerplate/'
               },
               {
-                title: 'Reducer Blueprints',
+                title: 'Optimistic',
+                subtitle: 'More responsive. Feels faster.',
                 image: WebsiteImage,
                 description: (`
-                  Reducers are often used to cache application data, and make it accessible to the 
-                  application via the store. Unfortunately, this is often another huge source of 
-                  boilerplate, as the reducers often reflect the names of resources, and expose 
-                  common ways to accessing data (such as by id and by query). But once again, with 
-                  some thoughtful patterns, you can advantage of those conventions in order to create 
-                  blueprints capable of generating reducers for you—reducers designed to work with 
-                  the actions creators. See how Lore does it.
-                `)
+                  Optimistic updating is a pattern where changes to data (especially data created by the
+                  user) are visualized before the server has confirmed the action. While the pattern can
+                  be tricky to implement, as it requires the ability to correlate and merge fake data with
+                  real data returned from the server in the future, using it can drastically remove the
+                  visual effects of server latency and makes your application feel more responsive to users.
+                  Lore was designed around this pattern, and the benefits show in the ways listed below.
+                `),
+                link: '/features/principles/optimistic/'
               },
               {
-                title: 'Auto-generation via Conventions',
+                title: 'Efficient Networking',
+                subtitle: 'No duplicate network requests.',
                 image: WebsiteImage,
                 description: (`
-                  While blueprint functions can be used to eliminate the need to write custom files, 
-                  by generating in-memory action creators and reducers, by themselves you still have 
-                  to write the code to invoke the functions. While you could do this yourself (via 
-                  configuration) it’s also possible to use conventions to create them for you. Lore 
-                  defaults to that behavior, and uses a pattern where the act of creating a file 
-                  named “tweet” will automatically create a full set of actions creators and reducers 
-                  capable of performing CRUD operations on tweets as well as caching all of the data.
-                `)
-              }
-            ]}
-          />
-          <hr className="my-24 transform-rotate-right"/>
-          <PatternSection
-            title="Optimistic"
-            description={`
-              Optimistic updating is a pattern where changes to data (especially data created by the 
-              user) are visualized before the server has confirmed the action. While the pattern can 
-              be tricky to implement, as it requires the ability to correlate and merge fake data with 
-              real data returned from the server in the future, using it can drastically remove the 
-              visual effects of server latency and makes your application feel more responsive to users. 
-              Lore was designed around this pattern, and the benefits show in the ways listed below.
-            `}
-            patterns={[
-              {
-                title: 'Visual Cues',
-                image: WebsiteImage,
-                description: (`
-                  Useful for providing the user with a visual indication that some action is being 
-                  performed but has no yet completed. Examples include fetching, updating and 
-                  creating data.
-                `)
+                  One of the challenges in web applications is preventing duplicate network requests for
+                  the same data. For example, if multiple components need to visualize the same user, how
+                  do you prevent them from initiating duplicate network requests? Ideally you want to to
+                  return the user if you already have it, or fetch it if you don’t have it.
+                `),
+                link: '/features/principles/efficient-networking/'
               },
               {
-                title: 'Error Handling',
+                title: 'Real-time Considerations',
+                subtitle: 'Support for long-running tasks and team-centric products.',
                 image: WebsiteImage,
                 description: (`
-                  Server errors are passed to components and clearly communicated. Useful for informing 
-                  the user when things don't go as planned and providing them with the ability to correct 
-                  the error and try again.
-                `)
-              },
-              {
-                title: '404 Pages',
-                image: WebsiteImage,
-                description: (`
-                  Discover and communicate when resources can't be found. Useful for providing the user 
-                  with a clear indication that what they're looking for does not exist, as infinite 
-                  loaders and blank pages are both poor user experiences.
-                `)
-              }
-            ]}
-          />
-          <hr className="my-24 transform-rotate-right"/>
-          <PatternSection
-            title="Efficient Networking (No Duplicate Requests)"
-            description={`
-              One of the challenges in web applications is preventing duplicate network requests for 
-              the same data. For example, if multiple components need to visualize the same user, how 
-              do you prevent them from initiating duplicate network requests? Ideally you want to to 
-              return the user if you already have it, or fetch it if you don’t have it.
-            `}
-            patterns={[
-              {
-                title: 'Connect Hook',
-                image: WebsiteImage,
-                description: (`
-                  Lore provides a hook called connect that is designed to fetch data from the local 
-                  cache if it exists, or automatically fetch it from the API if it doesn't. It can 
-                  even tell if data is already (currently) being fetched in order to guarantee that 
-                  there’s never more than a single network request for the same data. Preventing duplicate 
-                  requests not only reduces server load, but makes sure the data you actually need is 
-                  being prioritized and retrieved as quickly as possible.
-                `)
-              }
-            ]}
-          />
-          <hr className="my-24 transform-rotate-right"/>
-          <PatternSection
-            title="Real-time Support"
-            description={`
-              Provides the ability for an application's data to update without requiring the user 
-              to refresh the page. Especially useful in applications where multiple people view and 
-              interact with the same data, especially when data changes at a high frequency, or for 
-              certain classes of problems that need status checks to see when they’re completed 
-              (queuing a task to send an email, spinning up a server, etc)
-            `}
-            patterns={[
-              {
-                title: 'Polling',
-                image: WebsiteImage,
-                description: (`
-                  Polling is a pattern where data is refetched on a set interval, like every 5 
-                  seconds, with the intention of checking to see if it’s changed. While this 
-                  approach only works for small applications or in limited scope, due to browsers 
-                  limiting the number of concurrent network requests, it still has its place, and 
-                  is a strategy that can be used with any server. Lore provides a component that 
-                  makes it easy to specify which resource you want polled, and is easy to start and 
-                  stop.
-                `)
-              },
-              {
-                title: 'Websockets (beta)',
-                image: WebsiteImage,
-                description: (`
-                  Websockets are a protocol that allow a client application to subscribe to data, 
-                  and the server will push new data to the client. Applications that have a high 
-                  real-time expectation (like chat applications) are largely to be using this approach. 
-                  Provides the ability for an application's data to update without requiring the user 
-                  to refresh the page. Especially useful in applications where multiple people view 
-                  and interact with the same data, especially when data changes at a high frequency. 
-                  Lore provides a package that integrates seamlessly with existing actions and reducer 
-                  patterns, though it hasn’t been used in production. It’s more a proof of concept that 
-                  likely has some blind spots : )
-                `)
+                  Provides the ability for an application's data to update without requiring the user
+                  to refresh the page. Especially useful in applications where multiple people view and
+                  interact with the same data, especially when data changes at a high frequency, or for
+                  certain classes of problems that need status checks to see when they’re completed
+                  (queuing a task to send an email, spinning up a server, etc)
+                `),
+                link: '/features/principles/real-time/'
               }
             ]}
           />

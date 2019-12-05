@@ -52,11 +52,11 @@ export default function() {
         <nav id="nav" className="px-6 pt-6 overflow-y-auto text-base lg:text-sm lg:py-12 lg:pl-6 lg:pr-8 sticky?lg:h-(screen-16)">
           <div className="mb-10">
             {[
-              ['/docs/installation', 'Documentation', <DocumentationIcon />],
-              ['/components', 'Components', <ComponentsIcon/>],
-              ['/quickstart', 'Quickstart', <ScreencastsIcon/>],
-              ['/resources', 'Resources', <ResourcesIcon/>],
-              ['/community', 'Community', <CommunityIcon/>]
+              ['/docs/installation/', 'Documentation', <DocumentationIcon />],
+              ['/components/', 'Components', <ComponentsIcon/>],
+              ['/quickstart/', 'Quickstart', <ScreencastsIcon/>],
+              ['/resources/', 'Resources', <ResourcesIcon/>],
+              ['/community/', 'Community', <CommunityIcon/>]
             ].map(function(value, index) {
               const href = value[0];
               const text = value[1];
@@ -75,7 +75,7 @@ export default function() {
             <NavSectionHeader>
               Getting Started
             </NavSectionHeader>
-            <ul>
+            <ul className="list-disc pl-10">
               {[
                 // ['Getting Started'],
                 ['/docs/installation', 'Installation', true],
@@ -110,7 +110,7 @@ export default function() {
             <NavSectionHeader>
               Core Concepts
             </NavSectionHeader>
-            <ul>
+            <ul className="list-disc pl-10">
               {[
                 // ['Core Concepts'],
                 ['/docs/utility-first','Utility-First'],

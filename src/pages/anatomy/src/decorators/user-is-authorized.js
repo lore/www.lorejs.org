@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -26,7 +26,7 @@ export default (props) => {
         If it returns <code>false</code>, nothing will be rendered, and the application will appear
         as if that component doesn't exist.
       </p>
-      <Markdown text={`
+      <Code text={`
       import { AuthorizationGenerator } from 'lore-auth';
 
       export default AuthorizationGenerator({

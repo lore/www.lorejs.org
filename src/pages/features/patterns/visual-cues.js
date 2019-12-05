@@ -9,21 +9,21 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Visual Cues
-      </h1>
-      <p>
-        Useful for providing the user with a visual indication that some action is being performed but has no yet
-        completed. Examples include fetching, updating and creating data.
-      </p>
-
+    <Template
+      title="Visual Cues"
+      description={(
+        <p>
+          Useful for providing the user with a visual indication that some action is being performed but has no yet
+          completed. Examples include fetching, updating and creating data.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what visual cues look like. Screenshots are from the <em>Simply Social</em> prototype
-        that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
+        that <a href="https://www.invisionapp.com/">InVision</a> provides you when you sign up for an account.
       </p>
 
       <Video videoId="6uJ7Y6p7eBU" />
@@ -66,7 +66,7 @@ export default (props) => {
         Redux store, and accounts for the following scenarios by default:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Data being fetched</li>
         <li>Data being created</li>
         <li>Data being updated</li>
@@ -77,7 +77,7 @@ export default (props) => {
         It also accounts for error conditions on each of those scenarios:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Error while fetching data</li>
         <li>Error while creating data</li>
         <li>Error while updating data</li>

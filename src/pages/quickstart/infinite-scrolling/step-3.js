@@ -37,7 +37,7 @@ export default (props) => {
       import _ from 'lodash';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-      
+
       export default function Feed(props) {
         return (
           <div className="feed">
@@ -67,7 +67,7 @@ export default (props) => {
       <p>
         In the code above, we're providing two props to <code>InfiniteScrollingList</code>.
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           <p>
             The first prop is called <code>select</code>, and we're using it to tell the list <em>what data to render</em>.
@@ -250,7 +250,7 @@ export default (props) => {
       import _ from 'lodash';
       import InfiniteScrollingList from './InfiniteScrollingList';
       import Tweet from './Tweet';
-      
+
       export default function Feed(props) {
         return (
           <div className="feed">
@@ -276,7 +276,7 @@ export default (props) => {
               }}
               selectNextPage={(lastPage, getState) => {
                 const lastPageNumber = lastPage.query.pagination.page;
-      
+
                 return getState('tweet.find', _.defaultsDeep({
                   pagination: {
                     page: lastPageNumber + 1

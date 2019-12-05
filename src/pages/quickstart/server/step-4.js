@@ -49,11 +49,11 @@ export default (props) => {
       ...
       export default function Master(props) {
         const user = useConnect('currentUser');
-      
+
         if (user.state === PayloadStates.FETCHING) {
           return null;
         }
-      
+
         return (
           <UserContext.Provider value={user}>
             <RemoveLoadingScreen />
@@ -67,7 +67,7 @@ export default (props) => {
         This component only has two states that it checks for:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           If the current user is being fetched, continue displaying the loading experience.
         </li>
@@ -80,7 +80,7 @@ export default (props) => {
         To fix this issue we're going to add a third condition, which will be:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>If there's an error fetching the current user, display an unauthorized experience.</li>
       </ul>
 
@@ -93,11 +93,11 @@ export default (props) => {
       ...
       export default function Master(props) {
         const user = useConnect('currentUser');
-      
+
         if (user.state === PayloadStates.FETCHING) {
           return null;
         }
-      
+
         if (user.state === PayloadStates.ERROR_FETCHING) {
           return (
             <div>
@@ -108,7 +108,7 @@ export default (props) => {
             </div>
           );
         }
-      
+
         return (
           <UserContext.Provider value={user}>
             <RemoveLoadingScreen />
@@ -161,14 +161,14 @@ export default (props) => {
       import { UserContext } from '@lore/auth';
       import PayloadStates from '../constants/PayloadStates';
       import RemoveLoadingScreen from '../components/RemoveLoadingScreen';
-      
+
       export default function Master(props) {
         const user = useConnect('currentUser');
-      
+
         if (user.state === PayloadStates.FETCHING) {
           return null;
         }
-      
+
         if (user.state === PayloadStates.ERROR_FETCHING) {
           return (
             <div>
@@ -179,7 +179,7 @@ export default (props) => {
             </div>
           );
         }
-      
+
         return (
           <UserContext.Provider value={user}>
             <RemoveLoadingScreen />

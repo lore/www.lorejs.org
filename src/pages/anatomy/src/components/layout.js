@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -44,7 +44,7 @@ export default (props) => {
                 </div>
                 <div className="main">
                   <div className="container">
-                    <ul>
+                    <ul className="list-disc pl-10">
                       <li>
                         <div>
                           <h3>Getting Started</h3>
@@ -91,7 +91,7 @@ export default (props) => {
                 </div>
                 <div className="main">
                   <div className="container">
-                    <ul>
+                    <ul className="list-disc pl-10">
                       <li>
                         <div>
                           <h3>Getting Started</h3>
@@ -140,7 +140,7 @@ export default (props) => {
                 </div>
                 <div className="main">
                   <div className="container">
-                    <ul>
+                    <ul className="list-disc pl-10">
                       <li>
                         <div>
                           <h3>Getting Started</h3>

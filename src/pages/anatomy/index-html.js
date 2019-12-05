@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -20,7 +20,7 @@ export default (props) => {
         The file included with new projects by default has inline comments, but the stripped down version
         looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       <html>
         <head>
           <meta charset="utf-8">
@@ -102,7 +102,7 @@ export default (props) => {
         all contain a unique hash in the URL to facilitate cache busting, and will look like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <link rel="icon" type="image/png" sizes="32x32" href="/favicons-[hash]/favicon-32x32.png">
       <link rel="icon" type="image/png" sizes="16x16" href="/favicons-[hash]/favicon-16x16.png">
       <link rel="shortcut icon" href="/favicons-[hash]/favicon.ico">
@@ -125,7 +125,7 @@ export default (props) => {
         inline, like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <style>
         ... your styles ...
       </style>
@@ -136,7 +136,7 @@ export default (props) => {
         in a file called styles.main.css, which will be included like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <link href="/styles.main.css" rel="stylesheet">
       `}/>
 
@@ -145,7 +145,7 @@ export default (props) => {
         using old styles once they've been updated. The final production file will look something like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <link href="/styles.main.bb904647341499c464e6.css" rel="stylesheet">
       `}/>
 
@@ -173,7 +173,7 @@ export default (props) => {
         In development, the bundles will be included like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <script type="text/javascript" src="/bundle.vendor.js"></script>
       <script type="text/javascript" src="/bundle.main.js"></script>
       `}/>
@@ -184,7 +184,7 @@ export default (props) => {
         look something like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <script type="text/javascript" src="/bundle.vendor.bbf77f84f00fd43296cb.js"></script>
       <script type="text/javascript" src="/bundle.main.bb904647341499c464e6.js"></script>
       `}/>
@@ -202,7 +202,7 @@ export default (props) => {
       <p>
         This DOM element is intended to be used for mounting dialogs. This is reccomended for the following reasons:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           Mounting a dialog <em>within</em> the <code>root</code> DOM element makes it susceptible to the
           CSS cascade, which means the styling of the dialog could be affected based where it's mounted in the DOM.
@@ -228,7 +228,7 @@ export default (props) => {
         A production build of the application will look something like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       <html>
         <head>
           <meta charset="utf-8">

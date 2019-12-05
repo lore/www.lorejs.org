@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -18,7 +18,7 @@ export default (props) => {
         you need to play with it, such as:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           Manually executing actions (<code>lore.actions.tweet.create(...)</code>)
         </li>
@@ -39,7 +39,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       import lore from 'lore';
       import _ from 'lodash';
 

@@ -9,20 +9,20 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Infinite Scrolling
-      </h1>
-      <p>
-        Mobile friendly style of pagination that aggregates fetched data into a single scrollable list.
-      </p>
-
+    <Template
+      title="Infinite Scrolling"
+      description={(
+        <p>
+          Mobile friendly style of pagination that aggregates fetched data into a single scrollable list.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what infinite scrolling looks like. Screenshots are from
-        the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">Invision</a> provides you
+        the <em>Simply Social</em> prototype that <a href="https://www.invisionapp.com/">InVision</a> provides you
         when you sign up for an account.
       </p>
 
@@ -111,7 +111,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map((post) => {
                     return (
                       <li key={post.id || post.cid}>
@@ -165,7 +165,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map((post) => {
                     return (
                       <li key={post.id || post.cid}>
@@ -236,7 +236,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map((post) => {
                     return (
                       <li key={post.id || post.cid}>
@@ -312,7 +312,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {allPosts}
                 </ul>
                 <button onClick={this.onLoadMore}>
@@ -408,7 +408,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {allPosts}
                 </ul>
                 <button onClick={this.onLoadMore}>
@@ -512,7 +512,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {allPosts}
                 </ul>
                 <button onClick={this.onLoadMore}>

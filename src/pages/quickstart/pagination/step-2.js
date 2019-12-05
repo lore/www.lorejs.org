@@ -74,17 +74,17 @@ export default (props) => {
       // src/components/Feed.js
       ...
       import { parse } from 'query-string';
-      
+
       export default function Feed(props) {
         const { location } = props;
-      
+
         const tweets = useConnect('tweet.find', {
           pagination: {
             sort: 'createdAt DESC',
             page: parse(location.search).page || '1'
           }
         });
-        
+
         ...
       }
       `}/>
@@ -123,7 +123,7 @@ export default (props) => {
       <p>
         Within the <code>pagination</code> property we're providing two query parameters that we want sent to the API:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           <p>
             The first is <code>sort</code>, which controls how the data that's returned will be ordered. In this
@@ -183,17 +183,17 @@ export default (props) => {
       import { useConnect } from '@lore/connect';
       import PayloadStates from '../constants/PayloadStates';
       import { parse } from 'query-string';
-      
+
       export default function Feed(props) {
         const { location } = props;
-      
+
         const tweets = useConnect('tweet.find', {
           pagination: {
             sort: 'createdAt DESC',
             page: parse(location.search).page || '1'
           }
         });
-      
+
         if (tweets.state === PayloadStates.FETCHING) {
           return (
             <div className="feed">
@@ -204,7 +204,7 @@ export default (props) => {
             </div>
           );
         }
-      
+
         return (
           <div className="feed">
             <h2 className="title">

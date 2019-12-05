@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -21,7 +21,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown type="css" text={`
+      <Code type="css" text={`
       @loading-screen-background: #2595FF;
       @loading-screen-gradient-color-1: rgba(108, 91, 123, 0.8);
       @loading-screen-gradient-color-2: rgba(53, 92, 125, 0.8);

@@ -5,37 +5,60 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Data Structure
-      </h1>
+    <Template
+      title="No Boilerplate"
+      subtitle="Design principle"
+    >
       <p>
-        Enables data-driven components by supplying components with both data and context.
+        Code in web applications can be roughly split into two categories; code that visualizes
+        data, and code that operates on data (fetching, updating, etc).
+      </p>
+      <p>
+        In practice the code that
+        communicates with servers to retrieve and modify data can be extremely repetitive to write, and have
+        so much similarity that it feels like writing boilerplate (code that you generate by coping
+        other code and making small modifications).
+      </p>
+      <p>
+        If not managed carefully, these boilerplate files
+        can easily mount into dozens or even hundreds, but with some thoughtful patterns, you can
+        eliminate most of that code entirely. See how Lore addresses this below.
+      </p>
+      <h2>
+        Action Creator Blueprints
+      </h2>
+      <p>
+        Servers that expose a REST API often follow conventions that make their behavior easy to predict,
+        such as naming endpoints after resources and using the http request method to determine the
+        action (create, update, delete, etc). While normally a huge source of boilerplate code, with
+        some thoughtful patterns you can take advantage of those conventions in order to create
+        blueprints capable of generating action creators for you. Curious? See how Lore does it.
       </p>
 
-      <h3>
-        Overview
-      </h3>
+      <h2>
+        Reducer Blueprints
+      </h2>
       <p>
-        Providing the user with visual feedback about what's happening in an application is <em>extremely</em> important for providing
-        a good user experience. In order to do that, the data components receives needs to be self-describing. That means that
-        no matter what is happening in the application, or what response the API returned for a request, the data structure
-        you use must be able to represent it, so that all the information a component needs in order to know what to render
-        is contained in the data it receives.
+        Reducers are often used to cache application data, and make it accessible to the application
+        via the store. Unfortunately, this is often another huge source of boilerplate, as the reducers
+        often reflect the names of resources, and expose common ways to accessing data (such as by id
+        and by query). But once again, with some thoughtful patterns, you can advantage of those
+        conventions in order to create blueprints capable of generating reducers for you—reducers
+        designed to work with the actions creators. See how Lore does it.
       </p>
 
+      <h2>
+        Auto-generation via Conventions
+      </h2>
       <p>
-        There are two data containers in Lore; a <Link to="./models/">model</Link> and a <Link to="./collections/">collection</Link>.
+        While blueprint functions can be used to eliminate the need to write custom files, by
+        generating in-memory action creators and reducers, by themselves you still have to write
+        the code to invoke the functions. While you could do this yourself (via configuration)
+        it’s also possible to use conventions to create them for you. Lore defaults to that behavior,
+        and uses a pattern where the act of creating a file named “tweet” will automatically create
+        a full set of actions creators and reducers capable of performing CRUD operations on tweets
+        as well as caching all of the data.
       </p>
-
-      <h3>
-        Visualization
-      </h3>
-      <p>
-        This video describes the data structure Lore uses to enable data-driven components.
-      </p>
-
-      <Video videoId="ZRcExHzY9W0" />
     </Template>
   )
 };

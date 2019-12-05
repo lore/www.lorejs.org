@@ -61,11 +61,11 @@ export default function() {
           </div>
           <div className="mb-10">
             {[
-              ['/docs/installation', 'Documentation', <DocumentationIcon />],
-              ['/components', 'Components', <ComponentsIcon/>],
-              ['/quickstart', 'Quickstart', <ScreencastsIcon/>],
-              ['/resources', 'Resources', <ResourcesIcon/>],
-              ['/community', 'Community', <CommunityIcon/>]
+              ['/docs/installation/', 'Documentation', <DocumentationIcon />],
+              ['/components/', 'Components', <ComponentsIcon/>],
+              ['/quickstart/', 'Quickstart', <ScreencastsIcon/>],
+              ['/resources/', 'Resources', <ResourcesIcon/>],
+              ['/community/', 'Community', <CommunityIcon/>]
             ].map(function(value, index) {
               const href = value[0];
               const text = value[1];
@@ -84,7 +84,7 @@ export default function() {
             <NavSectionHeader>
               Getting Started
             </NavSectionHeader>
-            <ul>
+            <ul className="list-disc pl-10">
               {[
                 // ['Getting Started'],
                 ['/docs/installation', 'Installation', true],
@@ -119,7 +119,7 @@ export default function() {
             <NavSectionHeader>
               Core Concepts
             </NavSectionHeader>
-            <ul>
+            <ul className="list-disc pl-10">
               {[
                 // ['Core Concepts'],
                 ['/docs/utility-first','Utility-First'],

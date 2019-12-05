@@ -9,20 +9,20 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Pagination
-      </h1>
-      <p>
-        Useful for moving through large datasets, and providing the user with a sliced view of the data.
-      </p>
-
+    <Template
+      title="Pagination"
+      description={(
+        <p>
+          Useful for moving through large datasets, and providing the user with a sliced view of the data.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what pagination looks like. Screenshots are from the <em>Simply Social</em> prototype
-        that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
+        that <a href="https://www.invisionapp.com/">InVision</a> provides you when you sign up for an account.
       </p>
 
       <Video videoId="JpztALTbySU" />
@@ -290,7 +290,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map((post) => {
                     return (
                       <li key={post.id || post.cid}>
@@ -339,7 +339,7 @@ export default (props) => {
 
             return (
               <div>
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map((post) => {
                     return (
                       <li key={post.id || post.cid}>
@@ -445,7 +445,7 @@ export default (props) => {
               }
 
               return (
-                <ul>
+                <ul className="list-disc pl-10">
                   {posts.data.map(this.renderPost)}
                 </ul>
               );
@@ -479,7 +479,7 @@ export default (props) => {
             }
 
             return (
-              <ul>
+              <ul className="list-disc pl-10">
                 {posts.data.map(this.renderPost)}
               </ul>
             );
@@ -545,7 +545,7 @@ export default (props) => {
             }
 
             return (
-              <ul>
+              <ul className="list-disc pl-10">
                 {posts.data.map(this.renderPost)}
               </ul>
             );

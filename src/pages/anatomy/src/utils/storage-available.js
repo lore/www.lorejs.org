@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -37,7 +37,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown type="jsx" text={`
+      <Code type="jsx" text={`
       export default function storageAvailable(type) {
         try {
           let storage = window[type];

@@ -55,16 +55,16 @@ export default (props) => {
         Example to illustrate (need to expand and provide better detail):
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>ConnectDecorator(User) => AppRoot</li>
-        <ul>
+        <ul className="list-disc pl-10">
           <li>ConnectDecorator(Apples)</li>
-          <ul><li>Component A</li></ul>
+          <ul className="list-disc pl-10"><li>Component A</li></ul>
         </ul>
 
-        <ul>
+        <ul className="list-disc pl-10">
           <li>ConnectDecorator(Apples + Bananas)</li>
-          <ul><li>Component B</li></ul>
+          <ul className="list-disc pl-10"><li>Component B</li></ul>
         </ul>
       </ul>
 

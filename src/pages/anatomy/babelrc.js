@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 import CodeTabs from '../../components/CodeTabs';
 import CodeTab from '../../components/CodeTab';
 
@@ -25,14 +25,14 @@ export default (props) => {
       <p>
         When you run <code>npm install</code> you may see the deprecation warning below in the console:
       </p>
-      <Markdown text={`
+      <Code text={`
       babel-preset-es2015@6.24.1: 🙌 Thanks for using Babel: we recommend using babel-preset-env now: please read babeljs.io/env to update!
       `}/>
       <p>
         Lore is intentionally (at least for now) avoiding the use of <code>babel-preset-env</code> for the
         following reasons:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           There is an issue where you <a href="https://github.com/babel/babel/issues/6604">cannot control the
           preset ordering</a>, which prevents it from working with some plugins

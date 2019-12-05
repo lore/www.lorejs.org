@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../components/templates/Anatomy';
-import Markdown from '../../components/Markdown';
+import Code from '../../components/Code';
 
 export default (props) => {
   return (
@@ -32,7 +32,7 @@ export default (props) => {
       <p>
         For example:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           Developing an API is a non-trivial endeavor, and sometimes, you just want to mess around on the
           front-end, maybe play with a new library. This lets you do that.
@@ -66,7 +66,7 @@ export default (props) => {
       <p>
         This file is empty by default.
       </p>
-      <Markdown text={`
+      <Code text={`
       {
 
       }
@@ -79,7 +79,7 @@ export default (props) => {
         Here is an example file of what <code>db.json</code> might look like when it's populated. This data is
         taken from the Quickstart.
       </p>
-      <Markdown text={`
+      <Code text={`
       {
         "users": [
           {

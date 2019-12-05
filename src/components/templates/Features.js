@@ -8,6 +8,7 @@ export default (props) => {
         title: 'Introduction',
         links: [
           ['Overview', '/features/'],
+          ['Philosophy', '/features/philosophy/'],
         ]
       },
       {
@@ -20,7 +21,7 @@ export default (props) => {
         ]
       },
       {
-        title: 'Principles',
+        title: 'Design Principles',
         links: [
           ['Data Driven', '/features/principles/data-driven/'],
           ['No Boilerplate', '/features/principles/no-boilerplate/'],
@@ -30,18 +31,18 @@ export default (props) => {
         ]
       },
       {
-        title: 'Supported Patterns',
+        title: 'Common Patterns',
         links: [
           ['Filtering', '/features/patterns/filtering/'],
           ['Pagination', '/features/patterns/pagination/'],
           ['Infinite Scrolling', '/features/patterns/infinite-scrolling/'],
-          ['WebSockets', '/features/patterns/websockets/'],
           ['Visual Cues', '/features/patterns/visual-cues/'],
           ['Optimistic Updates', '/features/patterns/optimistic-updates/'],
           ['Dialogs', '/features/patterns/dialogs/'],
           ['Wizards', '/features/patterns/wizards/'],
           ['Error Handling', '/features/patterns/error-handling/'],
-          ['404 Pages', '/features/patterns/404-pages/']
+          ['404 Pages', '/features/patterns/404-pages/'],
+          ['WebSockets', '/features/patterns/websockets/'],
         ]
       }
     ]} />

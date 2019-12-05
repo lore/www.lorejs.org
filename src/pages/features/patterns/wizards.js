@@ -8,10 +8,14 @@ import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Wizards
-      </h1>
+    <Template
+      title="Wizards"
+      description={(
+        <p>
+          This is term commonly used to refer to forms that guide a user through multiple steps.
+        </p>
+      )}
+    >
       <p>
         Wizards are a complex multi-step version of a form. And similar to <Link to="/features/patterns/dialogs/">
         dialogs</Link>, while the <em>behavior</em> of wizards tends to be fairly similar across applications, the

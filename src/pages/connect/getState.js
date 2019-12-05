@@ -31,7 +31,7 @@ export default (props) => {
           const tweets = getState('tweet.find');
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {tweets.data.map((tweet) => {
                 return (
                   <Tweet
@@ -89,7 +89,7 @@ export default (props) => {
           const tweets = getState('tweet.find');
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {tweets.data.map((tweet) => {
                 return (
                   <Tweet

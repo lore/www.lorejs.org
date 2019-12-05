@@ -32,7 +32,7 @@ export default (props) => {
               const { tweets } = props;
 
               return (
-                <ul>
+                <ul className="list-disc pl-10">
                 {tweets.data.map(function(tweet) {
                   return (
                     <li>{tweet.data.text}</li>
@@ -152,7 +152,7 @@ export default (props) => {
           const { mentions } = this.props;
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {mentions.data.map((mention) => {
                 return (
                   <Mention
@@ -243,7 +243,7 @@ export default (props) => {
           const { mentions } = this.props;
 
           return (
-            <ul>
+            <ul className="list-disc pl-10">
               {mentions.data.map((mention) => {
                 return (
                   <Connect key={mention.id} callback={(getState) => {

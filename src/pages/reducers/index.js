@@ -32,7 +32,7 @@ export default (props) => {
       <p>
         Given a model called <code>tweet</code>, this hook will create the following reducers:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>lore.reducers.tweet.find</li>
         <li>lore.reducers.tweet.byId</li>
         <li>lore.reducers.tweet.byCid</li>

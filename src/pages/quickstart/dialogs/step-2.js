@@ -45,7 +45,7 @@ export default (props) => {
           The <code>.lore</code> folder at the root of your project contains the more advanced initialization
           logic, some of which you've already seen in action:
         </p>
-        <ul>
+        <ul className="list-disc pl-10">
           <li>
             The <code>.lore/config.js</code> script constructs the project configuration based on the environment
           </li>
@@ -98,7 +98,7 @@ export default (props) => {
         <p>
           Examples where this can show up:
         </p>
-        <ul>
+        <ul className="list-disc pl-10">
           <li>
             Classes applies to parent elements affecting the styling of your dialogs
           </li>
@@ -126,16 +126,16 @@ export default (props) => {
       // src/components/CreateButton.js
       ...
       import { useDialog } from '@lore/dialogs';
-      
+
       export default function CreateButton(props) {
         const show = useDialog();
-      
+
         function onClick() {
           show(
             <h1>Dialog Placeholder</h1>
           );
         }
-      
+
         ...
       }
       `}/>
@@ -176,16 +176,16 @@ export default (props) => {
       import React from 'react';
       import PropTypes from 'prop-types';
       import { useDialog } from '@lore/dialogs';
-      
+
       export default function CreateButton(props) {
         const show = useDialog();
-      
+
         function onClick() {
           show(
             <h1>Dialog Placeholder</h1>
           );
         }
-      
+
         return (
           <button
             type="button"

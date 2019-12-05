@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../components/templates/Anatomy';
-import Markdown from '../../../components/Markdown';
+import Code from '../../../components/Code';
 
 export default (props) => {
   return (
@@ -28,7 +28,7 @@ export default (props) => {
         The signature for an initializer looks like this:
       </p>
 
-      <Markdown text={`
+      <Code text={`
       export default function(lore) {
         // do something
       };
@@ -74,7 +74,7 @@ export default (props) => {
       <h4>
         config/raven.js
       </h4>
-      <Markdown text={`
+      <Code text={`
       export default {
 
         /**
@@ -105,7 +105,7 @@ export default (props) => {
       <h4>
         initializers/raven.js
       </h4>
-      <Markdown text={`
+      <Code text={`
       import Raven from 'raven-js';
 
       export default function(lore) {

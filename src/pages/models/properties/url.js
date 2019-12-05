@@ -21,7 +21,7 @@ export default (props) => {
         if the <code>urlRoot</code> is <code>http://localhost:1337/tweets</code>, then the <code>url()</code> will
         be one of the following:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           If the model has no <code>id</code>, then <code>url()</code> will
           return <code>http://localhost:1337/tweets</code>

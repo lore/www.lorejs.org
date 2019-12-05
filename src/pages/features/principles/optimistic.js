@@ -5,37 +5,46 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Data Structure
-      </h1>
+    <Template
+      title="Optimistic"
+      subtitle="Design principle"
+    >
       <p>
-        Enables data-driven components by supplying components with both data and context.
+        Optimistic updating is a pattern where changes to data (especially data created by the
+        user) are visualized before the server has confirmed the action. While the pattern can
+        be tricky to implement, as it requires the ability to correlate and merge fake data with
+        real data returned from the server in the future, using it can drastically remove the
+        visual effects of server latency and makes your application feel more responsive to users.
+      </p>
+      <p>
+        Lore was designed around this pattern, and the benefits show in the ways listed below.
       </p>
 
-      <h3>
-        Overview
-      </h3>
+      <h2>
+        Visual Cues
+      </h2>
       <p>
-        Providing the user with visual feedback about what's happening in an application is <em>extremely</em> important for providing
-        a good user experience. In order to do that, the data components receives needs to be self-describing. That means that
-        no matter what is happening in the application, or what response the API returned for a request, the data structure
-        you use must be able to represent it, so that all the information a component needs in order to know what to render
-        is contained in the data it receives.
+        Useful for providing the user with a visual indication that some action is being performed
+        but has no yet completed. Examples include fetching, updating and creating data.
       </p>
 
+      <h2>
+        Error Handling
+      </h2>
       <p>
-        There are two data containers in Lore; a <Link to="./models/">model</Link> and a <Link to="./collections/">collection</Link>.
+        Server errors are passed to components and clearly communicated. Useful for informing the
+        user when things don't go as planned and providing them with the ability to correct the error
+        and try again.
       </p>
 
-      <h3>
-        Visualization
-      </h3>
+      <h2>
+        404 Pages
+      </h2>
       <p>
-        This video describes the data structure Lore uses to enable data-driven components.
+        Discover and communicate when resources can't be found. Useful for providing the user with
+        a clear indication that what they're looking for does not exist, as infinite loaders and
+        blank pages are both poor user experiences.
       </p>
-
-      <Video videoId="ZRcExHzY9W0" />
     </Template>
   )
 };

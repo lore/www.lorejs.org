@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Template from '../../components/templates/Documentation';
+import Template from '../../components/templates/Sync';
 import Code from '../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
+    <Template
+      title="Sync"
+      subtitle="Introduction"
+    >
       <p>
         Sync is the method that's actually responsible for making AJAX calls, and it
         uses <a href="https://github.com/axios/axios">axios</a> to do that.
@@ -18,7 +18,7 @@ export default (props) => {
         for <code>save()</code>, <code>update()</code>, and <code>destroy()</code> invoke it automatically,
         there are two scenarios where it's useful to interact with directly:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           <p>
             Sometimes APIs make breaking changes, like renaming an attribute, and it can be a lot of work to find
@@ -50,9 +50,9 @@ export default (props) => {
         </li>
       </ul>
 
-      <h3>
+      <h2>
         Example Usage
-      </h3>
+      </h2>
       <p>
         To illustrate how to use <code>sync()</code>, the examples below assume a <code>Tweet</code> model has
         been created like this:
@@ -65,9 +65,9 @@ export default (props) => {
       })
       `}/>
 
-      <h4>
+      <h3>
         Create
-      </h4>
+      </h3>
       <p>
         This code will create a tweet, and is similar to calling <code>tweet.save()</code> when the model instance
         has no <code>id</code>:
@@ -83,9 +83,9 @@ export default (props) => {
       })
       `}/>
 
-      <h4>
+      <h3>
         Update (PUT)
-      </h4>
+      </h3>
       <p>
         This code will update a tweet, and is similar to calling <code>tweet.save()</code> when the model instance
         has an <code>id</code>:
@@ -102,9 +102,9 @@ export default (props) => {
       })
       `}/>
 
-      <h4>
+      <h3>
         Update (PATCH)
-      </h4>
+      </h3>
       <p>
         This code will update a tweet, but using <code>PATCH</code> instead of <code>PUT</code>, and is similar to
         calling <code>tweet.save({`{ patch: true }`})</code> when the model instance has an <code>id</code>:
@@ -121,9 +121,9 @@ export default (props) => {
       })
       `}/>
 
-      <h4>
+      <h3>
         Delete
-      </h4>
+      </h3>
       <p>
         This code will delete a tweet, and is similar to calling <code>tweet.destroy()</code>:
       </p>
@@ -138,9 +138,9 @@ export default (props) => {
       })
       `}/>
 
-      <h4>
+      <h3>
         Retrieve
-      </h4>
+      </h3>
       <p>
         This code will retrieve a tweet, and is similar to calling <code>tweet.fetch()</code>:
       </p>

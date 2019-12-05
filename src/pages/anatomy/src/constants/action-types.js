@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -19,7 +19,7 @@ export default (props) => {
         Alternatively, if you have disabled blueprints, you would need to specify all of the ActionTypes for
         the application here.
       </p>
-      <Markdown text={`
+      <Code text={`
       export default {
         // ADD_MODEL:    'ADD_MODEL',
         // UPDATE_MODEL: 'UPDATE_MODEL',

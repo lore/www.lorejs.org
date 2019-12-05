@@ -9,21 +9,21 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Error Handling
-      </h1>
-      <p>
-        Useful for informing the user when things don't go as planned and providing them with the ability to correct
-        the error and try again.
-      </p>
-
+    <Template
+      title="Error Handling"
+      description={(
+        <p>
+          Useful for informing the user when things don't go as planned and providing them with the ability to correct
+          the error and try again.
+        </p>
+      )}
+    >
       <h2>
         Visualization
       </h2>
       <p>
         This video demonstrates what error handling looks like. Screenshots are from the <em>Simply Social</em> prototype
-        that <a href="https://www.invisionapp.com/">Invision</a> provides you when you sign up for an account.
+        that <a href="https://www.invisionapp.com/">InVision</a> provides you when you sign up for an account.
       </p>
 
       <Video videoId="rQagIXhEK7s" />

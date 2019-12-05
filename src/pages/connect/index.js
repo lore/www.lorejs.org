@@ -53,7 +53,7 @@ export default (props) => {
         Managing this logic means every component that needs data also needs to follow the steps below before
         requesting it:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>Check if the data already exists in local cache</li>
         <li>If it does, retrieve it and use it</li>
         <li>If it doesn't, invoke the action to fetch that data</li>
@@ -120,7 +120,7 @@ export default (props) => {
         For example, if you create a model called <code>tweet</code>, the framework creates the
         following <strong>actions</strong>:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>tweet.create</li>
         <li>tweet.destroy</li>
         <li>tweet.update</li>
@@ -130,7 +130,7 @@ export default (props) => {
       <p>
         And it also creates the following <strong>reducers</strong>:
       </p>
-      <ul>
+      <ul className="list-disc pl-10">
         <li>tweet.find</li>
         <li>tweet.byId</li>
         <li>tweet.byCid</li>

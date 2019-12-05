@@ -3,7 +3,7 @@ import Documentation from './_common/Documentation';
 
 export default (props) => {
   return (
-    <Documentation {...props} navigation={[
+    <Documentation {...props} showSiteNavigation={false} navigation={[
       {
         title: 'Introduction',
         links: [

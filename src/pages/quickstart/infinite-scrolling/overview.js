@@ -47,7 +47,7 @@ export default (props) => {
         There's a lot of boilerplate associated with Infinite Scrolling, but it breaks down into two main components:
       </p>
 
-      <ul>
+      <ul className="list-disc pl-10">
         <li>
           The first is a <code>List</code> that can keep track of all the pages of data, and merges them into a
           single array. This component also needs to know how to render each item in the array.

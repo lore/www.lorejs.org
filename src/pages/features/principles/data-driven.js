@@ -6,17 +6,16 @@ import Code from '../../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Data Structure
-      </h1>
-      <p>
-        Enables data-driven components by supplying components with both data and context.
-      </p>
-
+    <Template
+      title="Data Driven"
+      subtitle="Design principle"
+    >
       <h2>
         Overview
       </h2>
+      <p>
+        Enables data-driven components by supplying components with both data and context.
+      </p>
       <p>
         Providing the user with visual feedback about what's happening in an application
         is <em>extremely</em> important for providing a good user experience. In order to do that, the

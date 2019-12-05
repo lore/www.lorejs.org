@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import Template from '../../../../components/templates/Anatomy';
-import Markdown from '../../../../components/Markdown';
+import Code from '../../../../components/Code';
 import CodeTabs from '../../../../components/CodeTabs';
 import CodeTab from '../../../../components/CodeTab';
 
@@ -21,7 +21,7 @@ export default (props) => {
         application.  For example, all data passed around a Lore app has the following
         format:
       </p>
-      <Markdown text={`
+      <Code text={`
        const datum = {
          id: '1',
          cid: 'c1',
@@ -60,7 +60,7 @@ export default (props) => {
       <p>
         The default file included in new projects looks like this:
       </p>
-      <Markdown text={`
+      <Code text={`
       import { PayloadStates } from 'lore-utils';
       import _ from 'lodash';
 

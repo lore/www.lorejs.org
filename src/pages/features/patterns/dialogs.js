@@ -8,15 +8,16 @@ import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Dialogs
-      </h1>
-      <p>
-        Useful for launching a user experience outside the UI of the main application. You can think of dialogs as
-        mini-apps that you launch to perform a task, and that you may need to reuse in multiple places in the
-        application.
-      </p>
+    <Template
+      title="Dialogs"
+      description={(
+        <p>
+          Useful for launching a user experience outside the UI of the main application. You can think of dialogs as
+          mini-apps that you launch to perform a task, and that you may need to reuse in multiple places in the
+          application.
+        </p>
+      )}
+    >
       <p>
         The <em>behavior</em> of dialogs tends to be fairly similar across applications, but the visual appearance
         and content can drastically based on an application's branding.
