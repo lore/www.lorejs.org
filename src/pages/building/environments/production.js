@@ -9,14 +9,18 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Production Build
-      </h1>
-      <p>
-        Documentation for creating a production build of your application can be
-        found <Link to="/webpack/building/production/">here</Link>.
-      </p>
+    <Template
+      title="Production Build"
+      subtitle="Build environment"
+      description={(
+        <blockquote>
+          <p>
+            Documentation for creating a production build of your application can be
+            found in the Webpack documentation <Link to="/webpack/building/production/">here</Link>.
+          </p>
+        </blockquote>
+      )}
+    >
     </Template>
   )
 };

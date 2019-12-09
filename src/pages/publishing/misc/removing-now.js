@@ -8,10 +8,9 @@ import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Removing Now Support
-      </h1>
+    <Template
+      title="Removing Now Support"
+    >
       <p>
         New Lore projects include support for deploy to <a href="https://zeit.co/now">Now</a>.
       </p>
@@ -22,7 +21,7 @@ export default (props) => {
       </p>
       <p>
         The reason Now is used to demonstrate that process is because it provides some excellent features for
-        deploying static applications, which would make it a great choice (and a pleasant experience) for first-time
+        deploying static applications, which can make it a great choice (and a pleasant experience) for first-time
         developers.
       </p>
       <p>
@@ -31,32 +30,22 @@ export default (props) => {
       </p>
 
       <h3>
-        1. Delete the .now Folder
+        1. Delete the now.json file
       </h3>
       <p>
-        At the root of your project is a folder named <code>.now</code> with a single file
-        called <code>package.json</code> inside.
-      </p>
-      <Code text={`
-      /.now
-        |-- package.json
-      ...
-      `}/>
-      <p>
-        Delete this folder.
+        At the root of your project is a file named <code>now.json</code>. Delete this file.
       </p>
 
       <h3>
-        2. Remove Package.json Scripts
+        2. Remove package.json scripts
       </h3>
       <p>
         Next, open the <code>package.json</code> file, and locate these scripts:
       </p>
       <Code text={`
       "scripts": {
-        "deploy": "npm run now:copy && now dist",
-        "deploy:production": "npm run build:production && npm run deploy",
-        "now:copy": "cp .now/package.json dist/package.json",
+        "deploy": "now",
+        "deploy:production": "npm run build:production && npm run deploy"
       },
       `}/>
       <p>
@@ -71,7 +60,7 @@ export default (props) => {
       </p>
       <Code text={`
       "devDependencies": {
-        "now": "^11.1.4",
+        "now": "^15.0.0",
       }
       `}/>
       <p>

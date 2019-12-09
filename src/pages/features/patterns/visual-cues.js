@@ -11,10 +11,11 @@ export default (props) => {
   return (
     <Template
       title="Visual Cues"
+      subtitle="Common pattern"
       description={(
         <p>
-          Useful for providing the user with a visual indication that some action is being performed but has no yet
-          completed. Examples include fetching, updating and creating data.
+          Provide the user with a visual indication that some action is being performed but has not
+          yet completed (like fetching or updating data).
         </p>
       )}
     >
@@ -29,23 +30,16 @@ export default (props) => {
       <Video videoId="6uJ7Y6p7eBU" />
 
       <h2>
-        Visual Cues: Architecture
-      </h2>
-      <p>
-        Challenge when implementing Visual Cues and architectural approach Lore uses to address it.
-      </p>
-
-      <h3>
         Challenge
-      </h3>
+      </h2>
       <p>
         The core challenge is making sure that any information that components need to know in order to render the correct
         view is contained within the data they're provided.
       </p>
 
-      <h3>
+      <h2>
         Implementation
-      </h3>
+      </h2>
       <p>
         This video describes how Lore implements support for visual cues.
       </p>
@@ -61,16 +55,24 @@ export default (props) => {
       </p>
 
       <p>
-        Data can go through a lot of different states during the lifecycle of an application. Lore calls these states
-        <code>PayloadStates</code>, after the <code>payload</code> field in the actions dispatched to the
+        Data can go through a lot of different states during the lifecycle of an application. Lore calls these
+        states <code>PayloadStates</code>, after the <code>payload</code> field in the actions dispatched to the
         Redux store, and accounts for the following scenarios by default:
       </p>
 
       <ul className="list-disc pl-10">
-        <li>Data being fetched</li>
-        <li>Data being created</li>
-        <li>Data being updated</li>
-        <li>Data being deleted</li>
+        <li>
+          Data being <strong>fetched</strong>
+        </li>
+        <li>
+          Data being <strong>created</strong>
+        </li>
+        <li>
+          Data being <strong>updated</strong>
+        </li>
+        <li>
+          Data being <strong>deleted</strong>
+        </li>
       </ul>
 
       <p>
@@ -78,21 +80,38 @@ export default (props) => {
       </p>
 
       <ul className="list-disc pl-10">
-        <li>Error while fetching data</li>
-        <li>Error while creating data</li>
-        <li>Error while updating data</li>
-        <li>Error while deleting data</li>
+        <li>
+          Error while <strong>fetching</strong> data
+        </li>
+        <li>
+          Error while <strong>creating</strong> data
+        </li>
+        <li>
+          Error while <strong>updating</strong> data
+        </li>
+        <li>
+          Error while <strong>deleting</strong> data
+        </li>
       </ul>
 
       <p>
         And finally it accounts for the scenario where <em>nothing</em> is happening to data, after the transient state has been
-        resolved. All of these scenarios are represented as constants in a file called <code>PayloadStates</code> at
-        <code>src/constants/PayloadStates.js</code> in your project. That file looks like this:
+        resolved.
       </p>
+      <p>
+        All of these scenarios are represented as constants in a file
+        called <code>PayloadStates</code> at <code>src/constants/PayloadStates.js</code> in your
+        project. That file looks like this:
+      </p>
+
 
       <Code text={`
       PayloadStates = {
-        RESOLVED: 'RESOLVED',
+        INITIAL_STATE: 'INITIAL_STATE',
+
+        RESOLVED   : 'RESOLVED',
+        NOT_FOUND: 'NOT_FOUND',
+        DELETED: 'DELETED',
 
         CREATING: 'CREATING',
         UPDATING: 'UPDATING',
@@ -102,20 +121,24 @@ export default (props) => {
         ERROR_CREATING: 'ERROR_CREATING',
         ERROR_UPDATING: 'ERROR_UPDATING',
         ERROR_DELETING: 'ERROR_DELETING',
-        ERROR_FETCHING: 'ERROR_FETCHING'
+        ERROR_FETCHING: 'ERROR_FETCHING',
+
+        MANAGED: 'MANAGED'
       }
       `}/>
 
       <p>
-        When you need to communicate the state of data to your user, you can do it by comparing the <code>state</code> property of the
-        data to one of the payload states and changing what you render according. I'll list the main scenarios below:
+        When you need to communicate the state of some resource to your user, you can do it by comparing
+        the <code>state</code> property on that resource to one of the payload states and changing what you
+        render according.
+      </p>
+      <p>
+        The main scenarios are provided below:
       </p>
 
-      <br/>
-
-      <h4>
-        Resolved
-      </h4>
+      <h3>
+        State: Resolved
+      </h3>
       <p>
         This is the <em>static</em> state of data, when it exists and is not being acted upon. An example <code>post</code> might look like this:
       </p>
@@ -143,30 +166,24 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
-        displayName: 'Post',
+      Post.propTypes = {
+        post: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          post: React.PropTypes.object.isRequired
-        },
+      function Post(props) {
+        const { post } = props.post;
 
-        render: function() {
-          var post = this.props.post;
-
-          return (
-            <div key={post.id} className="post">
-              {post.data.title}
-            </div>
-          );
-        }
-      })
+        return (
+          <div key={post.id} className="post">
+            {post.data.title}
+          </div>
+        );
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Creating
-      </h4>
+      <h3>
+        State: Creating
+      </h3>
       <p>
         An example <code>post</code> for a resource being created might look like this:
       </p>
@@ -190,39 +207,34 @@ export default (props) => {
       </p>
 
       <p>
-        When rendering a resource being created, it's recommended that you modifying the styling or content of the component
-        to provide a visual indication of this state to the user. If you're rendering a list of components and need to <code>key</code>
-        to avoid React warnings you can use the <code>cid</code> property.
+        When rendering a resource being created, it's recommended that you modifying the styling or content of
+        the component to provide a visual indication of this state to the user. If you're rendering a list of
+        components and need a <code>key</code> to avoid React warnings you can use the <code>cid</code> property.
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.CREATING) {
-            return (
-              <div key={post.cid} className="post creating">
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.CREATING) {
+          return (
+            <div key={post.cid} className="post creating">
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Updating
-      </h4>
+      <h3>
+        State: Updating
+      </h3>
       <p>
         An example <code>post</code> for a resource being updated might look like this:
       </p>
@@ -241,8 +253,9 @@ export default (props) => {
       `}/>
 
       <p>
-        The <code>data</code> field contains whatever properties were sent to the server, and the <code>state</code> is set to <code>UPDATING</code> to
-        signify that this resource is in the process of being updated.
+        The <code>data</code> field contains whatever properties were sent to the server, and
+        the <code>state</code> is set to <code>UPDATING</code> to signify that this resource is in
+        the process of being updated.
       </p>
 
       <p>
@@ -251,33 +264,28 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.UPDATING) {
-            return (
-              <div key={post.id} className="post updating">
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.UPDATING) {
+          return (
+            <div key={post.id} className="post updating">
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Deleting
-      </h4>
+      <h3>
+        State: Deleting
+      </h3>
       <p>
         An example <code>post</code> for a resource being deleted might look like this:
       </p>
@@ -305,33 +313,28 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.DELETING) {
-            return (
-              <div key={post.id} className="post deleting">
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.DELETING) {
+          return (
+            <div key={post.id} className="post deleting">
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Fetching
-      </h4>
+      <h3>
+        State: Fetching
+      </h3>
       <p>
         An example <code>post</code> for a resource being fetched might look like this:
       </p>
@@ -358,33 +361,28 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.FETCHING) {
-            return (
-              <div>
-                Loading post...
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.FETCHING) {
+          return (
+            <div>
+              Loading post...
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Error Creating
-      </h4>
+      <h3>
+        State: Error Creating
+      </h3>
       <p>
         When there is an error creating a resource the data structure might look like this:
       </p>
@@ -415,36 +413,31 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.ERROR_CREATING) {
-            return (
-              <div key={post.cid} className="post">
-                <span className="error">
-                  {post.error.message}
-                </span>
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.ERROR_CREATING) {
+          return (
+            <div key={post.cid} className="post">
+              <span className="error">
+                {post.error.message}
+              </span>
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Error Updating
-      </h4>
+      <h3>
+        State: Error Updating
+      </h3>
       <p>
         When there is an error creating a resource the data structure might look like this:
       </p>
@@ -476,36 +469,31 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.ERROR_UPDATING) {
-            return (
-              <div key={post.id} className="post">
-                <span className="error">
-                  {post.error.message}
-                </span>
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.ERROR_UPDATING) {
+          return (
+            <div key={post.id} className="post">
+              <span className="error">
+                {post.error.message}
+              </span>
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Error Deleting
-      </h4>
+      <h3>
+        State: Error Deleting
+      </h3>
       <p>
         When there is an error creating a resource the data structure might look like this:
       </p>
@@ -537,36 +525,31 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.ERROR_DELETING) {
-            return (
-              <div key={post.id} className="post">
-                <span className="error">
-                  {post.error.message}
-                </span>
-                {post.data.title}
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.ERROR_DELETING) {
+          return (
+            <div key={post.id} className="post">
+              <span className="error">
+                {post.error.message}
+              </span>
+              {post.data.title}
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
 
-      <br/>
-
-      <h4>
-        Error Fetching
-      </h4>
+      <h3>
+        State: Error Fetching
+      </h3>
       <p>
         When there is an error creating a resource the data structure might look like this:
       </p>
@@ -595,26 +578,23 @@ export default (props) => {
       </p>
 
       <Code text={`
-      createReactClass({
+      Posts.propTypes = {
+        posts: PropTypes.object.isRequired
+      };
 
-        propTypes: {
-          posts: React.PropTypes.object.isRequired
-        },
+      function Posts(props) {
+        const { posts } = props.posts;
 
-        render: function() {
-          var posts = this.props.posts;
-
-          if (posts.state === PayloadStates.ERROR_FETCHING) {
-            return (
-              <div className="error">
-                Error fetching post :(
-              </div>
-            );
-          }
-
-          // todo: render RESOLVED state
+        if (posts.state === PayloadStates.ERROR_FETCHING) {
+          return (
+            <div className="error">
+              Error fetching post :(
+            </div>
+          );
         }
-      });
+
+        // todo: render RESOLVED state
+      }
       `}/>
     </Template>
   )

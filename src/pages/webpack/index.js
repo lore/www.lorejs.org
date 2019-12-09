@@ -5,14 +5,17 @@ import Code from '../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Webpack Config
-      </h1>
-      <p>
-        Lore uses <a href="https://webpack.github.io/">Webpack</a> for the build system.
-      </p>
-
+    <Template
+      title="Webpack Config"
+      description={(
+        <p>
+          Lore uses <a href="https://webpack.github.io/">Webpack</a> for the build system.
+        </p>
+      )}
+    >
+      <h2>
+        Resources for learning Webpack
+      </h2>
       <p>
         If you're new to webpack, you
         may find <a href="https://egghead.io/courses/using-webpack-for-production-javascript-applications">this video
@@ -20,6 +23,9 @@ export default (props) => {
         the <a href="http://webpack.github.io/docs/tutorials/audience/">Official Tutorial</a> on the webpack website.
       </p>
 
+      <h2>
+        Orientation
+      </h2>
       <p>
         The config file for webpack is located at the root of the project and called <code>webpack.config.js</code>.
         It uses a library called <a href="https://github.com/kentcdodds/webpack-config-utils">webpack-config-utils</a>,
@@ -60,6 +66,18 @@ export default (props) => {
         It's entirely possible you may never need to modify the config file. If you do, you can learn
         about the configuration options in <a href="https://webpack.js.org/configuration">the official webpack
         documentation</a>.
+      </p>
+
+      <h2>
+        Modifying the Webpack config
+      </h2>
+      <p>
+        The default Webpack config is intended to provide a sensible starting point, but you may need to
+        perform modifications like changing the port, adding an SSL certificate, or switching the
+        type of source map.
+      </p>
+      <p>
+        See the navigation for a list of common changes and how to modify the Webpack config accordingly.
       </p>
     </Template>
   );

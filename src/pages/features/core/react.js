@@ -39,14 +39,14 @@ export default (props) => {
         </li>
       </ul>
 
-      <h2>
-        Video
-      </h2>
-      <p>
-        The video below is an excerpt from the full <Link to="/videos/introduction-to-lore/">Introduction to
-        Lore</Link> video and provides a summary of how Lore helps with React.
-      </p>
-      <Video videoId="p3wFp2xJVkc" />
+      {/*<h2>*/}
+      {/*  Video*/}
+      {/*</h2>*/}
+      {/*<p>*/}
+      {/*  The video below is an excerpt from the full <Link to="/videos/introduction-to-lore/">Introduction to*/}
+      {/*  Lore</Link> video and provides a summary of how Lore helps with React.*/}
+      {/*</p>*/}
+      {/*<Video videoId="p3wFp2xJVkc" />*/}
     </Template>
   )
 };

@@ -5,13 +5,15 @@ import Code from '../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
-      <blockquote>
-        This functionality is provided by <code>lore-hook-reducers</code>.
-      </blockquote>
+    <Template
+      title="Reducers"
+      subtitle="Overview"
+      description={(
+        <blockquote>
+          This functionality is provided by the <strong>@lore/reducers</strong> package.
+        </blockquote>
+      )}
+    >
       <p>
         Reducers are the data-caching tier for Redux. Any resources you fetch from an API endpoint will be
         stored here.

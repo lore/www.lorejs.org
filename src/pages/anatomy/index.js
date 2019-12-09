@@ -14,7 +14,7 @@ export default (props) => {
     )}
     >
       <p>
-        Click the links on the left to learn about specific folders and files.
+        Click the links in the navigation to learn more about specific folders and files.
       </p>
     </Template>
   );

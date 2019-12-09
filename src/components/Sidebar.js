@@ -127,6 +127,11 @@ export default function(props) {
                       // ['/quickstart/', 'Quickstart', <i className="material-icons">menu_book</i>],
                       ['/anatomy/', 'Project Structure', <i className="material-icons">format_align_left</i>],
 
+                      // Data
+                      ['Data'],
+                      ['/data/', 'Data Structure', <i className="material-icons">insert_drive_file</i>],
+                      // ['/data/', 'Data Structure', <i className="material-icons">layers</i>],
+
                       // AJAX
                       ['AJAX'],
                       ['/models/', 'Models', <i className="material-icons">person</i>],
@@ -159,12 +164,12 @@ export default function(props) {
 
                       if (value.length === 1) {
                         return (
-                          <>
+                          <React.Fragment key={index}>
                             <hr className="mt-4 mb-1"/>
                             <div className="text-gray-500 font-bold text-xs uppercase mb-4">
                               {value[0]}
                             </div>
-                          </>
+                          </React.Fragment>
                         );
                       }
 

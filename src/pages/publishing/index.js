@@ -9,17 +9,18 @@ import Video from '../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
-      <p>
-        This section documents how to deploy your application.
-      </p>
-
-      <h3>
-        Choosing a Hosting Provider
-      </h3>
+    <Template
+      title="Publishing"
+      subtitle="Introduction"
+      description={(
+        <p>
+          This section documents how to deploy your application.
+        </p>
+      )}
+    >
+      <h2>
+        Choosing a hosting provider
+      </h2>
       <p>
         Once you build your application, it's really just a collection of static files, which means there
         are <em>a lot</em> of choices for services that you can use to host it. Some of those services
@@ -32,8 +33,26 @@ export default (props) => {
         out <a href="https://zeit.co/now">Now</a>, which is a hosting service provided
         by <a href="https://zeit.co/now">zeit.co</a>.
       </p>
+
+      <h2>
+        Lore includes support for Now by default
+      </h2>
       <p>
-        This particular service provides several advantages for hosting static applications, including:
+        New Lore projects include support for deploying to Now by default, and you can find a walk-through of what
+        that process looks like in the navigation.
+      </p>
+      <p>
+        The intention behind doing that is not to push the service, but to recognize that deploying your application
+        is a critical step in application development, and it would feel like a large gap if the documentation for
+        the framework didn't at least acknowledge and discuss the process.
+      </p>
+      <p>
+        The reason Now is used to demonstrate that process is because it provides some excellent features for
+        deploying static applications, which can make it a great choice (and a pleasant experience) for first-time
+        developers.
+      </p>
+      <p>
+        Now provides several advantages for hosting static applications, including:
       </p>
       <ul className="list-disc pl-10">
         <li>
@@ -55,10 +74,6 @@ export default (props) => {
           Free global CDN, with data centers in USA and Europe
         </li>
       </ul>
-      <p>
-        New Lore projects include support for deploying to Now by default, and you can find a walkthrough of what
-        that process looks like in the navigation on the right.
-      </p>
       <p>
         If you'd prefer to use a different service to host your application, you can easily remove all traces
         of Now from your project by <Link to="/publishing/misc/removing-now/">following these steps</Link>.

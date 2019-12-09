@@ -6,9 +6,9 @@ export default (props) => {
   return (
     <Documentation {...props} navigation={[
       {
-        title: 'Overview',
+        title: 'Introduction',
         links: [
-          ['Introduction', '/webpack/'],
+          ['Overview', '/webpack/'],
         ]
       },
       {

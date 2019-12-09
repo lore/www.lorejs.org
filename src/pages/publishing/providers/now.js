@@ -8,26 +8,28 @@ import QuickstartBranch from '../../../components/QuickstartBranch';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Deploying to Now
-      </h1>
-      <p>
-        This section will document how to deploy your application to <a href="https://zeit.co/now">Now</a>, which is
-        a hosting service provided by <a href="https://zeit.co/now">zeit.co</a>.
-      </p>
-      <blockquote>
-        <p>
-          Additional information about Now can be found in
-          the <a href="https://zeit.co/docs">official documentation</a> for the service.
-        </p>
-      </blockquote>
-
-      <h3>
+    <Template
+      title="Deploying to Now"
+      description={(
+        <>
+          <p>
+            This section will document how to deploy your application to <a href="https://zeit.co/now">Now</a>, which is
+            a hosting service provided by <a href="https://zeit.co/now">zeit.co</a>.
+          </p>
+          <blockquote>
+            <p>
+              Additional information about Now can be found in
+              the <a href="https://zeit.co/docs">official documentation</a> for the service.
+            </p>
+          </blockquote>
+        </>
+      )}
+    >
+      <h2>
         Features
-      </h3>
+      </h2>
       <p>
-        This particular service provides several nice features for hosting static applications, including:
+        Now provides several nice features for hosting static applications, including:
       </p>
       <ul className="list-disc pl-10">
         <li>
@@ -50,9 +52,9 @@ export default (props) => {
         </li>
       </ul>
 
-      <h3>
+      <h2>
         Create Account
-      </h3>
+      </h2>
       <p>
         To create an account, first install the Now CLI by running this command:
       </p>
@@ -99,9 +101,9 @@ export default (props) => {
       > Ready! Authentication token and personal details saved in "~/.now"
       `}/>
 
-      <h3>
+      <h2>
         Build the Project
-      </h3>
+      </h2>
       <p>
         Next, build the application, using whatever environment you want to deploy. We'll
         use <code>production</code> for this example:
@@ -110,9 +112,9 @@ export default (props) => {
       npm run build:production
       `}/>
 
-      <h3>
+      <h2>
         Deploy the Project
-      </h3>
+      </h2>
       <p>
         New Lore projects include support for deploying to Now, and you can deploy the <code>/dist</code> folder you
         created in the Build step by running this command:
@@ -125,28 +127,42 @@ export default (props) => {
       </p>
       <Code text={`
       "scripts": {
-        "deploy": "npm run now:copy && now dist",
-        "now:copy": "cp .now/package.json dist/package.json",
+        "deploy": "now"
       },
       `}/>
 
       <p>
-        The <code>deploy</code> script does two things:
+        When the <code>deploy</code> script runs if first examines the <code>now.json</code> file at the root
+        of your project for information about what files should be deployed to Now.
       </p>
-      <ul className="list-disc pl-10">
-        <li>
-          First, it copies the <code>package.json</code> file from the <code>/.now</code> folder at the root of
-          your project into the <code>/dist</code> folder.
-        </li>
-        <li>
-          Then it deploys the <code>/dist</code> folder to Now.
-        </li>
-      </ul>
+
+      <Code type="sh" text={`
+      // now.json
+      {
+        "version": 2,
+        "name": "lore-quickstart",
+        "alias": [],
+        "builds": [
+          { "src": "./dist/**", "use": "@now/static" }
+        ],
+        "routes": [
+          { "src": "/assets/(.*)", "dest": "/dist/assets/$1" },
+          { "src": "/favicon(.*)", "dest": "/dist/favicon$1" },
+          { "src": "/asset-manifest.json", "dest": "/dist/asset-manifest.json" },
+          { "src": "/bundle(.*)", "dest": "/dist/bundle$1" },
+          { "src": "/style(.*)", "dest": "/dist/style$1" },
+          { "src": "/(.*)", "dest": "/dist/index.html" }
+        ]
+      }
+      `}/>
+
       <p>
-        The <code>package.json</code> file needs to be copied into the <code>/dist</code> folder in order to make
-        sure that routing works like you expect when the application is deployed. Without you, the application won't
-        reload the page correctly if you try to refresh the browser on a nested route
-        like <code>https://app.example.com/users/1</code>.
+        You can learn more about this file in the documentation on Now's website, but briefly it declares that
+        everything in the <code>./dist</code> folder should be deployed, and the routing should be configured
+        so the application is served at the root domain (e.g. "https://my.app.com" and not "https://my.app.com/dist").
+      </p>
+      <p>
+        Once the settings are read, the <code>/dist</code> folder is deployed to Now.
       </p>
       <p>
         Once the deploy process completes, you'll see a message like this, if the name of the project you
@@ -173,9 +189,9 @@ export default (props) => {
         is <code>https://lore-quickstart-avvuiuuwto.now.sh</code>. Copy that URL - we'll need it in the next step.
       </p>
 
-      <h3>
+      <h2>
         Set up an Alias
-      </h3>
+      </h2>
       <p>
         Every time you deploy an application to Now, it will create a unique auto-generated URL for that deploy.
         Then you <em>alias</em> that URL to actual domain you want people to access the application from.
@@ -212,9 +228,9 @@ export default (props) => {
         If that's the case, just keep trying different subdomains until you find one that's available.
       </p>
 
-      <h3>
+      <h2>
         Set Up Custom Domain
-      </h3>
+      </h2>
       <p>
         If you want to deploy to a custom domain like <code>quickstart.lorejs.org</code>, simply
         use that custom domain as the alias, like this:

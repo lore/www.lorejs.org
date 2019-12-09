@@ -5,13 +5,15 @@ import Code from '../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
-      <blockquote>
-        This functionality is provided by <code>lore-hook-actions</code>.
-      </blockquote>
+    <Template
+      title="Actions"
+      subtitle="Overview"
+      description={(
+        <blockquote>
+          This functionality is provided by the <strong>@lore/actions</strong> package.
+        </blockquote>
+      )}
+    >
       <p>
         Actions are the data-fetching tier for Redux (or least that's what Lore uses them for). Any API communication
         that occurs will be done by an action, including creating, updating, deleting, and fetching data.

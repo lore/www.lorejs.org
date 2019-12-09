@@ -9,10 +9,10 @@ import Video from '../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
+    <Template
+      title="Building your project"
+      subtitle="Introduction"
+    >
       <p>
         This section documents how to build your project for different environments like development and production,
         as well as how to create your own custom build environments.

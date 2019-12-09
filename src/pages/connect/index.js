@@ -5,10 +5,15 @@ import Code from '../../components/Code';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Introduction
-      </h1>
+    <Template
+      title="Connect"
+      subtitle="Overview"
+      description={(
+        <blockquote>
+          This functionality is provided by the <strong>@lore/connect</strong> package.
+        </blockquote>
+      )}
+    >
       <p>
         This section describes how to use <code>connect</code>, a decorator that greatly simplifies the process
         of requesting data from a REST API. It is designed to fetch data from the local cache if it exists, or

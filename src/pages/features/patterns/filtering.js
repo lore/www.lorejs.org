@@ -28,15 +28,8 @@ export default (props) => {
       <Video videoId="2Q8sH_pxYoo" />
 
       <h2>
-        Architecture
-      </h2>
-      <p>
-        Challenge when implementing filtering and architectural approach Lore uses to address it.
-      </p>
-
-      <h3>
         Challenge
-      </h3>
+      </h2>
       <p>
         The challenge when incorporating filtering in your applications architecture is preventing action/reducer explosion.
         While sending a query to the server is fairly straight forward, the challenge is whether you can implement the
@@ -44,9 +37,9 @@ export default (props) => {
         you need to ask.
       </p>
 
-      <h3>
+      <h2>
         Implementation
-      </h3>
+      </h2>
       <p>
         This video describes how Lore implements filtering.
       </p>
@@ -257,9 +250,9 @@ export default (props) => {
       );
       `}/>
 
-      <h3>
+      <h2>
         Example Code
-      </h3>
+      </h2>
       <p>
         Example code showing how to filter data.
       </p>

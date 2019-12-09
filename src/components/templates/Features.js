@@ -8,7 +8,7 @@ export default (props) => {
         title: 'Introduction',
         links: [
           ['Overview', '/features/'],
-          ['Philosophy', '/features/philosophy/'],
+          // ['Philosophy', '/features/philosophy/'],
         ]
       },
       {
@@ -39,7 +39,7 @@ export default (props) => {
           ['Visual Cues', '/features/patterns/visual-cues/'],
           ['Optimistic Updates', '/features/patterns/optimistic-updates/'],
           ['Dialogs', '/features/patterns/dialogs/'],
-          ['Wizards', '/features/patterns/wizards/'],
+          // ['Wizards', '/features/patterns/wizards/'],
           ['Error Handling', '/features/patterns/error-handling/'],
           ['404 Pages', '/features/patterns/404-pages/'],
           ['WebSockets', '/features/patterns/websockets/'],

@@ -9,23 +9,25 @@ import Video from '../../../components/Video';
 
 export default (props) => {
   return (
-    <Template>
-      <h1>
-        Custom Build
-      </h1>
+    <Template
+      title="Custom Build"
+      subtitle="Build environment"
+      description={(
+        <p>
+          New projects include built-in support for development and production builds of your application, but
+          you can also create custom environments, in case you also need special builds for environments
+          like <code>test</code>, <code>staging</code>, etc.
+        </p>
+      )}
+    >
       <p>
-        New projects include built-in support for development and production builds of your application, but
-        you can also create custom environments, in case you also need special builds for environments
-        like <code>test</code>, <code>staging</code>, etc.
-      </p>
-      <p>
-        To illustrate, we'll walk through the steps required to add a new build for
+        To illustrate how to do this, we'll walk through the steps required to add a new build for
         a <code>staging</code> environment.
       </p>
 
-      <h3>
+      <h2>
         Create Custom Config
-      </h3>
+      </h2>
       <p>
         The first step is to create a custom config file, and add it to <code>/config/env</code>. In this example
         we will create a new file named <code>/config/env/staging.js</code> that looks like this:
@@ -65,9 +67,9 @@ export default (props) => {
         location, specific feature flags, whatever we need.
       </p>
 
-      <h3>
+      <h2>
         Create Custom Script
-      </h3>
+      </h2>
       <p>
         Next we need to add a script to <code>package.json</code> so that we can build the project for this
         environment. For that, we're going to add the script below:
@@ -84,9 +86,9 @@ export default (props) => {
         assets.
       </p>
 
-      <h3>
+      <h2>
         Done!
-      </h3>
+      </h2>
       <p>
         That's it! Those steps are all you need to set up your own custom build environments, and you can create
         as many as you want.

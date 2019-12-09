@@ -10,17 +10,18 @@ export default function() {
           </h5>
           <ul className="mt-4 overflow-x-hidden">
             {[
-              ['#1-install-tailwind-via-npm', 'Install Tailwind via npm'],
-              ['#2-add-tailwind-to-your-css', 'Add Tailwind to your CSS'],
-              ['#4-process-your-css-with-tailwind', 'Process your CSS with Tailwind'],
-              ['#using-tailwind-cli', 'Using Tailwind CLI', true],
-              ['#using-tailwind-with-postcss', 'Using Tailwind with PostCSS', true],
-              ['#webpack', 'Webpack', true],
-              ['#using-tailwind-via-cdn', 'Using Tailwind via CDN'],
+              ['#section-1', 'Section 1'],
+              ['#section-2', 'Section 2'],
+              ['#section-3', 'Section 3'],
+              ['#section-3.1', 'Section 3.1', true],
+              ['#section-3.2', 'Section 3.2', true],
+              ['#section-3.3', 'Section 3.3', true],
+              ['#section-4', 'Section 4'],
             ].map(function(value, index) {
               const href = value[0];
               const text = value[1];
               const indent = value[2];
+
               return (
                 <li key={index} className={`mb-2 ${indent ? 'ml-2': ''}`}>
                   <a href={href} className="block transition-fast hover:translate-r-2px hover:text-gray-900 text-gray-600 font-medium">
